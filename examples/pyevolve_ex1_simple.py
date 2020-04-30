@@ -37,19 +37,13 @@ def run_main():
     ga.setGenerations(500)
     ga.terminationCriteria.set(GSimpleGA.ConvergenceCriteria)
 
-    # Sets the DB Adapter, the resetDB flag will make the Adapter recreate
-    # the database and erase all data every run, you should use this flag
-    # just in the first time, after the pyevolve.db was created, you can
-    # omit it.
-    sqlite_adapter = DBAdapters.DBSQLite(identify="ex1", resetDB=True)
-    ga.setDBAdapter(sqlite_adapter)
 
     # Do the evolution, with stats dump
     # frequency of 20 generations
-    ga.evolve(freq_stats=20)
+    best_individual = ga.evolve(freq_stats=20)
 
     # Best individual
-    print(ga.bestIndividual())
+    print(best_individual)
 
 
 if __name__ == "__main__":
