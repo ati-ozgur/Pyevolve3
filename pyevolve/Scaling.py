@@ -151,6 +151,6 @@ def RankScaling(pop):
     for i in range(len(pop)):
         n = i + 1
         fitness = 1 / math.sqrt(n)
-        print(f"index: {index}, fitness: {fitness}")
+        logging.debug(f"index: {index}, fitness: {fitness}")
         pop[i].fitness = fitness
 
