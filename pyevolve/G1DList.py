@@ -138,10 +138,10 @@ class G1DList(G1DBase):
 
     def __repr__(self):
         """ Return a string representation of Genome """
-        ret = GenomeBase.__repr__(self)
-        ret += "- G1DList\n"
-        ret += "\tList size:\t %s\n" % (self.getListSize(),)
-        ret += "\tList:\t\t %s\n\n" % (self.genomeList,)
+        ret = f"""{GenomeBase.__repr__(self)}
+                ---G1DList---
+                List size: {self.getListSize()}
+                List:      {self.genomeList}"""
         return ret
 
     def copy(self, g):

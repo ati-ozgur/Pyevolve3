@@ -53,10 +53,10 @@ class GenomeBase(object):
         allSlots = [self.evaluator, self.initializator, self.mutator,
                     self.crossover]
 
-        ret = "- GenomeBase\n"
-        ret += "\tScore:\t\t\t %.6f\n" % (self.score,)
-        ret += "\tFitness:\t\t %.6f\n\n" % (self.fitness,)
-        ret += "\tParams:\t\t %s\n\n" % (self.internalParams,)
+        ret = f"""---GenomeBase---
+                \tScore:   {self.score:.6f}
+                \tFitness: {self.fitness:.6f}
+                \tParams:  {self.internalParams}\n"""
 
         for slot in allSlots:
             ret += "\t" + slot.__repr__()
