@@ -817,46 +817,6 @@ class GSimpleGA(object):
                         print("\n\tEvolution stopped by Step Callback function !\n")
                     break
 
-                if self.interactiveMode:
-                    if sys_platform[:3] == "win":
-                        if msvcrt.kbhit():
-                            if ord(msvcrt.getch()) == Consts.CDefESCKey:
-                                print("Loading modules for Interactive Mode...", end=" ")
-                                logging.debug(
-                                    "Windows Interactive Mode key detected ! generation=%d",
-                                    self.getCurrentGeneration()
-                                )
-                                from pyevolve import Interaction
-                                print(" done !")
-                                interact_banner = "## Pyevolve v.%s - Interactive Mode ##\n" \
-                                                  "Press CTRL-Z to quit interactive mode." % (pyevolve.__version__,)
-                                session_locals = {
-                                    "ga_engine": self,
-                                    "population": self.getPopulation(),
-                                    "pyevolve": pyevolve,
-                                    "it": Interaction,
-                                }
-                                print()
-                                code.interact(interact_banner, local=session_locals)
-
-                    is_interactive_generation = self.getInteractiveGeneration() == self.getCurrentGeneration()
-                    if self.getInteractiveGeneration() >= 0 and is_interactive_generation:
-                        print("Loading modules for Interactive Mode...", end=" ")
-                        logging.debug(
-                            "Manual Interactive Mode key detected ! generation=%d",
-                            self.getCurrentGeneration()
-                        )
-                        from pyevolve import Interaction
-                        print(" done !")
-                        interact_banner = "## Pyevolve v.%s - Interactive Mode ##" % (pyevolve.__version__,)
-                        session_locals = {
-                            "ga_engine": self,
-                            "population": self.getPopulation(),
-                            "pyevolve": pyevolve,
-                            "it": Interaction
-                        }
-                        print()
-                        code.interact(interact_banner, local=session_locals)
 
                 if self.step():
                     break
