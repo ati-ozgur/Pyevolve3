@@ -138,3 +138,19 @@ def SaturatedScaling(pop):
     for i in range(len(pop)):
         score = pop[i].score
         pop[i].fitness = 1.0 - math.exp(score)
+
+def RankScaling(pop):
+    """ Rank Scaling Scheme. The fitness will be calculated according to rank.
+
+    .. versionadded: 0.7
+       The `RankScaling` function.
+    """
+    
+    pop.sort()
+    
+    for i in range(len(pop)):
+        n = i + 1
+        fitness = 1 / math.sqrt(n)
+        print(f"index: {index}, fitness: {fitness}")
+        pop[i].fitness = fitness
+
