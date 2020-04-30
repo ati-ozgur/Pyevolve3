@@ -391,14 +391,14 @@ class GSimpleGA(object):
         Use this option when you have more than one core on your CPU and when your
         evaluation function is very slow.
 
-        Pyevolve will automaticly check if your Python version has **multiprocessing**
+        Pyevolve will automatically check if your Python version has **multiprocessing**
         support and if you have more than one single CPU core. If you don't have support
         or have just only one core, Pyevolve will not use the **multiprocessing**
         feature.
 
         Pyevolve uses the **multiprocessing** to execute the evaluation function over
         the individuals, so the use of this feature will make sense if you have a
-        truly slow evaluation function (which is commom in GAs).
+        truly slow evaluation function (which is common in GAs).
 
         The parameter "full_copy" defines where the individual data should be copied back
         after the evaluation or not. This parameter is useful when you change the
