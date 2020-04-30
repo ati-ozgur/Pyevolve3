@@ -783,11 +783,6 @@ class GSimpleGA(object):
 
         try:
             while True:
-                if self.migrationAdapter:
-                    logging.debug("Migration adapter: exchange")
-                    self.migrationAdapter.exchange()
-                    self.internalPop.clearFlags()
-                    self.internalPop.sort()
 
                 if not self.stepCallback.isEmpty():
                     for it in self.stepCallback.applyFunctions(self):
