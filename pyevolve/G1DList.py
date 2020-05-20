@@ -165,3 +165,11 @@ class G1DList(G1DBase):
         newcopy = G1DList(self.genomeSize, True)
         self.copy(newcopy)
         return newcopy
+    
+    def __hash__(self):
+        """ Return hash value of G1DList based on string representation of internal list
+
+        :rtype: Hash number
+
+        """
+        return hash(str(self.genomeList))
