@@ -1,3 +1,6 @@
+docs/build_htmlhelp/
+docs/build_latex/
+docs/build_web/
 
 \.tox/
 
