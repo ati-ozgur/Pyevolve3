@@ -359,11 +359,21 @@ class GPopulation(object):
         """
         self.sortType = sort_type
 
+    def setInitialPopulation(self, init_population):
+        """ Add initial population to fill some or all the population """
+        self.internalPop = init_population
+
     def create(self, **args):
         """ Clone the example genome to fill the population """
         self.minimax = args["minimax"]
-        self.internalPop = [self.oneSelfGenome.clone() for i in range(self.popSize)]
-        self.clearFlags()
+        if not self.internalPop:
+            self.internalPop = [self.oneSelfGenome.clone() for i in range(self.popSize)]
+            self.clearFlags()
+        else:
+            how_many_to_clone = self.popSize - len(self.internalPop)
+            new_population = [self.oneSelfGenome.clone() for i in range(how_many_to_clone)]
+            self.internalPop = self.internalPop + new_population
+            self.clearFlags()
 
     def __findIndividual(self, individual, end):
         for i in range(end):
