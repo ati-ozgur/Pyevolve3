@@ -2,6 +2,8 @@ docs/build_htmlhelp/
 docs/build_latex/
 docs/build_web/
 
+
+
 \.tox/
 
 Pyevolve\.egg-info/
@@ -19,3 +21,6 @@ build/
 *.sublime-workspace
 *.wpu
 *.db
+
+*tspimg*
+
