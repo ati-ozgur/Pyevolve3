@@ -6,7 +6,8 @@ import math
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve.perturbations import CrossoverG1DListPermutations as Crossovers
+from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverEdge
+from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorSwap
 from pyevolve import Consts
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
 
@@ -116,7 +117,8 @@ def main_run():
     genome = G1DList.G1DList(len(coords))
 
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
-    genome.crossover.set(Crossovers.G1DListCrossoverEdge)
+    genome.crossover.set(G1DListCrossoverEdge)
+    genome.mutator.set(G1DListMutatorSwap)
     genome.initializator.set(G1DListTSPInitializatorRandom)
 
     # 3662.69
