@@ -7,7 +7,7 @@ from unittest import TestCase
 
 from pyevolve import G1DBinaryString
 from pyevolve import GAllele
-from pyevolve import G1DList
+from pyevolve.representations import G1DList
 from pyevolve import G2DBinaryString
 from pyevolve import G2DList
 from pyevolve.GenomeBase import G1DBase

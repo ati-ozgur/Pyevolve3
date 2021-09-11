@@ -1,4 +1,4 @@
-from pyevolve import G1DList
+from pyevolve.representations import G1DList
 from pyevolve import Mutators, Crossovers
 from pyevolve import Consts, GSimpleGA
 from pyevolve import DBAdapters

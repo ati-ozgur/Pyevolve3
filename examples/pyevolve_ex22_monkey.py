@@ -4,7 +4,7 @@
 # By Jelle Feringa
 # ===============================================================================
 
-from pyevolve import G1DList
+from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA, Consts
 from pyevolve import Initializators, Mutators
 

@@ -120,7 +120,7 @@ Final source code
 
 Here is the final source code: ::
 
-   from pyevolve import G1DList
+   from pyevolve.representations import G1DList
    from pyevolve import GSimpleGA
 
    def eval_func(chromosome):

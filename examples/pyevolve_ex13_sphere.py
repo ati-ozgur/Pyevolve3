@@ -1,4 +1,4 @@
-from pyevolve import G1DList
+from pyevolve.representations import G1DList
 from pyevolve import Mutators, Initializators
 from pyevolve import GSimpleGA, Consts
 

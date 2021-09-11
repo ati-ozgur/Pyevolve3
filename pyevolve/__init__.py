@@ -20,12 +20,7 @@ __version__ = '0.6'
 __author__ = 'Christian S. Perone'
 
 from . import Consts
-import sys
 
-if sys.version_info[:2] < Consts.CDefPythonRequire:
-    raise Exception("Python 2.5+ required, the version %s was found on your system !" % (sys.version_info[:2],))
-
-del sys
 
 
 def logEnable(filename=Consts.CDefLogFile, level=Consts.CDefLogLevel):

@@ -3,7 +3,7 @@ from math import sqrt
 import os
 import random
 
-from pyevolve import G1DList
+from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 from pyevolve import Crossovers
 from pyevolve import Consts
