@@ -34,7 +34,9 @@ Classes
 -------------------------------------------------------------
 """
 import random
-from .GenomeBase import GenomeBase, GTreeBase, GTreeNodeBase
+from .GenomeBase import GenomeBase
+from .GTreeBase import GTreeBase
+from .GTreeNodeBase import GTreeNodeBase
 from .. import Util
 
 try:
