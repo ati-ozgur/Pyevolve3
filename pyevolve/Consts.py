@@ -382,7 +382,7 @@ import logging
 
 from . import Scaling
 from .selections import Selectors
-from . import Initializators
+from .initializations import InitializationBinary,InitializationG1DList,InitializationG2DList
 from .perturbations import Mutators
 from .perturbations import Crossovers
 from .representations.GTree import GTreeGP

@@ -9,10 +9,9 @@ is above this namespace, for example, to import :mod:`Mutators`:
 
 
 """
-__all__ = ["Consts", "Crossovers", "DBAdapters", "FunctionSlot",
+__all__ = ["Consts", "DBAdapters", "FunctionSlot",
            "GAllele", "GenomeBase", "GPopulation",
-           "GSimpleGA",  "Initializators",
-           "Migration", "Mutators", "Network", "Scaling"
+           "GSimpleGA","Scaling"
            "Statistics", "Util"]
 
 __version__ = '0.6'
