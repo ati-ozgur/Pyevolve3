@@ -22,15 +22,6 @@ What's new on the release |release|:
    used when you enable the *random apply* of the slot. See
    the class for more information.
 
-**Multiprocessing - the use of multiprocessign module**
-
-   Added a new method to the :class:`GSimpleGA.GSimpleGA` class, the
-   :meth:`GSimpleGA.GSimpleGA.setMultiProcessing` method. With this
-   method you can enable the use of **multiprocessing** python module.
-   When you enable this option, Pyevolve will check if you have
-   more than one CPU core and if there is support to the multiprocessing
-   use. You **must** see the warning on the :meth:`GSimpleGA.GSimpleGA.setMultiProcessing`
-   method.
 
 **Scaling Scheme - the Boltzmann scaling**
 

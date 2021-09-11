@@ -60,7 +60,6 @@ def main_run():
     ga.setCrossoverRate(1.0)
     ga.setMutationRate(0.08)
     ga.setPopulationSize(100)
-    ga.setMultiProcessing(False)
 
     ga(freq_stats=5)
 

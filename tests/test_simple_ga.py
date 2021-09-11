@@ -44,11 +44,6 @@ class GSimpleGATestCase(TestCase):
         ga = GSimpleGA.GSimpleGA(GTreeGP())
         self.assertTrue(ga.GPMode)
 
-    def test_exception_on_wrong_multiprocessing_argument(self):
-        self.assertRaises(TypeError, self.ga.setMultiProcessing, {'flag': 'not_bool_argument'})
-        self.assertRaises(TypeError, self.ga.setMultiProcessing, {'full_copy': 'not_bool_argument'})
-        self.assertRaises(TypeError, self.ga.setMultiProcessing, {'flag': 'not_bool_argument', 'full_copy': True})
-        self.assertRaises(TypeError, self.ga.setMultiProcessing, {'flag': True, 'full_copy': 'not_bool_argument'})
 
     def test_exception_no_wrong_mutation_rate_size(self):
         self.assertRaises(BaseException, self.ga.setMutationRate, [2])

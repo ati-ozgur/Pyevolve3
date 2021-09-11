@@ -380,50 +380,6 @@ class GSimpleGA(object):
         ret += "\n"
         return ret
 
-    def setMultiProcessing(self, flag=True, full_copy=False, max_processes=None):
-        """ Sets the flag to enable/disable the use of python multiprocessing module.
-        Use this option when you have more than one core on your CPU and when your
-        evaluation function is very slow.
-
-        Pyevolve will automatically check if your Python version has **multiprocessing**
-        support and if you have more than one single CPU core. If you don't have support
-        or have just only one core, Pyevolve will not use the **multiprocessing**
-        feature.
-
-        Pyevolve uses the **multiprocessing** to execute the evaluation function over
-        the individuals, so the use of this feature will make sense if you have a
-        truly slow evaluation function (which is common in GAs).
-
-        The parameter "full_copy" defines where the individual data should be copied back
-        after the evaluation or not. This parameter is useful when you change the
-        individual in the evaluation function.
-
-        :param flag: True (default) or False
-        :param full_copy: True or False (default)
-        :param max_processes: None (default) or an integer value
-
-        .. warning:: Use this option only when your evaluation function is slow, so you'll
-                     get a good tradeoff between the process communication speed and the
-                     parallel evaluation. The use of the **multiprocessing** doesn't means
-                     always a better performance.
-
-        .. note:: To enable the multiprocessing option, you **MUST** add the *__main__* check
-                  on your application, otherwise, it will result in errors. See more on the
-                  `Python Docs <http://docs.python.org/library/multiprocessing.html#multiprocessing-programming>`__
-                  site.
-
-        .. versionadded:: 0.6
-           The `setMultiProcessing` method.
-
-        """
-        if not isinstance(flag, bool):
-            Util.raiseException("Multiprocessing option must be True or False", TypeError)
-
-        if not isinstance(full_copy, bool):
-            Util.raiseException("Multiprocessing 'full_copy' option must be True or False", TypeError)
-
-        self.internalPop.setMultiProcessing(flag, full_copy, max_processes)
-
     def setMigrationAdapter(self, migration_adapter=None):
         """ Sets the Migration Adapter
 
