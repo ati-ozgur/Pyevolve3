@@ -1,6 +1,6 @@
 from pyevolve import GSimpleGA
 from pyevolve.representations import GTree
-from pyevolve import Crossovers
+from pyevolve.perturbations import Crossovers
 
 
 def eval_func(chromosome):

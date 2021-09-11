@@ -5,7 +5,7 @@ import random
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve import Crossovers
+from pyevolve.perturbations import Crossovers
 from pyevolve import Consts
 
 random.seed(1024)

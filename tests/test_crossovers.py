@@ -6,12 +6,12 @@ import unittest
 from mock import patch
 from nose.tools import nottest
 
-from pyevolve import Crossovers
-from pyevolve.G1DBinaryString import G1DBinaryString
-from pyevolve.G1DList import G1DList
-from pyevolve.G2DBinaryString import G2DBinaryString
-from pyevolve.G2DList import G2DList
-from pyevolve.GTree import GTree, GTreeNode
+from pyevolve.perturbations import Crossovers
+from pyevolve.representations.G1DBinaryString import G1DBinaryString
+from pyevolve.representations.G1DList import G1DList
+from pyevolve.representations.G2DBinaryString import G2DBinaryString
+from pyevolve.representations.G2DList import G2DList
+from pyevolve.representations.GTree import GTree, GTreeNode
 
 
 class CrossoverTestCase(unittest.TestCase):

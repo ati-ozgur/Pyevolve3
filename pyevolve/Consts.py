@@ -383,8 +383,8 @@ import logging
 from . import Scaling
 from . import Selectors
 from . import Initializators
-from . import Mutators
-from . import Crossovers
+from .perturbations import Mutators
+from .perturbations import Crossovers
 from .representations.GTree import GTreeGP
 
 # Required python version 2.5+

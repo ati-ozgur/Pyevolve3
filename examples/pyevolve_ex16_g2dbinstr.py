@@ -1,7 +1,7 @@
-from pyevolve import G2DBinaryString
+from pyevolve.representations import G2DBinaryString
 from pyevolve import GSimpleGA
-from pyevolve import Crossovers
-from pyevolve import Mutators
+from pyevolve.perturbations import Crossovers
+from pyevolve.perturbations import Mutators
 
 
 # This function is the evaluation function, we want
