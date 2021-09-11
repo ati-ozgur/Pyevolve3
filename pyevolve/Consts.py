@@ -387,8 +387,7 @@ from .perturbations import Mutators
 from .perturbations import Crossovers
 from .representations.GTree import GTreeGP
 
-# Required python version 2.5+
-CDefPythonRequire = (2, 5)
+
 
 # Logging system
 CDefLogFile = "pyevolve.log"
