@@ -2,6 +2,7 @@ from math import sqrt
 
 import os
 import random
+import math
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
@@ -26,7 +27,8 @@ HEIGHT = 768
 LAST_SCORE = -1
 
 RESULTS_DIRECTORY = "tspimg"
-
+GENERATION_COUNT = 200000
+filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) +1
 
 
 def cartesian_matrix(coords):
@@ -77,7 +79,7 @@ def write_tour_to_img(coords, tour, img_file):
         d.ellipse((x - 5, y - 5, x + 5, y + 5), outline=(0, 0, 0), fill=(196, 196, 196))
     del d
     img.save(img_file, "PNG")
-    print("The plot was saved into the %s file." % (img_file,))
+    print(f"The plot was saved into the {img_file} file. max generation: {GENERATION_COUNT}")
 
 
 def G1DListTSPInitializator(genome, **args):
@@ -101,7 +103,7 @@ def evolve_callback(ga_engine):
     if current_generation % 100 == 0:
         best = ga_engine.bestIndividual()
         if LAST_SCORE != best.getRawScore():
-            filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:05}.png"
+            filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
             write_tour_to_img(coords, best, filename )
             LAST_SCORE = best.getRawScore()
     return False
@@ -121,7 +123,7 @@ def main_run():
 
     # 3662.69
     ga = GSimpleGA.GSimpleGA(genome)
-    ga.setGenerations(200000)
+    ga.setGenerations(GENERATION_COUNT)
     ga.setMinimax(Consts.minimaxType["minimize"])
     ga.setCrossoverRate(1.0)
     ga.setMutationRate(0.02)
