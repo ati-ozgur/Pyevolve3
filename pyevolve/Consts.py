@@ -381,7 +381,7 @@ Migration Constants (:mod:`Migration`)
 import logging
 
 from . import Scaling
-from . import Selectors
+from .selections import Selectors
 from . import Initializators
 from .perturbations import Mutators
 from .perturbations import Crossovers

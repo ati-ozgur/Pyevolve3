@@ -12,7 +12,7 @@ is above this namespace, for example, to import :mod:`Mutators`:
 __all__ = ["Consts", "Crossovers", "DBAdapters", "FunctionSlot",
            "GAllele", "GenomeBase", "GPopulation",
            "GSimpleGA",  "Initializators",
-           "Migration", "Mutators", "Network", "Scaling", "Selectors",
+           "Migration", "Mutators", "Network", "Scaling"
            "Statistics", "Util"]
 
 __version__ = '0.6'
