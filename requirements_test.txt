@@ -3,3 +3,4 @@ coverage
 mock
 future
 flake8
+Pillow==8.2.0
