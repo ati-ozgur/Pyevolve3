@@ -40,9 +40,6 @@ class GSimpleGATestCase(TestCase):
         pop2 = self.ga.internalPop
         self.assertFalse(pop1 is pop2)
 
-    def test_gp_mode_is_set_for_tree_genome(self):
-        ga = GSimpleGA.GSimpleGA(GTreeGP())
-        self.assertTrue(ga.GPMode)
 
 
     def test_exception_no_wrong_mutation_rate_size(self):
@@ -53,7 +50,6 @@ class GSimpleGATestCase(TestCase):
         ga = self.ga
         ga_repr = ga.__repr__()
         for param in [
-            ga.getGPMode(),
             ga.internalPop.popSize,
             ga.nGenerations,
             ga.currentGeneration,

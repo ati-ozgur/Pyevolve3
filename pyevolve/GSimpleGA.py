@@ -239,7 +239,6 @@ class GSimpleGA(object):
         self.max_time = None
         self.interactiveMode = interactiveMode
         self.interactiveGen = -1
-        self.GPMode = False
 
         self.selector = FunctionSlot("Selector")
         self.stepCallback = FunctionSlot("Generation Step Callback")
@@ -254,19 +253,6 @@ class GSimpleGA(object):
 
         logging.debug("A GA Engine was created, nGenerations=%d", self.nGenerations)
 
-    def setGPMode(self, bool_value):
-        """ Sets the Genetic Programming mode of the GA Engine
-
-        :param bool_value: True or False
-        """
-        self.GPMode = bool_value
-
-    def getGPMode(self):
-        """ Get the Genetic Programming mode of the GA Engine
-
-        :rtype: True or False
-        """
-        return self.GPMode
 
     def __call__(self, *args, **kwargs):
         """ A method to implement a callable object
@@ -365,7 +351,6 @@ class GSimpleGA(object):
         """ The string representation of the GA Engine """
         minimax_type = list(Consts.minimaxType.keys())[list(Consts.minimaxType.values()).index(self.minimax)]
         ret = "- GSimpleGA\n"
-        ret += "\tGP Mode:\t\t %s\n" % self.getGPMode()
         ret += "\tPopulation Size:\t %d\n" % self.internalPop.popSize
         ret += "\tGenerations:\t\t %d\n" % self.nGenerations
         ret += "\tCurrent Generation:\t %d\n" % self.currentGeneration
@@ -542,26 +527,7 @@ class GSimpleGA(object):
         """
         return self.internalPop.worstRaw()
 
-    def __gp_catch_functions(self, prefix):
-        """ Internally used to catch functions with some specific prefix
-        as non-terminals of the GP core """
-        import __main__ as mod_main
 
-        function_set = {}
-
-        main_dict = mod_main.__dict__
-        for obj, addr in list(main_dict.items()):
-            if obj[0:len(prefix)] == prefix:
-                try:
-                    op_len = addr.__code__.co_argcount
-                except: # noqa # TODO need to do some investigate here
-                    continue
-                function_set[obj] = op_len
-
-        if len(function_set) <= 0:
-            Util.raiseException("No function set found using function prefix '%s' !" % prefix, ValueError)
-
-        self.setParams(gp_function_set=function_set)
 
     def initialize(self):
         """ Initializes the GA Engine. Create and initialize population """
@@ -721,10 +687,6 @@ class GSimpleGA(object):
         if self.migrationAdapter:
             self.migrationAdapter.start()
 
-        if self.getGPMode():
-            gp_function_prefix = self.getParam("gp_function_prefix")
-            if gp_function_prefix is not None:
-                self.__gp_catch_functions(gp_function_prefix)
 
         self.initialize()
         self.internalPop.evaluate()
