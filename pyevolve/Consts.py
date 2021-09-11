@@ -239,7 +239,7 @@ Tree chromosome constants (:class:`GTree.GTree`)
 
 .. attribute:: CDefG2DListCrossUniformProb
 
-   Default uniform probability for the 2D List Uniform Crossover method (:func:`Crossovers.G2DListCrossoverUniform`).
+   Default uniform probability for the 2D List Uniform Crossover method (:func:`G2DListCrossoverUniform`).
 
 
 GA Engine constants (:class:`GSimpleGA.GSimpleGA`)
@@ -384,7 +384,13 @@ from . import Scaling
 from .selections import Selectors
 from .initializations import InitializationBinary,InitializationG1DList,InitializationG2DList
 from .perturbations import MutatorBinary,MutatorG1DList,MutatorG2DList
-from .perturbations import Crossovers
+
+from .perturbations.CrossoverG1DList import G1DListCrossoverSinglePoint
+
+from .perturbations.CrossoverG2DList import G2DListCrossoverUniform
+from .perturbations.CrossoverBinary import G1DBinaryStringXSinglePoint, G2DBinaryStringXUniform
+
+
 
 
 
@@ -451,13 +457,13 @@ CDefRangeMax = 100
 
 # - G1DBinaryString defaults
 CDefG1DBinaryStringMutator = MutatorBinary.G1DBinaryStringMutatorFlip
-CDefG1DBinaryStringCrossover = Crossovers.G1DBinaryStringXSinglePoint
+CDefG1DBinaryStringCrossover = G1DBinaryStringXSinglePoint
 CDefG1DBinaryStringInit = InitializationBinary.G1DBinaryStringInitializator
 CDefG1DBinaryStringUniformProb = 0.5
 
 # - G2DBinaryString defaults
 CDefG2DBinaryStringMutator = MutatorBinary.G2DBinaryStringMutatorFlip
-CDefG2DBinaryStringCrossover = Crossovers.G2DBinaryStringXUniform
+CDefG2DBinaryStringCrossover = G2DBinaryStringXUniform
 CDefG2DBinaryStringInit = InitializationBinary.G2DBinaryStringInitializator
 CDefG2DBinaryStringUniformProb = 0.5
 
@@ -469,7 +475,7 @@ CDefG1DListMutRealMU = 0
 CDefG1DListMutRealSIGMA = 1
 
 CDefG1DListMutator = MutatorG1DList.G1DListMutatorSwap
-CDefG1DListCrossover = Crossovers.G1DListCrossoverSinglePoint
+CDefG1DListCrossover = G1DListCrossoverSinglePoint
 CDefG1DListInit = InitializationG1DList.G1DListInitializatorInteger
 CDefG1DListCrossUniformProb = 0.5
 
@@ -488,7 +494,7 @@ CDefG2DListMutRealMU = 0
 CDefG2DListMutRealSIGMA = 1
 
 CDefG2DListMutator = MutatorG2DList.G2DListMutatorSwap
-CDefG2DListCrossover = Crossovers.G2DListCrossoverUniform
+CDefG2DListCrossover = G2DListCrossoverUniform
 CDefG2DListInit = InitializationG2DList.G2DListInitializatorInteger
 CDefG2DListCrossUniformProb = 0.5
 

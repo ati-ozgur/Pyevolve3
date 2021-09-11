@@ -5,7 +5,7 @@ import random
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve.perturbations import Crossovers
+from pyevolve.perturbations import CrossoverG1DListPermutations as Crossovers
 from pyevolve import Consts
 
 random.seed(1024)
@@ -24,6 +24,9 @@ CITIES = 100
 WIDTH = 1024
 HEIGHT = 768
 LAST_SCORE = -1
+
+RESULTS_DIRECTORY = "tspimg"
+
 
 
 def cartesian_matrix(coords):
@@ -91,14 +94,15 @@ def G1DListTSPInitializator(genome, **args):
 #
 def evolve_callback(ga_engine):
     global LAST_SCORE
-    try:
-        os.makedirs('tspimg')
-    except OSError:
-        pass
-    if ga_engine.getCurrentGeneration() % 100 == 0:
+    current_generation = ga_engine.getCurrentGeneration()
+    if not os.path.exists(RESULTS_DIRECTORY):
+        os.makedirs(RESULTS_DIRECTORY)
+
+    if current_generation % 100 == 0:
         best = ga_engine.bestIndividual()
         if LAST_SCORE != best.getRawScore():
-            write_tour_to_img(coords, best, "tspimg/tsp_result_%d.png" % ga_engine.getCurrentGeneration())
+            filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:05}.png"
+            write_tour_to_img(coords, best, filename )
             LAST_SCORE = best.getRawScore()
     return False
 
@@ -132,7 +136,7 @@ def main_run():
     best = ga.bestIndividual()
 
     if PIL_SUPPORT:
-        write_tour_to_img(coords, best, "tsp_result.png")
+        write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
     else:
         print("No PIL detected, cannot plot the graph !")
 
