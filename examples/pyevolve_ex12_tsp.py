@@ -8,6 +8,8 @@ from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 from pyevolve.perturbations import CrossoverG1DListPermutations as Crossovers
 from pyevolve import Consts
+from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
+
 
 random.seed(1024)
 
@@ -82,11 +84,7 @@ def write_tour_to_img(coords, tour, img_file):
     print(f"The plot was saved into the {img_file} file. max generation: {GENERATION_COUNT}")
 
 
-def G1DListTSPInitializator(genome, **args):
-    """ The initializator for the TSP """
-    lst = [i for i in range(genome.getListSize())]
-    random.shuffle(lst)
-    genome.setInternalList(lst)
+
 
 
 # This is to make a video of best individuals along the evolution
@@ -119,7 +117,7 @@ def main_run():
 
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
     genome.crossover.set(Crossovers.G1DListCrossoverEdge)
-    genome.initializator.set(G1DListTSPInitializator)
+    genome.initializator.set(G1DListTSPInitializatorRandom)
 
     # 3662.69
     ga = GSimpleGA.GSimpleGA(genome)
