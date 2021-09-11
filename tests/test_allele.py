@@ -5,17 +5,17 @@
 from collections import Iterable
 from unittest import TestCase
 
-from pyevolve import G1DBinaryString
-from pyevolve import GAllele
+from pyevolve.representations import G1DBinaryString
+from pyevolve.representations import GAllele
 from pyevolve.representations import G1DList
-from pyevolve import G2DBinaryString
-from pyevolve import G2DList
-from pyevolve.GenomeBase import G1DBase
-from pyevolve.GenomeBase import GTreeBase
-from pyevolve.GTree import GTree
-from pyevolve.GTree import GTreeNode
-from pyevolve.GTree import GTreeNodeBase
-from pyevolve.GTree import GTreeNodeGP
+from pyevolve.representations import G2DBinaryString
+from pyevolve.representations import G2DList
+from pyevolve.representations.GenomeBase import G1DBase
+from pyevolve.representations.GenomeBase import GTreeBase
+from pyevolve.representations.GTree import GTree
+from pyevolve.representations.GTree import GTreeNode
+from pyevolve.representations.GTree import GTreeNodeBase
+from pyevolve.representations.GTree import GTreeNodeGP
 
 
 class GAllelesTestCase(TestCase):

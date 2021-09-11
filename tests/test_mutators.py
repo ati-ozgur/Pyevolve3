@@ -2,9 +2,10 @@ import unittest
 
 from mock import patch
 
-from pyevolve.G1DBinaryString import G1DBinaryString
-from pyevolve import Mutators, Consts
-from pyevolve.G1DList import G1DList
+from pyevolve.representations.G1DBinaryString import G1DBinaryString
+from pyevolve.perturbations import Mutators
+from pyevolve import Consts
+from pyevolve.representations.G1DList import G1DList
 
 
 class G1DBinaryStringMutatorsTestCase(unittest.TestCase):

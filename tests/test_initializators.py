@@ -1,10 +1,10 @@
 import unittest
 
-from pyevolve.G1DBinaryString import G1DBinaryString
+from pyevolve.representations.G1DBinaryString import G1DBinaryString
 from pyevolve import Initializators
-from pyevolve.G1DList import G1DList
-from pyevolve.G2DList import G2DList
-from pyevolve.GTree import GTree
+from pyevolve.representations.G1DList import G1DList
+from pyevolve.representations.G2DList import G2DList
+from pyevolve.representations.GTree import GTree
 
 
 class InitializatorsTestCase(unittest.TestCase):
