@@ -6,7 +6,6 @@
 In this module we have the genetic operators of crossover (or recombination) for each chromosome representation.
 
 """
-from future.builtins import range
 
 from random import randint as rand_randint, choice as rand_choice
 from random import random as rand_random

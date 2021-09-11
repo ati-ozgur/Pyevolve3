@@ -17,7 +17,6 @@ module, you'll find the adapters above cited.
 
 """
 
-from future.builtins import range
 
 from pyevolve import __version__
 from . import Consts

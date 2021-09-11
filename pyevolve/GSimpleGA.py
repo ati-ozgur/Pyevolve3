@@ -60,7 +60,6 @@ Class
 
 """
 
-from future.builtins import range
 
 import random
 import logging

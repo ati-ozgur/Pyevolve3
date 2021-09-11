@@ -9,7 +9,6 @@ GA related functions.
    The :mod:`Migration` module.
 
 """
-from future.builtins import range
 
 from . import Util
 from random import randint as rand_randint, choice as rand_choice

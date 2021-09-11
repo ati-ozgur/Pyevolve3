@@ -34,7 +34,6 @@ Class
 -------------------------------------------------------------
 
 """
-from future.builtins import range
 
 from .GenomeBase import GenomeBase, G1DBase
 from . import Consts

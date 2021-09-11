@@ -6,7 +6,6 @@
 This module have the *selection methods*, like roulette wheel, tournament, ranking, etc.
 
 """
-from future.builtins import range
 
 import random
 

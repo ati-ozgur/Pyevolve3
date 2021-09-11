@@ -6,7 +6,6 @@
 In this module we have the genetic operators of mutation for each chromosome representation.
 
 """
-from future.builtins import range
 
 from . import Util
 from random import randint as rand_randint, gauss as rand_gauss, uniform as rand_uniform

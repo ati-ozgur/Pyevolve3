@@ -32,7 +32,6 @@ Class
 
 """
 
-from future.builtins import range
 from functools import cmp_to_key
 
 from . import Consts

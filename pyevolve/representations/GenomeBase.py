@@ -8,7 +8,6 @@ if you are planning to create a new representation, you must
 take a inside look into this module.
 
 """
-from future.builtins import range
 
 from random import choice as rand_choice
 import inspect

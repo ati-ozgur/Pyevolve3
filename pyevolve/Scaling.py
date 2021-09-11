@@ -6,7 +6,6 @@
 This module have the *scaling schemes* like Linear scaling, etc.
 
 """
-from future.builtins import range
 
 import math
 import logging

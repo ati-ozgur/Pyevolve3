@@ -13,7 +13,6 @@ choosing random data.
 
 
 """
-from future.builtins import range
 
 from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice
 from . import GTree

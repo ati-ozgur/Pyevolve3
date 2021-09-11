@@ -7,7 +7,6 @@ This is the utility module, with some utility functions of general
 use, like list item swap, random utilities and etc.
 
 """
-from future.builtins import range
 
 from random import random as rand_random
 from math import sqrt as math_sqrt

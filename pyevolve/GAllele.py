@@ -8,7 +8,6 @@ class that holds the allele types) and all the
 allele types to use with the supported chromosomes.
 
 """
-from future.builtins import range
 
 import random
 from . import Consts
