@@ -251,11 +251,6 @@ class GSimpleGA(object):
 
         self.currentGeneration = 0
 
-        # GP Testing
-        for classes in Consts.CDefGPGenomes:
-            if isinstance(self.internalPop.oneSelfGenome, classes):
-                self.setGPMode(True)
-                break
 
         logging.debug("A GA Engine was created, nGenerations=%d", self.nGenerations)
 

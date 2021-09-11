@@ -4,7 +4,7 @@ import inspect
 from ..FunctionSlot import FunctionSlot
 from .. import Util
 
-from . import GenomeBase
+from .GenomeBase import GenomeBase
 
 
 class G1DBase(GenomeBase):

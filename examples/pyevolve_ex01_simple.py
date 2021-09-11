@@ -1,8 +1,8 @@
 
 import pyevolve
-from pyevolve.representations import G1DList
+from pyevolve.representations.G1DList import G1DList
 from pyevolve import GSimpleGA
-from pyevolve import Selectors
+from pyevolve.selections import Selectors
 from pyevolve import DBAdapters
 
 
@@ -22,7 +22,7 @@ def eval_func(genome):
 
 def run_main():
     # Genome instance, 1D List of 50 elements
-    genome = G1DList.G1DList(50)
+    genome = G1DList(50)
 
     # Sets the range max and min of the 1D List
     genome.setParams(rangemin=0, rangemax=10)

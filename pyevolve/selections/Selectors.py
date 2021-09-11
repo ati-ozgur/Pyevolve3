@@ -8,13 +8,13 @@ This module have the *selection methods*, like roulette wheel, tournament, ranki
 """
 
 import random
-
+from .. import Consts
 
 def GRankSelector(population, **args):
     """ The Rank Selector - This selector will pick the best individual of
     the population every time.
     """
-    from . import Consts
+    
     count = 0
 
     if args["popID"] != GRankSelector.cachePopID:
@@ -61,7 +61,7 @@ def GTournamentSelector(population, **args):
        gets the pool size from the population.
 
     """
-    from . import Consts
+    
     choosen = None
     should_minimize = population.minimax == Consts.minimaxType["minimize"]
     minimax_operator = min if should_minimize else max
@@ -88,7 +88,7 @@ def GTournamentSelectorAlternative(population, **args):
        Added the GTournamentAlternative function.
 
     """
-    from . import Consts
+    
     pool_size = population.getParam("tournamentPool", Consts.CDefTournamentPoolSize)
     len_pop = len(population)
     should_minimize = population.minimax == Consts.minimaxType["minimize"]
@@ -135,7 +135,6 @@ GRouletteWheel.cacheWheel = None
 
 def GRouletteWheel_PrepareWheel(population):
     """ A preparation for Roulette Wheel selection """
-    from . import Consts
 
     len_pop = len(population)
 
