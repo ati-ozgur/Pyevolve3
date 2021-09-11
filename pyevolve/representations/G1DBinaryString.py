@@ -35,8 +35,8 @@ Class
 """
 
 from .GenomeBase import GenomeBase, G1DBase
-from . import Consts
-from . import Util
+from .. import Consts
+from .. import Util
 
 
 class G1DBinaryString(G1DBase):

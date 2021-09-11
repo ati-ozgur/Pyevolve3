@@ -385,7 +385,7 @@ from . import Selectors
 from . import Initializators
 from . import Mutators
 from . import Crossovers
-from .GTree import GTreeGP
+from .representations.GTree import GTreeGP
 
 # Required python version 2.5+
 CDefPythonRequire = (2, 5)

@@ -39,8 +39,8 @@ Class
 """
 
 from .GenomeBase import GenomeBase
-from . import Consts
-from . import Util
+from .. import Consts
+from .. import Util
 
 
 class G2DBinaryString(GenomeBase):

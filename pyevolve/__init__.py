@@ -10,9 +10,8 @@ is above this namespace, for example, to import :mod:`Mutators`:
 
 """
 __all__ = ["Consts", "Crossovers", "DBAdapters", "FunctionSlot",
-           "G1DBinaryString", "G1DList", "G2DBinaryString",
-           "G2DList", "GAllele", "GenomeBase", "GPopulation",
-           "GSimpleGA", "GTree", "Initializators",
+           "GAllele", "GenomeBase", "GPopulation",
+           "GSimpleGA",  "Initializators",
            "Migration", "Mutators", "Network", "Scaling", "Selectors",
            "Statistics", "Util"]
 

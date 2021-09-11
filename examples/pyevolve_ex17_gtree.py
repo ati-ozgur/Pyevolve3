@@ -1,5 +1,5 @@
 from pyevolve import GSimpleGA
-from pyevolve import GTree
+from pyevolve.representations import GTree
 from pyevolve import Crossovers
 
 

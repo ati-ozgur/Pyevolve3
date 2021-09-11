@@ -36,7 +36,7 @@ Class
 """
 
 from .GenomeBase import GenomeBase, G1DBase
-from . import Consts
+from .. import Consts
 
 
 class G1DList(G1DBase):

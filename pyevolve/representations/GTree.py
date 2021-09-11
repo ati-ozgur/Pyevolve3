@@ -1,4 +1,3 @@
-from __future__ import print_function, absolute_import
 """
 
 :mod:`GTree` and GTreeGP -- the tree chromosomes
@@ -36,7 +35,7 @@ Classes
 """
 import random
 from .GenomeBase import GenomeBase, GTreeBase, GTreeNodeBase
-from . import Util
+from .. import Util
 
 try:
     import pydot_ng as pydot

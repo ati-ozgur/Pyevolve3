@@ -1,3 +1,5 @@
+
+import pyevolve
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 from pyevolve import Selectors
