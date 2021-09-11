@@ -70,7 +70,7 @@ import code
 
 from .GPopulation import GPopulation
 from .FunctionSlot import FunctionSlot
-from .GenomeBase import GenomeBase
+from .representations.GenomeBase import GenomeBase
 from .DBAdapters import DBBaseAdapter
 from . import Consts
 from . import Util
