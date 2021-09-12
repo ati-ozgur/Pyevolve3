@@ -1,7 +1,7 @@
 from pyevolve.GPopulation import GPopulation
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve import Selectors
+from pyevolve.selections import Selectors
 from pyevolve import DBAdapters
 
 
