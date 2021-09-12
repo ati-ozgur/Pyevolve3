@@ -1,8 +1,8 @@
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve import Mutators
-from pyevolve import Initializators
-from pyevolve import GAllele
+from pyevolve.perturbations.MutatorG1DList import G1DListMutatorAllele
+from pyevolve.initializations.InitializationG1DList import G1DListInitializatorAllele
+from pyevolve.representations import GAllele
 
 
 # This function is the evaluation function, we want
@@ -55,8 +55,8 @@ def run_main():
     # This mutator and initializator will take care of
     # initializing valid individuals based on the allele set
     # that we have defined before
-    genome.mutator.set(Mutators.G1DListMutatorAllele)
-    genome.initializator.set(Initializators.G1DListInitializatorAllele)
+    genome.mutator.set(G1DListMutatorAllele)
+    genome.initializator.set(G1DListInitializatorAllele)
 
     # Genetic Algorithm Instance
     ga = GSimpleGA.GSimpleGA(genome)

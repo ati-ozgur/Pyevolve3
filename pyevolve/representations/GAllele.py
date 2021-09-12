@@ -10,8 +10,8 @@ allele types to use with the supported chromosomes.
 """
 
 import random
-from . import Consts
-from . import Util
+from .. import Consts
+from .. import Util
 
 
 class GAlleles(object):

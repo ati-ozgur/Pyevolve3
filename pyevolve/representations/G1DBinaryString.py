@@ -34,7 +34,8 @@ Class
 
 """
 
-from .GenomeBase import GenomeBase, G1DBase
+from .GenomeBase import GenomeBase
+from .G1DBase import G1DBase
 from .. import Consts
 from .. import Util
 

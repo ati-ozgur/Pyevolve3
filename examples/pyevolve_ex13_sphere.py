@@ -1,5 +1,6 @@
 from pyevolve.representations import G1DList
-from pyevolve import Mutators, Initializators
+from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
+from pyevolve.perturbations.MutatorG1DList import G1DListMutatorRealGaussian
 from pyevolve import GSimpleGA, Consts
 
 
@@ -14,8 +15,8 @@ def sphere(xlist):
 def run_main():
     genome = G1DList.G1DList(140)
     genome.setParams(rangemin=-5.12, rangemax=5.13)
-    genome.initializator.set(Initializators.G1DListInitializatorReal)
-    genome.mutator.set(Mutators.G1DListMutatorRealGaussian)
+    genome.initializator.set(G1DListInitializatorReal)
+    genome.mutator.set(G1DListMutatorRealGaussian)
     genome.evaluator.set(sphere)
 
     ga = GSimpleGA.GSimpleGA(genome, seed=666)

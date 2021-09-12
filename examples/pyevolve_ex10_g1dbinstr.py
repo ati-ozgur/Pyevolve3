@@ -1,7 +1,7 @@
-from pyevolve import G1DBinaryString
+from pyevolve.representations import G1DBinaryString
 from pyevolve import GSimpleGA
-from pyevolve import Selectors
-from pyevolve import Mutators
+from pyevolve.selections import Selectors
+from pyevolve.perturbations.MutatorBinary import G1DBinaryStringMutatorFlip
 
 
 # This function is the evaluation function, we want
@@ -23,7 +23,7 @@ def run_main():
 
     # The evaluator function (objective function)
     genome.evaluator.set(eval_func)
-    genome.mutator.set(Mutators.G1DBinaryStringMutatorFlip)
+    genome.mutator.set(G1DBinaryStringMutatorFlip)
 
     # Genetic Algorithm Instance
     ga = GSimpleGA.GSimpleGA(genome)

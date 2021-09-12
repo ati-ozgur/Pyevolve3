@@ -1,5 +1,7 @@
-from pyevolve.representations import G1DList, GSimpleGA
-from pyevolve import Initializators, Mutators, Consts
+from pyevolve.representations import G1DList 
+from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
+from pyevolve.perturbations.MutatorG1DList import G1DListMutatorRealGaussian
+from pyevolve import Consts, GSimpleGA
 import math
 
 
@@ -25,8 +27,8 @@ def run_main():
     # Genome instance
     genome = G1DList.G1DList(5)
     genome.setParams(rangemin=-8, rangemax=8, bestrawscore=0.00, rounddecimal=2)
-    genome.initializator.set(Initializators.G1DListInitializatorReal)
-    genome.mutator.set(Mutators.G1DListMutatorRealGaussian)
+    genome.initializator.set(G1DListInitializatorReal)
+    genome.mutator.set(G1DListMutatorRealGaussian)
 
     # The evaluator function (objective function)
     genome.evaluator.set(ackley)
