@@ -38,6 +38,7 @@ from .GenomeBase import GenomeBase
 from .GTreeBase import GTreeBase
 from .GTreeNodeBase import GTreeNodeBase
 from .. import Util
+from .. import Consts
 
 try:
     import pydot_ng as pydot
@@ -61,7 +62,7 @@ class GTree(GTreeBase):
     """
 
     def __init__(self, root_node=None):
-        from . import Consts
+        
         super(GTree, self).__init__(root_node)
         self.initializator.set(Consts.CDefGTreeInit)
         self.mutator.set(Consts.CDefGGTreeMutator)
@@ -346,7 +347,7 @@ class GTreeGP(GTreeBase):
     """
 
     def __init__(self, root_node=None, cloning=False):
-        from . import Consts
+        
         super(GTreeGP, self).__init__(root_node)
         if not cloning:
             self.initializator.set(Consts.CDefGTreeGPInit)
@@ -392,7 +393,7 @@ class GTreeGP(GTreeBase):
         :param graph: the pydot Graph instance
         :param startNode: used to plot more than one individual
         """
-        from . import Consts
+        
 
         if not HAVE_PYDOT:
             print("You must install Pydot to use this feature !")
@@ -662,7 +663,7 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
     :max_depth: the maximum depth of the tree
     :rtype: the root node
     """
-    from . import Consts
+    
     gp_terminals = ga_engine.getParam("gp_terminals")
     assert gp_terminals is not None
 
@@ -704,7 +705,7 @@ def buildGTreeGPFull(ga_engine, depth, max_depth):
     :max_depth: the maximum depth of the tree
     :rtype: the root node
     """
-    from . import Consts
+    
 
     gp_terminals = ga_engine.getParam("gp_terminals")
     assert gp_terminals is not None

@@ -1,6 +1,6 @@
 from pyevolve import GSimpleGA
 from pyevolve.representations import GTree
-from pyevolve.perturbations import Crossovers
+from pyevolve.perturbations.CrossoverTree import GTreeCrossoverSinglePointStrict
 
 
 def eval_func(chromosome):
@@ -28,7 +28,7 @@ def run_main():
 
     genome.setParams(max_depth=3, max_siblings=2, method="grow")
     genome.evaluator.set(eval_func)
-    genome.crossover.set(Crossovers.GTreeCrossoverSinglePointStrict)
+    genome.crossover.set(GTreeCrossoverSinglePointStrict)
 
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(100)

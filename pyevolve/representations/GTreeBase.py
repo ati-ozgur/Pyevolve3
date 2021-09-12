@@ -4,8 +4,8 @@ import inspect
 from ..FunctionSlot import FunctionSlot
 from .. import Util
 
-from . import GenomeBase
-from . import GTreeNodeBase
+from .GenomeBase import GenomeBase
+from .GTreeNodeBase import GTreeNodeBase
 
 
 
