@@ -6,7 +6,8 @@
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA, Consts
-from pyevolve import Initializators, Mutators
+from pyevolve.initializations.InitializationG1DList import G1DListInitializatorInteger
+from pyevolve.perturbations.MutatorG1DList import G1DListMutatorIntegerGaussian
 
 sentence = """
 'Just living is not enough,' said the butterfly,
@@ -30,8 +31,8 @@ def run_main():
                      bestrawscore=0.00,
                      gauss_mu=1, gauss_sigma=4)
 
-    genome.initializator.set(Initializators.G1DListInitializatorInteger)
-    genome.mutator.set(Mutators.G1DListMutatorIntegerGaussian)
+    genome.initializator.set(G1DListInitializatorInteger)
+    genome.mutator.set(G1DListMutatorIntegerGaussian)
     genome.evaluator.set(lambda genome: sum(
         [abs(a - b) for a, b in zip(genome, numeric_sentence)]
     ))

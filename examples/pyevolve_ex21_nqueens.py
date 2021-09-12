@@ -1,5 +1,7 @@
 from pyevolve.representations import G1DList
-from pyevolve import Mutators, Crossovers
+from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverCutCrossfill 
+from pyevolve.perturbations.MutatorG1DList import G1DListMutatorSwap
+
 from pyevolve import Consts, GSimpleGA
 from pyevolve import DBAdapters
 from random import shuffle
@@ -33,8 +35,8 @@ def run_main():
     genome = G1DList.G1DList(BOARD_SIZE)
     genome.setParams(bestrawscore=BOARD_SIZE, rounddecimal=2)
     genome.initializator.set(queens_init)
-    genome.mutator.set(Mutators.G1DListMutatorSwap)
-    genome.crossover.set(Crossovers.G1DListCrossoverCutCrossfill)
+    genome.mutator.set(G1DListMutatorSwap)
+    genome.crossover.set(G1DListCrossoverCutCrossfill)
     genome.evaluator.set(queens_eval)
 
     ga = GSimpleGA.GSimpleGA(genome)
@@ -46,11 +48,11 @@ def run_main():
     ga.setMutationRate(0.02)
     ga.setCrossoverRate(1.0)
 
-    # sqlite_adapter = DBAdapters.DBSQLite(identify="queens")
-    # ga.setDBAdapter(sqlite_adapter)
+    sqlite_adapter = DBAdapters.DBSQLite(identify="queens")
+    ga.setDBAdapter(sqlite_adapter)
 
-    vpython_adapter = DBAdapters.DBVPythonGraph(identify="queens", frequency=1)
-    ga.setDBAdapter(vpython_adapter)
+    #vpython_adapter = DBAdapters.DBVPythonGraph(identify="queens", frequency=1)
+    #ga.setDBAdapter(vpython_adapter)
 
     ga.evolve(freq_stats=10)
 
