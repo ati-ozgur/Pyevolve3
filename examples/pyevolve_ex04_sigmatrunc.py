@@ -1,7 +1,8 @@
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve import Selectors
-from pyevolve import Initializators, Mutators
+from pyevolve.selections import Selectors
+from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
+from pyevolve.perturbations.MutatorG1DList import G1DListMutatorRealGaussian
 from pyevolve import Scaling
 from pyevolve import Consts
 import math
@@ -19,10 +20,10 @@ def run_main():
     genome.setParams(rangemin=-60.0, rangemax=60.0)
 
     # Change the initializator to Real values
-    genome.initializator.set(Initializators.G1DListInitializatorReal)
+    genome.initializator.set(G1DListInitializatorReal)
 
     # Change the mutator to Gaussian Mutator
-    genome.mutator.set(Mutators.G1DListMutatorRealGaussian)
+    genome.mutator.set(G1DListMutatorRealGaussian)
 
     # Removes the default crossover
     genome.crossover.clear()

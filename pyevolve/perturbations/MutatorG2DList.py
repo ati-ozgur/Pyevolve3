@@ -2,6 +2,8 @@ from .. import Util
 from random import randint as rand_randint, gauss as rand_gauss, uniform as rand_uniform
 from random import choice as rand_choice
 
+from .. import Consts
+
 
 # 2D List
 
@@ -42,7 +44,7 @@ def G2DListMutatorIntegerRange(genome, **args):
     Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
     """
-    from . import Consts
+    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -83,7 +85,7 @@ def G2DListMutatorIntegerGaussianGradient(genome, **args):
     no matter how large it is.
 
     """
-    from . import Consts
+    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -132,7 +134,7 @@ def G2DListMutatorIntegerGaussian(genome, **args):
     represents the mean and the std. dev. of the random distribution.
 
     """
-    from . import Consts
+    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -228,7 +230,7 @@ def G2DListMutatorRealGaussian(genome, **args):
     represents the mean and the std. dev. of the random distribution.
 
     """
-    from . import Consts
+    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -284,7 +286,7 @@ def G2DListMutatorRealGaussianGradient(genome, **args):
     for a smooth gradient drift about the value.
 
     """
-    from . import Consts
+    
 
     if args["pmut"] <= 0.0:
         return 0

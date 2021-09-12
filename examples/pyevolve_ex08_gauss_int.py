@@ -1,7 +1,7 @@
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 # from pyevolve import Selectors
-from pyevolve import Mutators
+from pyevolve.perturbations.MutatorG1DList import G1DListMutatorIntegerGaussian
 
 
 # This function is the evaluation function, we want
@@ -23,7 +23,7 @@ def run_main():
     # The gauss_mu and gauss_sigma is used to the Gaussian Mutator, but
     # if you don't specify, the mutator will use the defaults
     genome.setParams(rangemin=0, rangemax=10, gauss_mu=4, gauss_sigma=6)
-    genome.mutator.set(Mutators.G1DListMutatorIntegerGaussian)
+    genome.mutator.set(G1DListMutatorIntegerGaussian)
 
     # The evaluator function (objective function)
     genome.evaluator.set(eval_func)
