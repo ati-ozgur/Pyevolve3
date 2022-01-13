@@ -15,5 +15,5 @@ But right now, more focus is given to more genetic algorithm operators, especial
 - Python 3 version is cloned from [BubaVV/Pyevolve](https://github.com/BubaVV/Pyevolve)
 
 
-The old documentation (html rendered) is still hosted at sourceforge.net at http://pyevolve.sourceforge.net/0_6rc1/
+- The old documentation (html rendered) is still hosted at sourceforge.net at http://pyevolve.sourceforge.net/0_6rc1/
 
