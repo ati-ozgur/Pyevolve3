@@ -120,3 +120,109 @@ def G1DListCrossoverCutCrossfill(genome, **args):
             x += 1
 
     return (sister, brother)
+
+def G1DListCrossoverPMX(genome, **args):
+    """ The PMX Crossover for G1DList  (Partially Mapped Crossover) """
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+
+    c1, c2 = [rand_randint(1, len(gMom) - 1), rand_randint(1, len(gMom) - 1)]
+
+    while c1 == c2:
+        c2 = rand_randint(1, len(gMom) - 1)
+
+    if c1 > c2:
+        h = c1
+        c1 = c2
+        c2 = h
+
+    if args["count"] >= 1:
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList=[None]*len(gMom.genomeList)
+        # Copy a slice from first parent:
+        sister.genomeList[c1:c2] = gMom.genomeList[c1:c2]
+        #    Map the same slice in parent b to child using indices from parent a:
+        for ind, x in enumerate(gDad.genomeList[c1:c2]):
+            ind += c1
+            if x not in sister.genomeList:
+                while sister.genomeList[ind] != None:
+                    ind = gDad.genomeList.index(gMom.genomeList[ind])
+                sister.genomeList[ind] = x
+        # Copy over the rest from parent b
+        for ind, x in enumerate(sister.genomeList):
+            if x == None:
+                sister.genomeList[ind] = gDad.genomeList[ind]
+
+    if args["count"] == 2:
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList=[None]*len(gDad.genomeList)
+        # Copy a slice from first parent:
+        brother.genomeList[c1:c2] = gDad.genomeList[c1:c2]
+        #    Map the same slice in parent b to child using indices from parent a:
+        for ind, x in enumerate(gMom.genomeList[c1:c2]):
+            ind += c1
+            if x not in brother.genomeList:
+                while brother.genomeList[ind] != None:
+                    ind = gMom.genomeList.index(gDad.genomeList[ind])
+                brother.genomeList[ind] = x
+        # Copy over the rest from parent b
+        for ind, x in enumerate(brother.genomeList):
+            if x == None:
+                brother.genomeList[ind] = gMom.genomeList[ind]
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def G1DListCrossoverCycle(genome, **args):
+    """ The Cycle Crossover for G1DList  (Cycle Crossover) """
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+
+    if args["count"] >= 1:
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList = [None] * len(gMom.genomeList)
+        while None in sister.genomeList:
+            ind = sister.genomeList.index(None)
+            indices = []
+            values = []
+            while ind not in indices:
+                val = gMom.genomeList[ind]
+                indices.append(ind)
+                values.append(val)
+                ind = gMom.genomeList.index(gDad.genomeList[ind])
+            for ind, val in zip(indices, values):
+                sister.genomeList[ind] = val
+            gMom.genomeList, gDad.genomeList = gDad.genomeList, gMom.genomeList
+
+    if args["count"] == 2:
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList = [None] * len(gDad.genomeList)
+        while None in brother.genomeList:
+            ind = brother.genomeList.index(None)
+            indices = []
+            values = []
+            while ind not in indices:
+                val = gDad.genomeList[ind]
+                indices.append(ind)
+                values.append(val)
+                ind = gDad.genomeList.index(gMom.genomeList[ind])
+            for ind, val in zip(indices, values):
+                brother.genomeList[ind] = val
+            gDad.genomeList, gMom.genomeList = gMom.genomeList, gDad.genomeList
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
