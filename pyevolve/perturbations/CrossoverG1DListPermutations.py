@@ -3,8 +3,6 @@ from random import random as rand_random
 import math
 from .. import Util
 
-
-
 def G1DListCrossoverOX(genome, **args):
     """ The OX Crossover for G1DList  (order crossover) """
     sister = None
@@ -122,7 +120,12 @@ def G1DListCrossoverCutCrossfill(genome, **args):
     return (sister, brother)
 
 def G1DListCrossoverPMX(genome, **args):
-    """ The PMX Crossover for G1DList  (Partially Mapped Crossover) """
+    """ The PMX Crossover for G1DList  (Partially Mapped Crossover)
+
+    See more information in the `PMX Crossover Operator
+    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+    """
+
     sister = None
     brother = None
     gMom = args["mom"]
@@ -181,7 +184,12 @@ def G1DListCrossoverPMX(genome, **args):
     return (sister, brother)
 
 def G1DListCrossoverCycle(genome, **args):
-    """ The Cycle Crossover for G1DList  (Cycle Crossover) """
+    """ The Cycle Crossover for G1DList  (Cycle Crossover)
+
+    See more information in the `Cycle Crossover Operator
+    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+    """
+
     sister = None
     brother = None
     gMom = args["mom"]
@@ -226,3 +234,466 @@ def G1DListCrossoverCycle(genome, **args):
     assert listSize == len(brother)
 
     return (sister, brother)
+
+def G1DListCrossoverOX2(genome, **args):
+    """ Order-based (OX2) Crossover for G1DList  (Order-based (OX2) Crossover)
+
+    See more information in the `Order-based (OX2) Crossover Operator
+    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+    """
+
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+    indexs=[]
+
+    numberOfIndex = rand_randint(1, len(gMom) - 1)
+
+    while len(indexs) < numberOfIndex:
+        c2 = rand_randint(1, len(gMom) - 1)
+        if c2 not in indexs:
+            indexs.append(c2)
+
+    indexs.sort();
+
+    if args["count"] >= 1:
+
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList = [None] * len(gMom.genomeList)
+        index=[None] * len(indexs)
+
+        for i in range(0, len(gDad.genomeList)):
+            sister.genomeList[i] = gDad.genomeList[i]
+
+        for i in range(0, len(indexs)):
+            for j in range(0, len(gMom.genomeList)):
+                k = indexs[i];
+                if gMom.genomeList[k] == gDad.genomeList[j]:
+                    index[i] = j;
+        index.sort();
+        for j in range(0, len(index)):
+            sister.genomeList[index[j]] = gMom.genomeList[indexs[j]];
+
+    if args["count"] == 2:
+
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList = [None] * len(gDad.genomeList)
+        index=[None] * len(indexs)
+
+        for i in range(0, len(gMom.genomeList)):
+            brother.genomeList[i] = gMom.genomeList[i]
+
+        for i in range(0, len(indexs)):
+            for j in range(0, len(gDad.genomeList)):
+                k = indexs[i];
+                if gDad.genomeList[k] == gMom.genomeList[j]:
+                    index[i] = j;
+        index.sort();
+        for j in range(0, len(index)):
+            brother.genomeList[index[j]] = gDad.genomeList[indexs[j]];
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def G1DListCrossoverPOS(genome, **args):
+    """ Position-Based crossover (POS) Crossover for G1DList  (Position-Based (POS) Crossover)
+
+    See more information in the `Position-Based (POS) Crossover Operator
+    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+    """
+
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+    indexs=[]
+
+    numberOfIndex = rand_randint(1, len(gMom) - 1)
+
+    while len(indexs) < numberOfIndex:
+        c2 = rand_randint(1, len(gMom) - 1)
+        if c2 not in indexs:
+            indexs.append(c2)
+
+    indexs.sort();
+
+    if args["count"] >= 1:
+
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList = [None] * len(gMom.genomeList)
+        temp = [None] * (len(indexs))
+        temp2 = [None] * (len(gMom.genomeList) - len(indexs))
+
+        for i in range(0, len(indexs)):
+            sister.genomeList[indexs[i]] = gDad.genomeList[indexs[i]]
+
+        h = 0;
+        for i in range(0, len(gMom.genomeList)):
+            for j in range(0, len(indexs)):
+                if gMom.genomeList[i] == gDad.genomeList[indexs[j]]:
+                    temp[h] = gDad.genomeList[indexs[j]]
+                    h = h + 1;
+        h = 0;
+        for i in range(len(gMom.genomeList)):
+            for j in range(len(temp)):
+                if gMom.genomeList[i] == temp[j]:
+                    break;
+                if j == len(temp) - 1:
+                    temp2[h] = gMom.genomeList[i];
+                    h = h + 1;
+        k = 0;
+        for i in range(0, len(gMom.genomeList)):
+            if sister.genomeList[i] == None:
+                sister.genomeList[i] = temp2[k];
+                k = k + 1;
+
+
+    if args["count"] == 2:
+
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList = [None] * len(gDad.genomeList)
+        temp = [None] * (len(indexs))
+        temp2 = [None] * (len(gDad.genomeList) - len(indexs))
+
+        for i in range(0, len(indexs)):
+            brother.genomeList[indexs[i]] = gMom.genomeList[indexs[i]]
+
+        h = 0;
+        for i in range(0, len(gDad.genomeList)):
+            for j in range(0, len(indexs)):
+                if gDad.genomeList[i] == gMom.genomeList[indexs[j]]:
+                    temp[h] = gMom.genomeList[indexs[j]]
+                    h = h + 1;
+        h = 0;
+        for i in range(len(gDad.genomeList)):
+            for j in range(len(temp)):
+                if gDad.genomeList[i] == temp[j]:
+                    break;
+                if j == len(temp) - 1:
+                    temp2[h] = gDad.genomeList[i];
+                    h = h + 1;
+        k = 0;
+        for i in range(0, len(gDad.genomeList)):
+            if brother.genomeList[i] == None:
+                brother.genomeList[i] = temp2[k];
+                k = k + 1;
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def G1DListCrossoverMPX(genome, **args):
+    """ Maximal Preservative Crossover (MPX) for G1DList  (Maximal Preservative (MPX) Crossover)
+
+    See more information in the `Maximal Preservative (MPX) Crossover Operator
+    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+    """
+
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+    indexs=[]
+
+    c1, c2 = [rand_randint(1, len(gMom) - 1), rand_randint(1, len(gMom) - 1)]
+
+    while c1 == c2:
+        c2 = rand_randint(1, len(gMom) - 1)
+
+    if c1 > c2:
+        h = c1
+        c1 = c2
+        c2 = h
+
+    length = c2-c1;
+
+    while length >= 10:
+        length=length/2;
+
+    for i in range(c1, c1+length):
+        indexs.append(i)
+
+    if args["count"] >= 1:
+
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList = [None] * len(gMom.genomeList)
+        temp = [None] * (len(indexs))
+        temp2 = [None] * (len(gMom.genomeList) - len(indexs))
+        # Copy a slice from first parent:
+        for i in range(0, len(indexs)):
+            sister.genomeList[i] = gMom.genomeList[indexs[i]]
+
+        h = 0;
+        for i in range(0, len(gMom.genomeList)):
+            for j in range(0, len(indexs)):
+                if gDad.genomeList[i] == gMom.genomeList[indexs[j]]:
+                    temp[h] = i
+                    h = h + 1;
+        h = 0;
+        for i in range(len(gMom.genomeList)):
+            for j in range(len(temp)):
+                if i == temp[j]:
+                    break;
+                if j == len(temp) - 1:
+                    temp2[h] = gDad.genomeList[i];
+                    h = h + 1;
+        k = 0;
+        for i in range(0, len(gMom.genomeList)):
+            if sister.genomeList[i] == None:
+                sister.genomeList[i] = temp2[k];
+                k = k + 1;
+
+
+    if args["count"] == 2:
+
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList = [None] * len(gMom.genomeList)
+        temp = [None] * (len(indexs))
+        temp2 = [None] * (len(gMom.genomeList) - len(indexs))
+        # Copy a slice from first parent:
+        for i in range(0, len(indexs)):
+            brother.genomeList[i] = gDad.genomeList[indexs[i]]
+
+        h = 0;
+        for i in range(0, len(gDad.genomeList)):
+            for j in range(0, len(indexs)):
+                if gMom.genomeList[i] == gDad.genomeList[indexs[j]]:
+                    temp[h] = i
+                    h = h + 1;
+        h = 0;
+        for i in range(len(gDad.genomeList)):
+            for j in range(len(temp)):
+                if i == temp[j]:
+                    break;
+                if j == len(temp) - 1:
+                    temp2[h] = gMom.genomeList[i];
+                    h = h + 1;
+        k = 0;
+        for i in range(0, len(gDad.genomeList)):
+            if brother.genomeList[i] == None:
+                brother.genomeList[i] = temp2[k];
+                k = k + 1;
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def G1DListCrossoverEPMX(genome, **args):
+    """ The Extended PMX Crossover for G1DList  (Extended Partially Mapped Crossover)
+
+    See more information in the `Extended PMX (EPMX) Crossover Operator
+    <https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4666932>`_
+    <https://www.researchgate.net/publication/260973230_Study_of_Some_Recent_Crossovers_Effects_on_Speed_and_Accuracy_of_Genetic_Algorithm_Using_Symmetric_Travelling_Salesman_Problem>`_
+    """
+
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+
+    c1 = rand_randint(1, len(gMom.genomeList) - 1)
+
+    c2=listSize-c1;
+    sister = gMom.clone()
+    sister.resetStats()
+    sister.genomeList = [None] * len(gMom.genomeList)
+    motherSublist = [None] * (c1)
+    motherSublist2 = [None] * (c2)
+
+    brother = gDad.clone()
+    brother.resetStats()
+    brother.genomeList = [None] * len(gDad.genomeList)
+    fatherSublist = [None] * (c1)
+    fatherSublist2 = [None] *(c2)
+
+    repeated = [];
+    nonrepatedofMother = [];
+    nonrepatedofFather = [];
+
+    motherSublist[0:c1] = gMom.genomeList[0:c1];
+    motherSublist2[0:c2] = gMom.genomeList[c1:len(gMom.genomeList)];
+    fatherSublist[0:c1] = gDad.genomeList[0:c1];
+    fatherSublist2[0:c2] = gDad.genomeList[c1:len(gDad.genomeList)];
+
+    for i in range(0, len(motherSublist)):
+        for j in range(0, len(fatherSublist)):
+            if motherSublist[i] == fatherSublist[j]:
+                repeated.append(motherSublist[i]);
+
+    nonrepatedofFather = motherSublist[:]
+    nonrepatedofMother = fatherSublist[:]
+
+    for i in range(0, len(repeated)):
+        nonrepatedofFather.remove(repeated[i])
+        nonrepatedofMother.remove(repeated[i])
+
+    for i in range(0, len(motherSublist2)):
+        for j in range(0, len(nonrepatedofMother)):
+            if (motherSublist2[i] == nonrepatedofMother[j]):
+                motherSublist2[i] = nonrepatedofFather[j];
+
+    for i in range(0, len(motherSublist2)):
+        for j in range(0, len(nonrepatedofMother)):
+            if (fatherSublist2[i] == nonrepatedofFather[j]):
+                fatherSublist2[i] = nonrepatedofMother[j];
+
+    sister.genomeList = motherSublist + fatherSublist2;
+    brother.genomeList = fatherSublist + motherSublist2;
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def G1DListCrossoverGreedy(genome, **args):
+    """ The Greedy Crossover(GX) for G1DList  (Greedy Crossover)
+
+    See more information in the `Greedy Crossover (GX) Crossover Operator
+    <https://polen.itu.edu.tr/bitstream/11527/413/1/13612.pdf>`_
+    <https://arxiv.org/ftp/arxiv/papers/1209/1209.5339.pdf>`_
+    <https://www.researchgate.net/publication/260973230_Study_of_Some_Recent_Crossovers_Effects_on_Speed_and_Accuracy_of_Genetic_Algorithm_Using_Symmetric_Travelling_Salesman_Problem>`_
+    """
+
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+
+    distance = None
+    distance= gMom.internalParams;
+    dist=dictionaryToMatrix(distance)
+
+    c1Inital = rand_randint(0, len(gMom.genomeList) - 1)
+
+    if args["count"] >= 1:
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList = [None] * len(gMom.genomeList)
+        c1 = c1Inital
+        c2 = findIndex(gDad.genomeList, gMom.genomeList[c1]);
+        sister.genomeList[0] = gMom.genomeList[c1]
+        k = 1;
+
+        while None in sister.genomeList:
+
+            if dist[(gMom.genomeList[c1 % listSize] - 1)] [(gMom.genomeList[(c1 + 1) % listSize] - 1)] > dist[(gDad.genomeList[c2 % listSize] - 1)] [(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
+
+                bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize]);
+                bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize]);
+
+                if bool1 == None:
+                    sister.genomeList[k] = gMom.genomeList[(c1 + 1) % listSize];
+                    c1 = findIndex(gMom.genomeList, sister.genomeList[k])
+                    c2 = findIndex(gDad.genomeList, sister.genomeList[k])
+                    k = k + 1;
+                elif bool2 == None:
+                    sister.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize];
+                    c1 = findIndex(gMom.genomeList, sister.genomeList[k])
+                    c2 = findIndex(gDad.genomeList, sister.genomeList[k])
+                    k = k + 1;
+                else:
+                    c1 = c1 + 1;
+                    c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize]);
+            else:
+                bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize]);
+                bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize]);
+
+                if bool2 == None:
+                    sister.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize];
+                    c1 = findIndex(gMom.genomeList, sister.genomeList[k])
+                    c2 = findIndex(gDad.genomeList, sister.genomeList[k])
+                    k = k + 1;
+                elif bool1 == None:
+                    sister.genomeList[k] = gMom.genomeList[(c1 + 1) % listSize];
+                    c1 = findIndex(gMom.genomeList, sister.genomeList[k])
+                    c2 = findIndex(gDad.genomeList, sister.genomeList[k])
+                    k = k + 1;
+                else:
+                    c1 = c1 + 1;
+                    c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize]);
+
+    if args["count"] == 2:
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList = [None] * len(gMom.genomeList)
+        gMom.genomeList.reverse();
+        gDad.genomeList.reverse();
+        c1=c1Inital;
+        c2 = findIndex(gDad.genomeList, gMom.genomeList[c1]);
+        brother.genomeList[0] = gMom.genomeList[c1]
+        k = 1;
+
+        while None in brother.genomeList:
+
+            if dist[(gMom.genomeList[c1 % listSize] - 1)][(gMom.genomeList[(c1 + 1) % listSize] - 1)] < dist[(gDad.genomeList[c2 % listSize] - 1)][(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
+
+                bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize]);
+                bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize]);
+
+                if bool1 == None:
+                    brother.genomeList[k] = gMom[(c1 + 1) % listSize];
+                    c1 = findIndex(gMom.genomeList, brother.genomeList[k])
+                    c2 = findIndex(gDad.genomeList, brother.genomeList[k])
+                    k = k + 1;
+                elif bool2 == None:
+                    brother.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize];
+                    c1 = findIndex(gMom.genomeList, brother.genomeList[k])
+                    c2 = findIndex(gDad.genomeList, brother.genomeList[k])
+                    k = k + 1;
+                else:
+                    c1 = c1 + 1;
+                    c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize]);
+            else:
+                bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize]);
+                bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize]);
+
+                if bool2 == None:
+                    brother.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize];
+                    c1 = findIndex(gMom.genomeList, brother.genomeList[k])
+                    c2 = findIndex(gDad.genomeList, brother.genomeList[k])
+                    k = k + 1;
+                elif bool1 == None:
+                    brother.genomeList[k] = gMom.genomeList[(c1 + 1) % listSize];
+                    c1 = findIndex(gMom.genomeList, brother.genomeList[k])
+                    c2 = findIndex(gDad.genomeList, brother.genomeList[k])
+                    k = k + 1;
+                else:
+                    c1 = c1 + 1;
+                    c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize]);
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def findIndex(array,number):
+
+    index=None;
+    for i in range(0, len(array)):
+        if array[i] == number:
+            index=i;
+    return index
+
+def dictionaryToMatrix(distance):
+
+    List=list(distance.values())
+    temp_x, temp_y = map(max, zip(*List[0]))
+    matrix = [[List[0].get((j, i), 0) for i in range(temp_y + 1)]
+           for j in range(temp_x + 1)]
+    return matrix
