@@ -1,6 +1,8 @@
 from random import randint as rand_randint, choice as rand_choice
 from random import random as rand_random
 import math
+import random
+from pyevolve.perturbations import DoublyCircularLinkedList as dcll
 from .. import Util
 
 def G1DListCrossoverOX(genome, **args):
@@ -677,6 +679,164 @@ def G1DListCrossoverGreedy(genome, **args):
                     c1 = c1 + 1;
                     c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize]);
 
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def G1DListCrossoverIGX(genome, **args):
+    """ The Improved Greedy Crossover(IGX) for G1DList  (Improved Greedy Crossover)
+
+    See more information in the `Impoved Greedy Crossover (IGX) Crossover Operator
+    <https://arxiv.org/ftp/arxiv/papers/1209/1209.5339.pdf>`_
+    """
+
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+
+    distance = None
+    distance= gMom.internalParams;
+    dist=dictionaryToMatrix(distance)
+
+    if args["count"] >= 1:
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList = [None] * len(gMom.genomeList)
+        stepcounter = len(gDad.genomeList)
+        sisterGenome = []
+
+        fatherdll = dcll.DCLL()
+        for i in range(0, len(gDad.genomeList)):
+            fatherdll.append(gDad.genomeList[i])
+
+        motherdll = dcll.DCLL()
+        for i in range(0, len(gMom.genomeList)):
+            motherdll.append(gMom.genomeList[i])
+
+        for i in range(0, len(gMom.genomeList) - 1):
+            if i == 0:
+                first = random.choice(gDad.genomeList)
+                ind = fatherdll.getindex(stepcounter, first)
+                indm = motherdll.getindex(stepcounter, first)
+
+                t = []
+                fneighs = fatherdll.getleftright(stepcounter, first)
+                mneighs = motherdll.getleftright(stepcounter, first)
+
+                t.append(fneighs)
+                t.append(mneighs)
+                candidateslist = [item for sublist in t for item in sublist]
+                for i in range(0, len(candidateslist)):
+                    val = dist[(first % stepcounter) - 1][(candidateslist[i] % stepcounter) - 1]
+                    if i == 0:
+                        mindistance = val
+                        vertice = candidateslist[i]
+                    else:
+                        if val < mindistance:
+                            mindistance = val
+                            vertice = candidateslist[i]
+
+                sisterGenome.append(first)
+                stepcounter = stepcounter - 1
+                fatherdll.remove(ind)
+                motherdll.remove(indm)
+                sisterGenome.append(vertice)
+            else:
+                ind = fatherdll.getindex(stepcounter, vertice)
+                indm = motherdll.getindex(stepcounter, vertice)
+                t = []
+                fneighs = fatherdll.getleftright(stepcounter, vertice)
+                mneighs = motherdll.getleftright(stepcounter, vertice)
+                t.append(fneighs)
+                t.append(mneighs)
+                candidateslist = [item for sublist in t for item in sublist]
+                verttemp = vertice
+                for i in range(0, len(candidateslist)):
+                    val = dist[(verttemp % stepcounter) - 1][(candidateslist[i] % stepcounter) - 1]
+                    if i == 0:
+                        mindistance = val
+                        vertice = candidateslist[i]
+                    else:
+                        if val < mindistance:
+                            mindistance = val
+                            vertice = candidateslist[i]
+                sisterGenome.append(vertice)
+                stepcounter = stepcounter - 1
+                fatherdll.remove(ind)
+                motherdll.remove(indm)
+        sister.genomeList=sisterGenome
+
+    if args["count"] == 2:
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList = [None] * len(gMom.genomeList)
+        gMom.genomeList.reverse();
+        gDad.genomeList.reverse();
+        stepcounter = len(gDad.genomeList)
+        brotherGenome = []
+        fatherdll = dcll.DCLL()
+        for i in range(0, len(gDad.genomeList)):
+            fatherdll.append(gDad.genomeList[i])
+
+        motherdll = dcll.DCLL()
+        for i in range(0, len(gMom.genomeList)):
+            motherdll.append(gMom.genomeList[i])
+
+        for i in range(0, len(gMom.genomeList) - 1):
+            if i == 0:
+                first = random.choice(gDad.genomeList)
+                ind = fatherdll.getindex(stepcounter, first)
+                indm = motherdll.getindex(stepcounter, first)
+
+                t = []
+                fneighs = fatherdll.getleftright(stepcounter, first)
+                mneighs = motherdll.getleftright(stepcounter, first)
+
+                t.append(fneighs)
+                t.append(mneighs)
+                candidateslist = [item for sublist in t for item in sublist]
+                for i in range(0, len(candidateslist)):
+                    val = dist[(first % stepcounter) - 1][(candidateslist[i] % stepcounter) - 1]
+                    if i == 0:
+                        mindistance = val
+                        vertice = candidateslist[i]
+                    else:
+                        if val > mindistance:
+                            mindistance = val
+                            vertice = candidateslist[i]
+
+                brotherGenome.append(first)
+                stepcounter = stepcounter - 1
+                fatherdll.remove(ind)
+                motherdll.remove(indm)
+                brotherGenome.append(vertice)
+            else:
+                ind = fatherdll.getindex(stepcounter, vertice)
+                indm = motherdll.getindex(stepcounter, vertice)
+                t = []
+                fneighs = fatherdll.getleftright(stepcounter, vertice)
+                mneighs = motherdll.getleftright(stepcounter, vertice)
+                t.append(fneighs)
+                t.append(mneighs)
+                candidateslist = [item for sublist in t for item in sublist]
+                verttemp = vertice
+                for i in range(0, len(candidateslist)):
+                    val = dist[(verttemp % stepcounter) - 1][(candidateslist[i] % stepcounter) - 1]
+                    if i == 0:
+                        mindistance = val
+                        vertice = candidateslist[i]
+                    else:
+                        if val < mindistance:
+                            mindistance = val
+                            vertice = candidateslist[i]
+                brotherGenome.append(vertice)
+                stepcounter = stepcounter - 1
+                fatherdll.remove(ind)
+                motherdll.remove(indm)
+        brother.genomeList=brotherGenome
     assert listSize == len(sister)
     assert listSize == len(brother)
 
