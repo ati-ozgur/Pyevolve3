@@ -718,7 +718,7 @@ def G1DListCrossoverIGX(genome, **args):
 
         for i in range(0, len(gMom.genomeList) - 1):
             if i == 0:
-                first = random.choice(gDad.genomeList)
+                first = random.choice(gMom.genomeList)
                 ind = fatherdll.getindex(stepcounter, first)
                 indm = motherdll.getindex(stepcounter, first)
 
@@ -730,7 +730,7 @@ def G1DListCrossoverIGX(genome, **args):
                 t.append(mneighs)
                 candidateslist = [item for sublist in t for item in sublist]
                 for i in range(0, len(candidateslist)):
-                    val = dist[(first % stepcounter) - 1][(candidateslist[i] % stepcounter) - 1]
+                    val = dist[first][candidateslist[i]]
                     if i == 0:
                         mindistance = val
                         vertice = candidateslist[i]
@@ -755,7 +755,7 @@ def G1DListCrossoverIGX(genome, **args):
                 candidateslist = [item for sublist in t for item in sublist]
                 verttemp = vertice
                 for i in range(0, len(candidateslist)):
-                    val = dist[(verttemp % stepcounter) - 1][(candidateslist[i] % stepcounter) - 1]
+                    val = dist[verttemp][candidateslist[i]]
                     if i == 0:
                         mindistance = val
                         vertice = candidateslist[i]
@@ -773,8 +773,7 @@ def G1DListCrossoverIGX(genome, **args):
         brother = gDad.clone()
         brother.resetStats()
         brother.genomeList = [None] * len(gMom.genomeList)
-        gMom.genomeList.reverse();
-        gDad.genomeList.reverse();
+
         stepcounter = len(gDad.genomeList)
         brotherGenome = []
         fatherdll = dcll.DCLL()
@@ -799,7 +798,7 @@ def G1DListCrossoverIGX(genome, **args):
                 t.append(mneighs)
                 candidateslist = [item for sublist in t for item in sublist]
                 for i in range(0, len(candidateslist)):
-                    val = dist[(first % stepcounter) - 1][(candidateslist[i] % stepcounter) - 1]
+                    val = dist[first][candidateslist[i]]
                     if i == 0:
                         mindistance = val
                         vertice = candidateslist[i]
@@ -824,7 +823,7 @@ def G1DListCrossoverIGX(genome, **args):
                 candidateslist = [item for sublist in t for item in sublist]
                 verttemp = vertice
                 for i in range(0, len(candidateslist)):
-                    val = dist[(verttemp % stepcounter) - 1][(candidateslist[i] % stepcounter) - 1]
+                    val = dist[verttemp][candidateslist[i]]
                     if i == 0:
                         mindistance = val
                         vertice = candidateslist[i]
