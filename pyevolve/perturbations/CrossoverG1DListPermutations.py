@@ -186,7 +186,7 @@ def G1DListCrossoverPMX(genome, **args):
     return (sister, brother)
 
 def G1DListCrossoverCycle(genome, **args):
-    """ The Cycle Crossover for G1DList  (Cycle Crossover)
+    """ The Cycle Crossover CX for G1DList  (Cycle Crossover CX)
 
     See more information in the `Cycle Crossover Operator
     <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
@@ -231,6 +231,62 @@ def G1DListCrossoverCycle(genome, **args):
             for ind, val in zip(indices, values):
                 brother.genomeList[ind] = val
             gDad.genomeList, gMom.genomeList = gMom.genomeList, gDad.genomeList
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def G1DListModifiedCrossoverCycle(genome, **args):
+    """ The Modified Cycle Crossover CX2 for G1DList  (Modified Cycle Crossover CX2)
+
+    See more information in the `Modified Cycle Crossover Operator
+    <https://www.hindawi.com/journals/cin/2017/7430125/>`_
+    """
+
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+
+    sister = gMom.clone()
+    sister.resetStats()
+    sister.genomeList = [None] * len(gMom.genomeList)
+    brother = gDad.clone()
+    brother.resetStats()
+    brother.genomeList = [None] * len(gDad.genomeList)
+
+    check1=1
+    check2 = 1
+    sister.genomeList[0] = gDad.genomeList[0];
+    index1 = findIndex(gMom.genomeList, gDad.genomeList[0])
+    index1 = findIndex(gMom.genomeList, gDad[index1])
+    brother.genomeList[0] = gDad.genomeList[index1];
+    i=1
+    while None in sister.genomeList and brother.genomeList:
+        if check1!=0 or check2!=0:
+            index1=findIndex(gMom.genomeList,gDad.genomeList[index1])
+            check1 = findIndex(sister.genomeList, gDad.genomeList[index1])
+            if check1!=0:
+                sister.genomeList[i]=gDad.genomeList[index1];
+            index1 = findIndex(gMom.genomeList, gDad.genomeList[index1])
+            index2 = findIndex(gMom.genomeList, gDad.genomeList[index1])
+            check2 = findIndex(brother.genomeList, gDad.genomeList[index2])
+            if check2!=0:
+                brother.genomeList[i] = gDad.genomeList[index2];
+            index1=index2
+            i=i+1
+        else :
+            res1=findUnusedIndexValues(gMom.genomeList,sister.genomeList )
+            res2=findUnusedIndexValues(gDad.genomeList, brother.genomeList)
+            ans1, ans2= cx2Case2(res1,res2)
+            sister.genomeList[len(gMom.genomeList)-len(ans1):] = ans1
+            brother.genomeList[len(gDad.genomeList) - len(ans2):] = ans2
+
+    if(len(sister.genomeList)!=listSize or len(brother.genomeList)!=listSize):
+        sister.genomeList=gMom.genomeList
+        brother.genomeList=gDad.genomeList
 
     assert listSize == len(sister)
     assert listSize == len(brother)
@@ -422,6 +478,7 @@ def G1DListCrossoverMPX(genome, **args):
 
     while length >= 10:
         length=length/2;
+        length = round(length);
 
     for i in range(c1, c1+length):
         indexs.append(i)
@@ -841,13 +898,56 @@ def G1DListCrossoverIGX(genome, **args):
 
     return (sister, brother)
 
+def cx2Case2(a, b):
+
+    if(len(a)!=0 or len(b)!=0):
+        child1 = [None] * len(a)
+        child2 = [None] * len(b)
+
+        check1 = 1
+        check2 = 1
+        child1[0] = b[0];
+        index1 = findIndex(a, b[0])
+        index1 = findIndex(a, b[index1])
+
+        child2[0] = b[index1];
+        for i in range(1, len(a)):
+            if check1 != 0 or check2 != 0:
+                index1 = findIndex(a, b[index1])
+                check1 = findIndex(child1, b[index1])
+            if check1 != 0:
+                child1[i] = b[index1];
+            index1 = findIndex(a, b[index1])
+            index2 = findIndex(a, b[index1])
+            check2 = findIndex(child2, b[index2])
+            if check2 != 0:
+                child2[i] = b[index2];
+            index1 = index2
+
+        if None in child1 or None in child2:
+            return a, b
+
+        else:
+            return child1, child2
+
+    else:
+        return a, b
+
 def findIndex(array,number):
 
     index=None;
     for i in range(0, len(array)):
         if array[i] == number:
             index=i;
-    return index
+            return index
+    return -1
+
+def findUnusedIndexValues(parent,offspring):
+    res = list()
+    for a in parent:
+        if findIndex(offspring,a) == -1:
+            res.append(a)
+    return res
 
 def dictionaryToMatrix(distance):
 
