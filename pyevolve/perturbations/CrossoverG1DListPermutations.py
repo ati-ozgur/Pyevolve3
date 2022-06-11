@@ -237,56 +237,90 @@ def G1DListCrossoverCycle(genome, **args):
 
     return (sister, brother)
 
-def G1DListModifiedCrossoverCycle(genome, **args):
-    """ The Modified Cycle Crossover CX2 for G1DList  (Modified Cycle Crossover CX2)
+def G1DListCrossoverSequentialConstructive(genome, **args):
 
-    See more information in the `Modified Cycle Crossover Operator
-    <https://www.hindawi.com/journals/cin/2017/7430125/>`_
+    """ The Sequential Constructive Crossover SCX for G1DList  (Sequential Constructive Crossover SCX)
+
+    See more information in the `Sequential Constructive Crossover Operator
+    <https://www.cscjournals.org/manuscript/Journals/IJBB/Volume3/Issue6/IJBB-41.pdf>`_
     """
-
     sister = None
     brother = None
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
 
-    sister = gMom.clone()
-    sister.resetStats()
-    sister.genomeList = [None] * len(gMom.genomeList)
-    brother = gDad.clone()
-    brother.resetStats()
-    brother.genomeList = [None] * len(gDad.genomeList)
+    distance = None
+    distance= gMom.internalParams;
+    dist=dictionaryToMatrix(distance)
 
-    check1=1
-    check2 = 1
-    sister.genomeList[0] = gDad.genomeList[0];
-    index1 = findIndex(gMom.genomeList, gDad.genomeList[0])
-    index1 = findIndex(gMom.genomeList, gDad[index1])
-    brother.genomeList[0] = gDad.genomeList[index1];
-    i=1
-    while None in sister.genomeList and brother.genomeList:
-        if check1!=0 or check2!=0:
-            index1=findIndex(gMom.genomeList,gDad.genomeList[index1])
-            check1 = findIndex(sister.genomeList, gDad.genomeList[index1])
-            if check1!=0:
-                sister.genomeList[i]=gDad.genomeList[index1];
-            index1 = findIndex(gMom.genomeList, gDad.genomeList[index1])
-            index2 = findIndex(gMom.genomeList, gDad.genomeList[index1])
-            check2 = findIndex(brother.genomeList, gDad.genomeList[index2])
-            if check2!=0:
-                brother.genomeList[i] = gDad.genomeList[index2];
-            index1=index2
-            i=i+1
-        else :
-            res1=findUnusedIndexValues(gMom.genomeList,sister.genomeList )
-            res2=findUnusedIndexValues(gDad.genomeList, brother.genomeList)
-            ans1, ans2= cx2Case2(res1,res2)
-            sister.genomeList[len(gMom.genomeList)-len(ans1):] = ans1
-            brother.genomeList[len(gDad.genomeList) - len(ans2):] = ans2
+    if args["count"] >= 1:
 
-    if(len(sister.genomeList)!=listSize or len(brother.genomeList)!=listSize):
-        sister.genomeList=gMom.genomeList
-        brother.genomeList=gDad.genomeList
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList = [None] * len(gMom.genomeList)
+        index1 = 0
+        index2 = 0
+        city=gMom.genomeList[0]
+        sister.genomeList[0]=city
+        count=1
+        unVisitedCities=[]
+        while None in sister.genomeList:
+
+            index1=findIndex(gMom.genomeList,city)
+            index2=findIndex(gDad.genomeList,city)
+
+            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(sister.genomeList, index1, city, gMom.genomeList, dist),
+                                    getNextLegitimateNode(sister.genomeList, index2, city, gDad.genomeList, dist))
+
+            city = (nodeBeta, nodeAlfa)[dist[city - 1][nodeAlfa % listSize - 1] < dist[city - 1][nodeBeta % listSize - 1]]
+
+            if city not in sister.genomeList:
+                sister.genomeList[count]=city
+            elif nodeAlfa not in sister.genomeList:
+                sister.genomeList[count]=nodeAlfa
+                city=nodeAlfa
+            else:
+                unVisitedCities=list(set(gMom.genomeList) - set(sister.genomeList))
+                rand= rand_randint(0, len(unVisitedCities)-1)
+                sister.genomeList[count]=unVisitedCities[rand]
+                city = unVisitedCities[rand]
+
+            count=count+1
+
+    if args["count"] == 2:
+
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList = [None] * len(gDad.genomeList)
+
+        index1 = 0
+        index2 = 0
+        city = gDad.genomeList[0]
+        brother.genomeList[0] = city
+        count = 1
+        unVisitedCities = []
+        while None in brother.genomeList:
+
+            index1 = findIndex(gMom.genomeList, city)
+            index2 = findIndex(gDad.genomeList, city)
+
+            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(brother.genomeList, index1, city, gMom.genomeList, dist),
+                                getNextLegitimateNode(brother.genomeList, index2, city, gDad.genomeList, dist))
+
+            city = (nodeBeta, nodeAlfa)[dist[city - 1][nodeAlfa % listSize - 1] < dist[city - 1][nodeBeta % listSize - 1]]
+            if city not in brother.genomeList:
+                brother.genomeList[count] = city
+            elif nodeAlfa not in brother.genomeList:
+                brother.genomeList[count] = nodeAlfa
+                city = nodeAlfa
+            else:
+                unVisitedCities = list(set(gDad.genomeList) - set(brother.genomeList))
+                rand = rand_randint(0, len(unVisitedCities)-1)
+                brother.genomeList[count] = unVisitedCities[rand]
+                city = unVisitedCities[rand]
+
+            count = count + 1
 
     assert listSize == len(sister)
     assert listSize == len(brother)
@@ -898,40 +932,15 @@ def G1DListCrossoverIGX(genome, **args):
 
     return (sister, brother)
 
-def cx2Case2(a, b):
+def getNextLegitimateNode(childChromosome,p,city,ar,costMatrix):
+    siz = len(costMatrix)
 
-    if(len(a)!=0 or len(b)!=0):
-        child1 = [None] * len(a)
-        child2 = [None] * len(b)
-
-        check1 = 1
-        check2 = 1
-        child1[0] = b[0];
-        index1 = findIndex(a, b[0])
-        index1 = findIndex(a, b[index1])
-
-        child2[0] = b[index1];
-        for i in range(1, len(a)):
-            if check1 != 0 or check2 != 0:
-                index1 = findIndex(a, b[index1])
-                check1 = findIndex(child1, b[index1])
-            if check1 != 0:
-                child1[i] = b[index1];
-            index1 = findIndex(a, b[index1])
-            index2 = findIndex(a, b[index1])
-            check2 = findIndex(child2, b[index2])
-            if check2 != 0:
-                child2[i] = b[index2];
-            index1 = index2
-
-        if None in child1 or None in child2:
-            return a, b
-
-        else:
-            return child1, child2
-
+    if ar[(p+1)%siz] not in childChromosome:
+        return ar[(p+1)%siz]
     else:
-        return a, b
+        LegitimateNode = list(range(0,siz))
+        index=findIndex(LegitimateNode,city)
+        return LegitimateNode[(index+1)%len(LegitimateNode)]
 
 def findIndex(array,number):
 
@@ -940,14 +949,7 @@ def findIndex(array,number):
         if array[i] == number:
             index=i;
             return index
-    return -1
-
-def findUnusedIndexValues(parent,offspring):
-    res = list()
-    for a in parent:
-        if findIndex(offspring,a) == -1:
-            res.append(a)
-    return res
+    return index
 
 def dictionaryToMatrix(distance):
 
