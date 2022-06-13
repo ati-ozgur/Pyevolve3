@@ -237,96 +237,6 @@ def G1DListCrossoverCycle(genome, **args):
 
     return (sister, brother)
 
-def G1DListCrossoverSequentialConstructive(genome, **args):
-
-    """ The Sequential Constructive Crossover SCX for G1DList  (Sequential Constructive Crossover SCX)
-
-    See more information in the `Sequential Constructive Crossover Operator
-    <https://www.cscjournals.org/manuscript/Journals/IJBB/Volume3/Issue6/IJBB-41.pdf>`_
-    """
-    sister = None
-    brother = None
-    gMom = args["mom"]
-    gDad = args["dad"]
-    listSize = len(gMom)
-
-    distance = None
-    distance= gMom.internalParams;
-    dist=dictionaryToMatrix(distance)
-
-    if args["count"] >= 1:
-
-        sister = gMom.clone()
-        sister.resetStats()
-        sister.genomeList = [None] * len(gMom.genomeList)
-        index1 = 0
-        index2 = 0
-        city=gMom.genomeList[0]
-        sister.genomeList[0]=city
-        count=1
-        unVisitedCities=[]
-        while None in sister.genomeList:
-
-            index1=findIndex(gMom.genomeList,city)
-            index2=findIndex(gDad.genomeList,city)
-
-            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(sister.genomeList, index1, city, gMom.genomeList, dist),
-                                    getNextLegitimateNode(sister.genomeList, index2, city, gDad.genomeList, dist))
-
-            city = (nodeBeta, nodeAlfa)[dist[city - 1][nodeAlfa % listSize - 1] < dist[city - 1][nodeBeta % listSize - 1]]
-
-            if city not in sister.genomeList:
-                sister.genomeList[count]=city
-            elif nodeAlfa not in sister.genomeList:
-                sister.genomeList[count]=nodeAlfa
-                city=nodeAlfa
-            else:
-                unVisitedCities=list(set(gMom.genomeList) - set(sister.genomeList))
-                rand= rand_randint(0, len(unVisitedCities)-1)
-                sister.genomeList[count]=unVisitedCities[rand]
-                city = unVisitedCities[rand]
-
-            count=count+1
-
-    if args["count"] == 2:
-
-        brother = gDad.clone()
-        brother.resetStats()
-        brother.genomeList = [None] * len(gDad.genomeList)
-
-        index1 = 0
-        index2 = 0
-        city = gDad.genomeList[0]
-        brother.genomeList[0] = city
-        count = 1
-        unVisitedCities = []
-        while None in brother.genomeList:
-
-            index1 = findIndex(gMom.genomeList, city)
-            index2 = findIndex(gDad.genomeList, city)
-
-            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(brother.genomeList, index1, city, gMom.genomeList, dist),
-                                getNextLegitimateNode(brother.genomeList, index2, city, gDad.genomeList, dist))
-
-            city = (nodeBeta, nodeAlfa)[dist[city - 1][nodeAlfa % listSize - 1] < dist[city - 1][nodeBeta % listSize - 1]]
-            if city not in brother.genomeList:
-                brother.genomeList[count] = city
-            elif nodeAlfa not in brother.genomeList:
-                brother.genomeList[count] = nodeAlfa
-                city = nodeAlfa
-            else:
-                unVisitedCities = list(set(gDad.genomeList) - set(brother.genomeList))
-                rand = rand_randint(0, len(unVisitedCities)-1)
-                brother.genomeList[count] = unVisitedCities[rand]
-                city = unVisitedCities[rand]
-
-            count = count + 1
-
-    assert listSize == len(sister)
-    assert listSize == len(brother)
-
-    return (sister, brother)
-
 def G1DListCrossoverOX2(genome, **args):
     """ Order-based (OX2) Crossover for G1DList  (Order-based (OX2) Crossover)
 
@@ -932,15 +842,75 @@ def G1DListCrossoverIGX(genome, **args):
 
     return (sister, brother)
 
-def getNextLegitimateNode(childChromosome,p,city,ar,costMatrix):
-    siz = len(costMatrix)
+def G1DListCrossoverSequentialConstructive(genome, **args):
 
-    if ar[(p+1)%siz] not in childChromosome:
-        return ar[(p+1)%siz]
-    else:
-        LegitimateNode = list(range(0,siz))
-        index=findIndex(LegitimateNode,city)
-        return LegitimateNode[(index+1)%len(LegitimateNode)]
+    """ The Sequential Constructive Crossover SCX for G1DList  (Sequential Constructive Crossover SCX)
+
+    See more information in the `Sequential Constructive Crossover Operator
+    <https://www.cscjournals.org/manuscript/Journals/IJBB/Volume3/Issue6/IJBB-41.pdf>`_
+    """
+    sister = None
+    brother = None
+    gMom = args["mom"]
+    gDad = args["dad"]
+    listSize = len(gMom)
+
+    distance = None
+    distance= gMom.internalParams;
+    dist=dictionaryToMatrix(distance)
+
+    if args["count"] >= 1:
+
+        sister = gMom.clone()
+        sister.resetStats()
+        sister.genomeList = [None] * len(gMom.genomeList)
+        childChromosome=[]
+        count=1
+        p=0
+        childChromosome=[gMom.genomeList[0]]
+        sister.genomeList[0] = gMom.genomeList[0]
+        while None in sister.genomeList:
+            (nodeAlfa,nodeBeta)= (getNextLegitimateNode(childChromosome,gMom.genomeList,p,dist) , getNextLegitimateNode(childChromosome,gDad.genomeList,p,dist))
+            p=( nodeBeta,nodeAlfa) [dist[p][nodeAlfa]<dist[p][nodeBeta]]
+            childChromosome.append(p)
+            sister.genomeList[count]=childChromosome[count]
+            count=count+1
+
+    if args["count"] == 2:
+
+        brother = gDad.clone()
+        brother.resetStats()
+        brother.genomeList = [None] * len(gDad.genomeList)
+
+        childChromosome = []
+        p = 0
+        childChromosome = [gDad.genomeList[0]]
+        brother.genomeList[0] = gDad.genomeList[0]
+        count = 1
+        while None in brother.genomeList:
+            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(childChromosome, gMom.genomeList, p, dist),getNextLegitimateNode(childChromosome, gDad.genomeList, p, dist))
+            p = (nodeBeta, nodeAlfa)[dist[p][nodeAlfa] < dist[p][nodeBeta]]
+            childChromosome.append(p)
+            brother.genomeList[count] = childChromosome[count]
+            count = count+1
+
+    assert listSize == len(sister)
+    assert listSize == len(brother)
+
+    return (sister, brother)
+
+def getNextLegitimateNode(childChromosome,ar,p,costMatrix):
+    siz = len(costMatrix)
+    try:
+        return list(filter(lambda x: x not in childChromosome, cutNotApplicableSectionOfList(ar, p,costMatrix)))[0]
+    except IndexError:
+        pass
+    return list(filter(lambda x: x not in childChromosome, range(0, siz)))[0]
+
+def cutNotApplicableSectionOfList(ar,p,costMatrix) :
+        siz = len(costMatrix)
+        ind=findIndex(ar,p)
+        return (list(ar)[ind+1:], [])[ind==siz]
 
 def findIndex(array,number):
 
