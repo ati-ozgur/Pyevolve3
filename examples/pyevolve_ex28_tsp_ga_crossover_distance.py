@@ -32,7 +32,7 @@ dict_crossoever_operators = {
 }
 
 
-random.seed(1024)
+
 
 PIL_SUPPORT = None
 
@@ -175,9 +175,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='crossover, tsp problems')
 
     parser.add_argument('--crossover', help="cross over operator to use", default='G1DListCrossoverPMX')
+    parser.add_argument('--randomseed', help="random seed to use", default='1024', type=int)
 
     args = parser.parse_args()
     crossover_operator_name = args.crossover
+    randomseed = args.randomseed
+    random.seed(randomseed)
     if crossover_operator_name not in dict_crossoever_operators:
         raise ValueError( crossover_operator_name + 'is not in dict_crossoever_operators')
     else:
