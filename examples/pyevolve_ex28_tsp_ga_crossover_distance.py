@@ -8,31 +8,28 @@ import time
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverPMX
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverOX
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverOX2
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverCycle
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverPOS
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverMPX
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverEdge
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverEPMX
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverGreedy
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverIGX
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverSequentialConstructive
+from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverPMX, G1DListCrossoverOX,G1DListCrossoverOX2, G1DListCrossoverCycle,G1DListCrossoverPOS,G1DListCrossoverMPX,G1DListCrossoverEdge,G1DListCrossoverEPMX,G1DListCrossoverGreedy,G1DListCrossoverIGX,G1DListCrossoverSequentialConstructive
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorDisplacement
 from pyevolve import Consts
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
 from pyevolve.selections import SelectionRank
 import collections
+import argparse
 collections.Callable = collections.abc.Callable
 
 dict_crossoever_operators = {
-"G1DListCrossoverPMX":G1DListCrossoverPMX,
-"G1DListCrossoverOX":G1DListCrossoverOX
+"PMX":G1DListCrossoverPMX,
+"OX":G1DListCrossoverOX,
+"OX2":G1DListCrossoverOX2,
+"CX":G1DListCrossoverCycle,
+"POS":G1DListCrossoverPOS,
+"MPX":G1DListCrossoverMPX,
+"ERX":G1DListCrossoverEdge,
+"EPMX":G1DListCrossoverEPMX,
+"GX":G1DListCrossoverGreedy,
+"IGX":G1DListCrossoverIGX,
+"SCX":G1DListCrossoverSequentialConstructive
 }
-
-
-
 
 PIL_SUPPORT = None
 
@@ -50,7 +47,6 @@ LAST_SCORE = -1
 RESULTS_DIRECTORY = "tspimg"
 GENERATION_COUNT = 1001
 filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) +1
-f = open("Best Fitness.txt", "w")
 
 def cartesian_matrix(coords):
     """ A distance matrix """
@@ -122,7 +118,6 @@ def evolve_callback(ga_engine):
 
     return False
 
-
 def main_run(crossover_operator_func,problemname):
     global cm, coords, WIDTH, HEIGHT, CITIES
     filename = 'data/' + problemname + '.tsp'
@@ -165,17 +160,16 @@ def main_run(crossover_operator_func,problemname):
     print(end - start)
     print(best)
     if PIL_SUPPORT:
-       write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
+    # write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
+        print("PIL detected, cannot plot the graph !")
     else:
         print("No PIL detected, cannot plot the graph !")
-
-import argparse
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='crossover, tsp problems')
 
-    parser.add_argument('--crossover', help="cross over operator to use", default='G1DListCrossoverPMX')
+    parser.add_argument('--crossover', help="cross over operator to use", default='PMX')
     parser.add_argument('--problemname', help="TSP problem filename", default='gr21')
     parser.add_argument('--randomseed', help="random seed to use", default='1024', type=int)
 
@@ -190,4 +184,5 @@ if __name__ == "__main__":
         crossover_operator_func = dict_crossoever_operators[crossover_operator_name]
 
     print(args)
+    f = open(crossover_operator_name+"_" +problemname+"_"+"Experiment"+".txt", "w")
     main_run(crossover_operator_func,problemname)

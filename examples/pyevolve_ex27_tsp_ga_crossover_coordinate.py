@@ -4,18 +4,32 @@ import random
 import math
 import tsplib95
 import os
+import time
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverPMX
+from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverPMX, G1DListCrossoverOX,G1DListCrossoverOX2, G1DListCrossoverCycle,G1DListCrossoverPOS,G1DListCrossoverMPX,G1DListCrossoverEdge,G1DListCrossoverEPMX,G1DListCrossoverGreedy,G1DListCrossoverIGX,G1DListCrossoverSequentialConstructive
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorDisplacement
 from pyevolve import Consts
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
 from pyevolve.selections import SelectionRank
 import collections
+import argparse
 collections.Callable = collections.abc.Callable
 
-random.seed(1024)
+dict_crossoever_operators = {
+"PMX":G1DListCrossoverPMX,
+"OX":G1DListCrossoverOX,
+"OX2":G1DListCrossoverOX2,
+"CX":G1DListCrossoverCycle,
+"POS":G1DListCrossoverPOS,
+"MPX":G1DListCrossoverMPX,
+"ERX":G1DListCrossoverEdge,
+"EPMX":G1DListCrossoverEPMX,
+"GX":G1DListCrossoverGreedy,
+"IGX":G1DListCrossoverIGX,
+"SCX":G1DListCrossoverSequentialConstructive
+}
 
 PIL_SUPPORT = None
 
@@ -31,9 +45,8 @@ CITIES = None
 LAST_SCORE = -1
 
 RESULTS_DIRECTORY = "tspimg"
-GENERATION_COUNT = 200000
+GENERATION_COUNT = 1001
 filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) +1
-
 def cartesian_matrix(coords):
     """ A distance matrix """
     matrix = {}
@@ -95,18 +108,20 @@ def evolve_callback(ga_engine):
     if not os.path.exists(RESULTS_DIRECTORY):
         os.makedirs(RESULTS_DIRECTORY)
 
-    if current_generation % 100 == 0:
+    if current_generation % 1 == 0:
         best = ga_engine.bestIndividual()
         if LAST_SCORE != best.getRawScore():
+            f.write(str(best.getRawScore())+"\n")
             filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
-            write_tour_to_img(coords, best, filename )
+            #write_tour_to_img(coords, best, filename )
 
     return False
 
 
-def main_run():
+def main_run(crossover_operator_func,problemname):
     global cm, coords, WIDTH, HEIGHT, CITIES
-    path = os.path.join(os.path.dirname(__file__), 'data/berlin52.tsp')
+    filename = 'data/' + problemname + '.tsp'
+    path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
     print(list(problem.get_nodes()))
 
@@ -117,7 +132,7 @@ def main_run():
 
     genome.setParams(dist=cm)
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
-    genome.crossover.set(G1DListCrossoverPMX)
+    genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorDisplacement)
     genome.initializator.set(G1DListTSPInitializatorRandom)
 
@@ -134,8 +149,12 @@ def main_run():
     if PIL_SUPPORT:
         ga.stepCallback.set(evolve_callback)
     # 21666.49
+    start = time.time()
     ga.evolve(freq_stats=1)
+    end = time.time()
     best = ga.bestIndividual()
+    print(end - start)
+    print(best)
 
     if PIL_SUPPORT:
         write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
@@ -144,4 +163,22 @@ def main_run():
 
 
 if __name__ == "__main__":
-    main_run()
+    parser = argparse.ArgumentParser(description='crossover, tsp problems')
+
+    parser.add_argument('--crossover', help="cross over operator to use", default='OX')
+    parser.add_argument('--problemname', help="TSP problem filename", default='eil51')
+    parser.add_argument('--randomseed', help="random seed to use", default='1024', type=int)
+
+    args = parser.parse_args()
+    crossover_operator_name = args.crossover
+    randomseed = args.randomseed
+    random.seed(randomseed)
+    problemname = args.problemname
+    if crossover_operator_name not in dict_crossoever_operators:
+        raise ValueError( crossover_operator_name + 'is not in dict_crossoever_operators')
+    else:
+        crossover_operator_func = dict_crossoever_operators[crossover_operator_name]
+
+    print(args)
+    f = open(crossover_operator_name+"_" +problemname+"_"+"Experiment"+".txt", "w")
+    main_run(crossover_operator_func,problemname)
