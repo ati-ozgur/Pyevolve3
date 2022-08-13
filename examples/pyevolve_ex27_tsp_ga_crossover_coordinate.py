@@ -165,7 +165,7 @@ def main_run(crossover_operator_func,problemname):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='crossover, tsp problems')
 
-    parser.add_argument('--crossover', help="cross over operator to use", default='OX')
+    parser.add_argument('--crossover', help="cross over operator to use", default='PMX')
     parser.add_argument('--problemname', help="TSP problem filename", default='eil51')
     parser.add_argument('--randomseed', help="random seed to use", default='1024', type=int)
 
