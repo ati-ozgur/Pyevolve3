@@ -158,7 +158,8 @@ def main_run(crossover_operator_func,problemname):
     end = time.time()
     best = ga.bestIndividual()
     print(end - start)
-    print(best)
+    f.write(str(end - start) + "\n")
+
     if PIL_SUPPORT:
     # write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
         print("PIL detected, cannot plot the graph !")
@@ -167,22 +168,25 @@ def main_run(crossover_operator_func,problemname):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description='crossover, tsp problems')
+    methods=["IGX","SCX"]
+    randomseed=1001
+for m in range(0,len(methods)):
+    for i in range(1, 31):
+        parser = argparse.ArgumentParser(description='crossover, tsp problems')
+        parser.add_argument('--crossover', help="cross over operator to use", default=methods[m])
+        parser.add_argument('--problemname', help="TSP problem filename", default='rbg323')
+        parser.add_argument('--randomseed', help="random seed to use", default=randomseed, type=int)
+        randomseed=randomseed+1
+        args = parser.parse_args()
+        crossover_operator_name = args.crossover
+        randomseed = args.randomseed
+        random.seed(randomseed)
+        problemname = args.problemname
+        if crossover_operator_name not in dict_crossoever_operators:
+            raise ValueError( crossover_operator_name + 'is not in dict_crossoever_operators')
+        else:
+            crossover_operator_func = dict_crossoever_operators[crossover_operator_name]
 
-    parser.add_argument('--crossover', help="cross over operator to use", default='PMX')
-    parser.add_argument('--problemname', help="TSP problem filename", default='gr21')
-    parser.add_argument('--randomseed', help="random seed to use", default='1024', type=int)
-
-    args = parser.parse_args()
-    crossover_operator_name = args.crossover
-    randomseed = args.randomseed
-    random.seed(randomseed)
-    problemname = args.problemname
-    if crossover_operator_name not in dict_crossoever_operators:
-        raise ValueError( crossover_operator_name + 'is not in dict_crossoever_operators')
-    else:
-        crossover_operator_func = dict_crossoever_operators[crossover_operator_name]
-
-    print(args)
-    f = open(crossover_operator_name+"_" +problemname+"_"+"Experiment"+".txt", "w")
-    main_run(crossover_operator_func,problemname)
+        print(args)
+        f = open(crossover_operator_name+"_" +problemname+"_"+"Experiment_"+str(randomseed)+".txt", "w")
+        main_run(crossover_operator_func,problemname)
