@@ -9,7 +9,7 @@ import time
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverPMX, G1DListCrossoverOX,G1DListCrossoverOX2, G1DListCrossoverCycle,G1DListCrossoverPOS,G1DListCrossoverMPX,G1DListCrossoverEdge,G1DListCrossoverEPMX,G1DListCrossoverGreedy,G1DListCrossoverIGX,G1DListCrossoverSequentialConstructive
-from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorDisplacement
+from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorSwap,G1DListMutatorSimpleInversion,G1DListMutatorScramble, G1DListMutatorDisplacement,G1DListMutatorInversion,G1DListMutatorInsertion
 from pyevolve import Consts
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
 from pyevolve.selections import SelectionRank
@@ -133,7 +133,7 @@ def main_run(crossover_operator_func,problemname):
     genome.setParams(dist=cm)
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
     genome.crossover.set(crossover_operator_func)
-    genome.mutator.set(G1DListMutatorDisplacement)
+    genome.mutator.set(G1DListMutatorSwap)
     genome.initializator.set(G1DListTSPInitializatorRandom)
 
     # 3662.69
@@ -163,22 +163,26 @@ def main_run(crossover_operator_func,problemname):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='crossover, tsp problems')
 
-    parser.add_argument('--crossover', help="cross over operator to use", default='PMX')
-    parser.add_argument('--problemname', help="TSP problem filename", default='eil51')
-    parser.add_argument('--randomseed', help="random seed to use", default='1024', type=int)
+    methods = ["IGX", "SCX"]
+    randomseed=1001
+for m in range(0, len(methods)):
+    for i in range(1, 31):
+        parser = argparse.ArgumentParser(description='crossover, tsp problems')
+        parser.add_argument('--crossover', help="cross over operator to use", default=methods[m])
+        parser.add_argument('--problemname', help="TSP problem filename", default='eil51')
+        parser.add_argument('--randomseed', help="random seed to use", default=randomseed, type=int)
+        randomseed = randomseed + 1
+        args = parser.parse_args()
+        crossover_operator_name = args.crossover
+        randomseed = args.randomseed
+        random.seed(randomseed)
+        problemname = args.problemname
+        if crossover_operator_name not in dict_crossoever_operators:
+            raise ValueError( crossover_operator_name + 'is not in dict_crossoever_operators')
+        else:
+            crossover_operator_func = dict_crossoever_operators[crossover_operator_name]
 
-    args = parser.parse_args()
-    crossover_operator_name = args.crossover
-    randomseed = args.randomseed
-    random.seed(randomseed)
-    problemname = args.problemname
-    if crossover_operator_name not in dict_crossoever_operators:
-        raise ValueError( crossover_operator_name + 'is not in dict_crossoever_operators')
-    else:
-        crossover_operator_func = dict_crossoever_operators[crossover_operator_name]
-
-    print(args)
-    f = open(crossover_operator_name+"_" +problemname+"_"+"Experiment"+".txt", "w")
-    main_run(crossover_operator_func,problemname)
+        print(args)
+        f = open(crossover_operator_name+"_" +problemname+"_"+"Experiment"+".txt", "w")
+        main_run(crossover_operator_func,problemname)

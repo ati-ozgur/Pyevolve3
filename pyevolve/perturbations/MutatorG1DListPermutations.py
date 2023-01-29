@@ -6,14 +6,13 @@ import numpy as np
 
 from .MutatorG1DList import G1DListMutatorSwap
 
-
 def G1DListMutatorSwap(genome: G1DList, **args):
     """ The mutator of G1DList, Swap Mutator
 
     .. note:: this mutator is :term:`Data Type Independent`
 
     """
-    
+
     mutations = 0
     pmut = args["pmut"]
     if pmut <= 0.0:
@@ -43,8 +42,11 @@ def G1DListMutatorSimpleInversion(genome, **args):
     """
 
     mutations = 0
-    if args["pmut"] <= 0.0:
-        return 0
+    pmut = args["pmut"]
+    if pmut <= 0.0:
+        return mutations
+    if not Util.randomFlipCoin(pmut):
+        return mutations
 
     cuts = [rand_randint(0, len(genome)), rand_randint(0, len(genome))]
 
@@ -54,10 +56,8 @@ def G1DListMutatorSimpleInversion(genome, **args):
     if (cuts[1] - cuts[0]) <= 0:
         cuts[1] = rand_randint(cuts[0], len(genome))
 
-    if Util.randomFlipCoin(args["pmut"]):
         part = genome[cuts[0]:cuts[1]]
-        if len(part) == 0:
-            return 0
+
         part.reverse()
         genome[cuts[0]:cuts[1]] = part
         mutations += 1
@@ -73,8 +73,11 @@ def G1DListMutatorScramble(genome, **args):
     """
 
     mutations = 0
-    if args["pmut"] <= 0.0:
-        return 0
+    pmut = args["pmut"]
+    if pmut <= 0.0:
+        return mutations
+    if not Util.randomFlipCoin(pmut):
+        return mutations
 
     cuts = [rand_randint(0, len(genome)), rand_randint(0, len(genome))]
 
@@ -84,10 +87,8 @@ def G1DListMutatorScramble(genome, **args):
     if (cuts[1] - cuts[0]) <= 0:
         cuts[1] = rand_randint(cuts[0], len(genome))
 
-    if Util.randomFlipCoin(args["pmut"]):
         part = genome[cuts[0]:cuts[1]]
-        if len(part) == 0:
-            return 0
+
         np.random.shuffle(part)
         genome[cuts[0]:cuts[1]] = part
         mutations += 1
@@ -103,8 +104,11 @@ def G1DListMutatorDisplacement(genome, **args):
     """
 
     mutations = 0
-    if args["pmut"] <= 0.0:
-        return 0
+    pmut = args["pmut"]
+    if pmut <= 0.0:
+        return mutations
+    if not Util.randomFlipCoin(pmut):
+        return mutations
 
     cuts = [rand_randint(0, len(genome)), rand_randint(0, len(genome))]
 
@@ -114,10 +118,8 @@ def G1DListMutatorDisplacement(genome, **args):
     if (cuts[1] - cuts[0]) <= 0:
         cuts[1] = rand_randint(cuts[0], len(genome))
 
-    if Util.randomFlipCoin(args["pmut"]):
-        part = genome[cuts[0]:cuts[1]]
-        if len(part) == 0:
-            return 0
+    part = genome[cuts[0]:cuts[1]]
+
     del genome.genomeList[cuts[0]:cuts[1]]
 
     cut = [rand_randint(0, len(genome))]
@@ -135,8 +137,11 @@ def G1DListMutatorInversion(genome, **args):
     """
 
     mutations = 0
-    if args["pmut"] <= 0.0:
-        return 0
+    pmut = args["pmut"]
+    if pmut <= 0.0:
+        return mutations
+    if not Util.randomFlipCoin(pmut):
+        return mutations
 
     cuts = [rand_randint(0, len(genome)), rand_randint(0, len(genome))]
 
@@ -146,10 +151,8 @@ def G1DListMutatorInversion(genome, **args):
     if (cuts[1] - cuts[0]) <= 0:
         cuts[1] = rand_randint(cuts[0], len(genome))
 
-    if Util.randomFlipCoin(args["pmut"]):
-        part = genome[cuts[0]:cuts[1]]
-        if len(part) == 0:
-            return 0
+    part = genome[cuts[0]:cuts[1]]
+
     del genome.genomeList[cuts[0]:cuts[1]]
 
     cut = [rand_randint(0, len(genome))]
