@@ -167,8 +167,8 @@ def main_run(crossover_operator_func,problemname):
 if __name__ == "__main__":
 
     methods = ["PMX", "CX", "OX", "OX2", "MPX", "POS", "ERX", "EPMX", "GX", "IGX", "SCX"]
-    randomseed=1000
 for m in range(0,len(methods)):
+    randomseed = 1000
     for i in range(1, 31):
         parser = argparse.ArgumentParser(description='crossover, tsp problems')
         parser.add_argument('--crossover', help="cross over operator to use", default=methods[m])
