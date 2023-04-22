@@ -127,8 +127,7 @@ def main_run(crossover_operator_func,problemname):
 
     CITIES=170
     problem = numpy.loadtxt(filename, delimiter=',', skiprows=1, usecols=range(1, CITIES+1))
-    #problem=numpy.loadtxt(filename,delimiter=',',skiprows=1,usecols=range(1,471))
-    #problem = numpy.loadtxt(filename, delimiter='|', skiprows=1, usecols=range(1, 502))
+    #problem = numpy.loadtxt(filename, delimiter='|', skiprows=1, usecols=range(1, CITIES+1))
 
     for i in range(0,CITIES):
         for j in range(0, CITIES):
