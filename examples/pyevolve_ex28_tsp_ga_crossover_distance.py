@@ -149,9 +149,7 @@ def main_run(crossover_operator_func,problemname):
     ga.setPopulationSize(80)
     ga.selector.set(SelectionRank.SelectorLinearRanking)
 
-    # This is to make a video
-    if PIL_SUPPORT:
-        ga.stepCallback.set(evolve_callback)
+    ga.stepCallback.set(evolve_callback)
     # 21666.49
     start = time.time()
     ga.evolve(freq_stats=1)
@@ -168,15 +166,15 @@ def main_run(crossover_operator_func,problemname):
 
 if __name__ == "__main__":
 
-    methods=["IGX","SCX"]
-    randomseed=1001
+    methods = ["PMX", "CX", "OX", "OX2", "MPX", "POS", "ERX", "EPMX", "GX", "IGX", "SCX"]
+    randomseed=1000
 for m in range(0,len(methods)):
     for i in range(1, 31):
         parser = argparse.ArgumentParser(description='crossover, tsp problems')
         parser.add_argument('--crossover', help="cross over operator to use", default=methods[m])
-        parser.add_argument('--problemname', help="TSP problem filename", default='rbg323')
+        parser.add_argument('--problemname', help="TSP problem filename", default='gr21')
+        randomseed = randomseed + 1
         parser.add_argument('--randomseed', help="random seed to use", default=randomseed, type=int)
-        randomseed=randomseed+1
         args = parser.parse_args()
         crossover_operator_name = args.crossover
         randomseed = args.randomseed
