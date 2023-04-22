@@ -137,7 +137,7 @@ def main_run(crossover_operator_func,problemname):
     genome.setParams(dist=cm)
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
     genome.crossover.set(crossover_operator_func)
-    genome.mutator.set(G1DListMutatorDisplacement)
+    genome.mutator.set(G1DListMutatorSwap)
     genome.initializator.set(G1DListTSPInitializatorRandom)
 
     # 3662.69
