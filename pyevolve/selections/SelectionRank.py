@@ -30,8 +30,42 @@ def SelectorLinearRanking(population: GPopulation, **args):
 
 
     selected = random.choices(list(range(popSize)),weights=prob_weights)[0]
+
+    x=population[selected]
     return  population[selected]
 
 
 SelectorLinearRanking.cachePopID = None
 SelectorLinearRanking.probabilityWeights = None
+
+
+def SelectorExponentialRanking(population: GPopulation, **args):
+    """ The Exponential Ranking Selector
+       """
+    c=1.2;
+    sorted_fitness = sorted(population, key=lambda x: x.fitness)
+    s = []
+    s.append(0)
+    newPop = []
+    p = []
+    N = len(population)
+
+    for i in range(0, len(population)):
+        p.append(((c - 1) / ((pow(c,N)) - 1) * (pow(c,(N - i)))))
+
+    for i in range(1, len(population)):
+        s.append(s[i - 1] + p[i])
+
+    sSort = sorted(s)
+
+
+    for i in range(0, len(population)):
+        r = random.uniform(0, s[-1])
+        pUp = 0
+        for j in range(0, len(s)):
+            if (sSort[j] < r):
+                pUp = s[j]
+        result = s.index(pUp)
+        newPop.append(sorted_fitness[result])
+    return newPop[result]
+
