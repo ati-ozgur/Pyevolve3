@@ -38,34 +38,73 @@ def SelectorLinearRanking(population: GPopulation, **args):
 SelectorLinearRanking.cachePopID = None
 SelectorLinearRanking.probabilityWeights = None
 
-
 def SelectorExponentialRanking(population: GPopulation, **args):
     """ The Exponential Ranking Selector
        """
-    c=1.2;
-    sorted_fitness = sorted(population, key=lambda x: x.fitness)
-    s = []
-    s.append(0)
-    newPop = []
-    p = []
-    N = len(population)
+    c=0.9;
+    popSize = len(population)
+    if not population.sorted:
+        population.sort()
 
-    for i in range(0, len(population)):
-        p.append(((c - 1) / ((pow(c,N)) - 1) * (pow(c,(N - i)))))
+    if args["popID"] != SelectorExponentialRanking.cachePopID:
 
-    for i in range(1, len(population)):
-        s.append(s[i - 1] + p[i])
+        start = popSize
+        prob_counts = [0] * popSize
+        current_score = population.bestRaw().score
+        for index in range(popSize):
+            if population[index].score != current_score:
+                start = start - 1
+            prob_counts[index] = start
 
-    sSort = sorted(s)
+        prob_weights = [];
+        for a in prob_counts:
+            prob_weights.append(((c - 1) / ((pow(c, popSize)) - 1) * (pow(c, (popSize - a)))))
+        SelectorExponentialRanking.cachePopID = args["popID"]
+        SelectorExponentialRanking.probabilityWeights = prob_weights
 
+    else:
+        prob_weights = SelectorExponentialRanking.probabilityWeights
 
-    for i in range(0, len(population)):
-        r = random.uniform(0, s[-1])
-        pUp = 0
-        for j in range(0, len(s)):
-            if (sSort[j] < r):
-                pUp = s[j]
-        result = s.index(pUp)
-        newPop.append(sorted_fitness[result])
-    return newPop[result]
+    selected = random.choices(list(range(popSize)), weights=prob_weights)[0]
 
+    return population[selected]
+
+SelectorExponentialRanking.probabilityWeights = None
+SelectorExponentialRanking.cachePopID = None
+def SelectorSplitRanking(population: GPopulation, **args):
+        """ The Split Ranking Selector
+        """
+        lamda1 = 0.3;
+        lamda2 = 0.7;
+        popSize = len(population)
+        if not population.sorted:
+            population.sort()
+
+        if args["popID"] != SelectorSplitRanking.cachePopID:
+
+            start = popSize
+            prob_counts = [0] * popSize
+            current_score = population.bestRaw().score
+            for index in range(popSize):
+                if population[index].score != current_score:
+                    start = start - 1
+                prob_counts[index] = start
+
+            prob_weights=[];
+            for a in prob_counts:
+                if(a<=popSize/2):
+                    prob_weights.append(lamda1*((8*a)/popSize*(popSize+2)));
+                else:
+                    prob_weights.append(lamda2 * ((8 * a) / popSize * (3*popSize + 2)));
+            SelectorSplitRanking.cachePopID = args["popID"]
+            SelectorSplitRanking.probabilityWeights = prob_weights
+
+        else:
+            prob_weights = SelectorSplitRanking.probabilityWeights
+
+        selected = random.choices(list(range(popSize)), weights=prob_weights)[0]
+
+        return population[selected]
+
+SelectorSplitRanking.probabilityWeights = None
+SelectorSplitRanking.cachePopID = None
