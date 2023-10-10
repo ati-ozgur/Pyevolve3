@@ -57,8 +57,8 @@ def SelectorExponentialRanking(population: GPopulation, **args):
             prob_counts[index] = start
 
         prob_weights = [];
-        for a in prob_counts:
-            prob_weights.append(((c - 1) / ((pow(c, popSize)) - 1) * (pow(c, (popSize - a)))))
+        for i in prob_counts:
+            prob_weights.append(((c - 1) / ((pow(c, popSize)) - 1) * (pow(c, (popSize - i)))))
         SelectorExponentialRanking.cachePopID = args["popID"]
         SelectorExponentialRanking.probabilityWeights = prob_weights
 
@@ -91,11 +91,11 @@ def SelectorSplitRanking(population: GPopulation, **args):
                 prob_counts[index] = start
 
             prob_weights=[];
-            for a in prob_counts:
-                if(a<=popSize/2):
-                    prob_weights.append(lamda1*((8*a)/popSize*(popSize+2)));
+            for i in prob_counts:
+                if(i<=popSize/2):
+                    prob_weights.append(lamda1*((8*i)/popSize*(popSize+2)));
                 else:
-                    prob_weights.append(lamda2 * ((8 * a) / popSize * (3*popSize + 2)));
+                    prob_weights.append(lamda2 * ((8 * i) / popSize * (3*popSize + 2)));
             SelectorSplitRanking.cachePopID = args["popID"]
             SelectorSplitRanking.probabilityWeights = prob_weights
 
