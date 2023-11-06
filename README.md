@@ -4,6 +4,9 @@ This project started as Python 3 version of pyevolve.
 But right now, more focus is given to more genetic algorithm operators, especially those special operators which works for TSP (Traveling Salesperson Problem).
 
 
+## Installation 
+
+	python -m pip install git+https://github.com/ati-ozgur/Pyevolve3.git@main
 
 
 ## Python 3 Version of PyEvolve
