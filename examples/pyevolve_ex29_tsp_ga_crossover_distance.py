@@ -148,7 +148,7 @@ def main_run(crossover_operator_func,problemname):
     ga.setCrossoverRate(1.0)
     ga.setMutationRate(0.02)
     ga.setPopulationSize(80)
-    ga.selector.set(SelectionRank.SelectorLinearRanking)
+    ga.selector.set(SelectionRank.SelectorProposed)
 
     ga.stepCallback.set(evolve_callback)
     # 21666.49
