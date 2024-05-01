@@ -175,7 +175,6 @@ def G1DListCrossoverCSOX(genome, **kwargs):
     for i in range(3):
         if i == 0:
             pos1, pos2 = r1, r2
-
             p1 = [c for c in g_mom[pos2 + 1:] + g_mom[:pos2 + 1] if c not in g_dad[pos1:pos2 + 1]]
             p2 = [c for c in g_dad[pos2 + 1:] + g_dad[:pos2 + 1] if c not in g_mom[pos1:pos2 + 1]]
         elif i == 1:
@@ -191,5 +190,10 @@ def G1DListCrossoverCSOX(genome, **kwargs):
 
         O[2 * i], O[2 * i + 1] = [None] * g_mom_len, [None] * g_mom_len
 
-        O[2 * i] = p2[-pos1:] + g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
-        O[2 * i + 1] = p1[-pos1:] + g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
+        if pos1 == 0:
+            O[2 * i] = g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
+            O[2 * i + 1] = g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
+
+        else:
+            O[2 * i] = p2[-pos1:] + g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
+            O[2 * i + 1] = p1[-pos1:] + g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
