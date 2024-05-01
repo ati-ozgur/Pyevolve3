@@ -166,6 +166,11 @@ def G1DListCrossoverSRX(genome, **kwargs):
 
 
 def G1DListCrossoverCSOX(genome, **kwargs):
+    """
+        The Complete Sub tour Order Crossover for Traveling Salesman Problem Solving
+
+        <https://ieeexplore.ieee.org/abstract/document/9895081>
+    """
     g_mom, g_dad = kwargs["mom"], kwargs["dad"]
     O = [None] * 6
     g_mom_len = len(g_mom)
