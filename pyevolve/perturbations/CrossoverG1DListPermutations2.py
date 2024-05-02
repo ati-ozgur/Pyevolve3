@@ -1,5 +1,6 @@
 from random import randint as rand_randint
 
+from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverOX, G1DListCrossoverPMX
 from pyevolve.perturbations.G1DListCrossoverSRX_Helper import connect_sub_tours, generate_genome
 
 """
@@ -202,3 +203,14 @@ def G1DListCrossoverCSOX(genome, **kwargs):
         else:
             O[2 * i] = p2[-pos1:] + g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
             O[2 * i + 1] = p1[-pos1:] + g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
+
+
+def G1DListCrossoverPropMC(genome, **kwargs):
+    """
+        Novel Crossover Operator for Genetic Algorithm for Permutation Problems
+        <https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=a3cba4955512230e4a8314d4bbd8b3aa5bf85b53>
+    """
+    sister1, brother1 = G1DListCrossoverPMX(genome, **kwargs)
+    sister2, brother2 = G1DListCrossoverOX(genome, **kwargs)
+
+    return sister1, brother2
