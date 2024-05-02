@@ -214,3 +214,33 @@ def G1DListCrossoverPropMC(genome, **kwargs):
     sister2, brother2 = G1DListCrossoverOX(genome, **kwargs)
 
     return sister1, brother2
+
+
+def G1DListCrossoverUX(genome, **kwargs):
+    """
+        Uniform crossover in genetic algorithms
+        <https://www.researchgate.net/profile/Gilbert-Syswerda-3/publication/201976488_Uniform_Crossover_in_Genetic_Algorithms/links/5f84cf27299bf1b53e22ee7c/Uniform-Crossover-in-Genetic-Algorithms.pdf>
+
+        Ccgdc: A new crossover operator for genetic data clustering
+        <https://scholar.archive.org/work/yxts2ace4rcxfjugvhdjby2o3a/access/wayback/https://www.isr-publications.com/jmcs/691/download-ccgdc-a-new-crossover-operator-for-genetic-data-clustering>
+    """
+
+    g_mom, g_dad = kwargs["mom"], kwargs["dad"]
+    sister, brother = None, None
+
+    g_mom_length = len(g_mom)
+    mask = [rand_randint(0, 1) for _ in range(g_mom_length)]
+
+    if kwargs["count"] >= 1:
+        sister = g_mom.clone()
+        sister.resetStats()
+
+        sister.genomeList = [g_mom[index] if element == 0 else g_dad[index] for index, element in enumerate(mask)]
+
+    if kwargs["count"] == 2:
+        brother = g_dad.clone()
+        sister.resetStats()
+
+        brother.gnomeList = [g_dad[index] if element == 0 else g_mom[index] for index, element in enumerate(mask)]
+
+    return sister, brother
