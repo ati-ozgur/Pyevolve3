@@ -1,5 +1,19 @@
 from random import randint as rand_randint
 
+from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverOX, G1DListCrossoverPMX
+from pyevolve.perturbations.G1DListCrossoverSRX_Helper import connect_sub_tours, generate_genome
+
+"""
+g_mom.genomeList -> 1D List
+g_mom.genomeList = [27, 30, 36, 50, 39, 6, 24, 9, 13, 43, 10, 20, 29, 22, 40, 7, 33, 1, 34, 28, 31, 26, 16, 25, 12, 8, 45, 4, 2, 49, 0, 44, 17, 41, 32, 21, 48, 19, 37, 35, 42, 47, 15, 46, 3, 23, 11, 38, 14, 5, 18]
+
+sister or brother are clones of the parents.
+The difference is hidden in their genomeList.
+
+sister = g_mom.clone()
+sister.genomeList = [22, 40, 7, 31, 26, 16, 45, 2, 49, 44, 47, 15, 3, 23, 19, 48, 14, 8, 5, 1, 27, 29, 11, 4, 21, 9, 18, 24, 34, 25, 42, 39, 38, 37, 33, 10, 30, 17, 46, 6, 28, 36, 43, 12, 41, 32, 35, 13, 0, 50, 20]
+"""
+
 
 def G1DListCrossoverOX6(genome, **kwargs):
     """ The OX6 Crossover for G1DList  (order crossover)
@@ -112,5 +126,121 @@ def G1DListCrossoverTPX(genome, **kwargs):
 
     assert list_size == len(sister)
     assert list_size == len(brother)
+
+    return sister, brother
+
+
+def G1DListCrossoverSRX(genome, **kwargs):
+    """
+    Sub-tour Recombination crossover for TSP
+
+    <https://link.springer.com/article/10.1007/s10015-010-0866-8>
+    """
+
+    """
+    Preliminary experiments revealed that the appropriate length of sub-tours 
+    is around sqrt(N), where N is the number of cities.
+    """
+    g_mom, sister_genome_list = kwargs["mom"], []
+    g_dad, brother_genome_list = kwargs["dad"], []
+    g_mom_genome_list, g_dad_genome_list = g_mom.genomeList[:], g_dad.genomeList[:]
+
+    genome_length = len(g_mom)
+    sub_tour_length = int(genome_length ** 0.5)
+
+    sister, brother = g_mom.clone(), g_dad.clone()
+    sister.resetStats()
+    brother.resetStats()
+
+    if kwargs["count"] >= 1:
+        sister_genome_list = generate_genome(sister_genome_list, g_mom_genome_list, g_dad_genome_list, sub_tour_length)
+        sister_genome_list = connect_sub_tours(sister_genome_list)
+
+    if kwargs["count"] == 2:
+        brother_genome_list = generate_genome(sister_genome_list, g_mom_genome_list, g_dad_genome_list, sub_tour_length)
+        brother_genome_list = connect_sub_tours(brother_genome_list) if kwargs["count"] == 2 else g_dad.genomeList
+
+    sister.genomeList = sister_genome_list
+    brother.genomeList = brother_genome_list
+
+    return sister, brother
+
+
+def G1DListCrossoverCSOX(genome, **kwargs):
+    """
+        The Complete Sub tour Order Crossover for Traveling Salesman Problem Solving
+
+        <https://ieeexplore.ieee.org/abstract/document/9895081>
+    """
+    g_mom, g_dad = kwargs["mom"], kwargs["dad"]
+    O = [None] * 6
+    g_mom_len = len(g_mom)
+
+    r1, r2 = rand_randint(1, g_mom_len - 2), rand_randint(1, g_mom_len - 2)
+
+    for i in range(3):
+        if i == 0:
+            pos1, pos2 = r1, r2
+            p1 = [c for c in g_mom[pos2 + 1:] + g_mom[:pos2 + 1] if c not in g_dad[pos1:pos2 + 1]]
+            p2 = [c for c in g_dad[pos2 + 1:] + g_dad[:pos2 + 1] if c not in g_mom[pos1:pos2 + 1]]
+        elif i == 1:
+            pos1, pos2 = 0, r1 - 1
+
+            p1 = [c for c in g_mom[pos2 + 1:] + g_mom[:pos2 + 1] if c not in g_dad[pos1:pos2 + 1]]
+            p2 = [c for c in g_dad[pos2 + 1:] + g_dad[:pos2 + 1] if c not in g_mom[pos1:pos2 + 1]]
+        elif i == 2:
+            pos1, pos2 = r2 + 1, g_mom_len - 1
+
+            p1 = [c for c in g_mom if c not in g_dad[pos1:pos2 + 1]]
+            p2 = [c for c in g_dad if c not in g_mom[pos1:pos2 + 1]]
+
+        O[2 * i], O[2 * i + 1] = [None] * g_mom_len, [None] * g_mom_len
+
+        if pos1 == 0:
+            O[2 * i] = g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
+            O[2 * i + 1] = g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
+
+        else:
+            O[2 * i] = p2[-pos1:] + g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
+            O[2 * i + 1] = p1[-pos1:] + g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
+
+
+def G1DListCrossoverPropMC(genome, **kwargs):
+    """
+        Novel Crossover Operator for Genetic Algorithm for Permutation Problems
+        <https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=a3cba4955512230e4a8314d4bbd8b3aa5bf85b53>
+    """
+    sister1, brother1 = G1DListCrossoverPMX(genome, **kwargs)
+    sister2, brother2 = G1DListCrossoverOX(genome, **kwargs)
+
+    return sister1, brother2
+
+
+def G1DListCrossoverUX(genome, **kwargs):
+    """
+        Uniform crossover in genetic algorithms
+        <https://www.researchgate.net/profile/Gilbert-Syswerda-3/publication/201976488_Uniform_Crossover_in_Genetic_Algorithms/links/5f84cf27299bf1b53e22ee7c/Uniform-Crossover-in-Genetic-Algorithms.pdf>
+
+        Ccgdc: A new crossover operator for genetic data clustering
+        <https://scholar.archive.org/work/yxts2ace4rcxfjugvhdjby2o3a/access/wayback/https://www.isr-publications.com/jmcs/691/download-ccgdc-a-new-crossover-operator-for-genetic-data-clustering>
+    """
+
+    g_mom, g_dad = kwargs["mom"], kwargs["dad"]
+    sister, brother = None, None
+
+    g_mom_length = len(g_mom)
+    mask = [rand_randint(0, 1) for _ in range(g_mom_length)]
+
+    if kwargs["count"] >= 1:
+        sister = g_mom.clone()
+        sister.resetStats()
+
+        sister.genomeList = [g_mom[index] if element == 0 else g_dad[index] for index, element in enumerate(mask)]
+
+    if kwargs["count"] == 2:
+        brother = g_dad.clone()
+        sister.resetStats()
+
+        brother.gnomeList = [g_dad[index] if element == 0 else g_mom[index] for index, element in enumerate(mask)]
 
     return sister, brother
