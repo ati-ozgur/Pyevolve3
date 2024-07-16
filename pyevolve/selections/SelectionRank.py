@@ -4,11 +4,48 @@ from ..GPopulation import GPopulation
 
 exploration_weight= 0.8
 exploitation_weight=0.2
-
-def SelectorLinearRanking(population: GPopulation, **args):
-    """ The Linear Ranking Selector 
+def SelectorFitnessProportional(population: GPopulation, **args):
+    """ The Fitness Proportional Selector
     """
     popSize = len(population)
+    if not population.sorted:
+        population.sort()
+
+    if args["popID"] != SelectorFitnessProportional.cachePopID:
+
+        start = popSize
+        prob_counts = [0] * popSize
+        current_score = population.bestRaw().score
+        for index in range(popSize):
+            if population[index].score != current_score:
+                start = start - 1
+            prob_counts[index] = start
+
+        total = sum(prob_counts)
+        prob_weights = [a / total for a in prob_counts]
+        SelectorFitnessProportional.cachePopID = args["popID"]
+        SelectorFitnessProportional.probabilityWeights = prob_weights
+
+    else:
+        prob_weights = SelectorFitnessProportional.probabilityWeights
+
+    selected = random.choices(list(range(popSize)), weights=prob_weights)[0]
+
+    x = population[selected]
+    return population[selected]
+
+
+SelectorFitnessProportional.cachePopID = None
+SelectorFitnessProportional.probabilityWeights = None
+
+
+def SelectorLinearRanking(population: GPopulation, **args):
+    """ The Linear Ranking Selector
+       """
+    selection_pressure=1.5
+
+    popSize = len(population)
+
     if not population.sorted:
         population.sort()
 
@@ -22,8 +59,9 @@ def SelectorLinearRanking(population: GPopulation, **args):
                 start = start - 1
             prob_counts[index] = start
 
-        total = sum(prob_counts)
-        prob_weights = [a / total for a in prob_counts]
+        prob_weights = [];
+        for i in prob_counts:
+            prob_weights.append((2 - selection_pressure) / popSize + (2 * i * (selection_pressure- 1) / (popSize * (popSize - 1))))
         SelectorLinearRanking.cachePopID = args["popID"]
         SelectorLinearRanking.probabilityWeights = prob_weights
 
@@ -32,18 +70,15 @@ def SelectorLinearRanking(population: GPopulation, **args):
 
     selected = random.choices(list(range(popSize)), weights=prob_weights)[0]
 
-    x = population[selected]
     return population[selected]
 
-
-SelectorLinearRanking.cachePopID = None
 SelectorLinearRanking.probabilityWeights = None
-
+SelectorLinearRanking.cachePopID = None
 
 def SelectorExponentialRanking(population: GPopulation, **args):
     """ The Exponential Ranking Selector
        """
-    c = 0.9;
+    c = 0.99;
     popSize = len(population)
     if not population.sorted:
         population.sort()
@@ -135,9 +170,10 @@ def SelectorProposed(population: GPopulation, **args):
         exploration_weight = max(0.1, exploration_weight * 0.9)
         exploitation_weight = min(1.0, exploitation_weight * 1.1)
         selected_individual = random.choice(exploration_candidates)
-    else:
+    elif exploitation_ratio > exploration_ratio:
         exploration_weight = min(1.0, exploration_weight * 1.1)
         exploitation_weight = max(0.1, exploitation_weight * 0.9)
         selected_individual = random.choice(exploitation_candidates)
-
+    else:
+        selected_individual = random.choice(population)
     return selected_individual
