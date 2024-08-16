@@ -6,7 +6,11 @@ exploration_weight= 0.8
 exploitation_weight=0.2
 def SelectorFitnessProportional(population: GPopulation, **args):
     """ The Fitness Proportional Selector
+
+    See more information in the `SRS Selection Operator
+    <https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH>`_
     """
+
     popSize = len(population)
     if not population.sorted:
         population.sort()
@@ -41,7 +45,12 @@ SelectorFitnessProportional.probabilityWeights = None
 
 def SelectorLinearRanking(population: GPopulation, **args):
     """ The Linear Ranking Selector
-       """
+
+    See more information in the `LRS Selection Operator
+    <https://eprints.ukh.ac.id/id/eprint/201/1/2015_Book_IntroductionToEvolutionaryComp.pdf>`_
+    page:82
+    """
+
     selection_pressure=1.5
 
     popSize = len(population)
@@ -77,7 +86,11 @@ SelectorLinearRanking.cachePopID = None
 
 def SelectorExponentialRanking(population: GPopulation, **args):
     """ The Exponential Ranking Selector
-       """
+
+   See more information in the `ERS Selection Operator
+    <https://tik-old.ee.ethz.ch/file/6c0e384dceb283cd4301339a895b72b8/TIK-Report11.pdf>`_
+    """
+
     c = 0.99;
     popSize = len(population)
     if not population.sorted:
@@ -113,7 +126,11 @@ SelectorExponentialRanking.cachePopID = None
 
 def SelectorSplitRanking(population: GPopulation, **args):
     """ The Split Ranking Selector
+
+    See more information in the `SRS Selection Operator
+    <https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH>`_
     """
+
     lamda1 = 0.3;
     lamda2 = 0.7;
     popSize = len(population)
@@ -150,6 +167,44 @@ def SelectorSplitRanking(population: GPopulation, **args):
 SelectorSplitRanking.probabilityWeights = None
 SelectorSplitRanking.cachePopID = None
 
+
+def SelectorNewTournament(population: GPopulation, **args):
+    """ The New Tournament Selector
+
+    See more information in the `NTS Selection Operator
+    <https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH>`_
+    """
+
+    popSize = len(population)
+    if not population.sorted:
+        population.sort()
+
+    if args["popID"] != SelectorNewTournament.cachePopID:
+
+        start = popSize
+        prob_counts = [0] * popSize
+        current_score = population.bestRaw().score
+        for index in range(popSize):
+            if population[index].score != current_score:
+                start = start - 1
+            prob_counts[index] = start
+
+        prob_weights = [];
+        for i in prob_counts:
+            prob_weights.append(2*((3*i) - 1) / popSize *((3*popSize)+1));
+        SelectorNewTournament.cachePopID = args["popID"]
+        SelectorNewTournament.probabilityWeights = prob_weights
+
+    else:
+        prob_weights = SelectorNewTournament.probabilityWeights
+
+    selected = random.choices(list(range(popSize)), weights=prob_weights)[0]
+
+    return population[selected]
+
+
+SelectorNewTournament.probabilityWeights = None
+SelectorNewTournament.cachePopID = None
 
 def SelectorProposed(population: GPopulation, **args):
     global exploration_weight, exploitation_weight
