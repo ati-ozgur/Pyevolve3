@@ -4,9 +4,12 @@ import math
 import os
 import random
 import time
+from itertools import combinations
 from math import sqrt
 
-import numpy
+import numpy as np
+import skfuzzy as fuzz
+from skfuzzy import control as ctrl
 
 from pyevolve import Consts
 from pyevolve import GSimpleGA
@@ -16,7 +19,9 @@ from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossover
     G1DListCrossoverEPMX, G1DListCrossoverGreedy, G1DListCrossoverIGX, G1DListCrossoverSequentialConstructive
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorSwap
 from pyevolve.representations import G1DList
-from pyevolve.selections import SelectionRank
+from pyevolve.selections.SelectionRank import SelectorFitnessProportional, SelectorLinearRanking, \
+    SelectorExponentialRanking, SelectorSplitRanking, SelectorExplorationExploitationBalance, SelectorNewTournament
+from pyevolve.selections.Selectors import GTournamentSelector
 
 collections.Callable = collections.abc.Callable
 
@@ -32,6 +37,16 @@ dict_crossoever_operators = {
     "GX": G1DListCrossoverGreedy,
     "IGX": G1DListCrossoverIGX,
     "SCX": G1DListCrossoverSequentialConstructive
+}
+
+dict_selector_operators = {
+    "FPS": SelectorFitnessProportional,
+    "LRS": SelectorLinearRanking,
+    "ERS": SelectorExponentialRanking,
+    "EEBS": SelectorExplorationExploitationBalance,
+    "SRS": SelectorSplitRanking,
+    "NTS": SelectorNewTournament,
+    "TS": GTournamentSelector,
 }
 
 PIL_SUPPORT = None
@@ -51,6 +66,63 @@ LAST_SCORE = -1
 RESULTS_DIRECTORY = "tspimg"
 GENERATION_COUNT = 1001
 filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
+
+diversity = ctrl.Antecedent(np.linspace(0, 1, 101), 'diversity')
+iteration = ctrl.Antecedent(np.linspace(0, 1, 101), 'iteration')
+alpha = ctrl.Consequent(np.linspace(0, 1, 101), 'alpha')
+
+diversity['H'] = fuzz.trimf(diversity.universe, [0.0, 0.0, 0.25])
+diversity['HM'] = fuzz.trimf(diversity.universe, [0.0, 0.25, 0.5])
+diversity['M'] = fuzz.trimf(diversity.universe, [0.25, 0.5, 0.75])
+diversity['LM'] = fuzz.trimf(diversity.universe, [0.5, 0.75, 1.0])
+diversity['L'] = fuzz.trimf(diversity.universe, [0.75, 1.0, 1.0])
+
+iteration['L'] = fuzz.trimf(iteration.universe, [0.0, 0.0, 0.25])
+iteration['LM'] = fuzz.trimf(iteration.universe, [0.0, 0.25, 0.5])
+iteration['M'] = fuzz.trimf(iteration.universe, [0.25, 0.5, 0.75])
+iteration['HM'] = fuzz.trimf(iteration.universe, [0.5, 0.75, 1.0])
+iteration['H'] = fuzz.trimf(iteration.universe, [0.75, 1.0, 1.0])
+
+alpha['L'] = fuzz.trimf(alpha.universe, [0, 0, 0.25])
+alpha['LM'] = fuzz.trimf(alpha.universe, [0, 0.25, 0.5])
+alpha['M'] = fuzz.trimf(alpha.universe, [0.25, 0.5, 0.75])
+alpha['HM'] = fuzz.trimf(alpha.universe, [0.5, 0.75, 1.0])
+alpha['H'] = fuzz.trimf(alpha.universe, [0.75, 1.0, 1.0])
+
+rule1 = ctrl.Rule(diversity['L'] & iteration['L'], alpha['M'])
+rule2 = ctrl.Rule(diversity['L'] & iteration['LM'], alpha['M'])
+rule3 = ctrl.Rule(diversity['L'] & iteration['M'], alpha['HM'])
+rule4 = ctrl.Rule(diversity['L'] & iteration['HM'], alpha['H'])
+rule5 = ctrl.Rule(diversity['L'] & iteration['H'], alpha['H'])
+
+rule6 = ctrl.Rule(diversity['LM'] & iteration['L'], alpha['M'])
+rule7 = ctrl.Rule(diversity['LM'] & iteration['LM'], alpha['M'])
+rule8 = ctrl.Rule(diversity['LM'] & iteration['M'], alpha['M'])
+rule9 = ctrl.Rule(diversity['LM'] & iteration['HM'], alpha['HM'])
+rule10 = ctrl.Rule(diversity['LM'] & iteration['H'], alpha['H'])
+
+rule11 = ctrl.Rule(diversity['M'] & iteration['L'], alpha['LM'])
+rule12 = ctrl.Rule(diversity['M'] & iteration['LM'], alpha['M'])
+rule13 = ctrl.Rule(diversity['M'] & iteration['M'], alpha['M'])
+rule14 = ctrl.Rule(diversity['M'] & iteration['HM'], alpha['M'])
+rule15 = ctrl.Rule(diversity['M'] & iteration['H'], alpha['HM'])
+
+rule16 = ctrl.Rule(diversity['HM'] & iteration['L'], alpha['L'])
+rule17 = ctrl.Rule(diversity['HM'] & iteration['LM'], alpha['LM'])
+rule18 = ctrl.Rule(diversity['HM'] & iteration['M'], alpha['M'])
+rule19 = ctrl.Rule(diversity['HM'] & iteration['HM'], alpha['M'])
+rule20 = ctrl.Rule(diversity['HM'] & iteration['H'], alpha['M'])
+
+rule21 = ctrl.Rule(diversity['H'] & iteration['L'], alpha['L'])
+rule22 = ctrl.Rule(diversity['H'] & iteration['LM'], alpha['L'])
+rule23 = ctrl.Rule(diversity['H'] & iteration['M'], alpha['LM'])
+rule24 = ctrl.Rule(diversity['H'] & iteration['HM'], alpha['M'])
+rule25 = ctrl.Rule(diversity['H'] & iteration['H'], alpha['M'])
+
+alpha_ctrl = ctrl.ControlSystem(
+    [rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8, rule9, rule10, rule11, rule12, rule13, rule14, rule15,
+     rule16, rule17, rule18, rule19, rule20, rule21, rule22, rule23, rule24, rule25])
+selection_sim = ctrl.ControlSystemSimulation(alpha_ctrl)
 
 
 def cartesian_matrix(coords):
@@ -72,6 +144,32 @@ def tour_length(matrix, tour):
         j = (i + 1) % CITIES
         total += matrix[t[i], t[j]]
     return total
+
+
+def hamming_distance(ind1, ind2):
+    return sum(g1 != g2 for g1, g2 in zip(ind1, ind2))
+
+
+def population_diversity(population):
+    n = len(population)
+    if n < 2:
+        return 0.0
+
+    distances = []
+
+    for ind1, ind2 in combinations(population, 2):
+        dist = hamming_distance(ind1.genomeList, ind2.genomeList)
+        distances.append(dist)
+
+    average_distance = sum(distances) / len(distances)
+    PD_min = min(distances)
+    PD_max = max(distances)
+
+    if PD_max == PD_min:
+        return 0.0
+
+    normalized_diversity = (average_distance - PD_min) / (PD_max - PD_min)
+    return normalized_diversity
 
 
 def write_tour_to_img(coords, tour, img_file):
@@ -117,6 +215,26 @@ def evolve_callback(ga_engine):
 
     if current_generation % 1 == 0:
         best = ga_engine.bestIndividual()
+        diversity = population_diversity(ga_engine.internalPop)
+
+        if diversity == 0:
+            diversity = 1.0
+
+        selection_sim.input['diversity'] = 1 - diversity
+        selection_sim.input['iteration'] = current_generation / GENERATION_COUNT
+        selection_sim.compute()
+
+        alpha = selection_sim.output['alpha']
+
+        if alpha < 0.7:
+            ga_engine.selector.set(dict_selector_operators["EEBS"])
+
+        elif 0.7 < alpha < 0.8:
+            ga_engine.selector.set(dict_selector_operators["NTS"])
+
+        elif 0.8 < alpha < 1:
+            ga_engine.selector.set(dict_selector_operators["FPS"])
+
         if LAST_SCORE != best.getRawScore():
             f.write(str(best.getRawScore()) + "\n")
             filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
@@ -130,7 +248,7 @@ def main_run(crossover_operator_func, problemname):
     filename = "data/" + problemname + ".csv"
 
     CITIES = 170
-    problem = numpy.loadtxt(filename, delimiter=',', skiprows=1, usecols=range(1, CITIES + 1))
+    problem = np.loadtxt(filename, delimiter=',', skiprows=1, usecols=range(1, CITIES + 1))
     # problem = numpy.loadtxt(filename, delimiter='|', skiprows=1, usecols=range(1, CITIES+1))
 
     for i in range(0, CITIES):
@@ -152,7 +270,7 @@ def main_run(crossover_operator_func, problemname):
     ga.setCrossoverRate(1.0)
     ga.setMutationRate(0.02)
     ga.setPopulationSize(80)
-    ga.selector.set(SelectionRank.SelectorExplorationExploitationBalance)
+    ga.selector.set(dict_selector_operators["EEBS"])
 
     ga.stepCallback.set(evolve_callback)
     # 21666.49

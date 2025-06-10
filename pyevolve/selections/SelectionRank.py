@@ -206,7 +206,13 @@ def SelectorNewTournament(population: GPopulation, **args):
 SelectorNewTournament.probabilityWeights = None
 SelectorNewTournament.cachePopID = None
 
-def SelectorProposed(population: GPopulation, **args):
+def SelectorExplorationExploitationBalance(population: GPopulation, **args):
+    """ The Exploration Exploitation Balance Selector
+
+    See more information in the `EEBS Selection Operator
+    <https://link.springer.com/article/10.1007/s12065-025-01028-8>`_
+    """
+
     global exploration_weight, exploitation_weight
 
     if not population.sorted:
