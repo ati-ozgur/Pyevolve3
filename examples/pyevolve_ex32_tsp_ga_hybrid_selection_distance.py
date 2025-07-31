@@ -7,9 +7,11 @@ import time
 from itertools import combinations
 from math import sqrt
 
+import numpy
 import numpy as np
 import skfuzzy as fuzz
 import tsplib95
+from scipy.stats import entropy
 from skfuzzy import control as ctrl
 
 from pyevolve import Consts
@@ -59,7 +61,7 @@ try:
 except ImportError:
     PIL_SUPPORT = False
 
-cm = []
+cm = {}
 coords = []
 CITIES = None
 LAST_SCORE = -1
@@ -67,6 +69,22 @@ LAST_SCORE = -1
 RESULTS_DIRECTORY = "tspimg"
 GENERATION_COUNT = 1001
 filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
+
+strategy="deterministic"
+#strategy="fuzzy"
+#strategy="entropy"
+#strategy="adaptive"
+#strategy="selfadaptive"
+#strategy="qlearning"
+#strategy="bandit"
+
+
+Q_table = np.zeros((5, 5, 5))  # (diversity_bin, iteration_bin, alpha_bin)
+prev_state = (0, 0)
+prev_action = 2  # middle alpha bin
+alpha_bins = [0.1, 0.3, 0.5, 0.7, 0.9]
+rewards = [0.0] * len(alpha_bins)
+counts = [0] * len(alpha_bins)
 
 diversity = ctrl.Antecedent(np.linspace(0, 1, 101), 'diversity')
 iteration = ctrl.Antecedent(np.linspace(0, 1, 101), 'iteration')
@@ -172,7 +190,6 @@ def population_diversity(population):
     normalized_diversity = (average_distance - PD_min) / (PD_max - PD_min)
     return normalized_diversity
 
-
 def write_tour_to_img(coords, tour, img_file):
     """ The function to plot the graph """
     padding = 20
@@ -217,16 +234,7 @@ def evolve_callback(ga_engine):
     if current_generation % 1 == 0:
         best = ga_engine.bestIndividual()
 
-        diversity = population_diversity(ga_engine.internalPop)
-
-        if diversity == 0:
-            diversity = 1.0
-
-        selection_sim.input['diversity'] = 1 - diversity
-        selection_sim.input['iteration'] = current_generation / GENERATION_COUNT
-        selection_sim.compute()
-
-        alpha = selection_sim.output['alpha']
+        alpha = calculate_alpha(strategy, current_generation, ga_engine.internalPop, ga_engine.bestIndividual())
 
         if alpha < 0.7:
             ga_engine.selector.set(dict_selector_operators["EEBS"])
@@ -237,30 +245,176 @@ def evolve_callback(ga_engine):
         elif 0.8 < alpha < 1:
             ga_engine.selector.set(dict_selector_operators["FPS"])
 
+        f.write(str(best.getRawScore()) + "\n")
+
         if LAST_SCORE != best.getRawScore():
-            f.write(str(best.getRawScore()) + "\n")
+            LAST_SCORE = best.getRawScore()
             filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
             # write_tour_to_img(coords, best, filename )
 
     return False
+def calculate_alpha(strategy, iteration, population, best, max_iter=GENERATION_COUNT):
+    global alpha_history
+    global Q_table, prev_state, prev_action
+    global rewards, counts
+
+    if strategy == "deterministic":
+        # Increasing alpha linearly depending on iteration
+        return 0.1 + 0.8 * (iteration / max_iter)
+
+
+
+    elif strategy == "fuzzy":
+        diversity_score = population_diversity(population)
+
+        # For zero division and restrictions
+        if diversity_score == 0.0:
+            diversity_score = 1.0
+
+        # Fuzzy inputs
+        selection_sim.input['diversity'] = 1 - diversity_score
+        selection_sim.input['iteration'] = iteration / max_iter
+        selection_sim.compute()
+
+        # Fuzzy output
+        return selection_sim.output['alpha']
+
+
+
+    elif strategy == "entropy":
+
+        # Position-based entropy calculation
+        matris = np.array([ind.genomeList for ind in population])
+        entropies = []
+        for i in range(matris.shape[1]):
+            _, counts = np.unique(matris[:, i], return_counts=True)
+            entropies.append(entropy(counts,base=2))
+        ent = np.mean(entropies)
+
+        # normalize
+        return max(0.1, min(1.0, ent))
+
+    elif strategy == "adaptive":
+
+        if iteration == 0:
+            alpha_history = [0.5]
+            return 0.5
+
+        # History weight
+        gamma = 0.9
+        improvement = (LAST_SCORE - best.getRawScore()) / 1000.0
+        delta = max(-0.05, min(0.05, improvement))
+        new_alpha = gamma * alpha_history[-1] + (1 - gamma) * (alpha_history[-1] + delta)
+        new_alpha = min(1.0, max(0.0, new_alpha))
+
+        alpha_history.append(new_alpha)
+        return new_alpha
+
+
+
+    elif strategy == "selfadaptive":
+        # Average of individual alpha values
+        return np.mean([getattr(ind, 'alpha', 0.5) for ind in population])
+
+    if strategy == "qlearning":
+        diversity_score = population_diversity(population)
+        diversity_bin = int((1 - diversity_score) * 4)
+        iteration_bin = int((iteration / max_iter) * 4)
+
+        # ε-greedy selection
+        epsilon = 0.1
+        if random.random() < epsilon:
+            action = random.randint(0, 4)
+        else:
+            action = np.argmax(Q_table[diversity_bin, iteration_bin])
+
+        # alpha_bins = [0.1, 0.3, 0.5, 0.7, 0.9]
+        alpha = alpha_bins[action]
+
+        # Reward calculation
+        if LAST_SCORE < 0:
+            reward = 0
+        else:
+            raw_reward = LAST_SCORE - best.getRawScore()
+            reward = max(0.0, raw_reward / max(1.0, abs(LAST_SCORE)))  # normalize
+
+        # Update Q-table
+        Q_table[prev_state[0], prev_state[1], prev_action] += 0.1 * (
+                reward + 0.9 * np.max(Q_table[diversity_bin, iteration_bin]) -
+                Q_table[prev_state[0], prev_state[1], prev_action]
+        )
+
+        prev_state = (diversity_bin, iteration_bin)
+        prev_action = action
+
+        return alpha
+
+    elif strategy == "bandit":
+
+        # For alphas that will be tested for the first time
+        for i in range(len(alpha_bins)):
+            if counts[i] == 0:
+                counts[i] += 1
+                return alpha_bins[i]
+
+        total = sum(counts)
+        ucb_values = [
+            rewards[i] / counts[i] + math.sqrt(2 * math.log(total) / counts[i])
+            for i in range(len(alpha_bins))
+        ]
+
+        idx = np.argmax(ucb_values)
+        alpha = alpha_bins[idx]
+
+        # Reward calculation (limit negative reward to a very small negative value)
+        reward = LAST_SCORE - best.getRawScore()
+        reward = max(-10, min(1000, reward))  # Limit negative reward to -10
+
+        rewards[idx] += reward
+        counts[idx] += 1
+
+        #periodic reset
+        if iteration == max_iter - 1:
+            rewards = [0.0] * len(alpha_bins)
+            counts = [0] * len(alpha_bins)
+
+        return alpha
+    else:
+        # Default fallback
+        return 0.5
+
+def mutate_alpha(individual, sigma=0.05):
+    if not hasattr(individual, 'alpha'):
+        individual.alpha = 0.5
+    individual.alpha += random.gauss(0, sigma)
+    individual.alpha = max(0.0, min(1.0, individual.alpha))
+def self_adaptive_mutator(genome, **args):
+    # Apply existing mutation
+    G1DListMutatorDisplacement(genome, **args)
+    # also mutate alpha
+    mutate_alpha(genome)
+    return 1
 
 
 def main_run(crossover_operator_func, problemname):
     global cm, coords, WIDTH, HEIGHT, CITIES
-    filename = 'data/' + problemname + '.tsp'
-    path = os.path.join(os.path.dirname(__file__), filename)
-    problem = tsplib95.load(path)
-    print(list(problem.get_nodes()))
+    filename = "data/" + problemname + ".csv"
 
-    coords = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
-    CITIES = len(list(problem.get_nodes()))
-    cm = cartesian_matrix(coords)
-    genome = G1DList.G1DList(len(coords))
+    CITIES = 170
+    problem = numpy.loadtxt(filename, delimiter=',', skiprows=1, usecols=range(1, CITIES + 1))
+    # problem = numpy.loadtxt(filename, delimiter='|', skiprows=1, usecols=range(1, CITIES+1))
+
+    for i in range(0, CITIES):
+        for j in range(0, CITIES):
+            cm[i, j] = problem[i, j]
+
+    genome = G1DList.G1DList(CITIES)
 
     genome.setParams(dist=cm)
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
     genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorDisplacement)
+    #genome.mutator.set(self_adaptive_mutator)
     genome.initializator.set(G1DListTSPInitializatorRandom)
 
     # 3662.69
@@ -282,7 +436,8 @@ def main_run(crossover_operator_func, problemname):
     f.write(str(end - start) + "\n")
 
     if PIL_SUPPORT:
-        write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
+        # write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
+        print("PIL detected, cannot plot the graph !")
     else:
         print("No PIL detected, cannot plot the graph !")
 
@@ -294,7 +449,8 @@ for m in range(0, len(methods)):
     for i in range(1, 31):
         parser = argparse.ArgumentParser(description='crossover, tsp problems')
         parser.add_argument('--crossover', help="cross over operator to use", default=methods[m])
-        parser.add_argument('--problemname', help="TSP problem filename", default='att532')
+        parser.add_argument('--problemname', help="TSP problem filename",
+                            default='random_data_30_order_transitions_CSP')
         randomseed = randomseed + 1
         parser.add_argument('--randomseed', help="random seed to use", default=randomseed, type=int)
         args = parser.parse_args()
