@@ -10,7 +10,6 @@ from math import sqrt
 import numpy
 import numpy as np
 import skfuzzy as fuzz
-import tsplib95
 from scipy.stats import entropy
 from skfuzzy import control as ctrl
 
@@ -70,13 +69,13 @@ RESULTS_DIRECTORY = "tspimg"
 GENERATION_COUNT = 1001
 filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
 
-strategy="deterministic"
-#strategy="fuzzy"
-#strategy="entropy"
-#strategy="adaptive"
-#strategy="selfadaptive"
-#strategy="qlearning"
-#strategy="bandit"
+strategy = "deterministic"
+# strategy="fuzzy"
+# strategy="entropy"
+# strategy="adaptive"
+# strategy="selfadaptive"
+# strategy="qlearning"
+# strategy="bandit"
 
 
 Q_table = np.zeros((5, 5, 5))  # (diversity_bin, iteration_bin, alpha_bin)
@@ -190,6 +189,7 @@ def population_diversity(population):
     normalized_diversity = (average_distance - PD_min) / (PD_max - PD_min)
     return normalized_diversity
 
+
 def write_tour_to_img(coords, tour, img_file):
     """ The function to plot the graph """
     padding = 20
@@ -253,6 +253,8 @@ def evolve_callback(ga_engine):
             # write_tour_to_img(coords, best, filename )
 
     return False
+
+
 def calculate_alpha(strategy, iteration, population, best, max_iter=GENERATION_COUNT):
     global alpha_history
     global Q_table, prev_state, prev_action
@@ -288,7 +290,7 @@ def calculate_alpha(strategy, iteration, population, best, max_iter=GENERATION_C
         entropies = []
         for i in range(matris.shape[1]):
             _, counts = np.unique(matris[:, i], return_counts=True)
-            entropies.append(entropy(counts,base=2))
+            entropies.append(entropy(counts, base=2))
         ent = np.mean(entropies)
 
         # normalize
@@ -373,7 +375,7 @@ def calculate_alpha(strategy, iteration, population, best, max_iter=GENERATION_C
         rewards[idx] += reward
         counts[idx] += 1
 
-        #periodic reset
+        # periodic reset
         if iteration == max_iter - 1:
             rewards = [0.0] * len(alpha_bins)
             counts = [0] * len(alpha_bins)
@@ -383,11 +385,14 @@ def calculate_alpha(strategy, iteration, population, best, max_iter=GENERATION_C
         # Default fallback
         return 0.5
 
+
 def mutate_alpha(individual, sigma=0.05):
     if not hasattr(individual, 'alpha'):
         individual.alpha = 0.5
     individual.alpha += random.gauss(0, sigma)
     individual.alpha = max(0.0, min(1.0, individual.alpha))
+
+
 def self_adaptive_mutator(genome, **args):
     # Apply existing mutation
     G1DListMutatorDisplacement(genome, **args)
@@ -414,7 +419,7 @@ def main_run(crossover_operator_func, problemname):
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
     genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorDisplacement)
-    #genome.mutator.set(self_adaptive_mutator)
+    # genome.mutator.set(self_adaptive_mutator)
     genome.initializator.set(G1DListTSPInitializatorRandom)
 
     # 3662.69
