@@ -4,7 +4,7 @@ import sys
 
 setup(
    name = "Pyevolve",
-   version = '0.6.beta.p3',
+   version = '0.7',
    packages = ["pyevolve"],
    scripts = ['pyevolve_graph.py'],
    package_data = {

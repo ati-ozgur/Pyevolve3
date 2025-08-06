@@ -14,7 +14,7 @@ __all__ = ["Consts", "DBAdapters", "FunctionSlot",
            "GSimpleGA","Scaling"
            "Statistics", "Util"]
 
-__version__ = '0.6'
+__version__ = '0.7'
 __author__ = 'Christian S. Perone'
 
 from . import Consts
