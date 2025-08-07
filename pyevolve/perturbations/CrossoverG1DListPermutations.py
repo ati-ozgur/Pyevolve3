@@ -121,11 +121,13 @@ def G1DListCrossoverCutCrossfill(genome, **args):
 
     return (sister, brother)
 
+
+
+
 def G1DListCrossoverPMX(genome, **args):
     """ The PMX Crossover for G1DList  (Partially Mapped Crossover)
-
-    See more information in the `PMX Crossover Operator
-    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+    proposed by Goldberg, David E. and Lingle, Robert in
+    Alleles Loci and the Traveling Salesman Problem in 1985
     """
 
     sister = None
