@@ -178,7 +178,7 @@ for m in range(0, len(methods)):
         parser = argparse.ArgumentParser(description='crossover, tsp problems')
         parser.add_argument('--crossover', help="cross over operator to use", default=methods[m])
         parser.add_argument('--problemname', help="TSP problem filename",
-                            default='random_data_30_order_transitions_CSP')
+                            default='fri26')
         randomseed = randomseed + 1
         parser.add_argument('--randomseed', help="random seed to use", default=randomseed, type=int)
         args = parser.parse_args()
