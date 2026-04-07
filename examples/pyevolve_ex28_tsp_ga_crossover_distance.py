@@ -127,7 +127,7 @@ def evolve_callback(ga_engine):
 
 def main_run(crossover_operator_func, problemname):
     global cm, coords, WIDTH, HEIGHT, CITIES
-    filename = 'data/' + problemname + '.tsp'
+    filename = 'tsp_datasets/' + problemname + '.tsp'
     path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
     print(list(problem.get_nodes()))

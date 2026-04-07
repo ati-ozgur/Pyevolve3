@@ -403,7 +403,7 @@ def self_adaptive_mutator(genome, **args):
 
 def main_run(crossover_operator_func, problemname):
     global cm, coords, WIDTH, HEIGHT, CITIES
-    filename = "data/" + problemname + ".csv"
+    filename = "tsp_datasets/" + problemname + ".csv"
 
     CITIES = 170
     problem = numpy.loadtxt(filename, delimiter=',', skiprows=1, usecols=range(1, CITIES + 1))
