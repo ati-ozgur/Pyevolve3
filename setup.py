@@ -2,15 +2,18 @@
 from setuptools import setup
 import sys
 
+with open("requirements.txt") as f:
+    required = f.read().splitlines()
 
 setup(
    name = "Pyevolve3",
    version = '0.7',
    packages = ["pyevolve"],
    scripts = ['pyevolve_graph.py'],
+   install_requires=required,
    package_data = {
       'pyevolve': ['*.txt']
-   }
+   },
    test_suite = 'tests',
    author = 'Atilla Özgür, Burak Dalkılıç, Christian S. Perone,   Gürkan Er',
    author_email = "ati.ozgur@gmail.com",
