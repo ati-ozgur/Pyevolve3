@@ -221,10 +221,8 @@ def write_tour_to_img(coords, tour, img_file):
 
 
 # This is to make a video of best individuals along the evolution
-# Use mencoder to create a video with the file list list.txt
-# mencoder mf://@list.txt -mf w=400:h=200:fps=3:type=png -ovc lavc
-#          -lavcopts vcodec=mpeg4:mbd=2:trell -oac copy -o output.avi
-#
+# see create_video_from_images.bash for example ffmpeg commands.
+
 def evolve_callback(ga_engine):
     global LAST_SCORE
     current_generation = ga_engine.getCurrentGeneration()
