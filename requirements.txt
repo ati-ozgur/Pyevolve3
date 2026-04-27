@@ -1,4 +1,4 @@
-tsplib95==0.7.1
-Pillow==8.3.2
-numpy==2.2.6
+tsplib95=>0.7
+Pillow=>8.0
+numpy=>2.0
 
