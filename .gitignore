@@ -1,3 +1,4 @@
+.vscode/*
 Pyevolve3.egg-info/*
 docs/build_htmlhelp/
 docs/build_latex/
