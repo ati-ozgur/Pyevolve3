@@ -580,9 +580,10 @@ def G1DListCrossoverGreedy(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    distance_dict = None
-    distance_dict= gMom.internalParams;
-    distance_matrix_list=dictionaryToMatrix(distance_dict)
+    #distance_dict = None
+    #distance_dict= gMom.internalParams;
+    distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
+    #distance_matrix_list=dictionaryToMatrix(distance_dict)
 
     c1Inital = rand_randint(0, len(gMom.genomeList) - 1)
 

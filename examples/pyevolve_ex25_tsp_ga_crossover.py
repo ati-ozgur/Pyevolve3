@@ -23,7 +23,8 @@ try:
 except ImportError:
     PIL_SUPPORT = False
 
-cm = []
+cm_dict = {}
+cm_list = []
 coords = []
 CITIES = 8
 WIDTH = 1024
@@ -111,7 +112,7 @@ def evolve_callback(ga_engine):
 
 
 def main_run():
-    global cm, coords, WIDTH, HEIGHT
+    global cm_dict, cm_list, coords, WIDTH, HEIGHT
 
     coords = [(random.randint(0, WIDTH), random.randint(0, HEIGHT))
               for i in range(CITIES)]
@@ -120,7 +121,7 @@ def main_run():
 
     genome.setParams(distance_matrix_dict=cm_dict, distance_matrix_list=cm_list)
 
-    genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
+    genome.evaluator.set(lambda chromosome: tour_length(cm_dict, chromosome))
     genome.crossover.set(G1DListCrossoverGreedy)
     genome.mutator.set(G1DListMutatorDisplacement)
     genome.initializator.set(G1DListTSPInitializatorRandom)
