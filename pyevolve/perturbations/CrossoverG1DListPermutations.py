@@ -580,10 +580,7 @@ def G1DListCrossoverGreedy(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    #distance_dict = None
-    #distance_dict= gMom.internalParams;
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
-    #distance_matrix_list=dictionaryToMatrix(distance_dict)
 
     c1Inital = rand_randint(0, len(gMom.genomeList) - 1)
 
@@ -702,8 +699,8 @@ def G1DListCrossoverIGX(genome, **args):
     listSize = len(gMom)
 
 
-    distance_matrix_dict= gMom.internalParams;
-    distance_matrix_list=dictionaryToMatrix(distance_matrix_dict)
+    distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
+
 
     if args["count"] >= 1:
         sister = gMom.clone()
@@ -858,8 +855,8 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    distance_matrix_dict= gMom.internalParams;
-    distance_matrix_list=dictionaryToMatrix(distance_matrix_dict)
+    distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
+
 
     if args["count"] >= 1:
 
