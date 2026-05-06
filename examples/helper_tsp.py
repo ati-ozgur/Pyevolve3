@@ -156,6 +156,7 @@ def run_tsp(width=1024, height=768
     best = ga.bestIndividual()
 
     if PIL_SUPPORT:
-        write_tour_to_img(coordinates, best, f"{results_directory}/tsp_result.png",max_generation_count)
+        img_filename = f"{results_directory}/tsp_result.png"
+        write_tour_to_img(coordinates, best, img_filename,max_generation_count)
     else:
         print("No PIL detected, cannot plot the graph !")
