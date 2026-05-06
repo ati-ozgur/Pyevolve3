@@ -20,6 +20,9 @@ from helper_tsp import PIL_SUPPORT, get_cartesian_matrix, evolve_callback_xy, to
 def main_run(width=1024, height=768
              , cities_count=100
              , max_generation_count=2000
+             , crossover_rate=1.0
+             , mutation_rate=0.02
+             , population_size=80
              , results_directory="tspimg"
              , random_seed=1024):
 
@@ -37,9 +40,9 @@ def main_run(width=1024, height=768
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(max_generation_count)
     ga.setMinimax(Consts.minimaxType["minimize"])
-    ga.setCrossoverRate(1.0)
-    ga.setMutationRate(0.02)
-    ga.setPopulationSize(80)
+    ga.setCrossoverRate(crossover_rate)
+    ga.setMutationRate(mutation_rate)
+    ga.setPopulationSize(population_size)
 
     ga.setParams(results_directory=results_directory)
     ga.setParams(coordinates=coordinates)
