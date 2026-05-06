@@ -925,8 +925,8 @@ def findIndex(array,number):
 
 def dictionaryToMatrix(distance):
 
-    List=list(distance.values())
-    temp_x, temp_y = map(max, zip(*List[0]))
-    matrix = [[List[0].get((j, i), 0) for i in range(temp_y + 1)]
+    liste=list(distance.values())
+    temp_x, temp_y = map(max, zip(*liste[0]))
+    matrix = [[liste[0].get((j, i), 0) for i in range(temp_y + 1)]
            for j in range(temp_x + 1)]
     return matrix
