@@ -7,7 +7,8 @@ from helper_tsp import run_tsp
 if __name__ == "__main__":
 
 
-    run_tsp(crossover_method=G1DListCrossoverPMX
+    run_tsp( experiment_name="tsp_crossoverPMX"
+            , crossover_method=G1DListCrossoverPMX
             , mutation_method=G1DListMutatorDisplacement
             , initialization_method=G1DListTSPInitializatorRandom
             )

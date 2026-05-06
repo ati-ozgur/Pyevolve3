@@ -3,4 +3,7 @@ from pyevolve.selections import SelectionRank
 
 
 if __name__ == "__main__":
-    run_tsp(selection_method=SelectionRank.SelectorLinearRanking)
+
+
+    run_tsp(experiment_name="tsp_selector",
+        selection_method=SelectionRank.SelectorLinearRanking)

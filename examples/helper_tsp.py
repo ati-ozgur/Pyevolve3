@@ -44,7 +44,7 @@ def tour_length_xy(matrix, tour, cities):
     return total
 
 
-def write_tour_to_img(coords, tour, img_file, max_generation_count):
+def write_tour_to_img(coords, tour, image_file, max_generation_count):
     """ The function to plot the graph """
     padding = 20
     coords = [(x + padding, y + padding) for (x, y) in coords]
@@ -70,8 +70,8 @@ def write_tour_to_img(coords, tour, img_file, max_generation_count):
         x, y = int(x), int(y)
         d.ellipse((x - 5, y - 5, x + 5, y + 5), outline=(0, 0, 0), fill=(196, 196, 196))
     del d
-    img.save(img_file, "PNG")
-    print(f"The plot was saved into the {img_file} file. max generation: {max_generation_count}")
+    img.save(image_file, "PNG")
+    print(f"The plot was saved into the {image_file} file. max generation: {max_generation_count}")
 
 # This is to make a video of best individuals along the evolution
 # see create_video_from_images.bash for example ffmpeg commands.
@@ -79,7 +79,6 @@ def write_tour_to_img(coords, tour, img_file, max_generation_count):
 def evolve_callback_xy(ga_engine):
     global LAST_SCORE
     max_generation_count = ga_engine.getGenerations()
-    filename_digit_count = int(math.floor(math.log10(max_generation_count))) +1
     current_generation = ga_engine.getCurrentGeneration()
 
     results_directory = ga_engine.getParam("results_directory")
@@ -93,15 +92,22 @@ def evolve_callback_xy(ga_engine):
     if coordinates is None:
         raise ValueError("coordinates parameter is not set in the GA engine parameters")
 
+    experiment_name = ga_engine.getParam("experiment_name")
+    if experiment_name is None:
+        raise ValueError("experiment_name parameter is not set in the GA engine parameters")
+
     if current_generation % 100 == 0:
         best = ga_engine.bestIndividual()
         if LAST_SCORE != best.getRawScore():
-            filename = f"{results_directory}/tsp_result_{current_generation:0{filename_digit_count}}.png"
-            write_tour_to_img(coordinates, best, filename,max_generation_count)
+            image_filename_digit_count = int(math.floor(math.log10(max_generation_count))) +1
+            image_filename = f"{results_directory}/tsp_result_{experiment_name}_{current_generation:0{image_filename_digit_count}}.png"
+            write_tour_to_img(coordinates, best, image_filename,max_generation_count)
             LAST_SCORE = best.getRawScore()
     return False
 
-def run_tsp(width=1024, height=768
+def run_tsp( experiment_name
+             , width=1024 
+             , height=768
              , cities_count=100
              , max_generation_count=2000
              , crossover_rate=1.0
@@ -148,6 +154,7 @@ def run_tsp(width=1024, height=768
 
     ga.setParams(results_directory=results_directory)
     ga.setParams(coordinates=coordinates)
+    ga.setParams(experiment_name=experiment_name)
 
     if PIL_SUPPORT:
         ga.stepCallback.set(  evolve_callback_xy)
@@ -156,7 +163,7 @@ def run_tsp(width=1024, height=768
     best = ga.bestIndividual()
 
     if PIL_SUPPORT:
-        img_filename = f"{results_directory}/tsp_result.png"
+        img_filename = f"{results_directory}/tsp_result_{experiment_name}.png"
         write_tour_to_img(coordinates, best, img_filename,max_generation_count)
     else:
         print("No PIL detected, cannot plot the graph !")
