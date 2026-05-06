@@ -34,13 +34,13 @@ def get_distance_matrix(coords):
     return matrix
 
 
-def tour_length_xy(matrix, tour, cities):
+def tour_length_xy(distance_matrix, tour, cities):
     """ Returns the total length of the tour """
     total = 0
     t = tour.getInternalList()
     for i in range(cities):
         j = (i + 1) % cities
-        total += matrix[t[i], t[j]]
+        total += distance_matrix[t[i], t[j]]
     return total
 
 
@@ -123,10 +123,10 @@ def run_tsp( experiment_name
     random.seed(random_seed)
     coordinates = [(random.randint(0, width), random.randint(0, height))
               for i in range(cities_count)]
-    cm = get_distance_matrix(coordinates)
+    distance_matrix = get_distance_matrix(coordinates)
     genome = G1DList.G1DList(len(coordinates))
 
-    genome.evaluator.set(lambda chromosome: tour_length_xy(cm, chromosome, cities_count))
+    genome.evaluator.set(lambda chromosome: tour_length_xy(distance_matrix, chromosome, cities_count))
     if crossover_method is not None:
         genome.crossover.set(crossover_method)
     else:
