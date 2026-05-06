@@ -580,9 +580,9 @@ def G1DListCrossoverGreedy(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    distance = None
-    distance= gMom.internalParams;
-    dist=dictionaryToMatrix(distance)
+    distance_dict = None
+    distance_dict= gMom.internalParams;
+    distance_matrix_list=dictionaryToMatrix(distance_dict)
 
     c1Inital = rand_randint(0, len(gMom.genomeList) - 1)
 
@@ -597,7 +597,7 @@ def G1DListCrossoverGreedy(genome, **args):
 
         while None in sister.genomeList:
 
-            if dist[(gMom.genomeList[c1 % listSize] - 1)] [(gMom.genomeList[(c1 + 1) % listSize] - 1)] > dist[(gDad.genomeList[c2 % listSize] - 1)] [(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
+            if distance_matrix_list[(gMom.genomeList[c1 % listSize] - 1)] [(gMom.genomeList[(c1 + 1) % listSize] - 1)] > distance_matrix_list[(gDad.genomeList[c2 % listSize] - 1)] [(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
 
                 bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize]);
                 bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize]);
@@ -646,7 +646,7 @@ def G1DListCrossoverGreedy(genome, **args):
 
         while None in brother.genomeList:
 
-            if dist[(gMom.genomeList[c1 % listSize] - 1)][(gMom.genomeList[(c1 + 1) % listSize] - 1)] < dist[(gDad.genomeList[c2 % listSize] - 1)][(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
+            if distance_matrix_list[(gMom.genomeList[c1 % listSize] - 1)][(gMom.genomeList[(c1 + 1) % listSize] - 1)] < distance_matrix_list[(gDad.genomeList[c2 % listSize] - 1)][(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
 
                 bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize]);
                 bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize]);
