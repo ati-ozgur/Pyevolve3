@@ -107,6 +107,7 @@ def run_tsp(width=1024, height=768
              , crossover_rate=1.0
              , mutation_rate=0.02
              , population_size=80
+             , selection_method=None
              , results_directory="tspimg"
              , random_seed=1024):
 
@@ -127,6 +128,9 @@ def run_tsp(width=1024, height=768
     ga.setCrossoverRate(crossover_rate)
     ga.setMutationRate(mutation_rate)
     ga.setPopulationSize(population_size)
+
+    if selection_method is not None:
+        ga.selector.set(selection_method)
 
     ga.setParams(results_directory=results_directory)
     ga.setParams(coordinates=coordinates)
