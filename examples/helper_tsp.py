@@ -107,7 +107,10 @@ def run_tsp(width=1024, height=768
              , crossover_rate=1.0
              , mutation_rate=0.02
              , population_size=80
+             , crossover_method=None
+             , mutation_method=None
              , selection_method=None
+             , initialization_method=None
              , results_directory="tspimg"
              , random_seed=1024):
 
@@ -118,9 +121,20 @@ def run_tsp(width=1024, height=768
     genome = G1DList.G1DList(len(coordinates))
 
     genome.evaluator.set(lambda chromosome: tour_length_xy(cm, chromosome, cities_count))
-    genome.crossover.set(G1DListCrossoverEdge)
-    genome.mutator.set(G1DListMutatorSwap)
-    genome.initializator.set(G1DListTSPInitializatorRandom)
+    if crossover_method is not None:
+        genome.crossover.set(crossover_method)
+    else:
+        genome.crossover.set(G1DListCrossoverEdge)
+    if mutation_method is not None:
+        genome.mutator.set(mutation_method)
+    else:
+        genome.mutator.set(G1DListMutatorSwap)
+    if initialization_method is not None:
+        genome.initializator.set(initialization_method)
+    else:
+        genome.initializator.set(G1DListTSPInitializatorRandom)
+
+
 
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(max_generation_count)
