@@ -923,7 +923,7 @@ def findIndex(array,number):
             return index
     return index
 
-def dictionaryToMatrix(distance):
+def dictionaryToMatrix(distance: dict) -> list:
 
     liste=list(distance.values())
     temp_x, temp_y = map(max, zip(*liste[0]))
