@@ -581,6 +581,8 @@ def G1DListCrossoverGreedy(genome, **args):
     listSize = len(gMom)
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
+    if distance_matrix_list == None:
+        raise ValueError("Distance matrix list is required for  Greedy Crossover(GX) ")
 
     c1Inital = rand_randint(0, len(gMom.genomeList) - 1)
 
@@ -700,6 +702,8 @@ def G1DListCrossoverIGX(genome, **args):
 
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
+    if distance_matrix_list == None:
+        raise ValueError("Distance matrix list is required for Impoved Greedy Crossover (IGX) Crossover Operator")
 
 
     if args["count"] >= 1:
@@ -856,7 +860,8 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
     listSize = len(gMom)
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
-
+    if distance_matrix_list == None:
+        raise ValueError("Distance matrix list is required for Sequential Constructive Crossover SCX")
 
     if args["count"] >= 1:
 
