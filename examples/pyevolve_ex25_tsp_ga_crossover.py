@@ -31,19 +31,22 @@ HEIGHT = 768
 LAST_SCORE = -1
 
 RESULTS_DIRECTORY = "tspimg"
-GENERATION_COUNT = 200000
+GENERATION_COUNT = 2000
 filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) +1
 
 
-def cartesian_matrix(coords):
+def cartesian_matrixes(coords):
     """ A distance matrix """
-    matrix = {}
+    matrix_dict = {}
+    matrix_list = []
     for i, (x1, y1) in enumerate(coords):
+        matrix_list.append([])
         for j, (x2, y2) in enumerate(coords):
             dx, dy = x1 - x2, y1 - y2
-            dist = sqrt(dx * dx + dy * dy)
-            matrix[i, j] = dist
-    return matrix
+            distance_value = sqrt(dx * dx + dy * dy)
+            matrix_dict[i, j] = distance_value
+            matrix_list[i].insert(j,distance_value)
+    return matrix_dict, matrix_list
 
 
 def tour_length(matrix, tour):
@@ -112,10 +115,11 @@ def main_run():
 
     coords = [(random.randint(0, WIDTH), random.randint(0, HEIGHT))
               for i in range(CITIES)]
-    cm = cartesian_matrix(coords)
+    cm_dict, cm_list = cartesian_matrixes(coords)
     genome = G1DList.G1DList(len(coords))
 
-    genome.setParams(dist=cm)
+    genome.setParams(distance_matrix_dict=cm_dict, distance_matrix_list=cm_list)
+
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
     genome.crossover.set(G1DListCrossoverGreedy)
     genome.mutator.set(G1DListMutatorDisplacement)
