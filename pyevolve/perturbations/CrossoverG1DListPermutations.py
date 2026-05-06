@@ -919,11 +919,3 @@ def findIndex(array,number):
             index=i;
             return index
     return index
-
-def dictionaryToMatrix(distance: dict) -> list:
-
-    liste=list(distance.values())
-    temp_x, temp_y = map(max, zip(*liste[0]))
-    matrix = [[liste[0].get((j, i), 0) for i in range(temp_y + 1)]
-           for j in range(temp_x + 1)]
-    return matrix
