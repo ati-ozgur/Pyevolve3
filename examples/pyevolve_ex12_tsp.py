@@ -1,6 +1,5 @@
 
 import random
-import math
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
@@ -10,11 +9,7 @@ from pyevolve import Consts
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
 
 
-random.seed(1024)
 
-
-cm = []
-coordinates = []
 
 
 
@@ -25,10 +20,10 @@ from helper_tsp import PIL_SUPPORT, get_cartesian_matrix, evolve_callback_xy, to
 def main_run(width=1024, height=768
              , cities_count=100
              , max_generation_count=2000
-             , results_directory="tspimg"):
+             , results_directory="tspimg"
+             , random_seed=1024):
 
-    global cm, coordinates, HEIGHT
-
+    random.seed(random_seed)
     coordinates = [(random.randint(0, width), random.randint(0, height))
               for i in range(cities_count)]
     cm = get_cartesian_matrix(coordinates)
