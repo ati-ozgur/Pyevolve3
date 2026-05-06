@@ -15,12 +15,6 @@ random.seed(1024)
 
 cm = []
 coordinates = []
-CITIES_COUNT = 100
-WIDTH = 1024
-HEIGHT = 768
-
-RESULTS_DIRECTORY = "tspimg"
-MAX_GENERATION_COUNT = 2000
 
 
 
@@ -28,28 +22,31 @@ MAX_GENERATION_COUNT = 2000
 from helper_tsp import PIL_SUPPORT, cartesian_matrix, evolve_callback_xy, tour_length_xy, write_tour_to_img
 
 
-def main_run():
-    global cm, coordinates, WIDTH, HEIGHT
+def main_run(width=1024, height=768
+             , cities_count=100
+             , max_generation_count=2000
+             , results_directory="tspimg"):
 
-    coordinates = [(random.randint(0, WIDTH), random.randint(0, HEIGHT))
-              for i in range(CITIES_COUNT)]
+    global cm, coordinates, HEIGHT
+
+    coordinates = [(random.randint(0, width), random.randint(0, height))
+              for i in range(cities_count)]
     cm = cartesian_matrix(coordinates)
     genome = G1DList.G1DList(len(coordinates))
 
-    genome.evaluator.set(lambda chromosome: tour_length_xy(cm, chromosome, CITIES_COUNT))
+    genome.evaluator.set(lambda chromosome: tour_length_xy(cm, chromosome, cities_count))
     genome.crossover.set(G1DListCrossoverEdge)
     genome.mutator.set(G1DListMutatorSwap)
     genome.initializator.set(G1DListTSPInitializatorRandom)
 
-    # 3662.69
     ga = GSimpleGA.GSimpleGA(genome)
-    ga.setGenerations(MAX_GENERATION_COUNT)
+    ga.setGenerations(max_generation_count)
     ga.setMinimax(Consts.minimaxType["minimize"])
     ga.setCrossoverRate(1.0)
     ga.setMutationRate(0.02)
     ga.setPopulationSize(80)
 
-    ga.setParams(results_directory=RESULTS_DIRECTORY)
+    ga.setParams(results_directory=results_directory)
     ga.setParams(coordinates=coordinates)
 
     if PIL_SUPPORT:
@@ -59,7 +56,7 @@ def main_run():
     best = ga.bestIndividual()
 
     if PIL_SUPPORT:
-        write_tour_to_img(coordinates, best, f"{RESULTS_DIRECTORY}/tsp_result.png",MAX_GENERATION_COUNT)
+        write_tour_to_img(coordinates, best, f"{results_directory}/tsp_result.png",max_generation_count)
     else:
         print("No PIL detected, cannot plot the graph !")
 
