@@ -858,9 +858,8 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    distance = None
-    distance= gMom.internalParams;
-    dist=dictionaryToMatrix(distance)
+    distance_matrix_dict= gMom.internalParams;
+    distance_matrix_list=dictionaryToMatrix(distance_matrix_dict)
 
     if args["count"] >= 1:
 
@@ -873,8 +872,8 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
         childChromosome=[gMom.genomeList[0]]
         sister.genomeList[0] = gMom.genomeList[0]
         while None in sister.genomeList:
-            (nodeAlfa,nodeBeta)= (getNextLegitimateNode(childChromosome,gMom.genomeList,p,dist) , getNextLegitimateNode(childChromosome,gDad.genomeList,p,dist))
-            p=( nodeBeta,nodeAlfa) [dist[p][nodeAlfa]<dist[p][nodeBeta]]
+            (nodeAlfa,nodeBeta)= (getNextLegitimateNode(childChromosome,gMom.genomeList,p,distance_matrix_list) , getNextLegitimateNode(childChromosome,gDad.genomeList,p,distance_matrix_list))
+            p=( nodeBeta,nodeAlfa) [distance_matrix_list[p][nodeAlfa]<distance_matrix_list[p][nodeBeta]]
             childChromosome.append(p)
             sister.genomeList[count]=childChromosome[count]
             count=count+1
@@ -891,8 +890,8 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
         brother.genomeList[0] = gDad.genomeList[0]
         count = 1
         while None in brother.genomeList:
-            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(childChromosome, gMom.genomeList, p, dist),getNextLegitimateNode(childChromosome, gDad.genomeList, p, dist))
-            p = (nodeBeta, nodeAlfa)[dist[p][nodeAlfa] < dist[p][nodeBeta]]
+            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(childChromosome, gMom.genomeList, p, distance_matrix_list),getNextLegitimateNode(childChromosome, gDad.genomeList, p, distance_matrix_list))
+            p = (nodeBeta, nodeAlfa)[distance_matrix_list[p][nodeAlfa] < distance_matrix_list[p][nodeBeta]]
             childChromosome.append(p)
             brother.genomeList[count] = childChromosome[count]
             count = count+1
