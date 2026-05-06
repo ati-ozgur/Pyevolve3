@@ -701,9 +701,9 @@ def G1DListCrossoverIGX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    distance = None
-    distance= gMom.internalParams;
-    dist=dictionaryToMatrix(distance)
+
+    distance_matrix_dict= gMom.internalParams;
+    distance_matrix_list=dictionaryToMatrix(distance_matrix_dict)
 
     if args["count"] >= 1:
         sister = gMom.clone()
@@ -734,7 +734,7 @@ def G1DListCrossoverIGX(genome, **args):
                 t.append(mneighs)
                 candidateslist = [item for sublist in t for item in sublist]
                 for i in range(0, len(candidateslist)):
-                    val = dist[first][candidateslist[i]]
+                    val = distance_matrix_list[first][candidateslist[i]]
                     if i == 0:
                         mindistance = val
                         vertice = candidateslist[i]
@@ -759,7 +759,7 @@ def G1DListCrossoverIGX(genome, **args):
                 candidateslist = [item for sublist in t for item in sublist]
                 verttemp = vertice
                 for i in range(0, len(candidateslist)):
-                    val = dist[verttemp][candidateslist[i]]
+                    val = distance_matrix_list[verttemp][candidateslist[i]]
                     if i == 0:
                         mindistance = val
                         vertice = candidateslist[i]
@@ -802,7 +802,7 @@ def G1DListCrossoverIGX(genome, **args):
                 t.append(mneighs)
                 candidateslist = [item for sublist in t for item in sublist]
                 for i in range(0, len(candidateslist)):
-                    val = dist[first][candidateslist[i]]
+                    val = distance_matrix_list[first][candidateslist[i]]
                     if i == 0:
                         mindistance = val
                         vertice = candidateslist[i]
@@ -827,7 +827,7 @@ def G1DListCrossoverIGX(genome, **args):
                 candidateslist = [item for sublist in t for item in sublist]
                 verttemp = vertice
                 for i in range(0, len(candidateslist)):
-                    val = dist[verttemp][candidateslist[i]]
+                    val = distance_matrix_list[verttemp][candidateslist[i]]
                     if i == 0:
                         mindistance = val
                         vertice = candidateslist[i]
