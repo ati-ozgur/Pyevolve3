@@ -110,7 +110,7 @@ def evolve_callback_xy(ga_engine):
             LAST_SCORE = best.getRawScore()
     return False
 
-def run_tsp( experiment_name
+def run_tsp_random_coordinate_cities( experiment_name
              , width=1024 
              , height=768
              , cities_count=100
