@@ -17,7 +17,7 @@ from pyevolve.initializations.InitializationPermutations import G1DListTSPInitia
 from helper_tsp import PIL_SUPPORT, get_cartesian_matrix, evolve_callback_xy, tour_length_xy, write_tour_to_img
 
 
-def main_run(width=1024, height=768
+def run_tsp(width=1024, height=768
              , cities_count=100
              , max_generation_count=2000
              , crossover_rate=1.0
@@ -60,4 +60,4 @@ def main_run(width=1024, height=768
 
 
 if __name__ == "__main__":
-    main_run()
+    run_tsp()
