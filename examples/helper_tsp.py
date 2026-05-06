@@ -13,7 +13,7 @@ except ImportError:
     PIL_SUPPORT = False
 
 
-def cartesian_matrix(coords):
+def get_cartesian_matrix(coords):
     """ A distance matrix """
     matrix = {}
     for i, (x1, y1) in enumerate(coords):

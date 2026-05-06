@@ -19,7 +19,7 @@ coordinates = []
 
 
 
-from helper_tsp import PIL_SUPPORT, cartesian_matrix, evolve_callback_xy, tour_length_xy, write_tour_to_img
+from helper_tsp import PIL_SUPPORT, get_cartesian_matrix, evolve_callback_xy, tour_length_xy, write_tour_to_img
 
 
 def main_run(width=1024, height=768
@@ -31,7 +31,7 @@ def main_run(width=1024, height=768
 
     coordinates = [(random.randint(0, width), random.randint(0, height))
               for i in range(cities_count)]
-    cm = cartesian_matrix(coordinates)
+    cm = get_cartesian_matrix(coordinates)
     genome = G1DList.G1DList(len(coordinates))
 
     genome.evaluator.set(lambda chromosome: tour_length_xy(cm, chromosome, cities_count))
