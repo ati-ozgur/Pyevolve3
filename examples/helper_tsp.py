@@ -23,15 +23,20 @@ except ImportError:
     PIL_SUPPORT = False
 
 
-def get_distance_matrix(coords):
-    """ A distance matrix """
-    matrix = {}
+
+def get_distance_matrixes(coords):
+    """ returns distance matrix as both dict and list """
+    matrix_dict = {}
+    matrix_list = []
     for i, (x1, y1) in enumerate(coords):
+        matrix_list.append([])
         for j, (x2, y2) in enumerate(coords):
             dx, dy = x1 - x2, y1 - y2
-            dist = math.sqrt(dx * dx + dy * dy)
-            matrix[i, j] = dist
-    return matrix
+            distance_value = math.sqrt(dx * dx + dy * dy)
+            matrix_dict[i, j] = distance_value
+            matrix_list[i].insert(j,distance_value)
+    return matrix_dict, matrix_list
+
 
 
 def tour_length_xy(distance_matrix, tour, cities):
@@ -123,10 +128,11 @@ def run_tsp( experiment_name
     random.seed(random_seed)
     coordinates = [(random.randint(0, width), random.randint(0, height))
               for i in range(cities_count)]
-    distance_matrix = get_distance_matrix(coordinates)
+    distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
     genome = G1DList.G1DList(len(coordinates))
 
-    genome.evaluator.set(lambda chromosome: tour_length_xy(distance_matrix, chromosome, cities_count))
+    genome.setParams(distance_matrix_dict=distance_matrix_dict, distance_matrix_list=distance_matrix_list)
+    genome.evaluator.set(lambda chromosome: tour_length_xy(distance_matrix_dict, chromosome, cities_count))
     if crossover_method is not None:
         genome.crossover.set(crossover_method)
     else:
