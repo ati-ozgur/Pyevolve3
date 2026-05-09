@@ -9,7 +9,7 @@ if __name__ == "__main__":
     coordinates = get_coordinates_for_random_cities()
     run_tsp_random_coordinate_cities(experiment_name="tsp_crossoverIGX"
             , coordinates = coordinates        
-            , crossover_method=G1DListCrossoverPMX
+            , crossover_method=G1DListCrossoverIGX
             , mutation_method=G1DListMutatorDisplacement
             , initialization_method=G1DListTSPInitializatorRandom
             )
