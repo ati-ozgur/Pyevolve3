@@ -74,38 +74,8 @@ def tour_length(matrix, tour):
     return total
 
 
-def write_tour_to_img(coords, tour, img_file):
-    """ The function to plot the graph """
-    padding = 20
-    coords = [(x + padding, y + padding) for (x, y) in coords]
-    maxx, maxy = 0, 0
-    for x, y in coords:
-        maxx, maxy = max(x, maxx), max(y, maxy)
-    maxx += padding
-    maxy += padding
-    img = Image.new("RGB", (int(maxx), int(maxy)), color=(255, 255, 255))
-    font = ImageFont.load_default()
-    d = ImageDraw.Draw(img)
-    num_cities = len(tour)
-    for i in range(num_cities):
-        j = (i + 1) % num_cities
-        city_i = tour[i]
-        city_j = tour[j]
-        x1, y1 = coords[city_i]
-        x2, y2 = coords[city_j]
-        d.line((int(x1), int(y1), int(x2), int(y2)), fill=(0, 0, 0))
-        d.text((int(x1) + 7, int(y1) - 5), str(i), font=font, fill=(32, 32, 32))
-
-    for x, y in coords:
-        x, y = int(x), int(y)
-        d.ellipse((x - 5, y - 5, x + 5, y + 5), outline=(0, 0, 0), fill=(196, 196, 196))
-    del d
-    img.save(img_file, "PNG")
-    print(f"The plot was saved into the {img_file} file. max generation: {GENERATION_COUNT}")
 
 
-# This is to make a video of best individuals along the evolution
-# see create_video_from_images.bash for example ffmpeg commands.
 
 def evolve_callback(ga_engine):
     global LAST_SCORE
@@ -119,7 +89,6 @@ def evolve_callback(ga_engine):
             pass
             #f.write(str(best.getRawScore()) + "\n")
             filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
-            # write_tour_to_img(coords, best, filename )
 
     return False
 
