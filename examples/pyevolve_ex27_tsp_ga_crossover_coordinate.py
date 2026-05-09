@@ -43,7 +43,7 @@ try:
 except ImportError:
     PIL_SUPPORT = False
 
-cm = []
+distance_matrix_dict = []
 coords = []
 CITIES = None
 LAST_SCORE = -1
@@ -87,7 +87,7 @@ def evolve_callback(ga_engine):
 
 
 def main_run(crossover_operator_func, problemname):
-    global cm, coords, WIDTH, HEIGHT, CITIES
+    global distance_matrix_dict, coords, WIDTH, HEIGHT, CITIES
     filename = 'tsp_datasets/' + problemname + '.tsp'
     path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
@@ -95,11 +95,12 @@ def main_run(crossover_operator_func, problemname):
 
     coords = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
     CITIES = len(list(problem.get_nodes()))
-    cm,_ = get_distance_matrixes(coords)
+    distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coords)
     genome = G1DList.G1DList(len(coords))
 
-    genome.setParams(dist=cm)
-    genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
+    genome.setParams(distance_matrix_dict=distance_matrix_dict, distance_matrix_list=distance_matrix_list)
+
+    genome.evaluator.set(lambda chromosome: tour_length(distance_matrix_dict, chromosome))
     genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorSwap)
     genome.initializator.set(G1DListTSPInitializatorRandom)
