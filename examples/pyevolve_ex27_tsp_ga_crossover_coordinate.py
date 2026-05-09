@@ -53,15 +53,8 @@ GENERATION_COUNT = 1001
 filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
 
 
-def cartesian_matrix(coords):
-    """ A distance matrix """
-    matrix = {}
-    for i, (x1, y1) in enumerate(coords):
-        for j, (x2, y2) in enumerate(coords):
-            dx, dy = x1 - x2, y1 - y2
-            dist = sqrt(dx * dx + dy * dy)
-            matrix[i, j] = dist
-    return matrix
+
+from helper_tsp import get_distance_matrixes
 
 
 def tour_length(matrix, tour):
@@ -102,7 +95,7 @@ def main_run(crossover_operator_func, problemname):
 
     coords = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
     CITIES = len(list(problem.get_nodes()))
-    cm = cartesian_matrix(coords)
+    cm,_ = get_distance_matrixes(coords)
     genome = G1DList.G1DList(len(coords))
 
     genome.setParams(dist=cm)
@@ -129,14 +122,10 @@ def main_run(crossover_operator_func, problemname):
     print(end - start)
     #f.write(str(end - start) + "\n")
 
-    if PIL_SUPPORT:
-        write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
-    else:
-        print("No PIL detected, cannot plot the graph !")
 
 
 if __name__ == "__main__":
-    methods = ["PMX", "CX", "OX", "OX2", "MPX", "POS", "ERX", "EPMX", "GX", "IGX", "SCX"]
+    methods = ["GX", "IGX","PMX", "CX", "OX", "OX2", "MPX", "POS", "ERX", "EPMX", "SCX"]
     for m in range(0, len(methods)):
         randomseed = 1000
         for i in range(1, 2):
