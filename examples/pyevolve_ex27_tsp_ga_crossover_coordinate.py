@@ -116,7 +116,8 @@ def evolve_callback(ga_engine):
     if current_generation % 1 == 0:
         best = ga_engine.bestIndividual()
         if LAST_SCORE != best.getRawScore():
-            f.write(str(best.getRawScore()) + "\n")
+            pass
+            #f.write(str(best.getRawScore()) + "\n")
             filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
             # write_tour_to_img(coords, best, filename )
 
@@ -157,7 +158,7 @@ def main_run(crossover_operator_func, problemname):
     end = time.time()
     best = ga.bestIndividual()
     print(end - start)
-    f.write(str(end - start) + "\n")
+    #f.write(str(end - start) + "\n")
 
     if PIL_SUPPORT:
         write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
@@ -186,5 +187,5 @@ if __name__ == "__main__":
                 crossover_operator_func = dict_crossoever_operators[crossover_operator_name]
 
             print(args)
-            f = open(crossover_operator_name + "_" + problemname + "_" + "Experiment_" + str(randomseed) + ".txt", "w")
+            #f = open(crossover_operator_name + "_" + problemname + "_" + "Experiment_" + str(randomseed) + ".txt", "w")
             main_run(crossover_operator_func, problemname)
