@@ -111,8 +111,8 @@ def evolve_callback_xy(ga_engine):
     return False
 
 def run_tsp_random_coordinate_cities( experiment_name
-             , width=1024 
-             , height=768
+             , cities_random_width=1024 
+             , cities_random_height=768
              , cities_count=100
              , max_generation_count=2000
              , crossover_rate=1.0
@@ -131,7 +131,7 @@ def run_tsp_random_coordinate_cities( experiment_name
     print("--------------------------")
 
     random.seed(random_seed)
-    coordinates = [(random.randint(0, width), random.randint(0, height))
+    coordinates = [(random.randint(0, cities_random_width), random.randint(0, cities_random_height))
               for i in range(cities_count)]
     distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
     genome = G1DList.G1DList(len(coordinates))
