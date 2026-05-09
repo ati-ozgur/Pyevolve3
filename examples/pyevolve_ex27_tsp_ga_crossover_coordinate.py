@@ -44,8 +44,7 @@ except ImportError:
     PIL_SUPPORT = False
 
 distance_matrix_dict = []
-coords = []
-CITIES = None
+coordinates = []
 LAST_SCORE = -1
 
 RESULTS_DIRECTORY = "tspimg"
@@ -54,19 +53,7 @@ filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
 
 
 
-from helper_tsp import get_distance_matrixes
-
-
-def tour_length(matrix, tour):
-    """ Returns the total length of the tour """
-    total = 0
-    t = tour.getInternalList()
-    for i in range(CITIES):
-        j = (i + 1) % CITIES
-        total += matrix[t[i], t[j]]
-    return total
-
-
+from helper_tsp import get_distance_matrixes, tour_length_xy
 
 
 
@@ -87,20 +74,22 @@ def evolve_callback(ga_engine):
 
 
 def main_run(crossover_operator_func, problemname):
-    global distance_matrix_dict, coords, WIDTH, HEIGHT, CITIES
+    global distance_matrix_dict, coordinates
     filename = 'tsp_datasets/' + problemname + '.tsp'
     path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
-    print(list(problem.get_nodes()))
+    liste_cities = list(problem.get_nodes())
+    cities_count = len(liste_cities)
+    print(liste_cities)
 
-    coords = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
-    CITIES = len(list(problem.get_nodes()))
-    distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coords)
-    genome = G1DList.G1DList(len(coords))
+    coordinates = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
+    distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
+    genome = G1DList.G1DList(len(coordinates))
 
     genome.setParams(distance_matrix_dict=distance_matrix_dict, distance_matrix_list=distance_matrix_list)
 
-    genome.evaluator.set(lambda chromosome: tour_length(distance_matrix_dict, chromosome))
+    genome.evaluator.set(lambda chromosome: tour_length_xy(distance_matrix_dict, chromosome, cities_count))
+
     genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorSwap)
     genome.initializator.set(G1DListTSPInitializatorRandom)
