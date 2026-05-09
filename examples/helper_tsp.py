@@ -127,7 +127,9 @@ def evolve_callback_xy(ga_engine):
             LAST_SCORE = best.getRawScore()
     return False
 
-def get_random_coordinate_cities(
+
+
+def get_coordinates_for_random_cities(
       cities_count=100    
     , cities_random_width=1024 
     , cities_random_height=768
