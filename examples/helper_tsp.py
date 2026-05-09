@@ -4,11 +4,28 @@ import random
 
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverEdge
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorSwap
 from pyevolve import Consts
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
 
+from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverPMX, G1DListCrossoverOX, \
+    G1DListCrossoverOX2, G1DListCrossoverCycle, G1DListCrossoverPOS, G1DListCrossoverMPX, G1DListCrossoverEdge, \
+    G1DListCrossoverEPMX, G1DListCrossoverGreedy, G1DListCrossoverIGX, G1DListCrossoverSequentialConstructive
+
+
+dict_crossoever_operators = {
+    "PMX": G1DListCrossoverPMX,
+    "OX": G1DListCrossoverOX,
+    "OX2": G1DListCrossoverOX2,
+    "CX": G1DListCrossoverCycle,
+    "POS": G1DListCrossoverPOS,
+    "MPX": G1DListCrossoverMPX,
+    "ERX": G1DListCrossoverEdge,
+    "EPMX": G1DListCrossoverEPMX,
+    "GX": G1DListCrossoverGreedy,
+    "IGX": G1DListCrossoverIGX,
+    "SCX": G1DListCrossoverSequentialConstructive
+}
 
 
 PIL_SUPPORT = None
