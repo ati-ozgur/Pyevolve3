@@ -127,10 +127,19 @@ def evolve_callback_xy(ga_engine):
             LAST_SCORE = best.getRawScore()
     return False
 
+def get_random_coordinate_cities(
+      cities_count=100    
+    , cities_random_width=1024 
+    , cities_random_height=768
+    , random_seed = 1024
+    ):
+    coordinates = [(random.randint(0, cities_random_width), random.randint(0, cities_random_height))
+              for i in range(cities_count)]
+    return coordinates
+
+
 def run_tsp_random_coordinate_cities( experiment_name
-             , cities_random_width=1024 
-             , cities_random_height=768
-             , cities_count=100
+             , coordinates
              , max_generation_count=2000
              , crossover_rate=1.0
              , mutation_rate=0.02
@@ -146,10 +155,8 @@ def run_tsp_random_coordinate_cities( experiment_name
     for key, value in locals().items():
         print(f"{key} = {value!r}")
     print("--------------------------")
-
+    cities_count = len(coordinates)
     random.seed(random_seed)
-    coordinates = [(random.randint(0, cities_random_width), random.randint(0, cities_random_height))
-              for i in range(cities_count)]
     distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
     genome = G1DList.G1DList(len(coordinates))
 
