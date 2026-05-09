@@ -19,14 +19,7 @@ collections.Callable = collections.abc.Callable
 
 
 
-distance_matrix_dict = []
-coordinates = []
 LAST_SCORE = -1
-
-RESULTS_DIRECTORY = "tspimg"
-GENERATION_COUNT = 1001
-filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
-
 
 
 from helper_tsp import get_distance_matrixes, tour_length_xy, evolve_callback_xy
@@ -37,8 +30,8 @@ from helper_tsp import dict_crossoever_operators
 def main_run(crossover_operator_func
     , problemname
     , results_directory="tspimg"
+    , generation_count = 1001
     ):
-    global distance_matrix_dict, coordinates
     experiment_name = problemname
     filename = 'tsp_datasets/' + problemname + '.tsp'
     path = os.path.join(os.path.dirname(__file__), filename)
@@ -61,7 +54,7 @@ def main_run(crossover_operator_func
 
     # 3662.69
     ga = GSimpleGA.GSimpleGA(genome)
-    ga.setGenerations(GENERATION_COUNT)
+    ga.setGenerations(generation_count)
     ga.setMinimax(Consts.minimaxType["minimize"])
     ga.setCrossoverRate(1.0)
     ga.setMutationRate(0.02)
