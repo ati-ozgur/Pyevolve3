@@ -53,28 +53,17 @@ filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
 
 
 
-from helper_tsp import get_distance_matrixes, tour_length_xy
+from helper_tsp import get_distance_matrixes, tour_length_xy, evolve_callback_xy
 
 
 
-def evolve_callback(ga_engine):
-    global LAST_SCORE
-    current_generation = ga_engine.getCurrentGeneration()
-    if not os.path.exists(RESULTS_DIRECTORY):
-        os.makedirs(RESULTS_DIRECTORY)
 
-    if current_generation % 1 == 0:
-        best = ga_engine.bestIndividual()
-        if LAST_SCORE != best.getRawScore():
-            pass
-            #f.write(str(best.getRawScore()) + "\n")
-            filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
-
-    return False
-
-
-def main_run(crossover_operator_func, problemname):
+def main_run(crossover_operator_func
+    , problemname
+    , results_directory="tspimg"
+    ):
     global distance_matrix_dict, coordinates
+    experiment_name = problemname
     filename = 'tsp_datasets/' + problemname + '.tsp'
     path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
@@ -103,7 +92,12 @@ def main_run(crossover_operator_func, problemname):
     ga.setPopulationSize(80)
     ga.selector.set(SelectionRank.SelectorExplorationExploitationBalance)
 
-    ga.stepCallback.set(evolve_callback)
+    ga.setParams(results_directory=results_directory)
+    ga.setParams(coordinates=coordinates)
+    ga.setParams(experiment_name=experiment_name)
+
+
+    ga.stepCallback.set(evolve_callback_xy)
     # 21666.49
     start = time.time()
     ga.evolve(freq_stats=1)
