@@ -125,6 +125,11 @@ def run_tsp_random_coordinate_cities( experiment_name
              , results_directory="tspimg"
              , random_seed=1024):
 
+    print("--- Current run_tsp Function Arguments ---")
+    for key, value in locals().items():
+        print(f"{key} = {value!r}")
+    print("--------------------------")
+
     random.seed(random_seed)
     coordinates = [(random.randint(0, width), random.randint(0, height))
               for i in range(cities_count)]
