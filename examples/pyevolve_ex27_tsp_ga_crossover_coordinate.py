@@ -170,7 +170,7 @@ if __name__ == "__main__":
     methods = ["PMX", "CX", "OX", "OX2", "MPX", "POS", "ERX", "EPMX", "GX", "IGX", "SCX"]
     for m in range(0, len(methods)):
         randomseed = 1000
-        for i in range(1, 31):
+        for i in range(1, 2):
             parser = argparse.ArgumentParser(description='crossover, tsp problems')
             parser.add_argument('--crossover', help="cross over operator to use", default=methods[m])
             parser.add_argument('--problemname', help="TSP problem filename", default='eil51')
