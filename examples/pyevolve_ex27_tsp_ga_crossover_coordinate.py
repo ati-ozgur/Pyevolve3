@@ -6,7 +6,7 @@ import random
 import time
 from math import sqrt
 
-import tsplib95
+
 
 from pyevolve import Consts
 from pyevolve import GSimpleGA
@@ -23,7 +23,7 @@ LAST_SCORE = -1
 
 
 from helper_tsp import get_distance_matrixes, tour_length_xy, evolve_callback_xy
-from helper_tsp import dict_crossoever_operators
+from helper_tsp import dict_crossoever_operators, get_coordinates_for_tsp_problem
 
 
 
@@ -33,16 +33,10 @@ def main_run(crossover_operator_func
     , generation_count = 1001
     ):
     experiment_name = problemname
-    filename = 'tsp_datasets/' + problemname + '.tsp'
-    path = os.path.join(os.path.dirname(__file__), filename)
-    problem = tsplib95.load(path)
-    liste_cities = list(problem.get_nodes())
-    cities_count = len(liste_cities)
-    print(liste_cities)
-
-    coordinates = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
+    coordinates = get_coordinates_for_tsp_problem(problemname)
+    cities_count = len(coordinates)
     distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
-    genome = G1DList.G1DList(len(coordinates))
+    genome = G1DList.G1DList(cities_count)
 
     genome.setParams(distance_matrix_dict=distance_matrix_dict, distance_matrix_list=distance_matrix_list)
 

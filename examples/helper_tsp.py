@@ -2,6 +2,8 @@ import math
 import os
 import random
 
+import tsplib95
+
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorSwap
@@ -127,7 +129,13 @@ def evolve_callback_xy(ga_engine):
             LAST_SCORE = best.getRawScore()
     return False
 
+def get_coordinates_for_tsp_problem(problem_name):
+    filename = 'tsp_datasets/' + problem_name + '.tsp'
+    path = os.path.join(os.path.dirname(__file__), filename)
+    problem = tsplib95.load(path)
 
+    coordinates = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
+    return coordinates
 
 def get_coordinates_for_random_cities(
       cities_count=100    
