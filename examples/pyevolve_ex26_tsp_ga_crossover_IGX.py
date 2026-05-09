@@ -2,12 +2,12 @@ from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossover
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorDisplacement
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
 
-from helper_tsp import run_tsp_random_coordinate_cities, get_coordinates_for_random_cities
+from helper_tsp import run_tsp_coordinate_cities, get_coordinates_for_random_cities
 
 if __name__ == "__main__":
 
     coordinates = get_coordinates_for_random_cities()
-    run_tsp_random_coordinate_cities(experiment_name="tsp_crossoverIGX"
+    run_tsp_coordinate_cities(experiment_name="tsp_crossoverIGX"
             , coordinates = coordinates        
             , crossover_method=G1DListCrossoverIGX
             , mutation_method=G1DListMutatorDisplacement
