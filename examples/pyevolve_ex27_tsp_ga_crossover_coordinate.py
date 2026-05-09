@@ -3,7 +3,7 @@ import collections
 import math
 import os
 import random
-import time
+
 from math import sqrt
 
 
@@ -22,52 +22,8 @@ collections.Callable = collections.abc.Callable
 LAST_SCORE = -1
 
 
-from helper_tsp import get_distance_matrixes, tour_length_xy, evolve_callback_xy
+from helper_tsp import run_tsp_coordinate_cities, tour_length_xy, evolve_callback_xy
 from helper_tsp import dict_crossoever_operators, get_coordinates_for_tsp_problem
-
-
-
-def main_run(crossover_operator_func
-    , problemname
-    , results_directory="tspimg"
-    , generation_count = 1001
-    ):
-    experiment_name = problemname
-    coordinates = get_coordinates_for_tsp_problem(problemname)
-    cities_count = len(coordinates)
-    distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
-    genome = G1DList.G1DList(cities_count)
-
-    genome.setParams(distance_matrix_dict=distance_matrix_dict, distance_matrix_list=distance_matrix_list)
-
-    genome.evaluator.set(lambda chromosome: tour_length_xy(distance_matrix_dict, chromosome, cities_count))
-
-    genome.crossover.set(crossover_operator_func)
-    genome.mutator.set(G1DListMutatorSwap)
-    genome.initializator.set(G1DListTSPInitializatorRandom)
-
-    # 3662.69
-    ga = GSimpleGA.GSimpleGA(genome)
-    ga.setGenerations(generation_count)
-    ga.setMinimax(Consts.minimaxType["minimize"])
-    ga.setCrossoverRate(1.0)
-    ga.setMutationRate(0.02)
-    ga.setPopulationSize(80)
-    ga.selector.set(SelectionRank.SelectorExplorationExploitationBalance)
-
-    ga.setParams(results_directory=results_directory)
-    ga.setParams(coordinates=coordinates)
-    ga.setParams(experiment_name=experiment_name)
-
-
-    ga.stepCallback.set(evolve_callback_xy)
-    # 21666.49
-    start = time.time()
-    ga.evolve(freq_stats=1)
-    end = time.time()
-    best = ga.bestIndividual()
-    print(end - start)
-    #f.write(str(end - start) + "\n")
 
 
 
@@ -92,5 +48,10 @@ if __name__ == "__main__":
                 crossover_operator_func = dict_crossoever_operators[crossover_operator_name]
 
             print(args)
-            #f = open(crossover_operator_name + "_" + problemname + "_" + "Experiment_" + str(randomseed) + ".txt", "w")
-            main_run(crossover_operator_func, problemname)
+
+            coordinates = get_coordinates_for_tsp_problem(problemname)
+            experiment_name = f"{problemname}-{crossover_operator_name}-{randomseed}"
+            run_tsp_coordinate_cities( experiment_name=experiment_name
+                                      , coordinates = coordinates
+                                      , selection_method=SelectionRank.SelectorExplorationExploitationBalance
+                                    )

@@ -1,6 +1,7 @@
 import math
 import os
 import random
+import time
 
 import tsplib95
 
@@ -143,12 +144,13 @@ def get_coordinates_for_random_cities(
     , cities_random_height=768
     , random_seed = 1024
     ):
+    random.seed(random_seed)    
     coordinates = [(random.randint(0, cities_random_width), random.randint(0, cities_random_height))
               for i in range(cities_count)]
     return coordinates
 
 
-def run_tsp_random_coordinate_cities( experiment_name
+def run_tsp_coordinate_cities( experiment_name
              , coordinates
              , max_generation_count=2000
              , crossover_rate=1.0
@@ -204,8 +206,16 @@ def run_tsp_random_coordinate_cities( experiment_name
     if PIL_SUPPORT:
         ga.stepCallback.set(  evolve_callback_xy)
 
-    ga.evolve(freq_stats=500)
+
+    start = time.time()
+    ga.evolve(freq_stats=10)
+    end = time.time()
     best = ga.bestIndividual()
+    print(end - start)
+
+    best = ga.bestIndividual()
+    #f.write(str(end - start) + "\n")
+
 
     if PIL_SUPPORT:
         img_filename = f"{results_directory}/tsp_result_{experiment_name}.png"
