@@ -21,19 +21,9 @@ from pyevolve.selections.Selectors import GTournamentSelector
 
 collections.Callable = collections.abc.Callable
 
-dict_crossoever_operators = {
-    "PMX": G1DListCrossoverPMX,
-    "OX": G1DListCrossoverOX,
-    "OX2": G1DListCrossoverOX2,
-    "CX": G1DListCrossoverCycle,
-    "POS": G1DListCrossoverPOS,
-    "MPX": G1DListCrossoverMPX,
-    "ERX": G1DListCrossoverEdge,
-    "EPMX": G1DListCrossoverEPMX,
-    "GX": G1DListCrossoverGreedy,
-    "IGX": G1DListCrossoverIGX,
-    "SCX": G1DListCrossoverSequentialConstructive
-}
+from helper_tsp import dict_crossoever_operators, crossover_methods
+
+
 
 dict_selector_operators = {
     "FPS": SelectorFitnessProportional,
