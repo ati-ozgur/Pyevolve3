@@ -52,7 +52,7 @@ except ImportError:
 
 cm = []
 coords = []
-CITIES = None
+cities_count = None
 LAST_SCORE = -1
 
 RESULTS_DIRECTORY = "tspimg"
@@ -147,8 +147,8 @@ def tour_length(matrix, tour):
     """ Returns the total length of the tour """
     total = 0
     t = tour.getInternalList()
-    for i in range(CITIES):
-        j = (i + 1) % CITIES
+    for i in range(cities_count):
+        j = (i + 1) % cities_count
         total += matrix[t[i], t[j]]
     return total
 
@@ -389,14 +389,14 @@ def self_adaptive_mutator(genome, **args):
 
 
 def main_run(crossover_operator_func, problemname):
-    global cm, coords, WIDTH, HEIGHT, CITIES
+    global cm, coords, WIDTH, HEIGHT, cities_count
     filename = 'tsp_datasets/' + problemname + '.tsp'
     path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
     print(list(problem.get_nodes()))
 
     coords = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
-    CITIES = len(list(problem.get_nodes()))
+    cities_count = len(list(problem.get_nodes()))
     cm = cartesian_matrix(coords)
     genome = G1DList.G1DList(len(coords))
 

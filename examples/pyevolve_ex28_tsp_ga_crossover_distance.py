@@ -34,7 +34,7 @@ except ImportError:
 
 cm = {}
 coords = []
-CITIES = None
+cities_count = None
 LAST_SCORE = -1
 
 RESULTS_DIRECTORY = "tspimg"
@@ -57,8 +57,8 @@ def tour_length(matrix, tour):
     """ Returns the total length of the tour """
     total = 0
     t = tour.getInternalList()
-    for i in range(CITIES):
-        j = (i + 1) % CITIES
+    for i in range(cities_count):
+        j = (i + 1) % cities_count
         total += matrix[t[i], t[j]]
     return total
 
@@ -113,20 +113,20 @@ def evolve_callback(ga_engine):
 
 
 def main_run(crossover_operator_func, problemname):
-    global cm, coords, WIDTH, HEIGHT, CITIES
+    global cm, coords, WIDTH, HEIGHT, cities_count
     filename = 'tsp_datasets/' + problemname + '.tsp'
     path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
     print(list(problem.get_nodes()))
 
-    CITIES = len(list(problem.get_nodes()))
-    for i in range(0, CITIES):
-        for j in range(0, CITIES):
+    cities_count = len(list(problem.get_nodes()))
+    for i in range(0, cities_count):
+        for j in range(0, cities_count):
             edge = i, j
             weight = problem.get_weight(*edge)
             cm[i, j] = weight
 
-    genome = G1DList.G1DList(CITIES)
+    genome = G1DList.G1DList(cities_count)
 
     genome.setParams(dist=cm)
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))

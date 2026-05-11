@@ -51,7 +51,7 @@ except ImportError:
 
 cm = {}
 coords = []
-CITIES = None
+cities_count = None
 LAST_SCORE = -1
 
 RESULTS_DIRECTORY = "tspimg"
@@ -147,8 +147,8 @@ def tour_length(matrix, tour):
     """ Returns the total length of the tour """
     total = 0
     t = tour.getInternalList()
-    for i in range(CITIES):
-        j = (i + 1) % CITIES
+    for i in range(cities_count):
+        j = (i + 1) % cities_count
         total += matrix[t[i], t[j]]
     return total
 
@@ -389,18 +389,18 @@ def self_adaptive_mutator(genome, **args):
 
 
 def main_run(crossover_operator_func, problemname):
-    global cm, coords, WIDTH, HEIGHT, CITIES
+    global cm, coords, WIDTH, HEIGHT, cities_count
     filename = "tsp_datasets/" + problemname + ".csv"
 
-    CITIES = 170
-    problem = numpy.loadtxt(filename, delimiter=',', skiprows=1, usecols=range(1, CITIES + 1))
+    cities_count = 170
+    problem = numpy.loadtxt(filename, delimiter=',', skiprows=1, usecols=range(1, cities_count + 1))
     # problem = numpy.loadtxt(filename, delimiter='|', skiprows=1, usecols=range(1, CITIES+1))
 
-    for i in range(0, CITIES):
-        for j in range(0, CITIES):
+    for i in range(0, cities_count):
+        for j in range(0, cities_count):
             cm[i, j] = problem[i, j]
 
-    genome = G1DList.G1DList(CITIES)
+    genome = G1DList.G1DList(cities_count)
 
     genome.setParams(dist=cm)
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))

@@ -38,7 +38,7 @@ dict_selector_operators = {
 DIST_MATRIX = {}
 DEMANDS = {}
 CAPACITY = 0
-CITIES_COUNT = 0
+cities_count = 0
 DEPOT_INDEX = 0
 LAST_SCORE = -1
 GENERATION_COUNT = 1001
@@ -332,28 +332,28 @@ def evolve_callback(ga_engine):
 
 
 def main_run(crossover_func, problemname):
-    global DIST_MATRIX, DEMANDS, CAPACITY, CITIES_COUNT, DEPOT_INDEX
+    global DIST_MATRIX, DEMANDS, CAPACITY, cities_count, DEPOT_INDEX
 
     path = os.path.join(os.path.dirname(__file__), f"vrp_datasets/small/{problemname}.vrp")
     problem = tsplib95.load(path)
 
     CAPACITY = problem.capacity
     original_nodes = list(problem.get_nodes())
-    CITIES_COUNT = len(original_nodes)
+    cities_count = len(original_nodes)
 
     DIST_MATRIX.clear()
     DEMANDS.clear()
     DEPOT_INDEX = 0
 
-    for i in range(CITIES_COUNT):
+    for i in range(cities_count):
         orig_i = original_nodes[i]
         DEMANDS[i] = problem.demands.get(orig_i, 0)
-        for j in range(CITIES_COUNT):
+        for j in range(cities_count):
             orig_j = original_nodes[j]
             DIST_MATRIX[(i, j)] = float(problem.get_weight(orig_i, orig_j))
 
 
-    customers = [n for n in range(CITIES_COUNT) if n != DEPOT_INDEX]
+    customers = [n for n in range(cities_count) if n != DEPOT_INDEX]
     genome = G1DList.G1DList(len(customers))
     genome.setInternalList(customers)
 
