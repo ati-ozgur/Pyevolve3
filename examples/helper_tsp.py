@@ -159,6 +159,7 @@ def get_coordinates_for_random_cities(
               for i in range(cities_count)]
     return coordinates
 
+import inspect
 
 def run_tsp(problem_name:str
              , random_cities_info: dict = None
@@ -173,18 +174,39 @@ def run_tsp(problem_name:str
              , results_directory="tspimg"
              , random_seed=1024):
 
-    print("--- Current run_tsp Function Arguments ---")
-    for key, value in locals().items():
-        print(f"{key} = {value!r}")
-    print("--------------------------")
+    # 1. Capture the local variables immediately
+    current_locals = locals().copy()
+
+    # 2. Get the signature of the function
+    sig = inspect.signature(run_tsp)
+    
+    # 3. Bind using the clean snapshot of locals
+    bound_args = sig.bind_partial(**current_locals).arguments
+
+    experiment_name = ""
+
+    print("--- Non-Default run_tsp Function Arguments ---")
+    for key, value in bound_args.items():
+        default_value = sig.parameters[key].default
+        
+        if default_value is not inspect.Parameter.empty and value == default_value:
+            continue
+            
+        if value is not None:
+            experiment_name += f"{key},{value!r};"
+    
+    print(experiment_name)
 
     if "random" in problem_name.lower():
         if random_cities_info is not None:
             coordinates = get_coordinates_for_random_cities(**random_cities_info)
-            experiment_name = f"{problem_name}-random_cities_info({', '.join(f'{k}: {v}' for k, v in random_cities_info.items())})"
         else:
             coordinates = get_coordinates_for_random_cities()
             experiment_name = problem_name
+
+    if problem_name in tsp_file_list_euclid_2d:
+        coordinates = get_coordinates_for_tsp_problem(problem_name)
+
 
     cities_count = len(coordinates)
     random.seed(random_seed)
