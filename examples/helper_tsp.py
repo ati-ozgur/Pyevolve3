@@ -193,7 +193,13 @@ def run_tsp(problem_name:str
             continue
             
         if value is not None:
-            experiment_name += f"{key},{value!r};"
+            # Check if the value is a function/class and has a __name__ attribute
+            if hasattr(value, '__name__'):
+                formatted_value = value.__name__
+            else:
+                formatted_value = str(value)
+                
+            experiment_name += f"{key}-{formatted_value};"
     
     print(experiment_name)
 
@@ -206,9 +212,9 @@ def run_tsp(problem_name:str
 
     if problem_name in tsp_file_list_euclid_2d:
         coordinates = get_coordinates_for_tsp_problem(problem_name)
+        cities_count = len(coordinates)
 
 
-    cities_count = len(coordinates)
     random.seed(random_seed)
     distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
     genome = G1DList.G1DList(len(coordinates))
