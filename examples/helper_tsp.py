@@ -138,8 +138,12 @@ def get_coordinates_for_tsp_problem(problem_name):
     path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
 
-    coordinates = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
-    return coordinates
+    coordinates = None
+    if problem.edge_weight_type == "EUC_2D":
+        coordinates = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
+        return coordinates
+    
+    raise ValueError(f"TSP Problem type is not supported, edge_weight_type: {problem.edge_weight_type}" )
 
 def get_coordinates_for_random_cities(
       cities_count=100    
