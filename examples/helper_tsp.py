@@ -63,6 +63,21 @@ def get_distance_matrixes_from_coordinates(coords):
             matrix_list[i].insert(j,distance_value)
     return matrix_dict, matrix_list
 
+def get_distance_matrixes_from_tsp_problem(problem_name):
+    """ returns distance matrix as both dict and list """
+    matrix_dict = {}
+    matrix_list = []
+
+    problem = get_tsp_problem(problem_name)
+
+
+    for i in problem.get_nodes():
+        matrix_list.append([])        
+        for j in problem.get_nodes():
+            distance_value = problem.get_weight(i,j)
+            matrix_dict[i, j] = distance_value
+            matrix_list[i].insert(j,distance_value)
+    return matrix_dict, matrix_list
 
 
 def tour_length(distance_matrix_dict, tour, cities_count):
@@ -77,6 +92,10 @@ def tour_length(distance_matrix_dict, tour, cities_count):
 
 def write_tour_to_img(coords, tour, image_file, max_generation_count):
     """ The function to plot the graph """
+
+    if coords is None:
+        return
+
     padding = 20
     coords = [(x + padding, y + padding) for (x, y) in coords]
     maxx, maxy = 0, 0
@@ -120,8 +139,6 @@ def evolve_callback_xy(ga_engine):
         os.makedirs(results_directory)
 
     coordinates = ga_engine.getParam("coordinates")
-    if coordinates is None:
-        raise ValueError("coordinates parameter is not set in the GA engine parameters")
 
     experiment_name = ga_engine.getParam("experiment_name")
     if experiment_name is None:
@@ -144,20 +161,7 @@ def get_tsp_problem(problem_name):
 
 
 
-def get_distance_matrixes_from_tsp_problem(problem_name):
-    """ returns distance matrix as both dict and list """
-    matrix_dict = {}
-    matrix_list = []
 
-    problem = get_tsp_problem(problem_name)
-
-
-    for i in enumerate(problem.get_nodes()):
-        for j in enumerate(problem.get_nodes()):
-            distance_value = problem.get_weight(i,j)
-            matrix_dict[i, j] = distance_value
-            matrix_list[i].insert(j,distance_value)
-    return matrix_dict, matrix_list
 
 
 
@@ -226,7 +230,7 @@ def run_tsp(problem_name:str
     print(experiment_name)
 
     random.seed(random_seed)
-
+    coordinates = None
     if "random" in problem_name.lower():
         if random_cities_info is not None:
             coordinates = get_coordinates_for_random_cities(**random_cities_info)
@@ -274,7 +278,9 @@ def run_tsp(problem_name:str
         ga.selector.set(selection_method)
 
     ga.setParams(results_directory=results_directory)
-    ga.setParams(coordinates=coordinates)
+    if coordinates is not None:
+       ga.setParams(coordinates=coordinates)
+
     ga.setParams(experiment_name=experiment_name)
 
     if PIL_SUPPORT:
