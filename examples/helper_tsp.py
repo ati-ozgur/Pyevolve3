@@ -50,7 +50,7 @@ except ImportError:
 
 
 
-def get_distance_matrixes(coords):
+def get_distance_matrixes_from_coordinates(coords):
     """ returns distance matrix as both dict and list """
     matrix_dict = {}
     matrix_list = []
@@ -65,13 +65,13 @@ def get_distance_matrixes(coords):
 
 
 
-def tour_length_xy(distance_matrix, tour, cities):
+def tour_length(distance_matrix_dict, tour, cities_count):
     """ Returns the total length of the tour """
     total = 0
     t = tour.getInternalList()
-    for i in range(cities):
-        j = (i + 1) % cities
-        total += distance_matrix[t[i], t[j]]
+    for i in range(cities_count):
+        j = (i + 1) % cities_count
+        total += distance_matrix_dict[t[i], t[j]]
     return total
 
 
@@ -136,11 +136,33 @@ def evolve_callback_xy(ga_engine):
             LAST_SCORE = best.getRawScore()
     return False
 
-def get_coordinates_for_tsp_problem(problem_name):
+def get_tsp_problem(problem_name):
     filename = 'tsp_datasets/' + problem_name + '.tsp'
     path = os.path.join(os.path.dirname(__file__), filename)
     problem = tsplib95.load(path)
+    return problem
 
+
+
+def get_distance_matrixes_from_tsp_problem(problem_name):
+    """ returns distance matrix as both dict and list """
+    matrix_dict = {}
+    matrix_list = []
+
+    problem = get_tsp_problem(problem_name)
+
+
+    for i in enumerate(problem.get_nodes()):
+        for j in enumerate(problem.get_nodes()):
+            distance_value = problem.get_weight(i,j)
+            matrix_dict[i, j] = distance_value
+            matrix_list[i].insert(j,distance_value)
+    return matrix_dict, matrix_list
+
+
+
+def get_coordinates_for_tsp_problem(problem_name):
+    problem = get_tsp_problem(problem_name)
     coordinates = None
     if problem.edge_weight_type == "EUC_2D":
         coordinates = [tuple(problem.node_coords[i]) for i in range(1, len(list(problem.get_nodes())) + 1)]
@@ -203,24 +225,29 @@ def run_tsp(problem_name:str
     
     print(experiment_name)
 
+    random.seed(random_seed)
+
     if "random" in problem_name.lower():
         if random_cities_info is not None:
             coordinates = get_coordinates_for_random_cities(**random_cities_info)
         else:
             coordinates = get_coordinates_for_random_cities()
             experiment_name = problem_name
+        distance_matrix_dict, distance_matrix_list = get_distance_matrixes_from_coordinates(coordinates)
+    elif problem_name not in tsp_file_list_all:
+        raise ValueError("Problem should be random or in the tsp file list")
 
     if problem_name in tsp_file_list_euclid_2d:
         coordinates = get_coordinates_for_tsp_problem(problem_name)
-        cities_count = len(coordinates)
+        distance_matrix_dict, distance_matrix_list = get_distance_matrixes_from_coordinates(coordinates)
+    elif problem_name in tsp_file_list_all:
+        distance_matrix_dict, distance_matrix_list = get_distance_matrixes_from_tsp_problem(problem_name)
 
-
-    random.seed(random_seed)
-    distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
-    genome = G1DList.G1DList(len(coordinates))
+    cities_count = len(distance_matrix_list)
+    genome = G1DList.G1DList(cities_count)
 
     genome.setParams(distance_matrix_dict=distance_matrix_dict, distance_matrix_list=distance_matrix_list)
-    genome.evaluator.set(lambda chromosome: tour_length_xy(distance_matrix_dict, chromosome, cities_count))
+    genome.evaluator.set(lambda chromosome: tour_length(distance_matrix_dict, chromosome, cities_count))
     if crossover_method is not None:
         genome.crossover.set(crossover_method)
     else:
