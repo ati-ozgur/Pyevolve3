@@ -16,6 +16,9 @@ from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossover
     G1DListCrossoverEPMX, G1DListCrossoverGreedy, G1DListCrossoverIGX, G1DListCrossoverSequentialConstructive
 
 
+tsp_file_list_all = "a280" ,"att48" ,"att532" ,"bayg29" ,"berlin52" ,"br17" ,"dantzig42" ,"eil51" ,"eil76" ,"eil101" ,"fri26" ,"ft53" ,"ft70" ,"ftv33" ,"ftv35" ,"ftv38" ,"ftv44" ,"ftv47" ,"ftv55" ,"ftv64" ,"ftv70" ,"ftv170" ,"gr17" ,"gr21" ,"gr24" ,"gr666" ,"kro124p" ,"lin105" ,"p43" ,"pcb442" ,"pr76" ,"pr226" ,"rbg323" ,"rbg358" ,"rbg403" ,"rbg443" ,"ry48p" ,"st70" ,"xray14012_1" ,"xray14012_2"
+tsp_file_list_euclid_2d= "a280" ,"berlin52" ,"eil101" ,"eil51" ,"eil76" ,"lin105" ,"pcb442" ,"pr226" ,"pr76" ,"st70"
+
 dict_crossoever_operators = {
     "PMX": G1DListCrossoverPMX,
     "OX": G1DListCrossoverOX,
