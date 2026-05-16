@@ -160,8 +160,8 @@ def get_coordinates_for_random_cities(
     return coordinates
 
 
-def run_tsp_coordinate_cities( experiment_name
-             , coordinates
+def run_tsp(problem_name:str
+             , random_cities_info: dict = None
              , max_generation_count=2000
              , crossover_rate=1.0
              , mutation_rate=0.02
@@ -177,6 +177,15 @@ def run_tsp_coordinate_cities( experiment_name
     for key, value in locals().items():
         print(f"{key} = {value!r}")
     print("--------------------------")
+
+    if "random" in problem_name.lower():
+        if random_cities_info is not None:
+            coordinates = get_coordinates_for_random_cities(**random_cities_info)
+            experiment_name = f"{problem_name}-random_cities_info({', '.join(f'{k}: {v}' for k, v in random_cities_info.items())})"
+        else:
+            coordinates = get_coordinates_for_random_cities()
+            experiment_name = problem_name
+
     cities_count = len(coordinates)
     random.seed(random_seed)
     distance_matrix_dict, distance_matrix_list = get_distance_matrixes(coordinates)
