@@ -23,8 +23,7 @@ collections.Callable = collections.abc.Callable
 from helper_tsp import dict_crossoever_operators, crossover_methods, get_distance_matrixes_from_tsp_problem,tour_length
 
 
-coords = []
-cities_count = None
+
 LAST_SCORE = -1
 
 RESULTS_DIRECTORY = "tspimg"
