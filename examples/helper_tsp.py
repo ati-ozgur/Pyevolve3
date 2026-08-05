@@ -399,8 +399,8 @@ def run_tsp(
     best = ga.bestIndividual()
     # f.write(str(end - start) + "\n")
 
-    if PIL_SUPPORT:
+    if coordinates is not None and PIL_SUPPORT:
         img_filename = f"{results_directory}/tsp_result_{experiment_name}.png"
         write_tour_to_img(coordinates, best, img_filename, max_generation_count)
     else:
-        print("No PIL detected, cannot plot the graph !")
+        print("No coordinates or No PIL detected, cannot plot the graph !")
