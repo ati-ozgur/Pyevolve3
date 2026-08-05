@@ -50,7 +50,6 @@ def evolve_callback(ga_engine):
         best = ga_engine.bestIndividual()
         if LAST_SCORE != best.getRawScore():
             f.write(str(best.getRawScore()) + "\n")
-            filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
 
     return False
 
