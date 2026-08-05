@@ -20,7 +20,7 @@ from pyevolve.selections import SelectionRank
 
 collections.Callable = collections.abc.Callable
 
-from helper_tsp import dict_crossoever_operators, crossover_methods
+from helper_tsp import dict_crossoever_operators, crossover_methods, get_distance_matrixes_from_tsp_problem
 
 
 coords = []
