@@ -236,8 +236,6 @@ def evolve_callback(ga_engine):
         f.write(str(best.getRawScore()) + "\n")
         if LAST_SCORE != best.getRawScore():
             LAST_SCORE = best.getRawScore()
-            filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
-            # write_tour_to_img(coords, best, filename )
 
     return False
 
