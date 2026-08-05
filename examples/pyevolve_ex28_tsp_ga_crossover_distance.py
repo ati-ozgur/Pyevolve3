@@ -23,16 +23,6 @@ collections.Callable = collections.abc.Callable
 from helper_tsp import dict_crossoever_operators, crossover_methods
 
 
-PIL_SUPPORT = None
-
-try:
-    from PIL import Image, ImageDraw, ImageFont
-
-    PIL_SUPPORT = True
-except ImportError:
-    PIL_SUPPORT = False
-
-cm = {}
 coords = []
 cities_count = None
 LAST_SCORE = -1
@@ -42,15 +32,7 @@ GENERATION_COUNT = 1001
 filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
 
 
-def cartesian_matrix(coords):
-    """ A distance matrix """
-    matrix = {}
-    for i, (x1, y1) in enumerate(coords):
-        for j, (x2, y2) in enumerate(coords):
-            dx, dy = x1 - x2, y1 - y2
-            dist = sqrt(dx * dx + dy * dy)
-            matrix[i, j] = dist
-    return matrix
+
 
 
 def tour_length(matrix, tour):
@@ -62,35 +44,6 @@ def tour_length(matrix, tour):
         total += matrix[t[i], t[j]]
     return total
 
-
-def write_tour_to_img(coords, tour, img_file):
-    """ The function to plot the graph """
-    padding = 20
-    coords = [(x + padding, y + padding) for (x, y) in coords]
-    maxx, maxy = 0, 0
-    for x, y in coords:
-        maxx, maxy = max(x, maxx), max(y, maxy)
-    maxx += padding
-    maxy += padding
-    img = Image.new("RGB", (int(maxx), int(maxy)), color=(255, 255, 255))
-    font = ImageFont.load_default()
-    d = ImageDraw.Draw(img)
-    num_cities = len(tour)
-    for i in range(num_cities):
-        j = (i + 1) % num_cities
-        city_i = tour[i]
-        city_j = tour[j]
-        x1, y1 = coords[city_i]
-        x2, y2 = coords[city_j]
-        d.line((int(x1), int(y1), int(x2), int(y2)), fill=(0, 0, 0))
-        d.text((int(x1) + 7, int(y1) - 5), str(i), font=font, fill=(32, 32, 32))
-
-    for x, y in coords:
-        x, y = int(x), int(y)
-        d.ellipse((x - 5, y - 5, x + 5, y + 5), outline=(0, 0, 0), fill=(196, 196, 196))
-    del d
-    img.save(img_file, "PNG")
-    print(f"The plot was saved into the {img_file} file. max generation: {GENERATION_COUNT}")
 
 
 # This is to make a video of best individuals along the evolution
@@ -107,26 +60,21 @@ def evolve_callback(ga_engine):
         if LAST_SCORE != best.getRawScore():
             f.write(str(best.getRawScore()) + "\n")
             filename = f"{RESULTS_DIRECTORY}/tsp_result_{current_generation:0{filename_digit_count}}.png"
-            # write_tour_to_img(coords, best, filename )
 
     return False
 
 
 def main_run(crossover_operator_func, problemname):
-    global cm, coords, WIDTH, HEIGHT, cities_count
-    filename = 'tsp_datasets/' + problemname + '.tsp'
-    path = os.path.join(os.path.dirname(__file__), filename)
-    problem = tsplib95.load(path)
-    print(list(problem.get_nodes()))
 
-    cities_count = len(list(problem.get_nodes()))
-    for i in range(0, cities_count):
-        for j in range(0, cities_count):
-            edge = i, j
-            weight = problem.get_weight(*edge)
-            cm[i, j] = weight
+    distance_matrix_dict, distance_matrix_list = get_distance_matrixes_from_tsp_problem(problemname)
 
+    cities_count = len(distance_matrix_list)
     genome = G1DList.G1DList(cities_count)
+
+    genome.setParams(
+        distance_matrix_dict=distance_matrix_dict,
+        distance_matrix_list=distance_matrix_list,
+    )
 
     genome.setParams(dist=cm)
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
@@ -152,11 +100,6 @@ def main_run(crossover_operator_func, problemname):
     print(end - start)
     f.write(str(end - start) + "\n")
 
-    if PIL_SUPPORT:
-        # write_tour_to_img(coords, best, f"{RESULTS_DIRECTORY}/tsp_result.png")
-        print("PIL detected, cannot plot the graph !")
-    else:
-        print("No PIL detected, cannot plot the graph !")
 
 
 if __name__ == "__main__":
