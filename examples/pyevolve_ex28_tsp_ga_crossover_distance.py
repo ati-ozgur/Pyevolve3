@@ -48,8 +48,9 @@ def evolve_callback(ga_engine):
 
     if current_generation % 1 == 0:
         best = ga_engine.bestIndividual()
-        if LAST_SCORE != best.getRawScore():
-            f.write(str(best.getRawScore()) + "\n")
+        if LAST_SCORE < best.getRawScore():
+            best_raw_score = best.getRawScore()
+            f.write(f"current_generation:{current_generation},best_raw_score:{best_raw_score}\n")
 
     return False
 
@@ -88,8 +89,9 @@ def main_run(crossover_operator_func, problemname):
     ga.evolve(freq_stats=1)
     end = time.time()
     best = ga.bestIndividual()
-    print(end - start)
-    f.write(str(end - start) + "\n")
+    time_elapsed = end-start
+    print("time_elapsed",time_elapsed)
+    f.write(f"time_elapsed:{time_elapsed}\n")
 
 
 
