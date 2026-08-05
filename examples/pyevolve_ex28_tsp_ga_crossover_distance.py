@@ -20,7 +20,7 @@ from pyevolve.selections import SelectionRank
 
 collections.Callable = collections.abc.Callable
 
-from helper_tsp import dict_crossoever_operators, crossover_methods, get_distance_matrixes_from_tsp_problem
+from helper_tsp import dict_crossoever_operators, crossover_methods, get_distance_matrixes_from_tsp_problem,tour_length
 
 
 coords = []
@@ -35,14 +35,6 @@ filename_digit_count = int(math.floor(math.log10(GENERATION_COUNT))) + 1
 
 
 
-def tour_length(matrix, tour):
-    """ Returns the total length of the tour """
-    total = 0
-    t = tour.getInternalList()
-    for i in range(cities_count):
-        j = (i + 1) % cities_count
-        total += matrix[t[i], t[j]]
-    return total
 
 
 
@@ -76,7 +68,9 @@ def main_run(crossover_operator_func, problemname):
         distance_matrix_list=distance_matrix_list,
     )
 
-    genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
+    genome.evaluator.set(
+        lambda chromosome: tour_length(distance_matrix_dict, chromosome, cities_count)
+    )
     genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorSwap)
     genome.initializator.set(G1DListTSPInitializatorRandom)
