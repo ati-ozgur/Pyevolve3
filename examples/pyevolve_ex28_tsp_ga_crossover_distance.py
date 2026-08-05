@@ -76,7 +76,6 @@ def main_run(crossover_operator_func, problemname):
         distance_matrix_list=distance_matrix_list,
     )
 
-    genome.setParams(dist=cm)
     genome.evaluator.set(lambda chromosome: tour_length(cm, chromosome))
     genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorSwap)
