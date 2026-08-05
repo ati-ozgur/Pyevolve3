@@ -50,6 +50,7 @@ def evolve_callback(ga_engine):
         best = ga_engine.bestIndividual()
         if LAST_SCORE < best.getRawScore():
             best_raw_score = best.getRawScore()
+            LAST_SCORE = best_raw_score
             f.write(f"current_generation:{current_generation},best_raw_score:{best_raw_score}\n")
 
     return False
