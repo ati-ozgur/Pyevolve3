@@ -28,4 +28,6 @@ jobs:
       run: |
         python --version
         # stop the build if there are Python syntax errors or undefined names
-        python examples/pyevolve_ex_tsp_01.py
+        for file in examples/pyevolve_ex_tsp_*; do
+            python3 "$file"
+        done
