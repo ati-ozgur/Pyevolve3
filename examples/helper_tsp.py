@@ -227,7 +227,7 @@ def evolve_callback_xy(ga_engine):
             "image_directory parameter is not set in the GA engine parameters"
         )
 
-    image_directory_directory.mkdir(parents=True, exist_ok=True)
+    image_directory.mkdir(parents=True, exist_ok=True)
 
     coordinates = ga_engine.getParam("coordinates")
 
