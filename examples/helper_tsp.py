@@ -222,6 +222,15 @@ def evolve_callback_xy(ga_engine):
     if not os.path.exists(results_directory):
         os.makedirs(results_directory)
 
+    image_directory = ga_engine.getParam("image_directory")
+    if image_directory is None:
+        raise ValueError(
+            "image_directory parameter is not set in the GA engine parameters"
+        )
+
+    if not os.path.exists(image_directory):
+        os.makedirs(image_directory)
+
     coordinates = ga_engine.getParam("coordinates")
 
     experiment_name = ga_engine.getParam("experiment_name")
@@ -232,11 +241,11 @@ def evolve_callback_xy(ga_engine):
 
     if current_generation % 100 == 0:
         best = ga_engine.bestIndividual()
-        if LAST_SCORE != best.getRawScore():
+        if LAST_SCORE < best.getRawScore():
             image_filename_digit_count = (
                 int(math.floor(math.log10(max_generation_count))) + 1
             )
-            image_filename = f"{results_directory}/tsp_result_{experiment_name}_{current_generation:0{image_filename_digit_count}}.png"
+            image_filename = f"{image_directory}/tsp_result_{experiment_name}_{current_generation:0{image_filename_digit_count}}.png"
             write_tour_to_img(coordinates, best, image_filename, max_generation_count)
             LAST_SCORE = best.getRawScore()
     return False
@@ -295,7 +304,8 @@ def run_tsp(
     mutation_method=None,
     selection_method=None,
     initialization_method=None,
-    results_directory="tspimg",
+    results_directory="experiments",
+    image_directory="tsp_img",
     random_seed=1024,
 ):
 
@@ -386,6 +396,7 @@ def run_tsp(
         ga.selector.set(selection_method)
 
     ga.setParams(results_directory=results_directory)
+    ga.setParams(image_directory=image_directory)
     if coordinates is not None:
         ga.setParams(coordinates=coordinates)
 
@@ -404,7 +415,7 @@ def run_tsp(
     # f.write(str(end - start) + "\n")
 
     if coordinates is not None and PIL_SUPPORT:
-        img_filename = f"{results_directory}/tsp_result_{experiment_name}.png"
+        img_filename = f"{image_directory}/tsp_result_{experiment_name}.png"
         write_tour_to_img(coordinates, best, img_filename, max_generation_count)
     else:
         print("No coordinates or No PIL detected, cannot plot the graph !")
