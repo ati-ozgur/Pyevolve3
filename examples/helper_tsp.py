@@ -335,6 +335,9 @@ def run_tsp(
 
             experiment_name += f"{key}-{formatted_value};"
 
+    if not experiment_name:
+        experiment_name = problem_name
+
     if "random_seed" not in experiment_name:
         experiment_name = f"{experiment_name}random_seed-{random_seed}"
     random.seed(random_seed)
@@ -352,7 +355,6 @@ def run_tsp(
             coordinates = get_coordinates_for_random_cities(**random_cities_info)
         else:
             coordinates = get_coordinates_for_random_cities()
-            experiment_name = problem_name
         distance_matrix_dict, distance_matrix_list = (
             get_distance_matrixes_from_coordinates(coordinates)
         )
