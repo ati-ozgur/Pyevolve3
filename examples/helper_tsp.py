@@ -336,7 +336,8 @@ def run_tsp(
 
             experiment_name += f"{key}-{formatted_value};"
 
-    experiment_name = f"{experiment_name}-{random_seed}"
+    if "random_seed" not in experiment_name:
+        experiment_name = f"{experiment_name}random_seed-{random_seed}"
     random.seed(random_seed)
     print("experiment_name",experiment_name)
 
