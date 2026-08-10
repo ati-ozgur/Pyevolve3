@@ -336,7 +336,7 @@ def run_tsp(
 
             experiment_name += f"{key}-{formatted_value};"
 
-    experiment_name = "{experiment_name}-{random_seed}"
+    experiment_name = f"{experiment_name}-{random_seed}"
     random.seed(random_seed)
     print("experiment_name",experiment_name)
 
