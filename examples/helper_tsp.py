@@ -306,6 +306,7 @@ def run_tsp(
     initialization_method=None,
     results_directory="experiments",
     image_directory="tsp_img",
+    log_experiments=True,
     random_seed=1024,
 ):
 
@@ -414,8 +415,12 @@ def run_tsp(
     best = ga.bestIndividual()
     print(end - start)
 
-    best = ga.bestIndividual()
-    # f.write(str(end - start) + "\n")
+    if log_experiments:
+        full_log_file=Path(f"{results_directory}/{experiment_name}")
+        with open(full_log_file, "w") as file:
+            file.write(experiment_name)
+            file.write(str(end - start) + "\n")        
+            file.write(best)
 
     if coordinates is not None and PIL_SUPPORT:
         img_filename = f"{image_directory}/tsp_result_{experiment_name}.png"
