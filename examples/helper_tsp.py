@@ -423,7 +423,7 @@ def run_tsp(
         with open(full_log_file, "w") as file:
             file.write(experiment_name)
             file.write(str(end - start) + "\n")        
-            file.write(best)
+            file.write(str(best))
 
     if coordinates is not None and PIL_SUPPORT:
         img_filename = f"{image_directory}/tsp_result_{experiment_name}.png"
