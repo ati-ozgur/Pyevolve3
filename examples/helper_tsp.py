@@ -294,7 +294,7 @@ import inspect
 def run_tsp(
     problem_name: str,
     random_cities_info: dict = None,
-    max_generation_count=2000,
+    max_generation_count=100,
     crossover_rate=1.0,
     mutation_rate=0.02,
     population_size=80,
