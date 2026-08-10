@@ -424,7 +424,7 @@ def run_tsp(
             file.write(experiment_name)
             file.write(str(end - start) + "\n")        
             file.write(str(best))
-
+            print("log saved to",full_log_file)
     if coordinates is not None and PIL_SUPPORT:
         img_filename = f"{image_directory}/tsp_result_{experiment_name}.png"
         write_tour_to_img(coordinates, best, img_filename, max_generation_count)
