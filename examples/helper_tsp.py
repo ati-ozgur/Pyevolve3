@@ -336,9 +336,11 @@ def run_tsp(
 
             experiment_name += f"{key}-{formatted_value};"
 
-    print(experiment_name)
-
+    experiment_name = "{experiment_name}-{random_seed}"
     random.seed(random_seed)
+    print("experiment_name",experiment_name)
+
+
     coordinates = None
     if "random" in problem_name.lower():
         if random_cities_info is not None:
