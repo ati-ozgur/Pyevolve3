@@ -1,7 +1,7 @@
-# todo: add log_file argument for logging info.
-# time, and other metrics should be added
+# todo: add log_file argument for logging info DONE
+# todo: carry distance_matrix_dict-list parameters from genome to ga
+# todo: add time, and other metrics to logging
 # todo: add matrix_file argument to load weights from matrix file
-
 import math
 from pathlib import Path
 import random
