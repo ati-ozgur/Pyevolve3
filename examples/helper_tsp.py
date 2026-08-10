@@ -3,7 +3,7 @@
 # todo: add matrix_file argument to load weights from matrix file
 
 import math
-import os
+from pathlib import Path
 import random
 import time
 
@@ -219,8 +219,7 @@ def evolve_callback_xy(ga_engine):
             "results_directory parameter is not set in the GA engine parameters"
         )
 
-    if not os.path.exists(results_directory):
-        os.makedirs(results_directory)
+    results_directory.mkdir(parents=True, exist_ok=True)
 
     image_directory = ga_engine.getParam("image_directory")
     if image_directory is None:
@@ -228,8 +227,7 @@ def evolve_callback_xy(ga_engine):
             "image_directory parameter is not set in the GA engine parameters"
         )
 
-    if not os.path.exists(image_directory):
-        os.makedirs(image_directory)
+    image_directory_directory.mkdir(parents=True, exist_ok=True)
 
     coordinates = ga_engine.getParam("coordinates")
 
@@ -341,6 +339,11 @@ def run_tsp(
         experiment_name = f"{experiment_name}random_seed-{random_seed}"
     random.seed(random_seed)
     print("experiment_name",experiment_name)
+
+    if isinstance(results_directory, str):
+        results_directory = Path(results_directory)
+    if isinstance(image_directory, str):
+        image_directory = Path(image_directory)
 
 
     coordinates = None
