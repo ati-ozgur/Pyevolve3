@@ -423,9 +423,9 @@ def run_tsp(
     if log_experiments:
         full_log_file=Path(f"{results_directory}/{experiment_name}")
         with open(full_log_file, "w") as file:
-            file.write(experiment_name)
-            file.write(str(end - start) + "\n")        
-            file.write(str(best))
+            file.write("experiment_name:" + experiment_name + "\n")
+            file.write("experiment_duration:"+ str(end - start) + "\n")        
+            file.write(str(best) + "\n")
             print("log saved to",full_log_file)
     if coordinates is not None and PIL_SUPPORT:
         img_filename = f"{image_directory}/tsp_result_{experiment_name}.png"
