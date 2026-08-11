@@ -344,6 +344,8 @@ def run_tsp(
     random.seed(random_seed)
     print("experiment_name",experiment_name)
 
+
+    # fix this, directory should be relative to script or absolute
     if isinstance(results_directory, str):
         results_directory = Path(results_directory)
     if isinstance(image_directory, str):
