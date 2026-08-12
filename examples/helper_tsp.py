@@ -443,7 +443,18 @@ def run_tsp(
         with open(full_log_file, "w") as file:
             file.write("experiment_name:" + experiment_name + "\n")
             file.write("experiment_duration:"+ str(end - start) + "\n")        
-            file.write(str(best) + "\n")
+            file.write(f"max_generation_count:{max_generation_count}\n")
+            file.write(f"crossover_rate:{crossover_rate}\n")
+            file.write(f"crossover_method:{best.crossover}\n")
+            file.write(f"mutation_method:{mutation_method}\n")
+            file.write(f"mutation_rate:{best.mutator}\n")
+            file.write(f"population_size:{population_size}\n")
+            file.write(f"selection_method:{selection_method}\n")
+            file.write(f"selection_method:{ga.selector}\n")
+            file.write(f"initialization_method:{initialization_method}\n")
+            file.write(f"initialization_method:{genome.initializator}\n")
+            file.write(f"RawScore: {str(best.getRawScore())} \n")
+            file.write(f"Fitness: {str(best.getFitnessScore())} \n")
             print("log saved to",full_log_file)
     if coordinates is not None and PIL_SUPPORT:
         img_filename =  image_directory / f"tsp_result_{experiment_name}.png"
