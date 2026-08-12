@@ -136,6 +136,7 @@ class G1DList(G1DBase):
             newObj[i] -= other
         return newObj
 
+
     def __repr__(self):
         """ Return a string representation of Genome """
         ret = f"""{GenomeBase.__repr__(self)}
@@ -173,3 +174,12 @@ class G1DList(G1DBase):
 
         """
         return hash(str(self.genomeList))
+
+    
+    def __eq__(self, other):
+        """ Compares one chromosome with another """
+        if not isinstance(other, G1DList):
+            return NotImplemented
+        cond1 = (self.genomeList == other.genomeList)
+        cond2 = (self.genomeSize == other.genomeSize)
+        return True if cond1 and cond2 else False
