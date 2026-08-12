@@ -107,7 +107,7 @@ dict_crossoever_operators = {
 crossover_methods = list(dict_crossoever_operators.keys())
 
 PIL_SUPPORT = None
-LAST_SCORE = -1
+
 
 
 try:
@@ -217,7 +217,6 @@ def write_tour_to_img(coords, tour, image_file, max_generation_count):
 
 
 def evolve_callback_xy(ga_engine):
-    global LAST_SCORE
     max_generation_count = ga_engine.getGenerations()
     current_generation = ga_engine.getCurrentGeneration()
 
@@ -247,13 +246,16 @@ def evolve_callback_xy(ga_engine):
 
     if current_generation % 100 == 0:
         best = ga_engine.bestIndividual()
-        if LAST_SCORE < best.getRawScore():
+        last_score = ga_engine.getParam("last_score")
+
+        if last_score < best.getRawScore():
             image_filename_digit_count = (
                 int(math.floor(math.log10(max_generation_count))) + 1
             )
             image_filename = f"{image_directory}/tsp_result_{experiment_name}_{current_generation:0{image_filename_digit_count}}.png"
             write_tour_to_img(coordinates, best, image_filename, max_generation_count)
-            LAST_SCORE = best.getRawScore()
+            last_score = best.getRawScore()
+            ga_engine.setParam("last_score", last_score)
     return False
 
 
@@ -420,6 +422,7 @@ def run_tsp(
         ga.setParams(coordinates=coordinates)
 
     ga.setParams(experiment_name=experiment_name)
+    ga.setParams(last_score=float("inf"))
 
     if PIL_SUPPORT:
         ga.stepCallback.set(evolve_callback_xy)
