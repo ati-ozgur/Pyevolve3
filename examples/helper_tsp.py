@@ -269,9 +269,8 @@ def evolve_callback_xy(ga_engine):
 
 
 def get_tsp_problem(problem_name):
-    filename = "tsp_datasets/" + problem_name + ".tsp"
-    path = os.path.join(os.path.dirname(__file__), filename)
-    problem = tsplib95.load(path)
+    filename = get_examples_directory() / Path(f"tsp_datasets/{problem_name}.tsp")
+    problem = tsplib95.load(filename)
     return problem
 
 
