@@ -7,6 +7,10 @@ from .. import Util
 
 
 
+def checkTspListIntegrity(gMom,gDad,sister,brother):
+    assert sum(gDad.getInternalList()) == sum(gMom.getInternalList())
+    assert sum(sister.getInternalList()) == sum(gMom.getInternalList())
+    assert sum(brother.getInternalList()) == sum(gMom.getInternalList())
 
 
 def G1DListCrossoverOX(genome, **args):
@@ -41,6 +45,7 @@ def G1DListCrossoverOX(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -78,6 +83,7 @@ def G1DListCrossoverEdge(genome, **args):
 
     sister.genomeList = sisterl
     brother.genomeList = brotherl
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -122,6 +128,7 @@ def G1DListCrossoverCutCrossfill(genome, **args):
                 break
             brother[cut + x] = v
             x += 1
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -188,6 +195,7 @@ def G1DListCrossoverPMX(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -240,6 +248,7 @@ def G1DListCrossoverCycle(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -306,6 +315,7 @@ def G1DListCrossoverOX2(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -397,6 +407,7 @@ def G1DListCrossoverPOS(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -498,6 +509,7 @@ def G1DListCrossoverMPX(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -566,6 +578,7 @@ def G1DListCrossoverEPMX(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -688,6 +701,7 @@ def G1DListCrossoverGreedy(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -847,6 +861,7 @@ def G1DListCrossoverIGX(genome, **args):
         brother.genomeList=brotherGenome
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
@@ -904,6 +919,7 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
 
     assert listSize == len(sister)
     assert listSize == len(brother)
+    checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
 
