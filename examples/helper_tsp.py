@@ -18,20 +18,7 @@ from pyevolve.initializations.InitializationPermutations import (
     G1DListTSPInitializatorRandom,
 )
 
-from pyevolve.perturbations.CrossoverG1DListPermutations import (
-    G1DListCrossoverSinglePoint,
-    G1DListCrossoverPMX,
-    G1DListCrossoverOX,
-    G1DListCrossoverOX2,
-    G1DListCrossoverCycle,
-    G1DListCrossoverPOS,
-    G1DListCrossoverMPX,
-    G1DListCrossoverEdge,
-    G1DListCrossoverEPMX,
-    G1DListCrossoverGreedy,
-    G1DListCrossoverIGX,
-    G1DListCrossoverSequentialConstructive,
-)
+from pyevolve.perturbations.CrossoverG1DListPermutations import *
 
 
 tsp_file_list_all = (
@@ -90,7 +77,9 @@ tsp_file_list_euclid_2d = (
 )
 
 dict_crossoever_operators = {
+    "TWO": G1DListCrossoverTwoPoint,
     "SINGLE": G1DListCrossoverSinglePoint,
+    "UNF": G1DListCrossoverUniform,
     "PMX": G1DListCrossoverPMX,
     "OX": G1DListCrossoverOX,
     "OX2": G1DListCrossoverOX2,

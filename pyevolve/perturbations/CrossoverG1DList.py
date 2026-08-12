@@ -8,62 +8,6 @@ from .. import Util
 # 1D List
 
 
-def G1DListCrossoverTwoPoint(genome, **args):
-    """ The G1DList crossover, Two Point
-
-    .. warning:: You can't use this crossover method for lists with just one element.
-
-    """
-    sister = None
-    brother = None
-    gMom = args["mom"]
-    gDad = args["dad"]
-
-    if len(gMom) == 1:
-        Util.raiseException("The 1D List have one element, can't use the Two Point Crossover method !", TypeError)
-
-    cuts = [rand_randint(1, len(gMom) - 1), rand_randint(1, len(gMom) - 1)]
-
-    if cuts[0] > cuts[1]:
-        Util.listSwapElement(cuts, 0, 1)
-
-    if args["count"] >= 1:
-        sister = gMom.clone()
-        sister.resetStats()
-        sister[cuts[0]:cuts[1]] = gDad[cuts[0]:cuts[1]]
-
-    if args["count"] == 2:
-        brother = gDad.clone()
-        brother.resetStats()
-        brother[cuts[0]:cuts[1]] = gMom[cuts[0]:cuts[1]]
-
-    return (sister, brother)
-
-
-def G1DListCrossoverUniform(genome, **args):
-    """ The G1DList Uniform Crossover
-
-    Each gene has a 50% chance of being swapped between mom and dad
-
-    """
-    from . import Consts
-    sister = None
-    brother = None
-    gMom = args["mom"]
-    gDad = args["dad"]
-
-    sister = gMom.clone()
-    brother = gDad.clone()
-    sister.resetStats()
-    brother.resetStats()
-
-    for i in range(len(gMom)):
-        if Util.randomFlipCoin(Consts.CDefG1DListCrossUniformProb):
-            temp = sister[i]
-            sister[i] = brother[i]
-            brother[i] = temp
-
-    return (sister, brother)
 
 
 
