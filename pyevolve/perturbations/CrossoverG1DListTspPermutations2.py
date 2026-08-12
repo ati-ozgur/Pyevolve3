@@ -1,6 +1,6 @@
 from random import randint as rand_randint
 
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverOX, G1DListCrossoverPMX
+from pyevolve.perturbations.CrossoverG1DListTspPermutations import G1DListCrossoverOX, G1DListCrossoverPMX
 from pyevolve.perturbations.G1DListCrossoverSRX_Helper import connect_sub_tours, generate_genome
 
 """

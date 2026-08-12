@@ -13,7 +13,7 @@ from skfuzzy import control as ctrl
 from pyevolve import Consts
 from pyevolve import GSimpleGA
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
-from pyevolve.perturbations.CrossoverG1DListPermutations import *
+from pyevolve.perturbations.CrossoverG1DListTspPermutations import *
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorDisplacement
 from pyevolve.representations import G1DList
 from pyevolve.selections.SelectionRank import *

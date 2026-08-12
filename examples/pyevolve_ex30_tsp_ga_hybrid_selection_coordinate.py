@@ -16,7 +16,7 @@ from skfuzzy import control as ctrl
 from pyevolve import Consts
 from pyevolve import GSimpleGA
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverPMX, G1DListCrossoverOX, \
+from pyevolve.perturbations.CrossoverG1DListTspPermutations import G1DListCrossoverPMX, G1DListCrossoverOX, \
     G1DListCrossoverOX2, G1DListCrossoverCycle, G1DListCrossoverPOS, G1DListCrossoverMPX, G1DListCrossoverEdge, \
     G1DListCrossoverEPMX, G1DListCrossoverGreedy, G1DListCrossoverIGX, G1DListCrossoverSequentialConstructive
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorDisplacement

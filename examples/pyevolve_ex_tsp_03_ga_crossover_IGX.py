@@ -1,4 +1,4 @@
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverIGX
+from pyevolve.perturbations.CrossoverG1DListTspPermutations import G1DListCrossoverIGX
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorDisplacement
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
 

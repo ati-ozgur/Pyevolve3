@@ -1,5 +1,5 @@
 from pyevolve.representations import G1DList
-from pyevolve.perturbations.CrossoverG1DListPermutations import G1DListCrossoverCutCrossfill 
+from pyevolve.perturbations.CrossoverG1DListTspPermutations import G1DListCrossoverCutCrossfill 
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorSwap
 
 from pyevolve import Consts, GSimpleGA
