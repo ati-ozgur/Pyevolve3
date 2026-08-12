@@ -102,20 +102,7 @@ dict_crossoever_operators = {
     "SCX": G1DListCrossoverSequentialConstructive,
 }
 
-crossover_methods = [
-    "GX",
-    "IGX",
-    "PMX",
-    "CX",
-    "OX",
-    "OX2",
-    "MPX",
-    "POS",
-    "ERX",
-    "EPMX",
-    "SCX",
-]
-
+crossover_methods = list(dict_crossoever_operators.keys())
 
 PIL_SUPPORT = None
 LAST_SCORE = -1
