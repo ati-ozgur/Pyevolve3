@@ -431,7 +431,8 @@ def run_tsp(
     print("duration:", duration)
 
     log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, duration, best)
-    if coordinates is not None and PIL_SUPPORT:
+    could_save_tsp_image = coordinates is not None and PIL_SUPPORT
+    if could_save_tsp_image:
         img_filename =  image_directory / f"tsp_result_{experiment_name}.png"
         write_tour_to_img(coordinates, best, img_filename, max_generation_count)
     else:
