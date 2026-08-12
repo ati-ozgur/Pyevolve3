@@ -10,6 +10,8 @@ This module have the *selection methods*, like roulette wheel, tournament, ranki
 import random
 from .. import Consts
 
+
+## TODO Check this one, why it seems to be always same individual being selected
 def GRankSelector(population, **args):
     """ The Rank Selector - This selector will pick the best individual of
     the population every time.
