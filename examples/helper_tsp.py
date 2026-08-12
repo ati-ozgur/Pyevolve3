@@ -390,7 +390,7 @@ def run_tsp(
         )
 
     cities_count = len(distance_matrix_list)
-    genome = G1DList.G1DList(cities_count)
+    genome: G1DList.G1DList = G1DList.G1DList(cities_count)
 
     genome.setParams(
         distance_matrix_dict=distance_matrix_dict,
@@ -435,7 +435,7 @@ def run_tsp(
     start = time.time()
     ga.evolve(freq_stats=10)
     end = time.time()
-    best = ga.bestIndividual()
+    best: G1DList.G1DList = ga.bestIndividual()
     print(end - start)
 
     if log_experiments:
@@ -455,6 +455,7 @@ def run_tsp(
             file.write(f"initialization_method:{genome.initializator}\n")
             file.write(f"RawScore: {str(best.getRawScore())} \n")
             file.write(f"Fitness: {str(best.getFitnessScore())} \n")
+            file.write(f"Tour: {str(best.getInternalList())} \n")
             print("log saved to",full_log_file)
     if coordinates is not None and PIL_SUPPORT:
         img_filename =  image_directory / f"tsp_result_{experiment_name}.png"
