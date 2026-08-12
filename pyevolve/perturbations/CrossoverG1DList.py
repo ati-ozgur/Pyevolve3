@@ -9,6 +9,7 @@ from .. import Util
 
 
 
+from .CrossoverG1DListTspPermutations import checkTspListIntegrity
 
 
 
@@ -37,6 +38,8 @@ def G1DListCrossoverSinglePoint(genome, **args):
         brother = gDad.clone()
         brother.resetStats()
         brother[cut:] = gMom[cut:]
+
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
 
