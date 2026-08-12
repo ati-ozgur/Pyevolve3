@@ -74,7 +74,7 @@ def G1DListCrossoverEdge(genome, **args):
     """
     gMom, sisterl = args["mom"], []
     gDad, brotherl = args["dad"], []
-
+    listSize = len(gMom)
     mom_edges, dad_edges, merge_edges = Util.G1DListGetEdgesComposite(gMom, gDad)
 
     for c, u in (sisterl, set(gMom)), (brotherl, set(gDad)):
