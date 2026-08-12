@@ -17,31 +17,29 @@ def GRankSelector(population, **args):
     the population every time.
     """
     
-    count = 0
-
+    # Build or retrieve cached list of indices that have the best value
     if args["popID"] != GRankSelector.cachePopID:
         if population.sortType == Consts.sortType["scaled"]:
-            best_fitness = population.bestFitness().fitness
-            for index in range(1, len(population.internalPop)):
-                if population[index].fitness == best_fitness:
-                    count += 1
+            best_val = population.bestFitness().fitness
+            indices = [i for i in range(len(population)) if population[i].fitness == best_val]
         else:
-            best_raw = population.bestRaw().score
-            for index in range(1, len(population.internalPop)):
-                if population[index].score == best_raw:
-                    count += 1
+            best_val = population.bestRaw().score
+            indices = [i for i in range(len(population)) if population[i].score == best_val]
 
         GRankSelector.cachePopID = args["popID"]
-        GRankSelector.cacheCount = count
-
+        GRankSelector.cacheIndices = indices
     else:
-        count = GRankSelector.cacheCount
+        indices = GRankSelector.cacheIndices
 
-    return population[random.randint(0, count)]
+    # If for some reason we found no best indices, fall back to uniform selection
+    if not indices:
+        return population[random.randint(0, len(population) - 1)]
+
+    return population[random.choice(indices)]
 
 
 GRankSelector.cachePopID = None
-GRankSelector.cacheCount = None
+GRankSelector.cacheIndices = None
 
 
 def GUniformSelector(population, **args):
