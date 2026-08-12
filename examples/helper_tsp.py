@@ -18,7 +18,20 @@ from pyevolve.initializations.InitializationPermutations import (
     G1DListTSPInitializatorRandom,
 )
 
-from pyevolve.perturbations.CrossoverG1DListTspPermutations import *
+from pyevolve.perturbations.CrossoverG1DListPermutations import (
+    G1DListCrossoverSinglePoint,
+    G1DListCrossoverPMX,
+    G1DListCrossoverOX,
+    G1DListCrossoverOX2,
+    G1DListCrossoverCycle,
+    G1DListCrossoverPOS,
+    G1DListCrossoverMPX,
+    G1DListCrossoverEdge,
+    G1DListCrossoverEPMX,
+    G1DListCrossoverGreedy,
+    G1DListCrossoverIGX,
+    G1DListCrossoverSequentialConstructive,
+)
 
 
 tsp_file_list_all = (
