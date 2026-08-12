@@ -436,21 +436,22 @@ def run_tsp(
     ga.evolve(freq_stats=10)
     end = time.time()
     best: G1DList.G1DList = ga.bestIndividual()
-    print(end - start)
+    duration = end - start
+    print("duration:", duration)
 
-    log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, start, end, best)
+    log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, duration, best)
     if coordinates is not None and PIL_SUPPORT:
         img_filename =  image_directory / f"tsp_result_{experiment_name}.png"
         write_tour_to_img(coordinates, best, img_filename, max_generation_count)
     else:
         print("No coordinates or No PIL detected, cannot plot the graph !")
 
-def log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, start, end, best):
+def log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, duration, best):
     if log_experiments:
         full_log_file= results_directory / f"{experiment_name}.txt"
         with open(full_log_file, "w") as file:
             file.write("experiment_name:" + experiment_name + "\n")
-            file.write("experiment_duration:"+ str(end - start) + "\n")        
+            file.write("experiment_duration:"+ str(duration) + "\n")        
             file.write(f"max_generation_count:{max_generation_count}\n")
             file.write(f"crossover_rate:{crossover_rate}\n")
             file.write(f"crossover_method:{best.crossover}\n")
