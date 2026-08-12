@@ -8,13 +8,24 @@ from .. import Util
 
 
 def checkTspListIntegrity(gMom,gDad,sister,brother):
-    listSize = len(gMom)
-    assert listSize == len(gDad)
-    assert listSize == len(sister)
-    assert listSize == len(brother)
+    listSize = len(set(gMom.getInternalList()))
+
+    assert len(set(gDad.getInternalList())) == listSize, "Dad contains duplicate cities"
+    assert len(set(sister.getInternalList())) == listSize, "Sister contains duplicate cities"
+    assert len(set(brother.getInternalList())) == listSize, "Brother contains duplicate cities"
+
     assert sum(gDad.getInternalList()) == sum(gMom.getInternalList())
     assert sum(sister.getInternalList()) == sum(gMom.getInternalList())
     assert sum(brother.getInternalList()) == sum(gMom.getInternalList())
+
+    mom_set = set(gMom.getInternalList())
+
+    # Ensure parents themselves are permutations of the same cities
+    assert set(gDad.getInternalList()) == mom_set, "Dad contains different cities than Mom"
+
+    # Ensure offspring contain the exact same set of unique cities
+    assert set(sister.getInternalList()) == mom_set, "Sister is missing cities or contains duplicates"
+    assert set(brother.getInternalList()) == mom_set, "Brother is missing cities or contains duplicates"
 
 
 def G1DListCrossoverOX(genome, **args):
