@@ -315,6 +315,7 @@ def run_tsp(
     image_directory="tsp_img",
     log_experiments=True,
     random_seed=1024,
+    freq_stats=10,
 ):
 
     # 1. Capture the local variables immediately
@@ -428,7 +429,7 @@ def run_tsp(
         ga.stepCallback.set(evolve_callback_xy)
 
     start = time.time()
-    ga.evolve(freq_stats=10)
+    ga.evolve(freq_stats=freq_stats)
     end = time.time()
     best: G1DList.G1DList = ga.bestIndividual()
     duration = end - start
