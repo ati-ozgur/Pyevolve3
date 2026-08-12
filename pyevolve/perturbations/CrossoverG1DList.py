@@ -7,34 +7,6 @@ from .. import Util
 
 # 1D List
 
-def G1DListCrossoverSinglePoint(genome, **args):
-    """ The crossover of G1DList, Single Point
-
-    .. warning:: You can't use this crossover method for lists with just one element.
-
-    """
-    sister = None
-    brother = None
-    gMom = args["mom"]
-    gDad = args["dad"]
-
-    if len(gMom) == 1:
-        Util.raiseException("The 1D List have one element, can't use the Single Point Crossover method !", TypeError)
-
-    cut = rand_randint(1, len(gMom) - 1)
-
-    if args["count"] >= 1:
-        sister = gMom.clone()
-        sister.resetStats()
-        sister[cut:] = gDad[cut:]
-
-    if args["count"] == 2:
-        brother = gDad.clone()
-        brother.resetStats()
-        brother[cut:] = gMom[cut:]
-
-    return (sister, brother)
-
 
 def G1DListCrossoverTwoPoint(genome, **args):
     """ The G1DList crossover, Two Point

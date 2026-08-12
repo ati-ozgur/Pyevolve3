@@ -19,6 +19,7 @@ from pyevolve.initializations.InitializationPermutations import (
 )
 
 from pyevolve.perturbations.CrossoverG1DListPermutations import (
+    G1DListCrossoverSinglePoint,
     G1DListCrossoverPMX,
     G1DListCrossoverOX,
     G1DListCrossoverOX2,
@@ -89,6 +90,7 @@ tsp_file_list_euclid_2d = (
 )
 
 dict_crossoever_operators = {
+    "SINGLE": G1DListCrossoverSinglePoint,
     "PMX": G1DListCrossoverPMX,
     "OX": G1DListCrossoverOX,
     "OX2": G1DListCrossoverOX2,
