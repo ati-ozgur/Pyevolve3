@@ -8,6 +8,10 @@ from .. import Util
 
 
 def checkTspListIntegrity(gMom,gDad,sister,brother):
+    listSize = len(gMom)
+    assert listSize == len(gDad)
+    assert listSize == len(sister)
+    assert listSize == len(brother)
     assert sum(gDad.getInternalList()) == sum(gMom.getInternalList())
     assert sum(sister.getInternalList()) == sum(gMom.getInternalList())
     assert sum(brother.getInternalList()) == sum(gMom.getInternalList())
@@ -21,10 +25,11 @@ def G1DListCrossoverOX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    c1, c2 = [rand_randint(1, len(gMom) - 1), rand_randint(1, len(gMom) - 1)]
+
+    c1, c2 = [rand_randint(1, listSize - 1), rand_randint(1, listSize - 1)]
 
     while c1 == c2:
-        c2 = rand_randint(1, len(gMom) - 1)
+        c2 = rand_randint(1, listSize - 1)
 
     if c1 > c2:
         h = c1
@@ -43,8 +48,7 @@ def G1DListCrossoverOX(genome, **args):
         P2 = [c for c in gDad[c2:] + gDad[:c2] if c not in gMom[c1:c2]]
         brother.genomeList = P2[listSize - c2:] + gMom[c1:c2] + P2[:listSize - c2]
 
-    assert listSize == len(sister)
-    assert listSize == len(brother)
+
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -64,7 +68,7 @@ def G1DListCrossoverEdge(genome, **args):
 
     for c, u in (sisterl, set(gMom)), (brotherl, set(gDad)):
         curr = None
-        for i in range(len(gMom)):
+        for i in range(listSize):
             curr = rand_choice(tuple(u)) if not curr else curr
             c.append(curr)
             u.remove(curr)
@@ -95,11 +99,12 @@ def G1DListCrossoverCutCrossfill(genome, **args):
     brother = None
     gMom = args["mom"]
     gDad = args["dad"]
+    listSize = len(gMom)
 
-    if len(gMom) == 1:
+    if listSize == 1:
         Util.raiseException("The 1D List have one element, can't use the Single Point Crossover method !", TypeError)
 
-    cut = rand_randint(1, len(gMom) - 1)
+    cut = rand_randint(1, listSize - 1)
 
     if args["count"] >= 1:
         sister = gMom.clone()
@@ -147,10 +152,11 @@ def G1DListCrossoverPMX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    c1, c2 = [rand_randint(1, len(gMom) - 1), rand_randint(1, len(gMom) - 1)]
+
+    c1, c2 = [rand_randint(1, listSize - 1), rand_randint(1, listSize - 1)]
 
     while c1 == c2:
-        c2 = rand_randint(1, len(gMom) - 1)
+        c2 = rand_randint(1, listSize - 1)
 
     if c1 > c2:
         h = c1
@@ -193,8 +199,6 @@ def G1DListCrossoverPMX(genome, **args):
             if x == None:
                 brother.genomeList[ind] = gMom.genomeList[ind]
 
-    assert listSize == len(sister)
-    assert listSize == len(brother)
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -211,6 +215,7 @@ def G1DListCrossoverCycle(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
+
 
     if args["count"] >= 1:
         sister = gMom.clone()
@@ -246,8 +251,6 @@ def G1DListCrossoverCycle(genome, **args):
                 brother.genomeList[ind] = val
             gDad.genomeList, gMom.genomeList = gMom.genomeList, gDad.genomeList
 
-    assert listSize == len(sister)
-    assert listSize == len(brother)
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -264,12 +267,13 @@ def G1DListCrossoverOX2(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
+
     indexs=[]
 
-    numberOfIndex = rand_randint(1, len(gMom) - 1)
+    numberOfIndex = rand_randint(1, listSize - 1)
 
     while len(indexs) < numberOfIndex:
-        c2 = rand_randint(1, len(gMom) - 1)
+        c2 = rand_randint(1, listSize - 1)
         if c2 not in indexs:
             indexs.append(c2)
 
@@ -313,8 +317,6 @@ def G1DListCrossoverOX2(genome, **args):
         for j in range(0, len(index)):
             brother.genomeList[index[j]] = gDad.genomeList[indexs[j]];
 
-    assert listSize == len(sister)
-    assert listSize == len(brother)
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -331,12 +333,13 @@ def G1DListCrossoverPOS(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
+
     indexs=[]
 
-    numberOfIndex = rand_randint(1, len(gMom) - 1)
+    numberOfIndex = rand_randint(1, listSize - 1)
 
     while len(indexs) < numberOfIndex:
-        c2 = rand_randint(1, len(gMom) - 1)
+        c2 = rand_randint(1, listSize - 1)
         if c2 not in indexs:
             indexs.append(c2)
 
@@ -358,20 +361,20 @@ def G1DListCrossoverPOS(genome, **args):
             for j in range(0, len(indexs)):
                 if gMom.genomeList[i] == gDad.genomeList[indexs[j]]:
                     temp[h] = gDad.genomeList[indexs[j]]
-                    h = h + 1;
-        h = 0;
+                    h = h + 1
+        h = 0
         for i in range(len(gMom.genomeList)):
             for j in range(len(temp)):
                 if gMom.genomeList[i] == temp[j]:
-                    break;
+                    break
                 if j == len(temp) - 1:
                     temp2[h] = gMom.genomeList[i];
-                    h = h + 1;
-        k = 0;
+                    h = h + 1
+        k = 0
         for i in range(0, len(gMom.genomeList)):
             if sister.genomeList[i] == None:
-                sister.genomeList[i] = temp2[k];
-                k = k + 1;
+                sister.genomeList[i] = temp2[k]
+                k = k + 1
 
 
     if args["count"] == 2:
@@ -385,28 +388,26 @@ def G1DListCrossoverPOS(genome, **args):
         for i in range(0, len(indexs)):
             brother.genomeList[indexs[i]] = gMom.genomeList[indexs[i]]
 
-        h = 0;
+        h = 0
         for i in range(0, len(gDad.genomeList)):
             for j in range(0, len(indexs)):
                 if gDad.genomeList[i] == gMom.genomeList[indexs[j]]:
                     temp[h] = gMom.genomeList[indexs[j]]
-                    h = h + 1;
-        h = 0;
+                    h = h + 1
+        h = 0
         for i in range(len(gDad.genomeList)):
             for j in range(len(temp)):
                 if gDad.genomeList[i] == temp[j]:
-                    break;
+                    break
                 if j == len(temp) - 1:
-                    temp2[h] = gDad.genomeList[i];
-                    h = h + 1;
-        k = 0;
+                    temp2[h] = gDad.genomeList[i]
+                    h = h + 1
+        k = 0
         for i in range(0, len(gDad.genomeList)):
             if brother.genomeList[i] == None:
-                brother.genomeList[i] = temp2[k];
-                k = k + 1;
+                brother.genomeList[i] = temp2[k]
+                k = k + 1
 
-    assert listSize == len(sister)
-    assert listSize == len(brother)
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -423,12 +424,13 @@ def G1DListCrossoverMPX(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
+
     indexs=[]
 
-    c1, c2 = [rand_randint(1, len(gMom) - 1), rand_randint(1, len(gMom) - 1)]
+    c1, c2 = [rand_randint(1, listSize - 1), rand_randint(1, listSize - 1)]
 
     while c1 == c2:
-        c2 = rand_randint(1, len(gMom) - 1)
+        c2 = rand_randint(1, listSize - 1)
 
     if c1 > c2:
         h = c1
@@ -507,8 +509,6 @@ def G1DListCrossoverMPX(genome, **args):
                 brother.genomeList[i] = temp2[k];
                 k = k + 1;
 
-    assert listSize == len(sister)
-    assert listSize == len(brother)
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -527,9 +527,10 @@ def G1DListCrossoverEPMX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
+
     c1 = rand_randint(1, len(gMom.genomeList) - 1)
 
-    c2=listSize-c1;
+    c2=listSize-c1
     sister = gMom.clone()
     sister.resetStats()
     sister.genomeList = [None] * len(gMom.genomeList)
@@ -576,8 +577,6 @@ def G1DListCrossoverEPMX(genome, **args):
     sister.genomeList = motherSublist + fatherSublist2;
     brother.genomeList = fatherSublist + motherSublist2;
 
-    assert listSize == len(sister)
-    assert listSize == len(brother)
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -596,6 +595,7 @@ def G1DListCrossoverGreedy(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
+
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
     if distance_matrix_list == None:
@@ -699,8 +699,6 @@ def G1DListCrossoverGreedy(genome, **args):
                     c1 = c1 + 1;
                     c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize]);
 
-    assert listSize == len(sister)
-    assert listSize == len(brother)
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -717,6 +715,7 @@ def G1DListCrossoverIGX(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
+
 
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
@@ -859,8 +858,8 @@ def G1DListCrossoverIGX(genome, **args):
                 fatherdll.remove(ind)
                 motherdll.remove(indm)
         brother.genomeList=brotherGenome
-    assert listSize == len(sister)
-    assert listSize == len(brother)
+
+
     checkTspListIntegrity(gMom,gDad,sister,brother)
 
     return (sister, brother)
@@ -877,6 +876,7 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
+
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
     if distance_matrix_list == None:
