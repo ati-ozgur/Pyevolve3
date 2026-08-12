@@ -128,6 +128,24 @@ try:
 except ImportError:
     PIL_SUPPORT = False
 
+def get_examples_directory():
+    """Return the directory containing this module."""
+    return Path(__file__).resolve().parent
+
+def get_relative_directory(relative):
+    """Return the directory for storing results."""
+    if relative is None:
+        result = get_examples_directory() / "experiments"
+    elif isinstance(relative, str):
+        result = get_examples_directory() / Path(relative)
+    elif isinstance(relative, Path):
+        result = get_examples_directory() / relative
+    else:
+        raise ValueError("relative must be a string or Path object.")  
+
+    #result.mkdir(parents=True, exist_ok=True)
+    return result
+
 
 def get_distance_matrixes_from_coordinates(coords):
     """returns distance matrix as both dict and list"""
@@ -345,11 +363,8 @@ def run_tsp(
     print("experiment_name",experiment_name)
 
 
-    # fix this, directory should be relative to script or absolute
-    if isinstance(results_directory, str):
-        results_directory = Path(results_directory)
-    if isinstance(image_directory, str):
-        image_directory = Path(image_directory)
+    results_directory = get_relative_directory(results_directory)
+    image_directory = get_relative_directory(image_directory)
 
 
     coordinates = None
@@ -424,14 +439,14 @@ def run_tsp(
     print(end - start)
 
     if log_experiments:
-        full_log_file=Path(f"{results_directory}/{experiment_name}")
+        full_log_file= results_directory / f"{experiment_name}.txt"
         with open(full_log_file, "w") as file:
             file.write("experiment_name:" + experiment_name + "\n")
             file.write("experiment_duration:"+ str(end - start) + "\n")        
             file.write(str(best) + "\n")
             print("log saved to",full_log_file)
     if coordinates is not None and PIL_SUPPORT:
-        img_filename = f"{image_directory}/tsp_result_{experiment_name}.png"
+        img_filename =  image_directory / f"tsp_result_{experiment_name}.png"
         write_tour_to_img(coordinates, best, img_filename, max_generation_count)
     else:
         print("No coordinates or No PIL detected, cannot plot the graph !")
