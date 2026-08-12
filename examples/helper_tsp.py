@@ -399,7 +399,11 @@ def run_tsp(
         lambda chromosome: tour_length(distance_matrix_dict, chromosome, cities_count)
     )
     if crossover_method is not None:
-        genome.crossover.set(crossover_method)
+        if isinstance(crossover_method,str): 
+            genome.crossover.set( dict_crossoever_operators[crossover_method])
+        else:
+            genome.crossover.set(crossover_method)
+
     else:
         genome.crossover.set(G1DListCrossoverEdge)
     if mutation_method is not None:
