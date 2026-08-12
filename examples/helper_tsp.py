@@ -304,7 +304,7 @@ def get_coordinates_for_random_cities(
 
 def run_tsp(
     problem_name: str,
-    random_cities_info: dict = None,
+    random_cities_info: dict | None = None,
     max_generation_count=100,
     crossover_rate=1.0,
     mutation_rate=0.02,
