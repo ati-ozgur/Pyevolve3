@@ -438,6 +438,14 @@ def run_tsp(
     best: G1DList.G1DList = ga.bestIndividual()
     print(end - start)
 
+    log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, start, end, best)
+    if coordinates is not None and PIL_SUPPORT:
+        img_filename =  image_directory / f"tsp_result_{experiment_name}.png"
+        write_tour_to_img(coordinates, best, img_filename, max_generation_count)
+    else:
+        print("No coordinates or No PIL detected, cannot plot the graph !")
+
+def log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, start, end, best):
     if log_experiments:
         full_log_file= results_directory / f"{experiment_name}.txt"
         with open(full_log_file, "w") as file:
@@ -457,8 +465,3 @@ def run_tsp(
             file.write(f"Fitness: {str(best.getFitnessScore())} \n")
             file.write(f"Tour: {str(best.getInternalList())} \n")
             print("log saved to",full_log_file)
-    if coordinates is not None and PIL_SUPPORT:
-        img_filename =  image_directory / f"tsp_result_{experiment_name}.png"
-        write_tour_to_img(coordinates, best, img_filename, max_generation_count)
-    else:
-        print("No coordinates or No PIL detected, cannot plot the graph !")
