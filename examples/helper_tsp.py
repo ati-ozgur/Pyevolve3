@@ -7,6 +7,7 @@ import math
 from pathlib import Path
 import random
 import time
+import inspect
 
 import tsplib95
 
@@ -294,7 +295,7 @@ def get_coordinates_for_random_cities(
     return coordinates
 
 
-import inspect
+
 
 
 def run_tsp(
