@@ -12,6 +12,7 @@ from random import randint as rand_randint, choice as rand_choice
 from random import random as rand_random
 import math
 from .. import Util
+from .. import Consts
 
 
 # 1D Binary String
@@ -80,7 +81,6 @@ def G1DBinaryStringXTwoPoint(genome, **args):
 
 def G1DBinaryStringXUniform(genome, **args):
     """ The G1DList Uniform Crossover """
-    from . import Consts
 
     sister = None
     brother = None

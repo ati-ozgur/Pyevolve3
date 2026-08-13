@@ -1,6 +1,5 @@
 import unittest
-
-from mock import patch
+from unittest.mock import patch
 
 from pyevolve.representations.G1DBinaryString import G1DBinaryString
 from pyevolve.perturbations import Mutators
