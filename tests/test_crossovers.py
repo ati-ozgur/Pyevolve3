@@ -3,8 +3,8 @@
 from itertools import cycle
 import unittest
 
+import pytest
 from mock import patch
-from nose.tools import nottest
 
 from pyevolve.perturbations import Crossovers
 from pyevolve.representations.G1DBinaryString import G1DBinaryString
@@ -143,7 +143,7 @@ class G1DListCrossoversTestCase(CrossoverTestCase):
             [1, 2, 3],
         )
 
-    @nottest  # fails because of https://github.com/perone/Pyevolve/issues/26
+    @pytest.mark.skip(reason='fails because of https://github.com/perone/Pyevolve/issues/26')
     @patch('pyevolve.Crossovers.rand_randint')
     def test_order_crossover(self, rand_mock):
         rand_mock.side_effect = [1, 2]
@@ -368,7 +368,7 @@ class GTreeCrossoversTestCase(CrossoverTestCase):
             crossover_extra_kwargs={'count': 2}
         )
 
-    @nottest  # patch GTreeBase.getRandomNode
+    @pytest.mark.skip(reason='patch GTreeBase.getRandomNode')
     @patch('pyevolve.Crossovers.rand_choice')
     def test_strict_single_point_crossover(self, rand_mock):
         rand_mock.side_effect = lambda u: u[0]
