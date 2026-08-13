@@ -3,7 +3,7 @@
 
 from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice
 from ..representations import GTree
-from . import Util
+from .. import Util
 
 
 def GTreeInitializatorInteger(genome, **args):
