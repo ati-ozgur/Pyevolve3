@@ -109,7 +109,6 @@ def G2DBinaryStringXUniform(genome, **args):
     .. versionadded:: 0.6
        The *G2DBinaryStringXUniform* function
     """
-    from . import Consts
 
     sister = None
     brother = None
