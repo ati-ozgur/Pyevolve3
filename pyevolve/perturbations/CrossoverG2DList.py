@@ -2,6 +2,7 @@ from random import randint as rand_randint, choice as rand_choice
 from random import random as rand_random
 import math
 from .. import Util
+from .. import Consts
 
 
 
@@ -9,7 +10,6 @@ from .. import Util
 
 def G2DListCrossoverUniform(genome, **args):
     """ The G2DList Uniform Crossover """
-    from . import Consts
     sister = None
     brother = None
     gMom = args["mom"]
