@@ -1,15 +1,12 @@
-# 36-39, 47-48, 56, 60, 64-73, 77-79, 83-86, 90-92, 96-107, 125-127, 131, 135, 143, 147, 151, 155, 159, 163, 171,
-# 175-178, 198-202, 206-207, 216-220, 223, 226-229, 232, 239, 246, 250-252, 256-262, 270, 274, 278, 282-289
-
-# flake8: noqa
 from collections import Iterable
 from unittest import TestCase
 
-from pyevolve.representations import G1DBinaryString
-from pyevolve.representations import GAllele
-from pyevolve.representations import G1DList
-from pyevolve.representations import G2DBinaryString
-from pyevolve.representations import G2DList
+
+
+from pyevolve.representations.GAllele import GAllele
+from pyevolve.representations.G1DList import G1DList
+from pyevolve.representations.G2DBinaryString import G2DBinaryString
+from pyevolve.representations.G2DList import G2DList
 from pyevolve.representations.GenomeBase import G1DBase
 from pyevolve.representations.GenomeBase import GTreeBase
 from pyevolve.representations.GTree import GTree
