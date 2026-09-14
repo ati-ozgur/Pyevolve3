@@ -21,7 +21,6 @@ from pyevolve.initializations.InitializationPermutations import (
     G1DListTSPInitializatorRandom,
 )
 
-from pyevolve.perturbations.CrossoverG1DList import G1DListCrossoverSinglePoint
 
 from pyevolve.perturbations.CrossoverG1DListTspPermutations import (
     G1DListCrossoverPMX,
