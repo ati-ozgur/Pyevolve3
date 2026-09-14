@@ -3,3 +3,4 @@ Pillow>=8.0
 numpy>=2.0
 scikit-fuzzy==0.5.0
 scipy==1.13.1
+packaging==26.3
