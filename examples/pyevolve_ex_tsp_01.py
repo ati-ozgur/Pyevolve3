@@ -9,6 +9,6 @@ if __name__ == "__main__":
     #        , freq_stats=1
     #        )
     run_tsp(problem_name="gr21"
-            , crossover_method="SNGL"
+            , crossover_method="PMX"
             , freq_stats=1
             )

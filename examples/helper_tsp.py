@@ -94,7 +94,6 @@ tsp_file_list_euclid_2d = (
 )
 
 dict_crossoever_operators = {
-    "SNGL": G1DListCrossoverSinglePoint,
     "PMX": G1DListCrossoverPMX,
     "OX": G1DListCrossoverOX,
     "OX2": G1DListCrossoverOX2,
