@@ -228,14 +228,27 @@ def run_selector_ga(
     results_directory="tspimg",
     coordinates=None,
     save_images=False,
+    evaluator=None,
+    genome_values=None,
 ):
     controller = SelectorController(strategy, generation_count)
-    genome = G1DList.G1DList(city_count)
+    genome_size = len(genome_values) if genome_values is not None else city_count
+    genome = G1DList.G1DList(genome_size)
     genome.setParams(dist=distance_matrix)
-    genome.evaluator.set(lambda chromosome: tour_length(distance_matrix, chromosome, city_count))
+    if evaluator is None:
+        evaluator = lambda chromosome: tour_length(distance_matrix, chromosome, city_count)
+    genome.evaluator.set(evaluator)
     genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorDisplacement)
-    genome.initializator.set(G1DListTSPInitializatorRandom)
+    if genome_values is None:
+        genome.initializator.set(G1DListTSPInitializatorRandom)
+    else:
+        def initialize_genome(custom_genome, **args):
+            values = list(genome_values)
+            random.shuffle(values)
+            custom_genome.setInternalList(values)
+
+        genome.initializator.set(initialize_genome)
 
     ga = GSimpleGA.GSimpleGA(genome)
     ga.setGenerations(generation_count)
