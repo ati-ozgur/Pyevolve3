@@ -108,7 +108,8 @@ class SelectorController:
         maximum = max(distances)
         if maximum == minimum:
             return 0.0
-        return (sum(distances) / len(distances) - minimum) / (maximum - minimum)
+        normalized = (sum(distances) / len(distances) - minimum) / (maximum - minimum) 
+        return normalized
 
     def calculate_alpha(self, iteration, population, best):
         if self.strategy == "deterministic":
