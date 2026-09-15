@@ -8,6 +8,7 @@ from pathlib import Path
 import random
 import time
 import inspect
+import hashlib
 from typing import Optional
 
 
@@ -440,14 +441,23 @@ def run_tsp(
     log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, duration, best)
     could_save_tsp_image = coordinates is not None and PIL_SUPPORT
     if could_save_tsp_image:
-        img_filename =  image_directory / f"tsp_result_{experiment_name}.png"
+        image_directory.mkdir(parents=True, exist_ok=True)
+        # take 12 first chars instead of all 64 
+        experiment_name_hash = hashlib.sha256(experiment_name.encode("utf-8")).hexdigest()[:12]
+        safe_experiment_name = experiment_name[:100]
+        img_filename = image_directory / f"tsp_result_{safe_experiment_name}-{experiment_name_hash}.png"
         write_tour_to_img(coordinates, best, img_filename, max_generation_count)
     else:
         print("No coordinates or No PIL detected, cannot plot the graph !")
 
 def log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, duration, best):
     if log_experiments:
-        full_log_file= results_directory / f"{experiment_name}.txt"
+        results_directory.mkdir(parents=True, exist_ok=True)
+        experiment_name_bytes = experiment_name.encode("utf-8")
+        experiment_name_hash = hashlib.sha256(experiment_name_bytes).hexdigest()[:12]
+        max_name_length = 100
+        safe_experiment_name = experiment_name[:max_name_length]
+        full_log_file = results_directory / f"{safe_experiment_name}-{experiment_name_hash}.txt"
         with open(full_log_file, "w") as file:
             file.write("experiment_name:" + experiment_name + "\n")
             file.write("experiment_duration:"+ str(duration) + "\n")        
