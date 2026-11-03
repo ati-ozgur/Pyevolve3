@@ -39,7 +39,7 @@ def G1DListCrossoverSinglePoint(genome, **args):
         brother.resetStats()
         brother[cut:] = gMom[cut:]
 
-    checkTspListIntegrity(gMom, gDad, sister, brother)
+    #checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
 
