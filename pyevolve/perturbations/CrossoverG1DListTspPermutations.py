@@ -11,21 +11,20 @@ def checkTspListIntegrity(gMom,gDad,sister,brother):
     listSize = len(set(gMom.getInternalList()))
 
     assert len(set(gDad.getInternalList())) == listSize, "Dad contains duplicate cities"
-    assert len(set(sister.getInternalList())) == listSize, "Sister contains duplicate cities"
-    assert len(set(brother.getInternalList())) == listSize, "Brother contains duplicate cities"
-
     assert sum(gDad.getInternalList()) == sum(gMom.getInternalList())
-    assert sum(sister.getInternalList()) == sum(gMom.getInternalList())
-    assert sum(brother.getInternalList()) == sum(gMom.getInternalList())
 
     mom_set = set(gMom.getInternalList())
 
     # Ensure parents themselves are permutations of the same cities
     assert set(gDad.getInternalList()) == mom_set, "Dad contains different cities than Mom"
 
-    # Ensure offspring contain the exact same set of unique cities
-    assert set(sister.getInternalList()) == mom_set, "Sister is missing cities or contains duplicates"
-    assert set(brother.getInternalList()) == mom_set, "Brother is missing cities or contains duplicates"
+    for offspring in (sister, brother):
+        if offspring is None:
+            continue
+        # Ensure offspring contain the exact same set of unique cities
+        assert len(set(offspring.getInternalList())) == listSize, "Offspring contains duplicate cities"
+        assert sum(offspring.getInternalList()) == sum(gMom.getInternalList())
+        assert set(offspring.getInternalList()) == mom_set, "Offspring has different cities than its parents"
 
 
 def G1DListCrossoverOX(genome, **args):
