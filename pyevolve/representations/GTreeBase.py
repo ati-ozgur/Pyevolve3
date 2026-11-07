@@ -1,7 +1,6 @@
 from random import choice as rand_choice
 import inspect
 
-from ..FunctionSlot import FunctionSlot
 from .. import Util
 
 from .GenomeBase import GenomeBase
