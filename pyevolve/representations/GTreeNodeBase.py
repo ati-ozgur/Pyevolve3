@@ -21,7 +21,7 @@ class GTreeNodeBase(object):
         self.childs = []
 
         if childs is not None:
-            if type(childs) != list:
+            if not isinstance(childs, list):
                 Util.raiseException("Childs must be a list of nodes", TypeError)
             typecheck_list = [x for x in childs if not isinstance(x, GTreeNodeBase)]
             if len(typecheck_list) > 0:
@@ -57,7 +57,7 @@ class GTreeNodeBase(object):
 
         :param child: the node to be added
         """
-        if type(child) == list:
+        if isinstance(child, list):
             self.childs.extend(child)
         else:
             if not isinstance(child, GTreeNodeBase):

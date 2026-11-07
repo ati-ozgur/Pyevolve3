@@ -13,7 +13,7 @@ class DCLL:
     def __repr__(self):
         string = ""
 
-        if (self.head == None):
+        if (self.head is None):
             string += "Doubly Circular Linked List Empty"
             return string
 
@@ -32,7 +32,7 @@ class DCLL:
         if (index > self.count) | (index < 0):
             raise ValueError(f"Index out of range: {index}, size: {self.count}")
 
-        if self.head == None:
+        if self.head is None:
             self.head = Node(data)
             self.count = 1
             return

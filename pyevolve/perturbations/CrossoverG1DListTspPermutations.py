@@ -177,12 +177,12 @@ def G1DListCrossoverPMX(genome, **args):
         for ind, x in enumerate(gDad.genomeList[c1:c2]):
             ind += c1
             if x not in sister.genomeList:
-                while sister.genomeList[ind] != None:
+                while sister.genomeList[ind] is not None:
                     ind = gDad.genomeList.index(gMom.genomeList[ind])
                 sister.genomeList[ind] = x
         # Copy over the rest from parent b
         for ind, x in enumerate(sister.genomeList):
-            if x == None:
+            if x is None:
                 sister.genomeList[ind] = gDad.genomeList[ind]
 
     if args["count"] == 2:
@@ -195,12 +195,12 @@ def G1DListCrossoverPMX(genome, **args):
         for ind, x in enumerate(gMom.genomeList[c1:c2]):
             ind += c1
             if x not in brother.genomeList:
-                while brother.genomeList[ind] != None:
+                while brother.genomeList[ind] is not None:
                     ind = gMom.genomeList.index(gDad.genomeList[ind])
                 brother.genomeList[ind] = x
         # Copy over the rest from parent b
         for ind, x in enumerate(brother.genomeList):
-            if x == None:
+            if x is None:
                 brother.genomeList[ind] = gMom.genomeList[ind]
 
     checkTspListIntegrity(gMom, gDad, sister, brother)
@@ -378,7 +378,7 @@ def G1DListCrossoverPOS(genome, **args):
                     h = h + 1
         k = 0
         for i in range(0, len(gMom.genomeList)):
-            if sister.genomeList[i] == None:
+            if sister.genomeList[i] is None:
                 sister.genomeList[i] = temp2[k]
                 k = k + 1
 
@@ -409,7 +409,7 @@ def G1DListCrossoverPOS(genome, **args):
                     h = h + 1
         k = 0
         for i in range(0, len(gDad.genomeList)):
-            if brother.genomeList[i] == None:
+            if brother.genomeList[i] is None:
                 brother.genomeList[i] = temp2[k]
                 k = k + 1
 
@@ -479,7 +479,7 @@ def G1DListCrossoverMPX(genome, **args):
                     h = h + 1
         k = 0
         for i in range(0, len(gMom.genomeList)):
-            if sister.genomeList[i] == None:
+            if sister.genomeList[i] is None:
                 sister.genomeList[i] = temp2[k]
                 k = k + 1
 
@@ -510,7 +510,7 @@ def G1DListCrossoverMPX(genome, **args):
                     h = h + 1
         k = 0
         for i in range(0, len(gDad.genomeList)):
-            if brother.genomeList[i] == None:
+            if brother.genomeList[i] is None:
                 brother.genomeList[i] = temp2[k]
                 k = k + 1
 
@@ -603,7 +603,7 @@ def G1DListCrossoverGreedy(genome, **args):
     listSize = len(gMom)
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
-    if distance_matrix_list == None:
+    if distance_matrix_list is None:
         raise ValueError("Distance matrix list is required for  Greedy Crossover(GX) ")
 
     c1Inital = rand_randint(0, len(gMom.genomeList) - 1)
@@ -624,12 +624,12 @@ def G1DListCrossoverGreedy(genome, **args):
                 bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize])
 
-                if bool1 == None:
+                if bool1 is None:
                     sister.genomeList[k] = gMom.genomeList[(c1 + 1) % listSize]
                     c1 = findIndex(gMom.genomeList, sister.genomeList[k])
                     c2 = findIndex(gDad.genomeList, sister.genomeList[k])
                     k = k + 1
-                elif bool2 == None:
+                elif bool2 is None:
                     sister.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize]
                     c1 = findIndex(gMom.genomeList, sister.genomeList[k])
                     c2 = findIndex(gDad.genomeList, sister.genomeList[k])
@@ -641,12 +641,12 @@ def G1DListCrossoverGreedy(genome, **args):
                 bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize])
 
-                if bool2 == None:
+                if bool2 is None:
                     sister.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize]
                     c1 = findIndex(gMom.genomeList, sister.genomeList[k])
                     c2 = findIndex(gDad.genomeList, sister.genomeList[k])
                     k = k + 1
-                elif bool1 == None:
+                elif bool1 is None:
                     sister.genomeList[k] = gMom.genomeList[(c1 + 1) % listSize]
                     c1 = findIndex(gMom.genomeList, sister.genomeList[k])
                     c2 = findIndex(gDad.genomeList, sister.genomeList[k])
@@ -673,12 +673,12 @@ def G1DListCrossoverGreedy(genome, **args):
                 bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize])
 
-                if bool1 == None:
+                if bool1 is None:
                     brother.genomeList[k] = gMom[(c1 + 1) % listSize]
                     c1 = findIndex(gMom.genomeList, brother.genomeList[k])
                     c2 = findIndex(gDad.genomeList, brother.genomeList[k])
                     k = k + 1
-                elif bool2 == None:
+                elif bool2 is None:
                     brother.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize]
                     c1 = findIndex(gMom.genomeList, brother.genomeList[k])
                     c2 = findIndex(gDad.genomeList, brother.genomeList[k])
@@ -690,12 +690,12 @@ def G1DListCrossoverGreedy(genome, **args):
                 bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize])
 
-                if bool2 == None:
+                if bool2 is None:
                     brother.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize]
                     c1 = findIndex(gMom.genomeList, brother.genomeList[k])
                     c2 = findIndex(gDad.genomeList, brother.genomeList[k])
                     k = k + 1
-                elif bool1 == None:
+                elif bool1 is None:
                     brother.genomeList[k] = gMom.genomeList[(c1 + 1) % listSize]
                     c1 = findIndex(gMom.genomeList, brother.genomeList[k])
                     c2 = findIndex(gDad.genomeList, brother.genomeList[k])
@@ -723,7 +723,7 @@ def G1DListCrossoverIGX(genome, **args):
     listSize = len(gMom)
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
-    if distance_matrix_list == None:
+    if distance_matrix_list is None:
         raise ValueError("Distance matrix list is required for Impoved Greedy Crossover (IGX) Crossover Operator")
 
     if args["count"] >= 1:
@@ -880,7 +880,7 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
     listSize = len(gMom)
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
-    if distance_matrix_list == None:
+    if distance_matrix_list is None:
         raise ValueError("Distance matrix list is required for Sequential Constructive Crossover SCX")
 
     if args["count"] >= 1:

@@ -237,7 +237,8 @@ def run_selector_ga(
     genome = G1DList.G1DList(genome_size)
     genome.setParams(dist=distance_matrix)
     if evaluator is None:
-        def evaluator(chromosome): return tour_length(distance_matrix, chromosome, city_count)
+        def evaluator(chromosome):
+            return tour_length(distance_matrix, chromosome, city_count)
     genome.evaluator.set(evaluator)
     genome.crossover.set(crossover_operator_func)
     genome.mutator.set(G1DListMutatorDisplacement)
