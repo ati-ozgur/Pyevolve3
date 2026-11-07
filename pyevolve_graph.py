@@ -4,11 +4,16 @@
 # It requires matplotlib
 from __future__ import print_function
 
-import matplotlib
-import pylab
 from matplotlib.font_manager import FontProperties
 from optparse import OptionParser
 from optparse import OptionGroup
+import os
+import os.path
+from sys import exit
+import matplotlib
+import matplotlib.cm
+import pylab
+import sqlite3
 
 
 def graph_pop_heatmap_raw(pop, minimize, colormap="jet", filesave=None):
@@ -447,17 +452,9 @@ if __name__ == "__main__":
 
     print("Loading modules....")
 
-    import os.path
-    from sys import exit
     if not os.path.exists(options.dbfile):
         print("Database file '%s' not found !" % (options.dbfile, ))
         exit()
-
-    import pylab
-    from matplotlib.font_manager import FontProperties
-    import matplotlib.cm
-    import sqlite3
-    import os
 
     print("Loading database and creating graph...")
 

@@ -217,7 +217,6 @@ def G1DListCrossoverCycle(genome, **args):
     brother = None
     gMom = args["mom"]
     gDad = args["dad"]
-    listSize = len(gMom)
 
     if args["count"] >= 1:
         sister = gMom.clone()
@@ -718,7 +717,6 @@ def G1DListCrossoverIGX(genome, **args):
     brother = None
     gMom = args["mom"]
     gDad = args["dad"]
-    listSize = len(gMom)
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
     if distance_matrix_list is None:

@@ -172,6 +172,7 @@ class SelectorController:
                     return self.alpha_bins[index]
 
             total = sum(self.counts)
+            # todo fix below W503 error: line break before binary operator (line 127)
             values = [
                 self.rewards[index] / self.counts[index]
                 + math.sqrt(2 * math.log(total) / self.counts[index])

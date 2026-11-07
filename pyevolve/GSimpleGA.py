@@ -71,6 +71,8 @@ from .representations.GenomeBase import GenomeBase
 from .DBAdapters import DBBaseAdapter
 from . import Consts
 from . import Util
+
+
 def RawScoreCriteria(ga_engine):
     """ Terminate the evolution using the **bestrawscore** and **rounddecimal**
     parameter obtained from the individual

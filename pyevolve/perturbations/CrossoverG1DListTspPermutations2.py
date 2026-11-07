@@ -138,7 +138,7 @@ def G1DListCrossoverSRX(genome, **kwargs):
     """
 
     """
-    Preliminary experiments revealed that the appropriate length of sub-tours 
+    Preliminary experiments revealed that the appropriate length of sub-tours
     is around sqrt(N), where N is the number of cities.
     """
     g_mom, sister_genome_list = kwargs["mom"], []
@@ -173,7 +173,7 @@ def G1DListCrossoverCSOX(genome, **kwargs):
         <https://ieeexplore.ieee.org/abstract/document/9895081>
     """
     g_mom, g_dad = kwargs["mom"], kwargs["dad"]
-    O = [None] * 6
+    OX_List = [None] * 6
     g_mom_len = len(g_mom)
 
     r1, r2 = rand_randint(1, g_mom_len - 2), rand_randint(1, g_mom_len - 2)
@@ -194,15 +194,15 @@ def G1DListCrossoverCSOX(genome, **kwargs):
             p1 = [c for c in g_mom if c not in g_dad[pos1:pos2 + 1]]
             p2 = [c for c in g_dad if c not in g_mom[pos1:pos2 + 1]]
 
-        O[2 * i], O[2 * i + 1] = [None] * g_mom_len, [None] * g_mom_len
+        OX_List[2 * i], OX_List[2 * i + 1] = [None] * g_mom_len, [None] * g_mom_len
 
         if pos1 == 0:
-            O[2 * i] = g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
-            O[2 * i + 1] = g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
+            OX_List[2 * i] = g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
+            OX_List[2 * i + 1] = g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
 
         else:
-            O[2 * i] = p2[-pos1:] + g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
-            O[2 * i + 1] = p1[-pos1:] + g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
+            OX_List[2 * i] = p2[-pos1:] + g_mom[pos1:pos2 + 1] + p2[:g_mom_len - 1 - pos2]
+            OX_List[2 * i + 1] = p1[-pos1:] + g_dad[pos1:pos2 + 1] + p1[:g_mom_len - 1 - pos2]
 
 
 def G1DListCrossoverPropMC(genome, **kwargs):

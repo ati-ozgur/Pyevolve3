@@ -5,7 +5,8 @@ import numpy as np
 
 from .MutatorG1DList import G1DListMutatorSwap
 
-## TODO why two functions with the same name in two files
+
+# TODO why two functions with the same name in two files
 def G1DListMutatorSwap(genome: G1DList, **args):
     """ The mutator of G1DList, Swap Mutator
 
