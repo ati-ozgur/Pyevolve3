@@ -2,5 +2,6 @@ tsplib95>=0.7.1
 Pillow>=8.0
 numpy>=2.0
 scikit-fuzzy==0.5.0
-scipy==1.13.1
+scipy==1.13.1; python_version < "3.10"
+scipy==1.15.0; python_version >= "3.10"
 packaging==26.3

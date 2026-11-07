@@ -14,7 +14,7 @@ you'll find the class :class:`FunctionSlot.FunctionSlot`, which is the slot clas
 from random import uniform as rand_uniform
 
 from . import Util
-import collections
+from collections.abc import Callable
 
 
 class FunctionSlot(object):
@@ -63,7 +63,7 @@ class FunctionSlot(object):
 
         :param func: the function object
         """
-        if not isinstance(func, collections.Callable):
+        if not isinstance(func, Callable):
             Util.raiseException("The function must be a method or function", TypeError)
 
     def __iadd__(self, func):

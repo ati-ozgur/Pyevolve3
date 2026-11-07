@@ -1,5 +1,5 @@
 # flake8: noqa
-from collections import Iterable
+from collections.abc import Iterable
 from unittest import TestCase
 
 from pyevolve.representations import G1DBinaryString

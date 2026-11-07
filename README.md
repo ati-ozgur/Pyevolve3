@@ -8,6 +8,9 @@ But right now, more focus is given to more genetic algorithm operators, especial
 
 	python -m pip install git+https://github.com/ati-ozgur/Pyevolve3.git@main
 
+## Python support
+
+The minimum supported Python version is 3.9. The CI matrix targets Python 3.9 through 3.13.
 
 ## Python 3 Version of PyEvolve
 
@@ -19,4 +22,3 @@ But right now, more focus is given to more genetic algorithm operators, especial
 
 
 - The old documentation (html rendered) is still hosted at sourceforge.net at http://pyevolve.sourceforge.net/0_6rc1/
-
