@@ -6,7 +6,7 @@ But right now, more focus is given to more genetic algorithm operators, especial
 
 ## Installation 
 
-	python -m pip install git+https://github.com/ati-ozgur/Pyevolve3.git@main
+	python -m pip install git+https://github.com/ati-ozgur/Pyevolve3.git
 
 ## Python support
 
