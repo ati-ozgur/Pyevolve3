@@ -51,7 +51,7 @@ def GTreeMutatorIntegerRange(genome, **args):
     .. versionadded:: 0.6
        The *GTreeMutatorIntegerRange* function
     """
-    from . import Consts
+    from .. import Consts
 
     if args["pmut"] <= 0.0:
         return 0
@@ -87,7 +87,7 @@ def GTreeMutatorRealRange(genome, **args):
     .. versionadded:: 0.6
        The *GTreeMutatorRealRange* function
     """
-    from . import Consts
+    from .. import Consts
 
     if args["pmut"] <= 0.0:
         return 0
@@ -123,7 +123,7 @@ def GTreeMutatorIntegerGaussian(genome, **args):
     represents the mean and the std. dev. of the random distribution.
 
     """
-    from . import Consts
+    from .. import Consts
 
     if args["pmut"] <= 0.0:
         return 0
@@ -162,7 +162,7 @@ def GTreeMutatorRealGaussian(genome, **args):
     represents the mean and the std. dev. of the random distribution.
 
     """
-    from . import Consts
+    from .. import Consts
     if args["pmut"] <= 0.0:
         return 0
     elements = len(genome)
@@ -200,7 +200,7 @@ def GTreeGPMutatorOperation(genome, **args):
     .. versionadded:: 0.6
        The *GTreeGPMutatorOperation* function
     """
-    from . import Consts
+    from .. import Consts
     if args["pmut"] <= 0.0:
         return 0
     elements = len(genome)

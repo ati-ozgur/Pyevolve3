@@ -3,16 +3,7 @@ from unittest import TestCase
 
 
 
-from pyevolve.representations.GAllele import GAllele
-from pyevolve.representations.G1DList import G1DList
-from pyevolve.representations.G2DBinaryString import G2DBinaryString
-from pyevolve.representations.G2DList import G2DList
-from pyevolve.representations.GenomeBase import G1DBase
-from pyevolve.representations.GenomeBase import GTreeBase
-from pyevolve.representations.GTree import GTree
-from pyevolve.representations.GTree import GTreeNode
-from pyevolve.representations.GTree import GTreeNodeBase
-from pyevolve.representations.GTree import GTreeNodeGP
+import pyevolve.representations.GAllele as GAllele
 
 
 class GAllelesTestCase(TestCase):

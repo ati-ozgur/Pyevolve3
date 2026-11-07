@@ -181,7 +181,7 @@ def GTreeGPCrossoverSinglePoint(genome, **args):
 
     Accepts the *max_attempt* parameter, *max_depth* (required).
     """
-    from . import Consts
+    from .. import Consts
 
     sister = None
     brother = None

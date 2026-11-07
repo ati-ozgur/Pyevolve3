@@ -111,7 +111,7 @@ def G1DListCrossoverRealSBX(genome, **args):
     .. warning:: This crossover method is Data Type Dependent, which means that
                  must be used for 1D genome of real values.
     """
-    from . import Consts
+    from .. import Consts
 
     EPS = Consts.CDefG1DListSBXEPS
     # Crossover distribution index
@@ -181,4 +181,3 @@ def G1DListCrossoverRealSBX(genome, **args):
             brother[i] = gDad[i]
 
     return (sister, brother)
-

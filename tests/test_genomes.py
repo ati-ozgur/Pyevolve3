@@ -2,10 +2,10 @@
 from collections.abc import Iterable
 from unittest import TestCase
 
-from pyevolve.representations import G1DBinaryString
-from pyevolve.representations.G1DList import G1DList
-from pyevolve.representations.G2DBinaryString import G2DBinaryString
-from pyevolve.representations.G2DList import G2DList
+import pyevolve.representations.G1DBinaryString as G1DBinaryString
+import pyevolve.representations.G1DList as G1DList
+import pyevolve.representations.G2DBinaryString as G2DBinaryString
+import pyevolve.representations.G2DList as G2DList
 from pyevolve.representations.G1DBase import G1DBase
 from pyevolve.representations.GTree import GTreeBase
 from pyevolve.representations.GTree import GTree
