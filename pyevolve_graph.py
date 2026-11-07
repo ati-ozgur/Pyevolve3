@@ -1,13 +1,18 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # This code is part of Pyevolve.
-# It requires matplotlib v.0.98.5.0+
+# It requires matplotlib 
+from __future__ import print_function
+
+import matplotlib
+import pylab
+from matplotlib.font_manager import FontProperties
 from optparse import OptionParser
 from optparse import OptionGroup
 
 
 def graph_pop_heatmap_raw(pop, minimize, colormap="jet", filesave=None):
-    pylab.imshow(pop, aspect="auto", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
+    pylab.imshow(pop, aspect="auto", interpolation="gaussian", cmap=matplotlib.cm.get_cmap(colormap))
     pylab.title("Plot of pop. raw scores along the generations")
     pylab.xlabel('Population')
     pylab.ylabel('Generations')
@@ -22,7 +27,7 @@ def graph_pop_heatmap_raw(pop, minimize, colormap="jet", filesave=None):
 
 
 def graph_pop_heatmap_fitness(pop, minimize, colormap="jet", filesave=None):
-    pylab.imshow(pop, aspect="equal", interpolation="gaussian", cmap=matplotlib.cm.__dict__[colormap])
+    pylab.imshow(pop, aspect="equal", interpolation="gaussian", cmap=matplotlib.cm.get_cmap(colormap))
     pylab.title("Plot of pop. fitness scores along the generations")
     pylab.xlabel('Population')
     pylab.ylabel('Generations')
