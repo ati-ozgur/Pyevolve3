@@ -1,0 +1,2 @@
+Sphinx>=7.0
+myst-parser>=2.0

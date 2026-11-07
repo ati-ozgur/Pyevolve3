@@ -37,7 +37,7 @@ sys.path.append(os.path.abspath('ext'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.inheritance_diagram', 'pyevolve_tooltip']
+extensions = ['myst_parser', 'sphinx.ext.autodoc', 'sphinx.ext.inheritance_diagram', 'pyevolve_tooltip']
 
 inheritance_node_attrs = dict(shape='rectangle', fontsize=10, height=0.40)
 
@@ -45,7 +45,8 @@ inheritance_node_attrs = dict(shape='rectangle', fontsize=10, height=0.40)
 templates_path = ['.templates']
 
 # The suffix of source filenames.
-source_suffix = '.rst'
+source_suffix = {'.md': 'markdown'}
+myst_enable_extensions = ['colon_fence', 'deflist']
 
 # The encoding of source files.
 # source_encoding = 'utf-8'
