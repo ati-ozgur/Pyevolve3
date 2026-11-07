@@ -68,7 +68,7 @@ def SelectorLinearRanking(population: GPopulation, **args):
                 start = start - 1
             prob_counts[index] = start
 
-        prob_weights = [];
+        prob_weights = []
         for i in prob_counts:
             prob_weights.append((2 - selection_pressure) / popSize + (2 * i * (selection_pressure- 1) / (popSize * (popSize - 1))))
         SelectorLinearRanking.cachePopID = args["popID"]
@@ -91,7 +91,7 @@ def SelectorExponentialRanking(population: GPopulation, **args):
     <https://tik-old.ee.ethz.ch/file/6c0e384dceb283cd4301339a895b72b8/TIK-Report11.pdf>`_
     """
 
-    c = 0.99;
+    c = 0.99
     popSize = len(population)
     if not population.sorted:
         population.sort()
@@ -106,7 +106,7 @@ def SelectorExponentialRanking(population: GPopulation, **args):
                 start = start - 1
             prob_counts[index] = start
 
-        prob_weights = [];
+        prob_weights = []
         for i in prob_counts:
             prob_weights.append(((c - 1) / ((pow(c, popSize)) - 1) * (pow(c, (popSize - i)))))
         SelectorExponentialRanking.cachePopID = args["popID"]
@@ -131,8 +131,8 @@ def SelectorSplitRanking(population: GPopulation, **args):
     <https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH>`_
     """
 
-    lamda1 = 0.3;
-    lamda2 = 0.7;
+    lamda1 = 0.3
+    lamda2 = 0.7
     popSize = len(population)
     if not population.sorted:
         population.sort()
@@ -147,12 +147,12 @@ def SelectorSplitRanking(population: GPopulation, **args):
                 start = start - 1
             prob_counts[index] = start
 
-        prob_weights = [];
+        prob_weights = []
         for i in prob_counts:
             if (i <= popSize / 2):
-                prob_weights.append(lamda1 * ((8 * i) / popSize * (popSize + 2)));
+                prob_weights.append(lamda1 * ((8 * i) / popSize * (popSize + 2)))
             else:
-                prob_weights.append(lamda2 * ((8 * i) / popSize * (3 * popSize + 2)));
+                prob_weights.append(lamda2 * ((8 * i) / popSize * (3 * popSize + 2)))
         SelectorSplitRanking.cachePopID = args["popID"]
         SelectorSplitRanking.probabilityWeights = prob_weights
 
@@ -189,9 +189,9 @@ def SelectorNewTournament(population: GPopulation, **args):
                 start = start - 1
             prob_counts[index] = start
 
-        prob_weights = [];
+        prob_weights = []
         for i in prob_counts:
-            prob_weights.append(2*((3*i) - 1) / popSize *((3*popSize)+1));
+            prob_weights.append(2*((3*i) - 1) / popSize *((3*popSize)+1))
         SelectorNewTournament.cachePopID = args["popID"]
         SelectorNewTournament.probabilityWeights = prob_weights
 
