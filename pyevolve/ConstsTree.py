@@ -1,6 +1,12 @@
 
+from .initializations import InitializationTree as Initializators
+from .perturbations import CrossoverTree as Crossovers
+from .perturbations import MutatorTree as Mutators
+from .representations.GTree import GTreeGP
+
+
 # - GTree defaults
-CDefGTreeInit = Initializat.GTreeInitializatorInteger
+CDefGTreeInit = Initializators.GTreeInitializatorInteger
 CDefGGTreeMutator = Mutators.GTreeMutatorIntegerRange
 CDefGTreeCrossover = Crossovers.GTreeCrossoverSinglePointStrict
 
@@ -11,4 +17,3 @@ CDefGTreeGPCrossover = Crossovers.GTreeGPCrossoverSinglePoint
 
 
 CDefGPGenomes = [GTreeGP]
-
