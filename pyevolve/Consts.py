@@ -382,16 +382,13 @@ import logging
 
 from . import Scaling
 from .selections import Selectors
-from .initializations import InitializationBinary,InitializationG1DList,InitializationG2DList
-from .perturbations import MutatorBinary,MutatorG1DList,MutatorG2DList
+from .initializations import InitializationBinary, InitializationG1DList, InitializationG2DList
+from .perturbations import MutatorBinary, MutatorG1DList, MutatorG2DList
 
 from .perturbations.CrossoverG1DList import G1DListCrossoverSinglePoint
 
 from .perturbations.CrossoverG2DList import G2DListCrossoverUniform
 from .perturbations.CrossoverBinary import G1DBinaryStringXSinglePoint, G2DBinaryStringXUniform
-
-
-
 
 
 # Logging system
@@ -531,4 +528,3 @@ CDefXMLRPCStatsGenFreq = 20
 # Util Consts
 CDefBroadcastAddress = "255.255.255.255"
 nodeType = {"TERMINAL": 0, "NONTERMINAL": 1}
-

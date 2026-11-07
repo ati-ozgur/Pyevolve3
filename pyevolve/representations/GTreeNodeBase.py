@@ -116,5 +116,3 @@ class GTreeNodeBase(object):
         newcopy = GTreeNodeBase(None)
         self.copy(newcopy)
         return newcopy
-
-

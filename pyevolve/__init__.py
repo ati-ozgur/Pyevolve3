@@ -11,14 +11,13 @@ is above this namespace, for example, to import :mod:`Mutators`:
 """
 __all__ = ["Consts", "DBAdapters", "FunctionSlot",
            "GAllele", "GenomeBase", "GPopulation",
-           "GSimpleGA","Scaling"
+           "GSimpleGA", "Scaling"
            "Statistics", "Util"]
 
 __version__ = '0.7'
 __author__ = 'Christian S. Perone'
 
 from . import Consts
-
 
 
 def logEnable(filename=Consts.CDefLogFile, level=Consts.CDefLogLevel):

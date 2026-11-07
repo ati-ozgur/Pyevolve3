@@ -19,6 +19,7 @@ choosing random data.
 from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice
 from .. import Util
 
+
 def G1DListInitializatorAllele(genome, **args):
     """ Allele initialization function of G1DList
 

@@ -19,8 +19,7 @@ def eval_func(genome):
     return score
 
 
-
-def create_initial_population(genome,size=10):
+def create_initial_population(genome, size=10):
     genome_size = len(genome)
     population = []
     for i in range(size):
@@ -32,8 +31,9 @@ def create_initial_population(genome,size=10):
 
     return population
 
+
 def run_main():
-    genome_size=50
+    genome_size = 50
     # Genome instance, 1D List of 50 elements
     genome = G1DList.G1DList(genome_size)
 
@@ -43,8 +43,7 @@ def run_main():
     # The evaluator function (evaluation function)
     genome.evaluator.set(eval_func)
 
-
-    #GPopulation initPopulation
+    # GPopulation initPopulation
 
     # Genetic Algorithm Instance
     ga = GSimpleGA.GSimpleGA(genome)
@@ -55,11 +54,9 @@ def run_main():
     ga.setGenerations(500)
     ga.terminationCriteria.set(GSimpleGA.ConvergenceCriteria)
 
-
     init_population = create_initial_population(genome)
 
     ga.getPopulation().setInitialPopulation(init_population)
-
 
     # Do the evolution, with stats dump
     # frequency of 20 generations

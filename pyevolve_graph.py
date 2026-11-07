@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # This code is part of Pyevolve.
-# It requires matplotlib 
+# It requires matplotlib
 from __future__ import print_function
 
 import matplotlib

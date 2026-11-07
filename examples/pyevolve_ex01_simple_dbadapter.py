@@ -44,7 +44,6 @@ def run_main():
     sqlite_adapter = DBAdapters.DBSQLite(identify="ex1", resetDB=True)
     ga.setDBAdapter(sqlite_adapter)
 
-
     # Do the evolution, with stats dump
     # frequency of 20 generations
     best_individual = ga.evolve(freq_stats=20)

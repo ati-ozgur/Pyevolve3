@@ -12,8 +12,6 @@ from pyevolve.representations.G2DList import G2DList
 from pyevolve.representations.GTree import GTree, GTreeNode
 
 
-
-
 class CrossoverTestCase(unittest.TestCase):
     def assertCrossoverResultsEqual(
             self,
@@ -38,10 +36,3 @@ class CrossoverTestCase(unittest.TestCase):
         actual_sister, actual_brother = [genome_value_getter(g) if g else None for g in crossover(None, **kwargs)]
         getattr(self, assertion_name)(actual_sister, expected_sister)
         getattr(self, assertion_name)(actual_brother, expected_brother)
-
-
-
-
-
-
-

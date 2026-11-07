@@ -6,7 +6,6 @@ from random import choice as rand_choice
 from .. import Consts
 
 
-
 # 1D List
 
 def G1DListMutatorSwap(genome, **args):
@@ -68,7 +67,6 @@ def G1DListMutatorIntegerRange(genome, **args):
     Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -98,7 +96,6 @@ def G1DListMutatorRealRange(genome, **args):
     Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -134,7 +131,6 @@ def G1DListMutatorIntegerGaussianGradient(genome, **args):
     1 the random value falls on) and cast to integer
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -176,7 +172,6 @@ def G1DListMutatorIntegerGaussian(genome, **args):
     represents the mean and the std. dev. of the random distribution.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -224,7 +219,6 @@ def G1DListMutatorRealGaussian(genome, **args):
     represents the mean and the std. dev. of the random distribution.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -281,7 +275,6 @@ def G1DListMutatorRealGaussianGradient(genome, **args):
     no matter how large it is.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -386,7 +379,6 @@ def G1DListMutatorAlleleGaussian(genome, **arguments):
     respectively represents the mean and the std. dev. of the random
     distribution.
     """
-    
 
     if arguments["pmut"] <= 0.0:
         return 0

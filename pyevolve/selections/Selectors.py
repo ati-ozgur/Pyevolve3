@@ -11,12 +11,12 @@ import random
 from .. import Consts
 
 
-## TODO Check this one, why it seems to be always same individual being selected
+# TODO Check this one, why it seems to be always same individual being selected
 def GRankSelector(population, **args):
     """ The Rank Selector - This selector will pick the best individual of
     the population every time.
     """
-    
+
     # Build or retrieve cached list of indices that have the best value
     if args["popID"] != GRankSelector.cachePopID:
         if population.sortType == Consts.sortType["scaled"]:
@@ -61,7 +61,7 @@ def GTournamentSelector(population, **args):
        gets the pool size from the population.
 
     """
-    
+
     choosen = None
     should_minimize = population.minimax == Consts.minimaxType["minimize"]
     minimax_operator = min if should_minimize else max
@@ -88,7 +88,7 @@ def GTournamentSelectorAlternative(population, **args):
        Added the GTournamentAlternative function.
 
     """
-    
+
     pool_size = population.getParam("tournamentPool", Consts.CDefTournamentPoolSize)
     len_pop = len(population)
     should_minimize = population.minimax == Consts.minimaxType["minimize"]
@@ -116,7 +116,7 @@ def GRouletteWheel(population, **args):
     cutoff = random.random()
     lower = 0
     upper = len(population) - 1
-    while(upper >= lower):
+    while (upper >= lower):
         i = lower + ((upper - lower) // 2)
         if psum[i] > cutoff:
             upper = i - 1

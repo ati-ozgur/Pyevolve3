@@ -187,4 +187,3 @@ def G2DBinaryStringXSingleHPoint(genome, **args):
             brother[i][:] = gMom[i][:]
 
     return (sister, brother)
-

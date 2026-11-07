@@ -1,10 +1,12 @@
 from pyevolve.representations import G1DList
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorRealRange
-from pyevolve import GSimpleGA,  Consts
+from pyevolve import GSimpleGA, Consts
 from pyevolve.selections import Selectors
 
 # This is the Rosenbrock Function
+
+
 def rosenbrock(xlist):
     sum_var = 0
     for x in range(1, len(xlist)):

@@ -1,6 +1,6 @@
 from pyevolve.representations import G2DList
 from pyevolve import GSimpleGA
-from pyevolve.perturbations.MutatorG2DList import G2DListMutatorIntegerRange 
+from pyevolve.perturbations.MutatorG2DList import G2DListMutatorIntegerRange
 from pyevolve.perturbations.CrossoverG2DList import G2DListCrossoverSingleHPoint
 
 

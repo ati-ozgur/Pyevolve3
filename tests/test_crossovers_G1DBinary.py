@@ -7,6 +7,7 @@ from pyevolve.perturbations.CrossoverBinary import G1DBinaryStringXSinglePoint, 
 
 from .test_crossovers import CrossoverTestCase
 
+
 class G1DBinaryStringCrossoversTestCase(CrossoverTestCase):
     def setUp(self):
         self.mom = G1DBinaryString(3)

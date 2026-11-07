@@ -9,6 +9,7 @@ from pyevolve.representations.G2DBinaryString import G2DBinaryString
 
 from .test_crossovers import CrossoverTestCase
 
+
 class G2DBinaryStringCrossoversTestCase(CrossoverTestCase):
     def setUp(self):
         self.mom = G2DBinaryString(3, 3)
@@ -61,5 +62,3 @@ class G2DBinaryStringCrossoversTestCase(CrossoverTestCase):
             genome_attr_name='genomeString',
             crossover_extra_kwargs={'count': 2}
         )
-
-

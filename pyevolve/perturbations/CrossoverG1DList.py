@@ -4,13 +4,10 @@ import math
 from .. import Util
 
 
-
 # 1D List
 
 
-
 from .CrossoverG1DListTspPermutations import checkTspListIntegrity
-
 
 
 def G1DListCrossoverSinglePoint(genome, **args):
@@ -39,9 +36,10 @@ def G1DListCrossoverSinglePoint(genome, **args):
         brother.resetStats()
         brother[cut:] = gMom[cut:]
 
-    #checkTspListIntegrity(gMom, gDad, sister, brother)
+    # checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
+
 
 def G1DListCrossoverTwoPoint(genome, **args):
     """ The G1DList crossover, Two Point

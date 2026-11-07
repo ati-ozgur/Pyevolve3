@@ -44,7 +44,6 @@ def G2DListMutatorIntegerRange(genome, **args):
     Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -85,7 +84,6 @@ def G2DListMutatorIntegerGaussianGradient(genome, **args):
     no matter how large it is.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -134,7 +132,6 @@ def G2DListMutatorIntegerGaussian(genome, **args):
     represents the mean and the std. dev. of the random distribution.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -230,7 +227,6 @@ def G2DListMutatorRealGaussian(genome, **args):
     represents the mean and the std. dev. of the random distribution.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0
@@ -286,7 +282,6 @@ def G2DListMutatorRealGaussianGradient(genome, **args):
     for a smooth gradient drift about the value.
 
     """
-    
 
     if args["pmut"] <= 0.0:
         return 0

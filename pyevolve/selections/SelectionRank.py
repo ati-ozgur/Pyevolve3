@@ -2,8 +2,10 @@ import random
 
 from ..GPopulation import GPopulation
 
-exploration_weight= 0.8
-exploitation_weight=0.2
+exploration_weight = 0.8
+exploitation_weight = 0.2
+
+
 def SelectorFitnessProportional(population: GPopulation, **args):
     """ The Fitness Proportional Selector
 
@@ -51,7 +53,7 @@ def SelectorLinearRanking(population: GPopulation, **args):
     page:82
     """
 
-    selection_pressure=1.5
+    selection_pressure = 1.5
 
     popSize = len(population)
 
@@ -70,7 +72,7 @@ def SelectorLinearRanking(population: GPopulation, **args):
 
         prob_weights = []
         for i in prob_counts:
-            prob_weights.append((2 - selection_pressure) / popSize + (2 * i * (selection_pressure- 1) / (popSize * (popSize - 1))))
+            prob_weights.append((2 - selection_pressure) / popSize + (2 * i * (selection_pressure - 1) / (popSize * (popSize - 1))))
         SelectorLinearRanking.cachePopID = args["popID"]
         SelectorLinearRanking.probabilityWeights = prob_weights
 
@@ -81,8 +83,10 @@ def SelectorLinearRanking(population: GPopulation, **args):
 
     return population[selected]
 
+
 SelectorLinearRanking.probabilityWeights = None
 SelectorLinearRanking.cachePopID = None
+
 
 def SelectorExponentialRanking(population: GPopulation, **args):
     """ The Exponential Ranking Selector
@@ -191,7 +195,7 @@ def SelectorNewTournament(population: GPopulation, **args):
 
         prob_weights = []
         for i in prob_counts:
-            prob_weights.append(2*((3*i) - 1) / popSize *((3*popSize)+1))
+            prob_weights.append(2 * ((3 * i) - 1) / popSize * ((3 * popSize) + 1))
         SelectorNewTournament.cachePopID = args["popID"]
         SelectorNewTournament.probabilityWeights = prob_weights
 
@@ -205,6 +209,7 @@ def SelectorNewTournament(population: GPopulation, **args):
 
 SelectorNewTournament.probabilityWeights = None
 SelectorNewTournament.cachePopID = None
+
 
 def SelectorExplorationExploitationBalance(population: GPopulation, **args):
     """ The Exploration Exploitation Balance Selector

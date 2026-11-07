@@ -1,6 +1,6 @@
 from pyevolve.initializations.InitializationBinary import G1DBinaryStringInitializator
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
-from pyevolve.initializations.InitializationG2DList import G2DListInitializatorInteger,G2DListInitializatorReal
+from pyevolve.initializations.InitializationG2DList import G2DListInitializatorInteger, G2DListInitializatorReal
 from pyevolve.initializations.InitializationTree import GTreeInitializatorInteger
 
 
@@ -38,6 +38,3 @@ def test_2d_list_real_initializator():
     for gen_row in genome.genomeList:
         for gen in gen_row:
             assert type(gen) is float
-
-
-

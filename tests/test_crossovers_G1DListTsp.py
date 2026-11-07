@@ -8,6 +8,7 @@ from pyevolve.representations.G1DList import G1DList
 
 from .test_crossovers import CrossoverTestCase
 
+
 class G1DListCrossoversTspTestCase(CrossoverTestCase):
     def setUp(self):
         self.mom = G1DList(3)
@@ -47,7 +48,6 @@ class G1DListCrossoversTspTestCase(CrossoverTestCase):
             [3, 1, 2],
             crossover_extra_kwargs={'count': 2}
         )
-
 
     @patch('pyevolve.perturbations.CrossoverG1DListTspPermutations.rand_randint')
     def test_crossfill_cut_crossover(self, rand_mock):

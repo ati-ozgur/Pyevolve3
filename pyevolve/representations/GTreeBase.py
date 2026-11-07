@@ -8,7 +8,6 @@ from .GenomeBase import GenomeBase
 from .GTreeNodeBase import GTreeNodeBase
 
 
-
 class GTreeBase(GenomeBase):
     """ GTreeBase Class - The base class for the tree genomes
 

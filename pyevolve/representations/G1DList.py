@@ -36,7 +36,7 @@ Class
 """
 
 from .GenomeBase import GenomeBase
-from .G1DBase import  G1DBase
+from .G1DBase import G1DBase
 from .. import Consts
 
 
@@ -136,7 +136,6 @@ class G1DList(G1DBase):
             newObj[i] -= other
         return newObj
 
-
     def __repr__(self):
         """ Return a string representation of Genome """
         ret = f"""{GenomeBase.__repr__(self)}
@@ -166,7 +165,7 @@ class G1DList(G1DBase):
         newcopy = G1DList(self.genomeSize, True)
         self.copy(newcopy)
         return newcopy
-    
+
     def __hash__(self):
         """ Return hash value of G1DList based on string representation of internal list
 
@@ -175,7 +174,6 @@ class G1DList(G1DBase):
         """
         return hash(str(self.genomeList))
 
-    
     def __eq__(self, other):
         """ Compares one chromosome with another """
         if not isinstance(other, G1DList):

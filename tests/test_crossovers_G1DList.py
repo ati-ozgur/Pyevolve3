@@ -7,6 +7,7 @@ from pyevolve.perturbations.CrossoverG1DList import G1DListCrossoverRealSBX, G1D
 
 from .test_crossovers import CrossoverTestCase
 
+
 class G1DListCrossoversTestCase(CrossoverTestCase):
     def setUp(self):
         self.mom = G1DList(3)

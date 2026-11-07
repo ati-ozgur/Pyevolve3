@@ -1,5 +1,5 @@
 from pyevolve.representations import G1DList
-from pyevolve.perturbations.CrossoverG1DListTspPermutations import G1DListCrossoverCutCrossfill 
+from pyevolve.perturbations.CrossoverG1DListTspPermutations import G1DListCrossoverCutCrossfill
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorSwap
 
 from pyevolve import Consts, GSimpleGA
@@ -51,8 +51,8 @@ def run_main():
     sqlite_adapter = DBAdapters.DBSQLite(identify="queens")
     ga.setDBAdapter(sqlite_adapter)
 
-    #vpython_adapter = DBAdapters.DBVPythonGraph(identify="queens", frequency=1)
-    #ga.setDBAdapter(vpython_adapter)
+    # vpython_adapter = DBAdapters.DBVPythonGraph(identify="queens", frequency=1)
+    # ga.setDBAdapter(vpython_adapter)
 
     ga.evolve(freq_stats=10)
 

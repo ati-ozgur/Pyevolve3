@@ -112,7 +112,6 @@ crossover_methods = list(dict_crossoever_operators.keys())
 PIL_SUPPORT = None
 
 
-
 try:
     from PIL import Image, ImageDraw, ImageFont
 
@@ -120,9 +119,11 @@ try:
 except ImportError:
     PIL_SUPPORT = False
 
+
 def get_examples_directory():
     """Return the directory containing this module."""
     return Path(__file__).resolve().parent
+
 
 def get_relative_directory(relative):
     """Return the directory for storing results."""
@@ -133,9 +134,9 @@ def get_relative_directory(relative):
     elif isinstance(relative, Path):
         result = get_examples_directory() / relative
     else:
-        raise ValueError("relative must be a string or Path object.")  
+        raise ValueError("relative must be a string or Path object.")
 
-    #result.mkdir(parents=True, exist_ok=True)
+    # result.mkdir(parents=True, exist_ok=True)
     return result
 
 
@@ -300,9 +301,6 @@ def get_coordinates_for_random_cities(
     return coordinates
 
 
-
-
-
 def run_tsp(
     problem_name: str,
     random_cities_info: Optional[dict] = None,
@@ -354,12 +352,10 @@ def run_tsp(
     if "random_seed" not in experiment_name:
         experiment_name = f"{experiment_name}random_seed-{random_seed}"
     random.seed(random_seed)
-    print("experiment_name",experiment_name)
-
+    print("experiment_name", experiment_name)
 
     results_directory = get_relative_directory(results_directory)
     image_directory = get_relative_directory(image_directory)
-
 
     coordinates = None
     if "random" in problem_name.lower():
@@ -394,8 +390,8 @@ def run_tsp(
         lambda chromosome: tour_length(distance_matrix_dict, chromosome, cities_count)
     )
     if crossover_method is not None:
-        if isinstance(crossover_method,str): 
-            genome.crossover.set( dict_crossoever_operators[crossover_method])
+        if isinstance(crossover_method, str):
+            genome.crossover.set(dict_crossoever_operators[crossover_method])
         else:
             genome.crossover.set(crossover_method)
 
@@ -442,13 +438,14 @@ def run_tsp(
     could_save_tsp_image = coordinates is not None and PIL_SUPPORT
     if could_save_tsp_image:
         image_directory.mkdir(parents=True, exist_ok=True)
-        # take 12 first chars instead of all 64 
+        # take 12 first chars instead of all 64
         experiment_name_hash = hashlib.sha256(experiment_name.encode("utf-8")).hexdigest()[:12]
         safe_experiment_name = experiment_name[:100]
         img_filename = image_directory / f"tsp_result_{safe_experiment_name}-{experiment_name_hash}.png"
         write_tour_to_img(coordinates, best, img_filename, max_generation_count)
     else:
         print("No coordinates or No PIL detected, cannot plot the graph !")
+
 
 def log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, duration, best):
     if log_experiments:
@@ -460,7 +457,7 @@ def log_experiment(max_generation_count, crossover_rate, population_size, mutati
         full_log_file = results_directory / f"{safe_experiment_name}-{experiment_name_hash}.txt"
         with open(full_log_file, "w") as file:
             file.write("experiment_name:" + experiment_name + "\n")
-            file.write("experiment_duration:"+ str(duration) + "\n")        
+            file.write("experiment_duration:" + str(duration) + "\n")
             file.write(f"max_generation_count:{max_generation_count}\n")
             file.write(f"crossover_rate:{crossover_rate}\n")
             file.write(f"crossover_method:{best.crossover}\n")
@@ -474,4 +471,4 @@ def log_experiment(max_generation_count, crossover_rate, population_size, mutati
             file.write(f"RawScore: {str(best.getRawScore())} \n")
             file.write(f"Fitness: {str(best.getFitnessScore())} \n")
             file.write(f"Tour: {str(best.getInternalList())} \n")
-            print("log saved to",full_log_file)
+            print("log saved to", full_log_file)

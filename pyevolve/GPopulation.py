@@ -162,7 +162,6 @@ class GPopulation(object):
         self.statted = False
         self.stats = Statistics()
 
-
     def setMinimax(self, minimax):
         """ Sets the population minimax
 

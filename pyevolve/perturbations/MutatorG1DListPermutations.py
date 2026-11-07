@@ -6,6 +6,7 @@ import numpy as np
 
 from .MutatorG1DList import G1DListMutatorSwap
 
+
 def G1DListMutatorSwap(genome: G1DList, **args):
     """ The mutator of G1DList, Swap Mutator
 
@@ -21,8 +22,7 @@ def G1DListMutatorSwap(genome: G1DList, **args):
         return mutations
 
     listSize = len(genome)
-    
-    
+
     to_remove = rand_randint(0, listSize - 1)
     while True:
         to_insert = rand_randint(0, listSize - 1)
@@ -33,6 +33,7 @@ def G1DListMutatorSwap(genome: G1DList, **args):
     mutations = mutations + 1
 
     return mutations
+
 
 def G1DListMutatorSimpleInversion(genome, **args):
     """ The mutator of G1DList, Simple Inversion Mutation
@@ -124,10 +125,11 @@ def G1DListMutatorDisplacement(genome, **args):
 
     cut = [rand_randint(0, len(genome))]
     for i in range(0, len(part)):
-        genome.genomeList.insert(cut[0]+i,part[i])
+        genome.genomeList.insert(cut[0] + i, part[i])
     mutations += 1
 
     return mutations
+
 
 def G1DListMutatorInversion(genome, **args):
     """ The mutator of G1DList, Inversion Mutation
@@ -158,10 +160,11 @@ def G1DListMutatorInversion(genome, **args):
     cut = [rand_randint(0, len(genome))]
     part.reverse()
     for i in range(0, len(part)):
-        genome.genomeList.insert(cut[0]+i,part[i])
+        genome.genomeList.insert(cut[0] + i, part[i])
     mutations += 1
 
     return mutations
+
 
 def G1DListMutatorInsertion(genome, **args):
     """ The mutator of G1DList, Insertion Mutation
@@ -189,4 +192,3 @@ def G1DListMutatorInsertion(genome, **args):
     mutations = mutations + 1
 
     return mutations
-

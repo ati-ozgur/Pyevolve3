@@ -62,7 +62,7 @@ class GTree(GTreeBase):
     """
 
     def __init__(self, root_node=None):
-        
+
         super(GTree, self).__init__(root_node)
         self.initializator.set(Consts.CDefGTreeInit)
         self.mutator.set(Consts.CDefGGTreeMutator)
@@ -347,7 +347,7 @@ class GTreeGP(GTreeBase):
     """
 
     def __init__(self, root_node=None, cloning=False):
-        
+
         super(GTreeGP, self).__init__(root_node)
         if not cloning:
             self.initializator.set(Consts.CDefGTreeGPInit)
@@ -393,7 +393,6 @@ class GTreeGP(GTreeBase):
         :param graph: the pydot Graph instance
         :param startNode: used to plot more than one individual
         """
-        
 
         if not HAVE_PYDOT:
             print("You must install Pydot to use this feature !")
@@ -663,7 +662,7 @@ def buildGTreeGPGrow(ga_engine, depth, max_depth):
     :max_depth: the maximum depth of the tree
     :rtype: the root node
     """
-    
+
     gp_terminals = ga_engine.getParam("gp_terminals")
     assert gp_terminals is not None
 
@@ -705,7 +704,6 @@ def buildGTreeGPFull(ga_engine, depth, max_depth):
     :max_depth: the maximum depth of the tree
     :rtype: the root node
     """
-    
 
     gp_terminals = ga_engine.getParam("gp_terminals")
     assert gp_terminals is not None

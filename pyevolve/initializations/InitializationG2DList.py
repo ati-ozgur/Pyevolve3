@@ -4,6 +4,7 @@ from .. import Util
 
 # 2D List
 
+
 def G2DListInitializatorInteger(genome, **args):
     """ Integer initialization function of G2DList
 

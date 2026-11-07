@@ -250,9 +250,7 @@ class GSimpleGA(object):
 
         self.currentGeneration = 0
 
-
         logging.debug("A GA Engine was created, nGenerations=%d", self.nGenerations)
-
 
     def __call__(self, *args, **kwargs):
         """ A method to implement a callable object
@@ -527,8 +525,6 @@ class GSimpleGA(object):
         """
         return self.internalPop.worstRaw()
 
-
-
     def initialize(self):
         """ Initializes the GA Engine. Create and initialize population """
         self.internalPop.create(minimax=self.minimax)
@@ -687,7 +683,6 @@ class GSimpleGA(object):
         if self.migrationAdapter:
             self.migrationAdapter.start()
 
-
         self.initialize()
         self.internalPop.evaluate()
         self.internalPop.sort()
@@ -723,7 +718,6 @@ class GSimpleGA(object):
                     if freq_stats:
                         print("\n\tEvolution stopped by Step Callback function !\n")
                     break
-
 
                 if self.step():
                     break

@@ -30,12 +30,12 @@ ga.setGenerations(80)
 ga.setMutationRate(0.2)
 
 # Create DB Adapter and set as adapter
-#sqlite_adapter = DBAdapters.DBSQLite(identify="ex6", resetDB=True)  # noqa
-#ga.setDBAdapter(sqlite_adapter)  # noqa
+# sqlite_adapter = DBAdapters.DBSQLite(identify="ex6", resetDB=True)  # noqa
+# ga.setDBAdapter(sqlite_adapter)  # noqa
 
 # Using CSV Adapter
-#csvfile_adapter = DBAdapters.DBFileCSV()  # noqa
-#ga.setDBAdapter(csvfile_adapter)  # noqa
+# csvfile_adapter = DBAdapters.DBFileCSV()  # noqa
+# ga.setDBAdapter(csvfile_adapter)  # noqa
 
 # Using the URL Post Adapter
 # urlpost_adapter = DBAdapters.DBURLPost(url="http://whatismyip.oceanus.ro/server_variables.php", post=False)
@@ -46,4 +46,4 @@ ga.setMutationRate(0.2)
 ga.evolve(freq_stats=10)
 
 # Best individual
-#print ga.bestIndividual()  # noqa
+# print ga.bestIndividual()  # noqa

@@ -157,7 +157,3 @@ class GenomeBase(object):
         newcopy = GenomeBase()
         self.copy(newcopy)
         return newcopy
-
-
-
-

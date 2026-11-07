@@ -41,8 +41,6 @@ class GSimpleGATestCase(TestCase):
         pop2 = self.ga.internalPop
         self.assertFalse(pop1 is pop2)
 
-
-
     def test_exception_no_wrong_mutation_rate_size(self):
         self.assertRaises(BaseException, self.ga.setMutationRate, [2])
         # self.assertRaises(ValueError, self.ga.setMutationRate, [2])

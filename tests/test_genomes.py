@@ -45,7 +45,7 @@ class G1DBinaryStringTestCase(TestCase):
         with self.assertRaises(ValueError):
             _genome[0] = 2
         with self.assertRaises(ValueError):
-            _genome[0:2] = [0,1,2]
+            _genome[0:2] = [0, 1, 2]
 
     def test_getBinary(self):
         _genome = G1DBinaryString.G1DBinaryString()
@@ -189,11 +189,10 @@ class G2DBinaryStringTestCase(TestCase):
 
     def test_2DBinary_setitem(self):
         _genome = G2DBinaryString.G2DBinaryString(3, 3)
-        _genome.setItem(1,1,1)
-        self.assertEqual(_genome.getItem(1,1), 1)
+        _genome.setItem(1, 1, 1)
+        self.assertEqual(_genome.getItem(1, 1), 1)
         with self.assertRaises(ValueError):
             _genome.setItem(1, 1, 2)
-
 
     def test_2DBinary_iter(self):
         _genome = G2DBinaryString.G2DBinaryString(3, 3)

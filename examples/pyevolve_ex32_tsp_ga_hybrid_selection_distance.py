@@ -12,7 +12,7 @@ STRATEGY = "deterministic"
 
 
 def main_run(crossover_operator_func, problemname, log_file):
- 
+
     distance_matrix, distance_matrix_list = get_distance_matrixes_from_tsp_problem(problemname)
     cities_count = len(distance_matrix_list)
 

@@ -1,8 +1,9 @@
 class Node:
-    def __init__(self, data = None):
+    def __init__(self, data=None):
         self.data = data
         self.previous = self
         self.next = self
+
 
 class DCLL:
     def __init__(self):
@@ -93,7 +94,7 @@ class DCLL:
     def display(self):
         print(self)
 
-#Methods prepared for the project
+# Methods prepared for the project
 # get prev i next
     def getp(self, index):
         if (index >= self.count) | (index < 0):
@@ -102,14 +103,14 @@ class DCLL:
         temp = self.head
         for _ in range(index):
             temp = temp.next
-        print("liczba: "+str(temp.data))
+        print("liczba: " + str(temp.data))
         print("prev: " + str(temp.previous.data))
         print("next: " + str(temp.next.data))
 
 # get index
-    def getindex(self, rangelist,value):
+    def getindex(self, rangelist, value):
 
-        for index in range(0,rangelist):
+        for index in range(0, rangelist):
 
             if (index >= self.count) | (index < 0):
                 raise ValueError(f"Index out of range: {index}, size: {self.count}")
@@ -117,10 +118,10 @@ class DCLL:
             temp = self.head
             for _ in range(index):
                 temp = temp.next
-            if(temp.data==value):
+            if (temp.data == value):
                 return index
 
-#Get neighbours of element for IGX crossover.
+# Get neighbours of element for IGX crossover.
     def getleftright(self, rangelist, value):
         list = []
         for index in range(0, rangelist):

@@ -39,7 +39,6 @@ def run_main():
     ga.setGenerations(500)
     ga.terminationCriteria.set(GSimpleGA.ConvergenceCriteria)
 
-
     # Do the evolution, with stats dump
     # frequency of 20 generations
     best_individual = ga.evolve(freq_stats=20)

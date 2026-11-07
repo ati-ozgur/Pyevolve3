@@ -6,8 +6,7 @@ from pyevolve.perturbations import DoublyCircularLinkedList as dcll
 from .. import Util
 
 
-
-def checkTspListIntegrity(gMom,gDad,sister,brother):
+def checkTspListIntegrity(gMom, gDad, sister, brother):
     listSize = len(set(gMom.getInternalList()))
 
     assert len(set(gDad.getInternalList())) == listSize, "Dad contains duplicate cities"
@@ -35,7 +34,6 @@ def G1DListCrossoverOX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-
     c1, c2 = [rand_randint(1, listSize - 1), rand_randint(1, listSize - 1)]
 
     while c1 == c2:
@@ -58,8 +56,7 @@ def G1DListCrossoverOX(genome, **args):
         P2 = [c for c in gDad[c2:] + gDad[:c2] if c not in gMom[c1:c2]]
         brother.genomeList = P2[listSize - c2:] + gMom[c1:c2] + P2[:listSize - c2]
 
-
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
 
@@ -97,7 +94,7 @@ def G1DListCrossoverEdge(genome, **args):
 
     sister.genomeList = sisterl
     brother.genomeList = brotherl
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
 
@@ -143,11 +140,9 @@ def G1DListCrossoverCutCrossfill(genome, **args):
                 break
             brother[cut + x] = v
             x += 1
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
-
-
 
 
 def G1DListCrossoverPMX(genome, **args):
@@ -162,7 +157,6 @@ def G1DListCrossoverPMX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-
     c1, c2 = [rand_randint(1, listSize - 1), rand_randint(1, listSize - 1)]
 
     while c1 == c2:
@@ -176,7 +170,7 @@ def G1DListCrossoverPMX(genome, **args):
     if args["count"] >= 1:
         sister = gMom.clone()
         sister.resetStats()
-        sister.genomeList=[None]*len(gMom.genomeList)
+        sister.genomeList = [None] * len(gMom.genomeList)
         # Copy a slice from first parent:
         sister.genomeList[c1:c2] = gMom.genomeList[c1:c2]
         #    Map the same slice in parent b to child using indices from parent a:
@@ -194,7 +188,7 @@ def G1DListCrossoverPMX(genome, **args):
     if args["count"] == 2:
         brother = gDad.clone()
         brother.resetStats()
-        brother.genomeList=[None]*len(gDad.genomeList)
+        brother.genomeList = [None] * len(gDad.genomeList)
         # Copy a slice from first parent:
         brother.genomeList[c1:c2] = gDad.genomeList[c1:c2]
         #    Map the same slice in parent b to child using indices from parent a:
@@ -209,9 +203,10 @@ def G1DListCrossoverPMX(genome, **args):
             if x == None:
                 brother.genomeList[ind] = gMom.genomeList[ind]
 
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
+
 
 def G1DListCrossoverCycle(genome, **args):
     """ The Cycle Crossover CX for G1DList  (Cycle Crossover CX)
@@ -225,7 +220,6 @@ def G1DListCrossoverCycle(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
-
 
     if args["count"] >= 1:
         sister = gMom.clone()
@@ -261,9 +255,10 @@ def G1DListCrossoverCycle(genome, **args):
                 brother.genomeList[ind] = val
             gDad.genomeList, gMom.genomeList = gMom.genomeList, gDad.genomeList
 
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
+
 
 def G1DListCrossoverOX2(genome, **args):
     """ Order-based (OX2) Crossover for G1DList  (Order-based (OX2) Crossover)
@@ -278,7 +273,7 @@ def G1DListCrossoverOX2(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    indexs=[]
+    indexs = []
 
     numberOfIndex = rand_randint(1, listSize - 1)
 
@@ -294,7 +289,7 @@ def G1DListCrossoverOX2(genome, **args):
         sister = gMom.clone()
         sister.resetStats()
         sister.genomeList = [None] * len(gMom.genomeList)
-        index=[None] * len(indexs)
+        index = [None] * len(indexs)
 
         for i in range(0, len(gDad.genomeList)):
             sister.genomeList[i] = gDad.genomeList[i]
@@ -313,7 +308,7 @@ def G1DListCrossoverOX2(genome, **args):
         brother = gDad.clone()
         brother.resetStats()
         brother.genomeList = [None] * len(gDad.genomeList)
-        index=[None] * len(indexs)
+        index = [None] * len(indexs)
 
         for i in range(0, len(gMom.genomeList)):
             brother.genomeList[i] = gMom.genomeList[i]
@@ -327,9 +322,10 @@ def G1DListCrossoverOX2(genome, **args):
         for j in range(0, len(index)):
             brother.genomeList[index[j]] = gDad.genomeList[indexs[j]]
 
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
+
 
 def G1DListCrossoverPOS(genome, **args):
     """ Position-Based crossover (POS) Crossover for G1DList  (Position-Based (POS) Crossover)
@@ -344,7 +340,7 @@ def G1DListCrossoverPOS(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    indexs=[]
+    indexs = []
 
     numberOfIndex = rand_randint(1, listSize - 1)
 
@@ -386,7 +382,6 @@ def G1DListCrossoverPOS(genome, **args):
                 sister.genomeList[i] = temp2[k]
                 k = k + 1
 
-
     if args["count"] == 2:
 
         brother = gDad.clone()
@@ -418,9 +413,10 @@ def G1DListCrossoverPOS(genome, **args):
                 brother.genomeList[i] = temp2[k]
                 k = k + 1
 
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
+
 
 def G1DListCrossoverMPX(genome, **args):
     """ Maximal Preservative Crossover (MPX) for G1DList  (Maximal Preservative (MPX) Crossover)
@@ -435,7 +431,7 @@ def G1DListCrossoverMPX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-    indexs=[]
+    indexs = []
 
     c1, c2 = [rand_randint(1, listSize - 1), rand_randint(1, listSize - 1)]
 
@@ -447,13 +443,13 @@ def G1DListCrossoverMPX(genome, **args):
         c1 = c2
         c2 = h
 
-    length = c2-c1
+    length = c2 - c1
 
     while length >= 10:
-        length=length/2
+        length = length / 2
         length = round(length)
 
-    for i in range(c1, c1+length):
+    for i in range(c1, c1 + length):
         indexs.append(i)
 
     if args["count"] >= 1:
@@ -487,7 +483,6 @@ def G1DListCrossoverMPX(genome, **args):
                 sister.genomeList[i] = temp2[k]
                 k = k + 1
 
-
     if args["count"] == 2:
 
         brother = gDad.clone()
@@ -519,9 +514,10 @@ def G1DListCrossoverMPX(genome, **args):
                 brother.genomeList[i] = temp2[k]
                 k = k + 1
 
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
+
 
 def G1DListCrossoverEPMX(genome, **args):
     """ The Extended PMX Crossover for G1DList  (Extended Partially Mapped Crossover)
@@ -537,10 +533,9 @@ def G1DListCrossoverEPMX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-
     c1 = rand_randint(1, len(gMom.genomeList) - 1)
 
-    c2=listSize-c1
+    c2 = listSize - c1
     sister = gMom.clone()
     sister.resetStats()
     sister.genomeList = [None] * len(gMom.genomeList)
@@ -551,7 +546,7 @@ def G1DListCrossoverEPMX(genome, **args):
     brother.resetStats()
     brother.genomeList = [None] * len(gDad.genomeList)
     fatherSublist = [None] * (c1)
-    fatherSublist2 = [None] *(c2)
+    fatherSublist2 = [None] * (c2)
 
     repeated = []
     nonrepatedofMother = []
@@ -587,9 +582,10 @@ def G1DListCrossoverEPMX(genome, **args):
     sister.genomeList = motherSublist + fatherSublist2
     brother.genomeList = fatherSublist + motherSublist2
 
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
+
 
 def G1DListCrossoverGreedy(genome, **args):
     """ The Greedy Crossover(GX) for G1DList  (Greedy Crossover)
@@ -605,7 +601,6 @@ def G1DListCrossoverGreedy(genome, **args):
     gMom = args["mom"]
     gDad = args["dad"]
     listSize = len(gMom)
-
 
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
     if distance_matrix_list == None:
@@ -624,7 +619,7 @@ def G1DListCrossoverGreedy(genome, **args):
 
         while None in sister.genomeList:
 
-            if distance_matrix_list[(gMom.genomeList[c1 % listSize] - 1)] [(gMom.genomeList[(c1 + 1) % listSize] - 1)] > distance_matrix_list[(gDad.genomeList[c2 % listSize] - 1)] [(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
+            if distance_matrix_list[(gMom.genomeList[c1 % listSize] - 1)][(gMom.genomeList[(c1 + 1) % listSize] - 1)] > distance_matrix_list[(gDad.genomeList[c2 % listSize] - 1)][(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
 
                 bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize])
@@ -666,7 +661,7 @@ def G1DListCrossoverGreedy(genome, **args):
         brother.genomeList = [None] * len(gMom.genomeList)
         gMom.genomeList.reverse()
         gDad.genomeList.reverse()
-        c1=c1Inital
+        c1 = c1Inital
         c2 = findIndex(gDad.genomeList, gMom.genomeList[c1])
         brother.genomeList[0] = gMom.genomeList[c1]
         k = 1
@@ -709,9 +704,10 @@ def G1DListCrossoverGreedy(genome, **args):
                     c1 = c1 + 1
                     c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize])
 
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
+
 
 def G1DListCrossoverIGX(genome, **args):
     """ The Improved Greedy Crossover(IGX) for G1DList  (Improved Greedy Crossover)
@@ -726,12 +722,9 @@ def G1DListCrossoverIGX(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-
-
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
     if distance_matrix_list == None:
         raise ValueError("Distance matrix list is required for Impoved Greedy Crossover (IGX) Crossover Operator")
-
 
     if args["count"] >= 1:
         sister = gMom.clone()
@@ -799,7 +792,7 @@ def G1DListCrossoverIGX(genome, **args):
                 stepcounter = stepcounter - 1
                 fatherdll.remove(ind)
                 motherdll.remove(indm)
-        sister.genomeList=sisterGenome
+        sister.genomeList = sisterGenome
 
     if args["count"] == 2:
         brother = gDad.clone()
@@ -867,15 +860,14 @@ def G1DListCrossoverIGX(genome, **args):
                 stepcounter = stepcounter - 1
                 fatherdll.remove(ind)
                 motherdll.remove(indm)
-        brother.genomeList=brotherGenome
+        brother.genomeList = brotherGenome
 
-
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
 
-def G1DListCrossoverSequentialConstructive(genome, **args):
 
+def G1DListCrossoverSequentialConstructive(genome, **args):
     """ The Sequential Constructive Crossover SCX for G1DList  (Sequential Constructive Crossover SCX)
 
     See more information in the `Sequential Constructive Crossover Operator
@@ -887,7 +879,6 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
     gDad = args["dad"]
     listSize = len(gMom)
 
-
     distance_matrix_list = gMom.internalParams.get("distance_matrix_list", None)
     if distance_matrix_list == None:
         raise ValueError("Distance matrix list is required for Sequential Constructive Crossover SCX")
@@ -897,17 +888,17 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
         sister = gMom.clone()
         sister.resetStats()
         sister.genomeList = [None] * len(gMom.genomeList)
-        childChromosome=[]
-        count=1
-        p=0
-        childChromosome=[gMom.genomeList[0]]
+        childChromosome = []
+        count = 1
+        p = 0
+        childChromosome = [gMom.genomeList[0]]
         sister.genomeList[0] = gMom.genomeList[0]
         while None in sister.genomeList:
-            (nodeAlfa,nodeBeta)= (getNextLegitimateNode(childChromosome,gMom.genomeList,p,distance_matrix_list) , getNextLegitimateNode(childChromosome,gDad.genomeList,p,distance_matrix_list))
-            p=( nodeBeta,nodeAlfa) [distance_matrix_list[p][nodeAlfa]<distance_matrix_list[p][nodeBeta]]
+            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(childChromosome, gMom.genomeList, p, distance_matrix_list), getNextLegitimateNode(childChromosome, gDad.genomeList, p, distance_matrix_list))
+            p = (nodeBeta, nodeAlfa)[distance_matrix_list[p][nodeAlfa] < distance_matrix_list[p][nodeBeta]]
             childChromosome.append(p)
-            sister.genomeList[count]=childChromosome[count]
-            count=count+1
+            sister.genomeList[count] = childChromosome[count]
+            count = count + 1
 
     if args["count"] == 2:
 
@@ -921,36 +912,39 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
         brother.genomeList[0] = gDad.genomeList[0]
         count = 1
         while None in brother.genomeList:
-            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(childChromosome, gMom.genomeList, p, distance_matrix_list),getNextLegitimateNode(childChromosome, gDad.genomeList, p, distance_matrix_list))
+            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(childChromosome, gMom.genomeList, p, distance_matrix_list), getNextLegitimateNode(childChromosome, gDad.genomeList, p, distance_matrix_list))
             p = (nodeBeta, nodeAlfa)[distance_matrix_list[p][nodeAlfa] < distance_matrix_list[p][nodeBeta]]
             childChromosome.append(p)
             brother.genomeList[count] = childChromosome[count]
-            count = count+1
+            count = count + 1
 
     assert listSize == len(sister)
     assert listSize == len(brother)
-    checkTspListIntegrity(gMom,gDad,sister,brother)
+    checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
 
-def getNextLegitimateNode(childChromosome,ar,p,costMatrix):
+
+def getNextLegitimateNode(childChromosome, ar, p, costMatrix):
     siz = len(costMatrix)
     try:
-        return list(filter(lambda x: x not in childChromosome, cutNotApplicableSectionOfList(ar, p,costMatrix)))[0]
+        return list(filter(lambda x: x not in childChromosome, cutNotApplicableSectionOfList(ar, p, costMatrix)))[0]
     except IndexError:
         pass
     return list(filter(lambda x: x not in childChromosome, range(0, siz)))[0]
 
-def cutNotApplicableSectionOfList(ar,p,costMatrix) :
-        siz = len(costMatrix)
-        ind=findIndex(ar,p)
-        return (list(ar)[ind+1:], [])[ind==siz]
 
-def findIndex(array,number):
+def cutNotApplicableSectionOfList(ar, p, costMatrix):
+    siz = len(costMatrix)
+    ind = findIndex(ar, p)
+    return (list(ar)[ind + 1:], [])[ind == siz]
 
-    index=None
+
+def findIndex(array, number):
+
+    index = None
     for i in range(0, len(array)):
         if array[i] == number:
-            index=i
+            index = i
             return index
     return index

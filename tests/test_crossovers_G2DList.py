@@ -9,6 +9,7 @@ from pyevolve.representations.G2DList import G2DList
 
 from .test_crossovers import CrossoverTestCase
 
+
 class G2DListCrossoversTestCase(CrossoverTestCase):
     def setUp(self):
         self.mom = G2DList(3, 3)

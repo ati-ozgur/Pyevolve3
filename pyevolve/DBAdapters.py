@@ -37,6 +37,7 @@ class DBBaseAdapter(object):
     .. versionadded:: 0.6
        Added the :class:`DBBaseAdapter` class.
     """
+
     def __init__(self, frequency, identify):
         """ The class constructor """
         self.statsGenFreq = frequency
@@ -118,6 +119,7 @@ class DBFileCSV(DBBaseAdapter):
        Removed the stub methods and subclassed the :class:`DBBaseAdapter` class.
 
     """
+
     def __init__(self, filename=Consts.CDefCSVFileName, identify=None,
                  frequency=Consts.CDefCSVFileStatsGenFreq, reset=True):
         """ The creator of DBFileCSV Class """
@@ -476,6 +478,7 @@ class DBXMLRPC(DBBaseAdapter):
        The :class:`DBXMLRPC` class.
 
     """
+
     def __init__(self, url, identify=None, frequency=Consts.CDefXMLRPCStatsGenFreq):
         """ The creator of DBXMLRPC Class """
 

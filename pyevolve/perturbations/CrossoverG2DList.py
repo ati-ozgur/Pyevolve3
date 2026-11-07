@@ -5,7 +5,6 @@ from .. import Util
 from .. import Consts
 
 
-
 # 2D List
 
 def G2DListCrossoverUniform(genome, **args):
