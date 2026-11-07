@@ -2,7 +2,6 @@ from unittest import TestCase
 
 from pyevolve import GSimpleGA
 from pyevolve.representations import G1DList
-from pyevolve.representations.GTree import GTreeGP
 
 
 class GSimpleGATestCase(TestCase):

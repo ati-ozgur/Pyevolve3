@@ -38,7 +38,7 @@ def SelectorFitnessProportional(population: GPopulation, **args):
     selected = random.choices(list(range(popSize)), weights=prob_weights)[0]
 
     x = population[selected]
-    return population[selected]
+    return x
 
 
 SelectorFitnessProportional.cachePopID = None

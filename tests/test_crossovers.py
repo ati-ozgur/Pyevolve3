@@ -1,15 +1,4 @@
-
-
-from itertools import cycle
 import unittest
-from unittest.mock import patch
-
-import pytest
-
-from pyevolve.representations.G1DList import G1DList
-from pyevolve.representations.G2DBinaryString import G2DBinaryString
-from pyevolve.representations.G2DList import G2DList
-from pyevolve.representations.GTree import GTree, GTreeNode
 
 
 class CrossoverTestCase(unittest.TestCase):

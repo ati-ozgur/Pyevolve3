@@ -1,13 +1,11 @@
 from pyevolve.initializations.InitializationBinary import G1DBinaryStringInitializator
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
 from pyevolve.initializations.InitializationG2DList import G2DListInitializatorInteger, G2DListInitializatorReal
-from pyevolve.initializations.InitializationTree import GTreeInitializatorInteger
 
 
 from pyevolve.representations.G1DBinaryString import G1DBinaryString
 from pyevolve.representations.G1DList import G1DList
 from pyevolve.representations.G2DList import G2DList
-from pyevolve.representations.GTree import GTree
 
 
 def test_binary_string_initializator():

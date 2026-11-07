@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch
 
 from pyevolve.representations.G1DList import G1DList

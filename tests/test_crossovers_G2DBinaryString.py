@@ -1,4 +1,3 @@
-import pytest
 from itertools import cycle
 
 from unittest.mock import patch
