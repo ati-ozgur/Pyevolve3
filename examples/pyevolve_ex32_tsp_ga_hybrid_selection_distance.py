@@ -1,7 +1,3 @@
-import os
-import tsplib95
-import numpy
-
 from helper_tsp import crossover_methods, dict_crossoever_operators
 from helper_tsp import get_distance_matrixes_from_tsp_problem
 from helper_tsp_selector import run_experiment_series, run_selector_ga

@@ -1,5 +1,5 @@
 
-from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice
+from random import randint as rand_randint, uniform as rand_uniform
 from .. import Util
 
 # 2D List

@@ -1,5 +1,4 @@
-from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice
-from .. import Util
+from random import choice as rand_choice
 # 1D Binary String
 
 

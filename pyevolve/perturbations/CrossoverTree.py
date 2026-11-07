@@ -1,6 +1,4 @@
-from random import randint as rand_randint, choice as rand_choice
-from random import random as rand_random
-import math
+from random import choice as rand_choice
 from .. import Util
 
 

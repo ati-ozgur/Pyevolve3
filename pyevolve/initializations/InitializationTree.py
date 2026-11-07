@@ -1,7 +1,7 @@
 # Tree
 
 
-from random import randint as rand_randint, uniform as rand_uniform, choice as rand_choice
+from random import randint as rand_randint
 from ..representations import GTree
 from .. import Util
 

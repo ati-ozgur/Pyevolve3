@@ -1,5 +1,5 @@
 from .. import Util
-from random import randint as rand_randint, gauss as rand_gauss, uniform as rand_uniform
+from random import randint as rand_randint, gauss as rand_gauss
 
 from .. import Consts
 

@@ -1,13 +1,10 @@
-from random import randint as rand_randint, choice as rand_choice
+from random import randint as rand_randint
 from random import random as rand_random
 import math
 from .. import Util
 
 
 # 1D List
-
-
-from .CrossoverG1DListTspPermutations import checkTspListIntegrity
 
 
 def G1DListCrossoverSinglePoint(genome, **args):

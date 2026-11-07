@@ -1,6 +1,4 @@
 from random import randint as rand_randint, choice as rand_choice
-from random import random as rand_random
-import math
 import random
 from pyevolve.perturbations import DoublyCircularLinkedList as dcll
 from .. import Util

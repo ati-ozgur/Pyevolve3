@@ -1,6 +1,5 @@
 from .. import Util
-from random import randint as rand_randint, gauss as rand_gauss, uniform as rand_uniform
-from random import choice as rand_choice
+from random import randint as rand_randint
 
 
 # 1D Binary String

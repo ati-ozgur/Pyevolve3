@@ -64,23 +64,13 @@ Class
 import random
 import logging
 from time import time
-from sys import platform as sys_platform
 from sys import stdout as sys_stdout
-import code
-
 from .GPopulation import GPopulation
 from .FunctionSlot import FunctionSlot
 from .representations.GenomeBase import GenomeBase
 from .DBAdapters import DBBaseAdapter
 from . import Consts
 from . import Util
-import pyevolve
-
-# Platform dependant code for the Interactive Mode
-if sys_platform[:3] == "win":
-    import msvcrt
-
-
 def RawScoreCriteria(ga_engine):
     """ Terminate the evolution using the **bestrawscore** and **rounddecimal**
     parameter obtained from the individual

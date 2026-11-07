@@ -1,5 +1,4 @@
 from pyevolve.representations.G1DList import G1DList
-from pyevolve.representations.GenomeBase import GenomeBase
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorRealGaussian
 from pyevolve import GSimpleGA
