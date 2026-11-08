@@ -34,6 +34,8 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         for file in examples/pyevolve_ex_tsp_*; do
             echo "running $file"
+            echo "::notice title=Experiment started::$file"
             python3 "$file"
             echo "finished $file"
+            echo "::notice title=Experiment finished::$file"            
         done
