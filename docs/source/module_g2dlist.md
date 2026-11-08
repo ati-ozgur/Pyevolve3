@@ -1,8 +1,3 @@
 # G2DList
 
-```{eval-rst}
-.. automodule:: pyevolve.representations.G2DList
-   :members:
-   :inherited-members:
-
-```
+See the {doc}`pyevolve.representations.G2DList API reference <apidocs/pyevolve.representations.G2DList/pyevolve.representations.G2DList>`.

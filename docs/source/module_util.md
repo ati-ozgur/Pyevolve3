@@ -1,6 +1,3 @@
 # Util
 
-```{eval-rst}
-.. automodule:: pyevolve.Util
-   :members:
-```
+See the {doc}`pyevolve.Util API reference <apidocs/pyevolve/pyevolve.Util>`.

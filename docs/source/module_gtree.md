@@ -1,8 +1,3 @@
 # GTree
 
-```{eval-rst}
-.. automodule:: pyevolve.representations.GTree
-   :members:
-   :inherited-members:
-
-```
+See the {doc}`pyevolve.representations.GTree API reference <apidocs/pyevolve.representations.GTree/pyevolve.representations.GTree>`.

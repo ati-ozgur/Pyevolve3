@@ -1,18 +1,9 @@
 # Mutators
 
-```{eval-rst}
-.. automodule:: pyevolve.perturbations.MutatorBinary
-   :members:
+API references:
 
-.. automodule:: pyevolve.perturbations.MutatorG1DList
-   :members:
-
-.. automodule:: pyevolve.perturbations.MutatorG1DListPermutations
-   :members:
-
-.. automodule:: pyevolve.perturbations.MutatorG2DList
-   :members:
-
-.. automodule:: pyevolve.perturbations.MutatorTree
-   :members:
-```
+- {doc}`pyevolve.perturbations.MutatorBinary <apidocs/pyevolve.perturbations.MutatorBinary/pyevolve.perturbations.MutatorBinary>`
+- {doc}`pyevolve.perturbations.MutatorG1DList <apidocs/pyevolve.perturbations.MutatorG1DList/pyevolve.perturbations.MutatorG1DList>`
+- {doc}`pyevolve.perturbations.MutatorG1DListPermutations <apidocs/pyevolve.perturbations.MutatorG1DListPermutations/pyevolve.perturbations.MutatorG1DListPermutations>`
+- {doc}`pyevolve.perturbations.MutatorG2DList <apidocs/pyevolve.perturbations.MutatorG2DList/pyevolve.perturbations.MutatorG2DList>`
+- {doc}`pyevolve.perturbations.MutatorTree <apidocs/pyevolve.perturbations.MutatorTree/pyevolve.perturbations.MutatorTree>`

@@ -1,9 +1,7 @@
 """
     Tooltip Sphinx extension
 
-    :copyright: Copyright 2010 by Christian S. Perone
-    :license: PSF, see LICENSE for details.
-
+    **License:** PSF, see LICENSE for details.
 """
 from docutils import nodes
 import re

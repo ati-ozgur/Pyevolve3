@@ -1,7 +1,3 @@
 # GenomeBase
 
-```{eval-rst}
-.. automodule:: pyevolve.representations.GenomeBase
-   :members:
-   :inherited-members:
-```
+See the {doc}`pyevolve.representations.GenomeBase API reference <apidocs/pyevolve.representations.GenomeBase/pyevolve.representations.GenomeBase>`.

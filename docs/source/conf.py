@@ -35,9 +35,36 @@ sys.path.append(os.path.abspath('ext'))
 # General configuration
 # ---------------------
 
-# Add any Sphinx extension module names here, as strings. They can be extensions
+# Add any Sphinx extension module names here, as strings. 
+# They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['myst_parser', 'sphinx.ext.autodoc', 'sphinx.ext.inheritance_diagram', 'pyevolve_tooltip']
+extensions = ['myst_parser', 'autodoc2', 'sphinx.ext.inheritance_diagram', 'pyevolve_tooltip']
+
+#  Sphinx configuration recursively enumerates Python modules, excluding pycache,
+#  and maps file paths to autodoc2 module names, with special handling for init.py.
+
+autodoc2_packages = [{"path": "../../pyevolve", "module": "pyevolve"}]
+pyevolve_source = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../pyevolve"))
+for package_path, package_dirs, package_files in os.walk(pyevolve_source):
+    package_dirs[:] = [name for name in package_dirs if name != "__pycache__"]
+    relative_dir = os.path.relpath(package_path, pyevolve_source)
+    if relative_dir == ".":
+        continue
+    for package_file in package_files:
+        if not package_file.endswith(".py"):
+            continue
+        relative_file = os.path.join(relative_dir, package_file)
+        module_parts = os.path.splitext(relative_file)[0].split(os.sep)
+        if module_parts[-1] == "__init__":
+            module_parts.pop()
+        if module_parts:
+            autodoc2_packages.append(
+                {
+                    "path": "../../pyevolve/" + relative_file.replace(os.sep, "/"),
+                    "module": "pyevolve." + ".".join(module_parts),
+                }
+            )
+autodoc2_docstring_parser_regexes = [(r"pyevolve(?:\..*)?", "myst")]
 
 inheritance_node_attrs = dict(shape='rectangle', fontsize=10, height=0.40)
 
@@ -45,8 +72,10 @@ inheritance_node_attrs = dict(shape='rectangle', fontsize=10, height=0.40)
 templates_path = ['.templates']
 
 # The suffix of source filenames.
-source_suffix = {'.md': 'markdown'}
+source_suffix = {'.md': 'markdown', '.rst': 'restructuredtext'}
 myst_enable_extensions = ['colon_fence', 'deflist']
+# Docstring headings are nested under generated API object headings.
+suppress_warnings = ['myst.header']
 
 # The encoding of source files.
 # source_encoding = 'utf-8'
@@ -179,16 +208,16 @@ htmlhelp_basename = 'Pyevolvedoc'
 # ------------------------
 
 # The paper size ('letter' or 'a4').
-# latex_paper_size = 'letter'
+latex_paper_size = 'a4'
 
 # The font size ('10pt', '11pt' or '12pt').
-# latex_font_size = '10pt'
+latex_font_size = '12pt'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
 latex_documents = [
     ('index', 'Pyevolve.tex', 'Pyevolve Documentation',
-     'Christian S. Perone', 'manual'),
+     'Atilla Özgür', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

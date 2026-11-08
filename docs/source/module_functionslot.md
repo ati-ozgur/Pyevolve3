@@ -1,6 +1,3 @@
 # FunctionSlot
 
-```{eval-rst}
-.. automodule:: pyevolve.FunctionSlot
-   :members:
-```
+See the {doc}`pyevolve.FunctionSlot API reference <apidocs/pyevolve/pyevolve.FunctionSlot>`.

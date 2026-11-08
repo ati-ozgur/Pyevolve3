@@ -1,6 +1,3 @@
 # Consts
 
-```{eval-rst}
-.. automodule:: pyevolve.Consts
-   :members:
-```
+See the {doc}`pyevolve.Consts API reference <apidocs/pyevolve/pyevolve.Consts>`.

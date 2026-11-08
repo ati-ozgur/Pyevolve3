@@ -1,7 +1,3 @@
 # DBAdapters
 
-```{eval-rst}
-.. automodule:: pyevolve.DBAdapters
-   :members:
-   :inherited-members:
-```
+See the {doc}`pyevolve.DBAdapters API reference <apidocs/pyevolve/pyevolve.DBAdapters>`.

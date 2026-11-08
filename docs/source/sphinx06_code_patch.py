@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-    sphinx.directives.code
-    ~~~~~~~~~~~~~~~~~~~~~~
+    #### sphinx.directives.code
 
-    :copyright: Copyright 2007-2009 by the Sphinx team, see AUTHORS.
-    :license: BSD, see LICENSE for details.
+    **Copyright:** Copyright 2007-2009 by the Sphinx team, see AUTHORS.
+
+    **License:** BSD, see LICENSE for details.
 """
 
 import sys

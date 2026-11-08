@@ -1,6 +1,3 @@
 # Scaling
 
-```{eval-rst}
-.. automodule:: pyevolve.Scaling
-   :members:
-```
+See the {doc}`pyevolve.Scaling API reference <apidocs/pyevolve/pyevolve.Scaling>`.

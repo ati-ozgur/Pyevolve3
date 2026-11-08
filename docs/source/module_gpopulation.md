@@ -1,8 +1,3 @@
 # GPopulation
 
-```{eval-rst}
-.. automodule:: pyevolve.GPopulation
-   :members:
-
-
-```
+See the {doc}`pyevolve.GPopulation API reference <apidocs/pyevolve/pyevolve.GPopulation>`.

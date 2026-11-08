@@ -1,6 +1,4 @@
-```{eval-rst}
-.. automodule:: pyevolve
-```
+See the {doc}`pyevolve API reference <apidocs/pyevolve/pyevolve>`.
 
 # General Modules
 

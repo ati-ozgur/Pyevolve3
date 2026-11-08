@@ -1,6 +1,3 @@
 # Interaction
 
-```{eval-rst}
-.. automodule:: pyevolve.Interaction
-   :members:
-```
+See the {doc}`pyevolve.Interaction API reference <apidocs/pyevolve/pyevolve.Interaction>`.
