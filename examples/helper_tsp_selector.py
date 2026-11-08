@@ -280,6 +280,9 @@ def tour_length(matrix, tour, city_count):
 
 def run_experiment_series(main_run, crossover_methods, crossover_operators, default_problem, strategy,
                           include_strategy_in_filename=True):
+    results_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "experiments")
+    os.makedirs(results_directory, exist_ok=True)
+
     for crossover_operator_name in crossover_methods:
         randomseed = 1000
         for _ in range(1, 31):
@@ -295,6 +298,9 @@ def run_experiment_series(main_run, crossover_methods, crossover_operators, defa
 
             print(args)
             suffix = "_" + strategy if include_strategy_in_filename else ""
-            filename = f"examples/experiments/{args.crossover}_{args.problemname}_Experiment_{args.randomseed}{suffix}.txt"
+            filename = os.path.join(
+                results_directory,
+                f"{args.crossover}_{args.problemname}_Experiment_{args.randomseed}{suffix}.txt",
+            )
             with open(filename, "w") as log_file:
                 main_run(crossover_operators[args.crossover], args.problemname, log_file)
