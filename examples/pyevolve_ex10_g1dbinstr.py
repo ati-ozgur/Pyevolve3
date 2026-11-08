@@ -1,3 +1,6 @@
+"""
+This example shows the use of the 1D Binary String genome:
+"""
 from pyevolve.representations import G1DBinaryString
 from pyevolve import GSimpleGA
 from pyevolve.selections import Selectors

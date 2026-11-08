@@ -1,5 +1,7 @@
 """Minimize the Schaffer F6 function with a real-valued genetic algorithm.
 
+The Schaffer F6 function is a deceptive function, considered a GA-hard function to optimize:
+
 The two-dimensional genome is initialized with real values and evolved using
 Gaussian mutation and roulette-wheel selection.
 

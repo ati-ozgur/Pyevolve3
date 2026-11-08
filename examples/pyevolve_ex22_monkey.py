@@ -1,9 +1,8 @@
-# ===============================================================================
-# Pyevolve version of the Infinite Monkey Theorem
-# See: http://en.wikipedia.org/wiki/Infinite_monkey_theorem
-# By Jelle Feringa
-# ===============================================================================
+"""
+This example was kindly contributed by Jelle Feringa, it shows the
+[Infinite Monkey Theorem](http://en.wikipedia.org/wiki/Infinite_monkey_theorem):
 
+"""
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA, Consts
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorInteger

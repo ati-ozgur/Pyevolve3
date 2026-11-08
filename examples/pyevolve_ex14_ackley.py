@@ -1,3 +1,7 @@
+"""
+This example minimizes the Ackley F1 function, a deceptive function:
+
+"""
 from pyevolve.representations import G1DList
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorRealGaussian
@@ -5,7 +9,7 @@ from pyevolve import Consts, GSimpleGA
 import math
 
 
-# This is the Rastringin Function, a deception function
+# This is the Ackley F1  Function, a deception function
 def ackley(xlist):
     sum1 = 0
     score = 0

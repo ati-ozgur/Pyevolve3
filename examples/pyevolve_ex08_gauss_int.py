@@ -1,6 +1,9 @@
+"""
+This example shows the use of the Gaussian Integer Mutator:
+(`Mutators.G1DListMutatorIntegerGaussian`):
+"""
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
-# from pyevolve import Selectors
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorIntegerGaussian
 
 

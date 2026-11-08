@@ -1,3 +1,9 @@
+"""
+This example shows the use of the DB Adapters (`DBAdapters`) :
+You can use the DB Adapters to store the evolution data in 
+    - a database, 
+    - CSV file.
+"""
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 # from pyevolve import Selectors

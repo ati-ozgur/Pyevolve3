@@ -1,3 +1,6 @@
+"""
+This is the GA to solve the sphere function:
+"""
 from pyevolve.representations import G1DList
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorRealGaussian

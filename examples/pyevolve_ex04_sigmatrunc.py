@@ -1,3 +1,8 @@
+"""
+This example shows the use of the sigma truncation scale method. 
+It tries to minimize a function with negative results:
+"""
+
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 from pyevolve.selections import Selectors

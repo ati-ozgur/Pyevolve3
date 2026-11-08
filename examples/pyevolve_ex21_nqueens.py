@@ -1,3 +1,8 @@
+"""
+This example shows the use of GA to solve the n-queens problem for a
+chess board of size 64x64:
+
+"""
 from pyevolve.representations import G1DList
 from pyevolve.perturbations.CrossoverG1DListTspPermutations import G1DListCrossoverCutCrossfill
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorSwap

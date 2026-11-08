@@ -1,3 +1,6 @@
+"""
+This example shows the use of the `step callback function`:
+"""
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 from pyevolve.selections import Selectors

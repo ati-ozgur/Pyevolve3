@@ -1,3 +1,6 @@
+"""
+This example minimizes the deceptive function Rastrigin with 20 variables:
+"""
 from pyevolve import GSimpleGA
 from pyevolve.representations import G1DList
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
