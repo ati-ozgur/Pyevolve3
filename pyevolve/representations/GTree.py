@@ -38,6 +38,7 @@ from .GenomeBase import GenomeBase
 from .GTreeBase import GTreeBase
 from .GTreeNodeBase import GTreeNodeBase
 from .. import Util
+from .. import Consts
 
 try:
     import pydot_ng as pydot

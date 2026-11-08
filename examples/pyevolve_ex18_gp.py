@@ -1,7 +1,7 @@
 from pyevolve import Consts
 from pyevolve import GSimpleGA
-from pyevolve import GTree
 from pyevolve import Util
+from pyevolve.representations import GTree
 import math
 
 rmse_accum = Util.ErrorAccumulator()
@@ -43,7 +43,10 @@ def main_run():
     genome.evaluator += eval_func
 
     ga = GSimpleGA.GSimpleGA(genome)
-    ga.setParams(gp_terminals=['a', 'b'], gp_function_prefix="gp")
+    ga.setParams(
+        gp_terminals=['a', 'b'],
+        gp_function_set={"gp_add": 2, "gp_sub": 2, "gp_mul": 2, "gp_sqrt": 1},
+    )
 
     ga.setMinimax(Consts.minimaxType["minimize"])
     ga.setGenerations(50)
