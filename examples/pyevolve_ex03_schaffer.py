@@ -1,3 +1,15 @@
+"""Minimize the Schaffer F6 function with a real-valued genetic algorithm.
+
+The two-dimensional genome is initialized with real values and evolved using
+Gaussian mutation and roulette-wheel selection.
+
+Run this example with ``python examples/pyevolve_ex03_schaffer.py``.
+
+Public functions:
+    schafferF6(genome): Evaluate the Schaffer F6 objective for a genome.
+    run_main(): Configure and run the genetic algorithm.
+"""
+
 from pyevolve.representations.G1DList import G1DList
 from pyevolve.initializations.InitializationG1DList import G1DListInitializatorReal
 from pyevolve.perturbations.MutatorG1DList import G1DListMutatorRealGaussian
