@@ -1,4 +1,13 @@
-# Contributors
+## Contributors
+
+## Contributors after Fork for python 3
+
+- **Atilla Özgür** [Blog](https://ati-ozgur.github.io)
+
+- **Burak Dalkılıç** [github](https://github.com/Burak-Dalkilic)
+
+
+## Contributors before Fork for python 3
 
 **Boris Gorelik**, from [Procognia Ltd](http://procognia.com), [Blog inthehaystack.com](http://www.inthehaystack.com/), [@boris_gorelik](http://twitter.com/boris_gorelik), Ashdod, Israel.
 
