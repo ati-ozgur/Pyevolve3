@@ -57,6 +57,7 @@ getstarted
 modules
 graphs
 examples
+testing
 faq
 contributors
 license
