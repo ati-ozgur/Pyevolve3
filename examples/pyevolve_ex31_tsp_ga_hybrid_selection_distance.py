@@ -6,7 +6,7 @@ from helper_tsp import crossover_methods, dict_crossoever_operators
 from helper_tsp_selector import run_experiment_series, run_selector_ga
 
 
-GENERATION_COUNT = 1001
+GENERATION_COUNT = 101
 STRATEGY = "deterministic"
 
 

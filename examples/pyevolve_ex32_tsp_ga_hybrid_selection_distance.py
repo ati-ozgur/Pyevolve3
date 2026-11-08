@@ -3,7 +3,7 @@ from helper_tsp import get_distance_matrixes_from_tsp_problem
 from helper_tsp_selector import run_experiment_series, run_selector_ga
 
 
-GENERATION_COUNT = 1001
+GENERATION_COUNT = 101
 STRATEGY = "deterministic"
 
 
