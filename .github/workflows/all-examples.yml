@@ -33,7 +33,7 @@ jobs:
         python --version
         # stop the build if there are Python syntax errors or undefined names
         for file in examples/pyevolve_ex*.py; do
-            echo "running $file"
+            printf '\033[1;36mstarted %s\033[0m\n' "$file"         
             python3 "$file"
-            echo "finished $file"
+            printf '\033[1;36mfinished %s\033[0m\n' "$file"         
         done
