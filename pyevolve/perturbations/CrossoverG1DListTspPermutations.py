@@ -616,7 +616,7 @@ def G1DListCrossoverGreedy(genome, **args):
 
         while None in sister.genomeList:
 
-            if distance_matrix_list[(gMom.genomeList[c1 % listSize] - 1)][(gMom.genomeList[(c1 + 1) % listSize] - 1)] > distance_matrix_list[(gDad.genomeList[c2 % listSize] - 1)][(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
+            if distance_matrix_list[gMom.genomeList[c1 % listSize]][gMom.genomeList[(c1 + 1) % listSize]] > distance_matrix_list[gDad.genomeList[c2 % listSize]][gDad.genomeList[(c2 + 1) % listSize]]:
 
                 bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize])
@@ -665,7 +665,7 @@ def G1DListCrossoverGreedy(genome, **args):
 
         while None in brother.genomeList:
 
-            if distance_matrix_list[(gMom.genomeList[c1 % listSize] - 1)][(gMom.genomeList[(c1 + 1) % listSize] - 1)] < distance_matrix_list[(gDad.genomeList[c2 % listSize] - 1)][(gDad.genomeList[(c2 + 1) % listSize] - 1)]:
+            if distance_matrix_list[gMom.genomeList[c1 % listSize]][gMom.genomeList[(c1 + 1) % listSize]] < distance_matrix_list[gDad.genomeList[c2 % listSize]][gDad.genomeList[(c2 + 1) % listSize]]:
 
                 bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize])
@@ -886,7 +886,7 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
         sister.genomeList = [None] * len(gMom.genomeList)
         childChromosome = []
         count = 1
-        p = 0
+        p = gMom.genomeList[0]
         childChromosome = [gMom.genomeList[0]]
         sister.genomeList[0] = gMom.genomeList[0]
         while None in sister.genomeList:
@@ -903,7 +903,7 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
         brother.genomeList = [None] * len(gDad.genomeList)
 
         childChromosome = []
-        p = 0
+        p = gDad.genomeList[0]
         childChromosome = [gDad.genomeList[0]]
         brother.genomeList[0] = gDad.genomeList[0]
         count = 1
@@ -922,12 +922,11 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
 
 
 def getNextLegitimateNode(childChromosome, ar, p, costMatrix):
-    siz = len(costMatrix)
     try:
         return list(filter(lambda x: x not in childChromosome, cutNotApplicableSectionOfList(ar, p, costMatrix)))[0]
     except IndexError:
         pass
-    return list(filter(lambda x: x not in childChromosome, range(0, siz)))[0]
+    return list(filter(lambda x: x not in childChromosome, ar))[0]
 
 
 def cutNotApplicableSectionOfList(ar, p, costMatrix):
