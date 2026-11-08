@@ -1,7 +1,13 @@
 import pytest
 from unittest.mock import patch
 
-from pyevolve.perturbations.CrossoverG1DListTspPermutations import G1DListCrossoverCutCrossfill, G1DListCrossoverEdge, G1DListCrossoverOX
+from pyevolve.perturbations.CrossoverG1DListTspPermutations import (
+    G1DListCrossoverCutCrossfill,
+    G1DListCrossoverEdge,
+    G1DListCrossoverGreedy,
+    G1DListCrossoverOX,
+    G1DListCrossoverSequentialConstructive,
+)
 
 from pyevolve.representations.G1DList import G1DList
 
@@ -73,3 +79,56 @@ class G1DListCrossoversTspTestCase(CrossoverTestCase):
             [1, 2, 3],
             [1, 2, 3],
         )
+
+    @patch('pyevolve.perturbations.CrossoverG1DListTspPermutations.rand_randint')
+    def test_greedy_crossover_uses_zero_based_distance_matrix(self, rand_mock):
+        class NonNegativeMatrix(list):
+            def __getitem__(self, index):
+                if index < 0:
+                    raise AssertionError("Distance matrix indices must be non-negative")
+                return super().__getitem__(index)
+
+        rand_mock.return_value = 0
+        self.mom.genomeList = [0, 1, 2]
+        self.dad.genomeList = [2, 1, 0]
+        self.mom.setParams(
+            distance_matrix_list=NonNegativeMatrix(
+                NonNegativeMatrix(row) for row in (
+                    [0, 1, 2],
+                    [1, 0, 3],
+                    [2, 3, 0],
+                )
+            )
+        )
+
+        sister, brother = G1DListCrossoverGreedy(
+            None,
+            mom=self.mom,
+            dad=self.dad,
+            count=2,
+        )
+
+        self.assertEqual(set(sister.genomeList), {0, 1, 2})
+        self.assertEqual(set(brother.genomeList), {0, 1, 2})
+
+    def test_sequential_constructive_crossover_without_depot_gene(self):
+        self.mom.genomeList = [1, 2, 3]
+        self.dad.genomeList = [3, 1, 2]
+        self.mom.setParams(
+            distance_matrix_list=[
+                [0, 1, 2, 3],
+                [1, 0, 4, 5],
+                [2, 4, 0, 6],
+                [3, 5, 6, 0],
+            ]
+        )
+
+        sister, brother = G1DListCrossoverSequentialConstructive(
+            None,
+            mom=self.mom,
+            dad=self.dad,
+            count=2,
+        )
+
+        self.assertEqual(set(sister.genomeList), {1, 2, 3})
+        self.assertEqual(set(brother.genomeList), {1, 2, 3})
