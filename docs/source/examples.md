@@ -264,3 +264,175 @@ This example was kindly contributed by Jelle Feringa, it shows the
 {{< include ../../examples/pyevolve_ex22_monkey.py >}}
 
 ```
+
+## Additional examples
+
+### Simple example with a DB adapter
+
+Filename: `examples/pyevolve_ex01_simple_dbadapter.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex01_simple_dbadapter.py >}}
+
+```
+
+### Simple example with minimization
+
+Filename: `examples/pyevolve_ex01_simple_minimize.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex01_simple_minimize.py >}}
+
+```
+
+### Genetic programming example
+
+Filename: `examples/pyevolve_ex19_gp.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex19_gp.py >}}
+
+```
+
+### Genetic programming example with dot output
+
+Filename: `examples/pyevolve_ex20_gp_dotwrite.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex20_gp_dotwrite.py >}}
+
+```
+
+### Initial population example
+
+Filename: `examples/pyevolve_ex23_initial_population.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex23_initial_population.py >}}
+
+```
+
+### Putnam B1 example
+
+Filename: `examples/pyevolve_ex24_real_minimum_Putnam_B1.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex24_real_minimum_Putnam_B1.py >}}
+
+```
+
+### Hybrid-selection CVRP example
+
+Filename: `examples/pyevolve_ex_cvrp_ga_hybrid_selection.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_cvrp_ga_hybrid_selection.py >}}
+
+```
+
+### TSP selector example
+
+Filename: `examples/pyevolve_ex_tsp_02_selector.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_02_selector.py >}}
+
+```
+
+### TSP Greedy crossover example
+
+Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_Greedy.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_03_ga_crossover_Greedy.py >}}
+
+```
+
+### TSP IGX crossover example
+
+Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_IGX.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_03_ga_crossover_IGX.py >}}
+
+```
+
+### TSP PMX crossover example
+
+Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_PMX.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_03_ga_crossover_PMX.py >}}
+
+```
+
+### TSP selector exploration and exploitation example
+
+Filename: `examples/pyevolve_ex_tsp_04_SelectorExplorationExploitationBalance.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_04_SelectorExplorationExploitationBalance.py >}}
+
+```
+
+### TSP distance crossover example
+
+Filename: `examples/pyevolve_ex_tsp_05_ga_crossover_distance.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_05_ga_crossover_distance.py >}}
+
+```
+
+### TSP distance crossover loop example
+
+Filename: `examples/pyevolve_ex_tsp_05_ga_crossover_distance_loop.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_05_ga_crossover_distance_loop.py >}}
+
+```
+
+### TSP coordinate hybrid-selection example
+
+Filename: `examples/pyevolve_ex_tsp_06_ga_hybrid_selection_coordinate.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_06_ga_hybrid_selection_coordinate.py >}}
+
+```
+
+### TSP distance hybrid-selection example
+
+Filename: `examples/pyevolve_ex_tsp_07_ga_hybrid_selection_distance.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_07_ga_hybrid_selection_distance.py >}}
+
+```
+
+### TSP hybrid-selection distance example
+
+Filename: `examples/pyevolve_ex_tsp_08_ga_hybrid_selection_distance.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_tsp_08_ga_hybrid_selection_distance.py >}}
+
+```
