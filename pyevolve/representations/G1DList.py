@@ -45,7 +45,7 @@ class G1DList(G1DBase):
 
     Inheritance diagram for :class:`G1DList.G1DList`:
 
-    .. inheritance-diagram:: G1DList.G1DList
+    .. inheritance-diagram:: pyevolve.representations.G1DList.G1DList
 
     This chromosome class extends the :class:`GenomeBase.GenomeBase` class.
 

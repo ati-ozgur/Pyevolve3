@@ -104,7 +104,7 @@ class DBFileCSV(DBBaseAdapter):
 
     Inheritance diagram for :class:`DBAdapters.DBFileCSV`:
 
-    .. inheritance-diagram:: DBAdapters.DBFileCSV
+    .. inheritance-diagram:: pyevolve.DBAdapters.DBFileCSV
 
     Example:
        >>> adapter = DBFileCSV(filename="file.csv", identify="run_01",
@@ -185,7 +185,7 @@ class DBURLPost(DBBaseAdapter):
 
     Inheritance diagram for :class:`DBAdapters.DBURLPost`:
 
-    .. inheritance-diagram:: DBAdapters.DBURLPost
+    .. inheritance-diagram:: pyevolve.DBAdapters.DBURLPost
 
     Example:
        >>> dbadapter = DBURLPost(url="http://localhost/post.py", identify="test")
@@ -264,7 +264,7 @@ class DBSQLite(DBBaseAdapter):
 
     Inheritance diagram for :class:`DBAdapters.DBSQLite`:
 
-    .. inheritance-diagram:: DBAdapters.DBSQLite
+    .. inheritance-diagram:: pyevolve.DBAdapters.DBSQLite
 
     Example:
        >>> dbadapter = DBSQLite(identify="test")
@@ -447,7 +447,7 @@ class DBXMLRPC(DBBaseAdapter):
 
     Inheritance diagram for :class:`DBAdapters.DBXMLRPC`:
 
-    .. inheritance-diagram:: DBAdapters.DBXMLRPC
+    .. inheritance-diagram:: pyevolve.DBAdapters.DBXMLRPC
 
     Example:
        >>> adapter = DBXMLRPC(url="http://localhost:8000/", identify="run_01",
@@ -528,7 +528,7 @@ class DBVPythonGraph(DBBaseAdapter):
 
     Inheritance diagram for :class:`DBAdapters.DBVPythonGraph`:
 
-    .. inheritance-diagram:: DBAdapters.DBVPythonGraph
+    .. inheritance-diagram:: pyevolve.DBAdapters.DBVPythonGraph
 
     .. note:: to use this DB Adapter, you **must** install VPython first.
 
@@ -611,7 +611,7 @@ class DBMySQLAdapter(DBBaseAdapter):
 
     Inheritance diagram for :class:`DBAdapters.DBMySQLAdapter`:
 
-    .. inheritance-diagram:: DBAdapters.DBMySQLAdapter
+    .. inheritance-diagram:: pyevolve.DBAdapters.DBMySQLAdapter
 
     Example:
        >>> dbadapter = DBMySQLAdapter("pyevolve_username", "password", identify="run1")

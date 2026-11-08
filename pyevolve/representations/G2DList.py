@@ -44,7 +44,7 @@ class G2DList(GenomeBase):
 
     Inheritance diagram for :class:`G2DList.G2DList`:
 
-    .. inheritance-diagram:: G2DList.G2DList
+    .. inheritance-diagram:: pyevolve.representations.G2DList.G2DList
 
     **Examples**
 

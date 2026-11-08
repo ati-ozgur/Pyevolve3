@@ -48,7 +48,7 @@ class G2DBinaryString(GenomeBase):
 
     Inheritance diagram for :class:`G2DBinaryString.G2DBinaryString`:
 
-    .. inheritance-diagram:: G2DBinaryString.G2DBinaryString
+    .. inheritance-diagram:: pyevolve.representations.G2DBinaryString.G2DBinaryString
 
     Example:
        >>> genome = G2DBinaryString.G2DBinaryString(10, 12)

@@ -56,7 +56,7 @@ class GTree(GTreeBase):
 
     Inheritance diagram for :class:`GTree.GTree`:
 
-    .. inheritance-diagram:: GTree.GTree
+    .. inheritance-diagram:: pyevolve.representations.GTree.GTree
 
     :param root_node: the root node of the tree
     """
@@ -100,7 +100,7 @@ class GTreeNode(GTreeNodeBase):
 
     Inheritance diagram for :class:`GTree.GTreeNode`:
 
-    .. inheritance-diagram:: GTree.GTreeNode
+    .. inheritance-diagram:: pyevolve.representations.GTree.GTreeNode
 
     :param data: the root node of the tree
     :param parent: the parent node, if root, this
@@ -237,7 +237,7 @@ class GTreeNodeGP(GTreeNodeBase):
 
     Inheritance diagram for :class:`GTree.GTreeNodeGP`:
 
-    .. inheritance-diagram:: GTree.GTreeNodeGP
+    .. inheritance-diagram:: pyevolve.representations.GTree.GTreeNodeGP
 
     :param data: the node data
     :param type: the node type
@@ -343,7 +343,7 @@ class GTreeGP(GTreeBase):
 
     Inheritance diagram for :class:`GTree.GTreeGP`:
 
-    .. inheritance-diagram:: GTree.GTreeGP
+    .. inheritance-diagram:: pyevolve.representations.GTree.GTreeGP
 
     :param root_node: the Root node of the GP Tree
     """

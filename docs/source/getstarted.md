@@ -179,7 +179,7 @@ on Windows.
 
 See this session example:
 
-```
+```text
 # pyevolve_ex1_simple.py
 Gen. 1 (0.20%): Max/Min/Avg Fitness(Raw) [6.18(11.00)/4.42(1.00)/5.15(5.15)]
 Gen. 20 (4.00%): Max/Min/Avg Fitness(Raw) [11.70(15.00)/7.24(3.00)/9.75(9.75)]

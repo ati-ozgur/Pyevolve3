@@ -45,7 +45,7 @@ class G1DBinaryString(G1DBase):
 
     Inheritance diagram for :class:`G1DBinaryString.G1DBinaryString`:
 
-    .. inheritance-diagram:: G1DBinaryString.G1DBinaryString
+    .. inheritance-diagram:: pyevolve.representations.G1DBinaryString.G1DBinaryString
 
     This chromosome class extends the :class:`GenomeBase.G1DBase` class.
 
