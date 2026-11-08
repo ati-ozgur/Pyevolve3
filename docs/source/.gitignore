@@ -1,3 +1,4 @@
 /.quarto/
 **/*.quarto_ipynb
 objects.json
+*.html
