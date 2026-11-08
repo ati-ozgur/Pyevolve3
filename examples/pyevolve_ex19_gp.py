@@ -1,10 +1,14 @@
 from pyevolve import GSimpleGA
-from pyevolve import GTree
 from pyevolve import Consts
-from pyevolve import Mutators
+from pyevolve.representations import GTree
+from pyevolve.perturbations import MutatorTree as Mutators
 from math import sqrt
-import pydot_ng as pydot
 import random
+
+try:
+    import pydot_ng as pydot
+except ImportError:
+    pydot = None
 
 
 def gp_add(a, b):
@@ -69,7 +73,7 @@ def main_run():
     genome.mutator.set(Mutators.GTreeGPMutatorSubtree)
 
     ga = GSimpleGA.GSimpleGA(genome)
-    ga.setParams(gp_terminals=['a', 'b'], gp_function_prefix="gp")
+    ga.setParams(gp_terminals=['a', 'b'], gp_function_set={"gp_add": 2, "gp_mul": 2})
 
     ga.setMinimax(Consts.minimaxType["maximize"])
     ga.setGenerations(500)
@@ -80,12 +84,15 @@ def main_run():
     ga(freq_stats=1)
     print(ga.bestIndividual())
 
-    graph = pydot.Dot()
-    try:
-        ga.bestIndividual().writeDotGraph(graph)
-        graph.write_jpeg('tree.png', prog='dot')
-    except pydot_ng.InvocationException:  # TODO We need to detect pydot presense  # noqa
-        print('Graphviz not installed')
+    if pydot is None:
+        print("Install pydot-ng and Graphviz to write tree.png")
+    else:
+        graph = pydot.Dot()
+        try:
+            ga.bestIndividual().writeDotGraph(graph)
+            graph.write_jpeg('tree.png', prog='dot')
+        except pydot.InvocationException:
+            print('Graphviz not installed')
 
 
 if __name__ == "__main__":
