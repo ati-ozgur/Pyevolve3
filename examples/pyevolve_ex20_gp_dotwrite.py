@@ -2,9 +2,9 @@ import math
 
 from pyevolve import Consts
 from pyevolve import GSimpleGA
-from pyevolve import GTree
-from pyevolve import Mutators
 from pyevolve import Util
+from pyevolve.representations import GTree
+from pyevolve.perturbations import MutatorTree as Mutators
 
 
 rmse_accum = Util.ErrorAccumulator()
@@ -41,6 +41,9 @@ def eval_func(chromosome):
 
 def step_callback(engine):
     if engine.getCurrentGeneration() == 0:
+        if not GTree.HAVE_PYDOT:
+            print("Install pydot-ng to write pop.dot")
+            return False
         GTree.GTreeGP.writePopulationDotRaw(engine, "pop.dot", 0, 40)
     return False
 
@@ -53,7 +56,9 @@ def main_run():
 
     ga = GSimpleGA.GSimpleGA(genome, seed=666)
     ga.stepCallback.set(step_callback)
-    ga.setParams(gp_terminals=['a', 'b'], gp_function_prefix="gp")
+    ga.setParams(gp_terminals=['a', 'b'], gp_function_set={
+        "gp_add": 2, "gp_sub": 2, "gp_mul": 2, "gp_sqrt": 1,
+    })
 
     ga.setMinimax(Consts.minimaxType["minimize"])
     ga.setGenerations(2)
