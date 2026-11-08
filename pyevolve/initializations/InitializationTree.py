@@ -7,22 +7,24 @@ from .. import Util
 
 
 def GTreeInitializatorInteger(genome, **args):
-    """ Integer initialization function of GTree
+    """
+        Integer initialization function of GTree
 
-    This initializator accepts the *rangemin* and *rangemax* genome parameters.
-    It accepts the following parameters too:
+        This initializator accepts the *rangemin* and *rangemax* genome parameters.
+        It accepts the following parameters too:
 
-    *max_depth*
-       The max depth of the tree
+        *max_depth*
+           The max depth of the tree
 
-    *max_siblings*
-       The number of maximum siblings of an node
+        *max_siblings*
+           The number of maximum siblings of an node
 
-    *method*
-       The method, accepts "grow", "full" or "ramped".
+        *method*
+           The method, accepts "grow", "full" or "ramped".
 
-    .. versionadded:: 0.6
-       The *GTreeInitializatorInteger* function.
+        :::{versionadded} 0.6
+        The *GTreeInitializatorInteger* function.
+        :::
     """
     max_depth = genome.getParam("max_depth", 5)
     max_siblings = genome.getParam("max_siblings", 2)
@@ -53,15 +55,21 @@ def GTreeInitializatorInteger(genome, **args):
 
 
 def GTreeInitializatorAllele(genome, **args):
-    """ Allele initialization function of GTree
+    """
+        Allele initialization function of GTree
 
-    To use this initializator, you must specify the *allele* genome parameter with the
-    :class:`GAllele.GAlleles` instance.
+        To use this initializator, you must specify the *allele* genome parameter with the
+        ### Parameters
 
-    .. warning:: the :class:`GAllele.GAlleles` instance **must** have the homogeneous flag enabled
+        - `class`: `GAllele.GAlleles` instance.
 
-    .. versionadded:: 0.6
-       The *GTreeInitializatorAllele* function.
+        :::{warning}
+        the {py:class}`GAllele.GAlleles` instance **must** have the homogeneous flag enabled
+        :::
+
+        :::{versionadded} 0.6
+        The *GTreeInitializatorAllele* function.
+        :::
     """
     max_depth = genome.getParam("max_depth", 5)
     max_siblings = genome.getParam("max_siblings", 2)
@@ -94,16 +102,18 @@ def GTreeInitializatorAllele(genome, **args):
 # Tree GP   ##
 
 def GTreeGPInitializator(genome, **args):
-    """This initializator accepts the follow parameters:
+    """
+        This initializator accepts the follow parameters:
 
-    *max_depth*
-       The max depth of the tree
+        *max_depth*
+           The max depth of the tree
 
-    *method*
-       The method, accepts "grow", "full" or "ramped"
+        *method*
+           The method, accepts "grow", "full" or "ramped"
 
-    .. versionadded:: 0.6
-       The *GTreeGPInitializator* function.
+        :::{versionadded} 0.6
+        The *GTreeGPInitializator* function.
+        :::
     """
 
     max_depth = genome.getParam("max_depth", 5)

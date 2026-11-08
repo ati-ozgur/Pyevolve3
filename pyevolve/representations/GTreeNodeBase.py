@@ -2,13 +2,17 @@ from .. import Util
 
 
 class GTreeNodeBase(object):
-    """ GTreeNodeBase Class - The base class for the node tree genomes
+    """
+        GTreeNodeBase Class - The base class for the node tree genomes
 
-    :param parent: the parent node of the node
-    :param childs: the childs of the node, must be a list of nodes
+        ### Parameters
 
-    .. versionadded:: 0.6
-       Added the *GTreeNodeBase* class
+        - `parent`: the parent node of the node
+        - `childs`: the childs of the node, must be a list of nodes
+
+        :::{versionadded} 0.6
+        Added the *GTreeNodeBase* class
+        :::
     """
     __slots__ = ["parent", "childs"]
 
@@ -25,33 +29,45 @@ class GTreeNodeBase(object):
             self.childs += childs
 
     def isLeaf(self):
-        """ Return True if the node is a leaf
+        """
+            Return True if the node is a leaf
 
-        :rtype: True or False
+            ### Returns
+
+            True or False
         """
         return len(self.childs) == 0
 
     def getChild(self, index):
-        """ Returns the index-child of the node
+        """
+            Returns the index-child of the node
 
-        :rtype: child node
+            ### Returns
+
+            child node
         """
         return self.childs[index]
 
     def getChilds(self):
-        """ Return the childs of the node
+        """
+            Return the childs of the node
 
-        .. warning :: use .getChilds()[:] if you'll change the list itself, like using childs.reverse(),
-                      otherwise the original genome child order will be changed.
+            .. warning :: use .getChilds()[:] if you'll change the list itself, like using childs.reverse(),
+                          otherwise the original genome child order will be changed.
 
-        :rtype: a list of nodes
+            ### Returns
+
+            a list of nodes
         """
         return self.childs
 
     def addChild(self, child):
-        """ Adds a child to the node
+        """
+            Adds a child to the node
 
-        :param child: the node to be added
+            ### Parameters
+
+            - `child`: the node to be added
         """
         if isinstance(child, list):
             self.childs.extend(child)
@@ -61,25 +77,34 @@ class GTreeNodeBase(object):
             self.childs.append(child)
 
     def replaceChild(self, older, newer):
-        """ Replaces a child of the node
+        """
+            Replaces a child of the node
 
-        :param older: the child to be replaces
-        :param newer: the new child which replaces the older
+            ### Parameters
+
+            - `older`: the child to be replaces
+            - `newer`: the new child which replaces the older
         """
         index = self.childs.index(older)
         self.childs[index] = newer
 
     def setParent(self, parent):
-        """ Sets the parent of the node
+        """
+            Sets the parent of the node
 
-        :param parent: the parent node
+            ### Parameters
+
+            - `parent`: the parent node
         """
         self.parent = parent
 
     def getParent(self):
-        """ Get the parent node of the node
+        """
+            Get the parent node of the node
 
-        :rtype: the parent node
+            ### Returns
+
+            the parent node
         """
         return self.parent
 
@@ -91,23 +116,33 @@ class GTreeNodeBase(object):
         return len(self.childs)
 
     def copy(self, g):
-        """ Copy the current contents GTreeNodeBase to 'g'
+        """
+            Copy the current contents GTreeNodeBase to 'g'
 
-        :param g: the destination node
+            ### Parameters
 
-        .. note:: If you are planning to create a new chromosome representation, you
-                  **must** implement this method on your class.
+            - `g`: the destination node
+
+            :::{note}
+            If you are planning to create a new chromosome representation, you
+            **must** implement this method on your class.
+            :::
         """
         g.parent = self.parent
         g.childs = self.childs[:]
 
     def clone(self):
-        """ Clone this GenomeBase
+        """
+            Clone this GenomeBase
 
-        :rtype: the clone genome
+            ### Returns
 
-        .. note:: If you are planning to create a new chromosome representation, you
-                  **must** implement this method on your class.
+            the clone genome
+
+            :::{note}
+            If you are planning to create a new chromosome representation, you
+            **must** implement this method on your class.
+            :::
         """
         newcopy = GTreeNodeBase(None)
         self.copy(newcopy)

@@ -1,10 +1,7 @@
 """
+    ## {py:mod}`Mutators` -- mutation methods module
 
-:mod:`Mutators` -- mutation methods module
-=====================================================================
-
-In this module we have the genetic operators of mutation for each chromosome representation.
-
+    In this module we have the genetic operators of mutation for each chromosome representation.
 """
 
 from .. import Util
@@ -16,10 +13,12 @@ from ..representations import GTree
 # Tree
 
 def GTreeMutatorSwap(genome, **args):
-    """ The mutator of GTree, Swap Mutator
+    """
+        The mutator of GTree, Swap Mutator
 
-    .. versionadded:: 0.6
-       The *GTreeMutatorSwap* function
+        :::{versionadded} 0.6
+        The *GTreeMutatorSwap* function
+        :::
     """
     if args["pmut"] <= 0.0:
         return 0
@@ -44,12 +43,14 @@ def GTreeMutatorSwap(genome, **args):
 
 
 def GTreeMutatorIntegerRange(genome, **args):
-    """ The mutator of GTree, Integer Range Mutator
+    """
+        The mutator of GTree, Integer Range Mutator
 
-    Accepts the *rangemin* and *rangemax* genome parameters, both optional.
+        Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
-    .. versionadded:: 0.6
-       The *GTreeMutatorIntegerRange* function
+        :::{versionadded} 0.6
+        The *GTreeMutatorIntegerRange* function
+        :::
     """
     from .. import Consts
 
@@ -80,12 +81,14 @@ def GTreeMutatorIntegerRange(genome, **args):
 
 
 def GTreeMutatorRealRange(genome, **args):
-    """ The mutator of GTree, Real Range Mutator
+    """
+        The mutator of GTree, Real Range Mutator
 
-    Accepts the *rangemin* and *rangemax* genome parameters, both optional.
+        Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
-    .. versionadded:: 0.6
-       The *GTreeMutatorRealRange* function
+        :::{versionadded} 0.6
+        The *GTreeMutatorRealRange* function
+        :::
     """
     from .. import Consts
 
@@ -195,10 +198,12 @@ def GTreeMutatorRealGaussian(genome, **args):
 # Tree GP
 
 def GTreeGPMutatorOperation(genome, **args):
-    """ The mutator of GTreeGP, Operation Mutator
+    """
+        The mutator of GTreeGP, Operation Mutator
 
-    .. versionadded:: 0.6
-       The *GTreeGPMutatorOperation* function
+        :::{versionadded} 0.6
+        The *GTreeGPMutatorOperation* function
+        :::
     """
     from .. import Consts
     if args["pmut"] <= 0.0:
@@ -257,12 +262,14 @@ def GTreeGPMutatorOperation(genome, **args):
 
 
 def GTreeGPMutatorSubtree(genome, **args):
-    """ The mutator of GTreeGP, Subtree Mutator
+    """
+        The mutator of GTreeGP, Subtree Mutator
 
-    This mutator will recreate random subtree of the tree using the grow algorithm.
+        This mutator will recreate random subtree of the tree using the grow algorithm.
 
-    .. versionadded:: 0.6
-       The *GTreeGPMutatorSubtree* function
+        :::{versionadded} 0.6
+        The *GTreeGPMutatorSubtree* function
+        :::
     """
 
     if args["pmut"] <= 0.0:

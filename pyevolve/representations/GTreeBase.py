@@ -8,14 +8,18 @@ from .GTreeNodeBase import GTreeNodeBase
 
 
 class GTreeBase(GenomeBase):
-    """ GTreeBase Class - The base class for the tree genomes
+    """
+        GTreeBase Class - The base class for the tree genomes
 
-    This chromosome class extends the :class:`GenomeBase` classes.
+        This chromosome class extends the {py:class}`GenomeBase` classes.
 
-    :param root_node: the root node of the tree
+        ### Parameters
 
-    .. versionadded:: 0.6
-       Added the *GTreeBase* class
+        - `root_node`: the root node of the tree
+
+        :::{versionadded} 0.6
+        Added the *GTreeBase* class
+        :::
     """
     __slots__ = ["root_node", "tree_height", "nodes_list", "nodes_leaf", "nodes_branch"]
 
@@ -41,25 +45,34 @@ class GTreeBase(GenomeBase):
             self.tree_height = self.getNodeHeight(self.getRoot())
 
     def getRoot(self):
-        """ Return the tree root node
+        """
+            Return the tree root node
 
-        :rtype: the tree root node
+            ### Returns
+
+            the tree root node
         """
         return self.root_node
 
     def setRoot(self, root):
-        """ Sets the root of the tree
+        """
+            Sets the root of the tree
 
-        :param root: the tree root node
+            ### Parameters
+
+            - `root`: the tree root node
         """
         if not isinstance(root, GTreeNodeBase):
             Util.raiseException("The root must be a node", TypeError)
         self.root_node = root
 
     def getNodeDepth(self, node):
-        """ Returns the depth of a node
+        """
+            Returns the depth of a node
 
-        :rtype: the depth of the node, the depth of root node is 0
+            ### Returns
+
+            the depth of the node, the depth of root node is 0
         """
         if node == self.getRoot():
             return 0
@@ -67,11 +80,16 @@ class GTreeBase(GenomeBase):
             return 1 + self.getNodeDepth(node.getParent())
 
     def getNodeHeight(self, node):
-        """ Returns the height of a node
+        """
+            Returns the height of a node
 
-        .. note:: If the node has no childs, the height will be 0.
+            :::{note}
+            If the node has no childs, the height will be 0.
+            :::
 
-        :rtype: the height of the node
+            ### Returns
+
+            the height of the node
         """
         height = 0
         if len(node) <= 0:
@@ -83,18 +101,24 @@ class GTreeBase(GenomeBase):
         return height
 
     def getHeight(self):
-        """ Return the tree height
+        """
+            Return the tree height
 
-        :rtype: the tree height
+            ### Returns
+
+            the tree height
         """
         return self.tree_height
 
     def getNodesCount(self, start_node=None):
-        """ Return the number of the nodes on the tree
-        starting at the *start_node*, if *start_node* is None,
-        then the method will count all the tree nodes.
+        """
+            Return the number of the nodes on the tree
+            starting at the *start_node*, if *start_node* is None,
+            then the method will count all the tree nodes.
 
-        :rtype: the number of nodes
+            ### Returns
+
+            the number of nodes
         """
         count = 1
         if start_node is None:
@@ -104,10 +128,13 @@ class GTreeBase(GenomeBase):
         return count
 
     def getTraversalString(self, start_node=None, spc=0):
-        """ Returns a tree-formated string of the tree. This
-        method is used by the __repr__ method of the tree
+        """
+            Returns a tree-formated string of the tree. This
+            method is used by the __repr__ method of the tree
 
-        :rtype: a string representing the tree
+            ### Returns
+
+            a string representing the tree
         """
         str_buff = ""
         if start_node is None:
@@ -120,11 +147,14 @@ class GTreeBase(GenomeBase):
         return str_buff
 
     def traversal(self, callback, start_node=None):
-        """ Traversal the tree, this method will call the
-        user-defined callback function for each node on the tree
+        """
+            Traversal the tree, this method will call the
+            user-defined callback function for each node on the tree
 
-        :param callback: a function
-        :param start_node: the start node to begin the traversal
+            ### Parameters
+
+            - `callback`: a function
+            - `start_node`: the start node to begin the traversal
         """
         if not inspect.isfunction(callback):
             Util.raiseException("The callback for the tree traversal must be a function", TypeError)
@@ -137,10 +167,16 @@ class GTreeBase(GenomeBase):
             self.traversal(callback, child_node)
 
     def getRandomNode(self, node_type=0):
-        """ Returns a random node from the Tree
+        """
+            Returns a random node from the Tree
 
-        :param node_type: 0 = Any, 1 = Leaf, 2 = Branch
-        :rtype: random node
+            ### Parameters
+
+            - `node_type`: 0 = Any, 1 = Leaf, 2 = Branch
+
+            ### Returns
+
+            random node
         """
         lists = (self.nodes_list, self.nodes_leaf, self.nodes_branch)
         cho = lists[node_type]
@@ -149,9 +185,12 @@ class GTreeBase(GenomeBase):
         return rand_choice(cho)
 
     def getAllNodes(self):
-        """ Return a new list with all nodes
+        """
+            Return a new list with all nodes
 
-        :rtype: the list with all nodes
+            ### Returns
+
+            the list with all nodes
         """
         node_stack = []
         all_nodes = []
@@ -184,12 +223,17 @@ class GTreeBase(GenomeBase):
         return iter(self.nodes_list)
 
     def copy(self, g, node=None, node_parent=None):
-        """ Copy the current contents GTreeBase to 'g'
+        """
+            Copy the current contents GTreeBase to 'g'
 
-        :param g: the destination GTreeBase tree
+            ### Parameters
 
-        .. note:: If you are planning to create a new chromosome representation, you
-                  **must** implement this method on your class.
+            - `g`: the destination GTreeBase tree
+
+            :::{note}
+            If you are planning to create a new chromosome representation, you
+            **must** implement this method on your class.
+            :::
         """
         if node is None:
             g.tree_height = self.tree_height
@@ -212,12 +256,17 @@ class GTreeBase(GenomeBase):
         return newnode
 
     def clone(self):
-        """ Clone this GenomeBase
+        """
+            Clone this GenomeBase
 
-        :rtype: the clone genome
+            ### Returns
 
-        .. note:: If you are planning to create a new chromosome representation, you
-                  **must** implement this method on your class.
+            the clone genome
+
+            :::{note}
+            If you are planning to create a new chromosome representation, you
+            **must** implement this method on your class.
+            :::
         """
         newcopy = GTreeBase(None)
         self.copy(newcopy)

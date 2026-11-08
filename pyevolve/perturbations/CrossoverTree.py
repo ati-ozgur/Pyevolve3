@@ -5,7 +5,9 @@ from .. import Util
 # Tree
 
 def GTreeCrossoverSinglePoint(genome, **args):
-    """ The crossover for GTree, Single Point """
+    """
+        The crossover for GTree, Single Point
+    """
     sister = None
     brother = None
     gMom = args["mom"].clone()

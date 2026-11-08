@@ -5,7 +5,9 @@ from random import randint as rand_randint
 # 1D Binary String
 
 def G1DBinaryStringMutatorSwap(genome, **args):
-    """ The 1D Binary String Swap Mutator """
+    """
+        The 1D Binary String Swap Mutator
+    """
 
     if args["pmut"] <= 0.0:
         return 0
@@ -28,7 +30,9 @@ def G1DBinaryStringMutatorSwap(genome, **args):
 
 
 def G1DBinaryStringMutatorFlip(genome, **args):
-    """ The classical flip mutator for binary strings """
+    """
+        The classical flip mutator for binary strings
+    """
     if args["pmut"] <= 0.0:
         return 0
     stringLength = len(genome)
@@ -58,10 +62,12 @@ def G1DBinaryStringMutatorFlip(genome, **args):
 # 2D Binary String
 
 def G2DBinaryStringMutatorSwap(genome, **args):
-    """ The mutator of G2DBinaryString, Swap Mutator
+    """
+        The mutator of G2DBinaryString, Swap Mutator
 
-    .. versionadded:: 0.6
-       The *G2DBinaryStringMutatorSwap* function
+        :::{versionadded} 0.6
+        The *G2DBinaryStringMutatorSwap* function
+        :::
     """
 
     if args["pmut"] <= 0.0:
@@ -89,10 +95,12 @@ def G2DBinaryStringMutatorSwap(genome, **args):
 
 
 def G2DBinaryStringMutatorFlip(genome, **args):
-    """ A flip mutator for G2DBinaryString
+    """
+        A flip mutator for G2DBinaryString
 
-    .. versionadded:: 0.6
-       The *G2DBinaryStringMutatorFlip* function
+        :::{versionadded} 0.6
+        The *G2DBinaryStringMutatorFlip* function
+        :::
     """
     if args["pmut"] <= 0.0:
         return 0

@@ -8,10 +8,12 @@ from .. import Consts
 # 1D List
 
 def G1DListMutatorSwap(genome, **args):
-    """ The mutator of G1DList, Swap Mutator
+    """
+        The mutator of G1DList, Swap Mutator
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
     if args["pmut"] <= 0.0:
         return 0
@@ -32,10 +34,12 @@ def G1DListMutatorSwap(genome, **args):
 
 
 def G1DListMutatorSIM(genome, **args):
-    """ The mutator of G1DList, Simple Inversion Mutation
+    """
+        The mutator of G1DList, Simple Inversion Mutation
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
     mutations = 0
     if args["pmut"] <= 0.0:
@@ -340,11 +344,13 @@ def G1DListMutatorIntegerBinary(genome, **args):
 
 
 def G1DListMutatorAllele(genome, **args):
-    """ The mutator of G1DList, Allele Mutator
+    """
+        The mutator of G1DList, Allele Mutator
 
-    To use this mutator, you must specify the *allele* genome parameter with the
-    :class:`GAllele.GAlleles` instance.
+        To use this mutator, you must specify the *allele* genome parameter with the
+        ### Parameters
 
+        - `class`: `GAllele.GAlleles` instance.
     """
     if args["pmut"] <= 0.0:
         return 0

@@ -25,7 +25,9 @@ def checkTspListIntegrity(gMom, gDad, sister, brother):
 
 
 def G1DListCrossoverOX(genome, **args):
-    """ The OX Crossover for G1DList  (order crossover) """
+    """
+        The OX Crossover for G1DList  (order crossover)
+    """
     sister = None
     brother = None
     gMom = args["mom"]
@@ -60,11 +62,11 @@ def G1DListCrossoverOX(genome, **args):
 
 
 def G1DListCrossoverEdge(genome, **args):
-    """ The Edge Recombination crossover for G1DList (widely used for TSP problem)
+    """
+        The Edge Recombination crossover for G1DList (widely used for TSP problem)
 
-    See more information in the `Edge Recombination Operator
-    <http://en.wikipedia.org/wiki/Edge_recombination_operator>`_
-    Wikipedia entry.
+        See more information in the [Edge Recombination Operator](http://en.wikipedia.org/wiki/Edge_recombination_operator)
+        Wikipedia entry.
     """
     gMom, sisterl = args["mom"], []
     gDad, brotherl = args["dad"], []
@@ -98,7 +100,8 @@ def G1DListCrossoverEdge(genome, **args):
 
 
 def G1DListCrossoverCutCrossfill(genome, **args):
-    """ The crossover of G1DList, Cut and crossfill, for permutations
+    """
+        The crossover of G1DList, Cut and crossfill, for permutations
     """
     sister = None
     brother = None
@@ -207,10 +210,10 @@ def G1DListCrossoverPMX(genome, **args):
 
 
 def G1DListCrossoverCycle(genome, **args):
-    """ The Cycle Crossover CX for G1DList  (Cycle Crossover CX)
+    """
+        The Cycle Crossover CX for G1DList  (Cycle Crossover CX)
 
-    See more information in the `Cycle Crossover Operator
-    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+        See more information in the [Cycle Crossover Operator](https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_)
     """
 
     sister = None
@@ -258,10 +261,10 @@ def G1DListCrossoverCycle(genome, **args):
 
 
 def G1DListCrossoverOX2(genome, **args):
-    """ Order-based (OX2) Crossover for G1DList  (Order-based (OX2) Crossover)
+    """
+        Order-based (OX2) Crossover for G1DList  (Order-based (OX2) Crossover)
 
-    See more information in the `Order-based (OX2) Crossover Operator
-    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+        See more information in the [Order-based (OX2) Crossover Operator](https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_)
     """
 
     sister = None
@@ -325,10 +328,10 @@ def G1DListCrossoverOX2(genome, **args):
 
 
 def G1DListCrossoverPOS(genome, **args):
-    """ Position-Based crossover (POS) Crossover for G1DList  (Position-Based (POS) Crossover)
+    """
+        Position-Based crossover (POS) Crossover for G1DList  (Position-Based (POS) Crossover)
 
-    See more information in the `Position-Based (POS) Crossover Operator
-    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+        See more information in the [Position-Based (POS) Crossover Operator](https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_)
     """
 
     sister = None
@@ -416,10 +419,10 @@ def G1DListCrossoverPOS(genome, **args):
 
 
 def G1DListCrossoverMPX(genome, **args):
-    """ Maximal Preservative Crossover (MPX) for G1DList  (Maximal Preservative (MPX) Crossover)
+    """
+        Maximal Preservative Crossover (MPX) for G1DList  (Maximal Preservative (MPX) Crossover)
 
-    See more information in the `Maximal Preservative (MPX) Crossover Operator
-    <https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_>`_
+        See more information in the [Maximal Preservative (MPX) Crossover Operator](https://www.researchgate.net/publication/335991207_Izmir_Iktisat_Dergisi_Gezgin_Satici_Probleminin_Genetik_Algoritmalar_Kullanarak_Cozumunde_Caprazlama_Operatorlerinin_Ornek_Olaylar_Bazli_Incelenmesi_Investigation_Of_Crossover_Operators_Using_Genetic_)
     """
 
     sister = None
@@ -517,11 +520,11 @@ def G1DListCrossoverMPX(genome, **args):
 
 
 def G1DListCrossoverEPMX(genome, **args):
-    """ The Extended PMX Crossover for G1DList  (Extended Partially Mapped Crossover)
+    """
+        The Extended PMX Crossover for G1DList  (Extended Partially Mapped Crossover)
 
-    See more information in the `Extended PMX (EPMX) Crossover Operator
-    <https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4666932>`_
-    <https://www.researchgate.net/publication/260973230_Study_of_Some_Recent_Crossovers_Effects_on_Speed_and_Accuracy_of_Genetic_Algorithm_Using_Symmetric_Travelling_Salesman_Problem>`_
+        See more information in the [Extended PMX (EPMX) Crossover Operator](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4666932)
+        <https://www.researchgate.net/publication/260973230_Study_of_Some_Recent_Crossovers_Effects_on_Speed_and_Accuracy_of_Genetic_Algorithm_Using_Symmetric_Travelling_Salesman_Problem>`_
     """
 
     sister = None
@@ -585,12 +588,11 @@ def G1DListCrossoverEPMX(genome, **args):
 
 
 def G1DListCrossoverGreedy(genome, **args):
-    """ The Greedy Crossover(GX) for G1DList  (Greedy Crossover)
+    """
+        The Greedy Crossover(GX) for G1DList  (Greedy Crossover)
 
-    See more information in the `Greedy Crossover (GX) Crossover Operator
-    <https://polen.itu.edu.tr/bitstream/11527/413/1/13612.pdf>`_
-    <https://arxiv.org/ftp/arxiv/papers/1209/1209.5339.pdf>`_
-    <https://www.researchgate.net/publication/260973230_Study_of_Some_Recent_Crossovers_Effects_on_Speed_and_Accuracy_of_Genetic_Algorithm_Using_Symmetric_Travelling_Salesman_Problem>`_
+        See more information in the [Greedy Crossover (GX) Crossover Operator](https://polen.itu.edu.tr/bitstream/11527/413/1/13612.pdf)
+        <https://arxiv.org/ftp/arxiv/papers/1209/1209.5339.pdf>[_](https://www.researchgate.net/publication/260973230_Study_of_Some_Recent_Crossovers_Effects_on_Speed_and_Accuracy_of_Genetic_Algorithm_Using_Symmetric_Travelling_Salesman_Problem)
     """
 
     sister = None
@@ -707,10 +709,10 @@ def G1DListCrossoverGreedy(genome, **args):
 
 
 def G1DListCrossoverIGX(genome, **args):
-    """ The Improved Greedy Crossover(IGX) for G1DList  (Improved Greedy Crossover)
+    """
+        The Improved Greedy Crossover(IGX) for G1DList  (Improved Greedy Crossover)
 
-    See more information in the `Impoved Greedy Crossover (IGX) Crossover Operator
-    <https://arxiv.org/ftp/arxiv/papers/1209/1209.5339.pdf>`_
+        See more information in the [Impoved Greedy Crossover (IGX) Crossover Operator](https://arxiv.org/ftp/arxiv/papers/1209/1209.5339.pdf)
     """
 
     sister = None
@@ -864,10 +866,10 @@ def G1DListCrossoverIGX(genome, **args):
 
 
 def G1DListCrossoverSequentialConstructive(genome, **args):
-    """ The Sequential Constructive Crossover SCX for G1DList  (Sequential Constructive Crossover SCX)
+    """
+        The Sequential Constructive Crossover SCX for G1DList  (Sequential Constructive Crossover SCX)
 
-    See more information in the `Sequential Constructive Crossover Operator
-    <https://www.cscjournals.org/manuscript/Journals/IJBB/Volume3/Issue6/IJBB-41.pdf>`_
+        See more information in the [Sequential Constructive Crossover Operator](https://www.cscjournals.org/manuscript/Journals/IJBB/Volume3/Issue6/IJBB-41.pdf)
     """
     sister = None
     brother = None

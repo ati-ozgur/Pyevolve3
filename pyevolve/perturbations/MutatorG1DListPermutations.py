@@ -8,10 +8,12 @@ from .MutatorG1DList import G1DListMutatorSwap
 
 # TODO why two functions with the same name in two files
 def G1DListMutatorSwap(genome: G1DList, **args):
-    """ The mutator of G1DList, Swap Mutator
+    """
+        The mutator of G1DList, Swap Mutator
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
 
     mutations = 0
@@ -36,10 +38,12 @@ def G1DListMutatorSwap(genome: G1DList, **args):
 
 
 def G1DListMutatorSimpleInversion(genome, **args):
-    """ The mutator of G1DList, Simple Inversion Mutation
+    """
+        The mutator of G1DList, Simple Inversion Mutation
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
 
     mutations = 0
@@ -67,10 +71,12 @@ def G1DListMutatorSimpleInversion(genome, **args):
 
 
 def G1DListMutatorScramble(genome, **args):
-    """ The mutator of G1DList, Scramble Mutation
+    """
+        The mutator of G1DList, Scramble Mutation
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
 
     mutations = 0
@@ -98,10 +104,12 @@ def G1DListMutatorScramble(genome, **args):
 
 
 def G1DListMutatorDisplacement(genome, **args):
-    """ The mutator of G1DList, Displacement Mutation
+    """
+        The mutator of G1DList, Displacement Mutation
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
 
     mutations = 0
@@ -132,10 +140,12 @@ def G1DListMutatorDisplacement(genome, **args):
 
 
 def G1DListMutatorInversion(genome, **args):
-    """ The mutator of G1DList, Inversion Mutation
+    """
+        The mutator of G1DList, Inversion Mutation
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
 
     mutations = 0
@@ -167,10 +177,12 @@ def G1DListMutatorInversion(genome, **args):
 
 
 def G1DListMutatorInsertion(genome, **args):
-    """ The mutator of G1DList, Insertion Mutation
+    """
+        The mutator of G1DList, Insertion Mutation
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
     mutations = 0
     pmut = args["pmut"]

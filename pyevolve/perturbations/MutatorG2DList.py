@@ -7,10 +7,12 @@ from .. import Consts
 # 2D List
 
 def G2DListMutatorSwap(genome, **args):
-    """ The mutator of G1DList, Swap Mutator
+    """
+        The mutator of G1DList, Swap Mutator
 
-    .. note:: this mutator is :term:`Data Type Independent`
-
+        :::{note}
+        this mutator is {term}`Data Type Independent`
+        :::
     """
 
     if args["pmut"] <= 0.0:
@@ -178,13 +180,17 @@ def G2DListMutatorIntegerGaussian(genome, **args):
 
 
 def G2DListMutatorAllele(genome, **args):
-    """ The mutator of G2DList, Allele Mutator
+    """
+        The mutator of G2DList, Allele Mutator
 
-    To use this mutator, you must specify the *allele* genome parameter with the
-    :class:`GAllele.GAlleles` instance.
+        To use this mutator, you must specify the *allele* genome parameter with the
+        ### Parameters
 
-    .. warning:: the :class:`GAllele.GAlleles` instance must have the homogeneous flag enabled
+        - `class`: `GAllele.GAlleles` instance.
 
+        :::{warning}
+        the {py:class}`GAllele.GAlleles` instance must have the homogeneous flag enabled
+        :::
     """
     if args["pmut"] <= 0.0:
         return 0

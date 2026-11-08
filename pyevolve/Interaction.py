@@ -1,18 +1,17 @@
 """
+    ## {py:mod}`Interaction` -- interaction module
 
-:mod:`Interaction` -- interaction module
-==========================================================================
+    In this module, you will find the funcionality for the {term}`Interactive mode`.
+    When you enter in the Interactive Mode, Pyevolve will automatic import this module
+    and exposes to you in the name space called "it".
 
-In this module, you will find the funcionality for the :term:`Interactive mode`.
-When you enter in the Interactive Mode, Pyevolve will automatic import this module
-and exposes to you in the name space called "it".
+    To use this mode, the parameter *interactiveMode* must be enabled in the
+    ### Parameters
 
-To use this mode, the parameter *interactiveMode* must be enabled in the
-:class:`GSimpleGA.GSimpleGA`.
+    - `class`: `GSimpleGA.GSimpleGA`.
 
-You can use the manual method to enter in the Interactive Mode at specific
-generation using the :meth:`GSimpleGA.GSimpleGA.setInteractiveGeneration` method.
-
+    You can use the manual method to enter in the Interactive Mode at specific
+    generation using the {py:meth}`GSimpleGA.GSimpleGA.setInteractiveGeneration` method.
 """
 
 import logging
@@ -33,15 +32,22 @@ except ImportError:
 
 
 def getPopScores(population, fitness=False):
-    """ Returns a list of population scores
+    """
+        Returns a list of population scores
 
-    Example:
-       >>> lst = Interaction.getPopScores(population)
+        Example:
+        ```pycon
+        >>> lst = Interaction.getPopScores(population)
+        ```
 
-    :param population: population object (:class:`GPopulation.GPopulation`)
-    :param fitness: if True, the fitness score will be used, otherwise, the raw.
-    :rtype: list of population scores
+        ### Parameters
 
+        - `population`: population object ({py:class}`GPopulation.GPopulation`)
+        - `fitness`: if True, the fitness score will be used, otherwise, the raw.
+
+        ### Returns
+
+        list of population scores
     """
     score_list = []
     for individual in population:
@@ -50,15 +56,22 @@ def getPopScores(population, fitness=False):
 
 
 def plotPopScore(population, fitness=False):
-    """ Plot the population score distribution
+    """
+        Plot the population score distribution
 
-    Example:
-       >>> Interaction.plotPopScore(population)
+        Example:
+        ```pycon
+        >>> Interaction.plotPopScore(population)
+        ```
 
-    :param population: population object (:class:`GPopulation.GPopulation`)
-    :param fitness: if True, the fitness score will be used, otherwise, the raw.
-    :rtype: None
+        ### Parameters
 
+        - `population`: population object ({py:class}`GPopulation.GPopulation`)
+        - `fitness`: if True, the fitness score will be used, otherwise, the raw.
+
+        ### Returns
+
+        None
     """
     score_list = getPopScores(population, fitness)
     pylab.plot(score_list, 'o')
@@ -70,15 +83,22 @@ def plotPopScore(population, fitness=False):
 
 
 def plotHistPopScore(population, fitness=False):
-    """ Population score distribution histogram
+    """
+        Population score distribution histogram
 
-    Example:
-       >>> Interaction.plotHistPopScore(population)
+        Example:
+        ```pycon
+        >>> Interaction.plotHistPopScore(population)
+        ```
 
-    :param population: population object (:class:`GPopulation.GPopulation`)
-    :param fitness: if True, the fitness score will be used, otherwise, the raw.
-    :rtype: None
+        ### Parameters
 
+        - `population`: population object ({py:class}`GPopulation.GPopulation`)
+        - `fitness`: if True, the fitness score will be used, otherwise, the raw.
+
+        ### Returns
+
+        None
     """
     score_list = getPopScores(population, fitness)
     n, bins, patches = pylab.hist(score_list, 50, facecolor='green', alpha=0.75, normed=1)

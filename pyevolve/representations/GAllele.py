@@ -1,12 +1,9 @@
 """
+    ## {py:mod}`GAllele` -- the genome alleles module
 
-:mod:`GAllele` -- the genome alleles module
-===========================================================
-
-In this module, there are the :class:`GAllele.GAlleles` class (which is the
-class that holds the allele types) and all the
-allele types to use with the supported chromosomes.
-
+    In this module, there are the {py:class}`GAllele.GAlleles` class (which is the
+    class that holds the allele types) and all the
+    allele types to use with the supported chromosomes.
 """
 
 import random
@@ -15,51 +12,65 @@ from .. import Util
 
 
 class GAlleles(object):
-    """ GAlleles Class - The set of alleles
+    """
+        GAlleles Class - The set of alleles
 
-    Example:
-       >>> alleles = GAlleles()
-       >>> choices = [1,2,3,4]
-       >>> lst = GAlleleList(choices)
-       >>> alleles.add(lst)
-       >>> alleles[0].getRandomAllele() in lst
-       True
+        Example:
+        ```pycon
+        >>> alleles = GAlleles()
+        >>> choices = [1,2,3,4]
+        >>> lst = GAlleleList(choices)
+        >>> alleles.add(lst)
+        >>> alleles[0].getRandomAllele() in lst
+        True
+        ```
 
-    :param allele_list: the list of alleles
-    :param homogeneous: if True, all the alleles will be use only the first added
+        ### Parameters
 
+        - `allele_list`: the list of alleles
+        - `homogeneous`: if True, all the alleles will be use only the first added
     """
 
     def __init__(self, allele_list=None, homogeneous=False):
-        """ The constructor of GAlleles class """
+        """
+            The constructor of GAlleles class
+        """
         self.allele_list = []
         if allele_list is not None:
             self.allele_list.extend(allele_list)
         self.homogeneous = homogeneous
 
     def __iadd__(self, allele):
-        """ To add more alleles using the += operator
+        """
+            To add more alleles using the += operator
 
-           .. versionadded:: 0.6
-              The __iadd__ method.
+            :::{versionadded} 0.6
+            The __iadd__ method.
+            :::
         """
         self.add(allele)
         return self
 
     def add(self, allele):
-        """ Appends one allele to the alleles list
+        """
+            Appends one allele to the alleles list
 
-        :param allele: allele to be added
+            ### Parameters
 
+            - `allele`: allele to be added
         """
         self.allele_list.append(allele)
 
     def __getslice__(self, a, b):  # deprecated since 2.0, handled by getitem
-        """ Returns the slice part of alleles list """
+        """
+            Returns the slice part of alleles list
+        """
         return self.allele_list[a:b]
 
     def __getitem__(self, index):
-        """ Returns the index allele of the alleles list """
+        """
+            Returns the index allele of the alleles list
+        """
         if self.homogeneous:
             return self.allele_list[0]
         try:
@@ -72,26 +83,34 @@ class GAlleles(object):
         return val
 
     def __setitem__(self, index, value):
-        """ Sets the index allele of the alleles list """
+        """
+            Sets the index allele of the alleles list
+        """
         if self.homogeneous:
             self.allele_list[0] = value
         self.allele_list[index] = value  # TODO 'else' might be missed
 
     def __iter__(self):
-        """ Return the list iterator """
+        """
+            Return the list iterator
+        """
         if self.homogeneous:
             oneList = [self.allele_list[0]]
             return iter(oneList)
         return iter(self.allele_list)
 
     def __len__(self):
-        """ Returns the length of the alleles list """
+        """
+            Returns the length of the alleles list
+        """
         if self.homogeneous:
             return 1
         return len(self.allele_list)
 
     def __repr__(self):
-        """ Return a string representation of the allele """
+        """
+            Return a string representation of the allele
+        """
         ret = "- GAlleles\n"
         ret += "\tHomogeneous:\t %s\n" % (self.homogeneous,)
         ret += "\tList size:\t %s\n" % (len(self),)
@@ -107,70 +126,94 @@ class GAlleles(object):
 
 
 class GAlleleList(object):
-    """ GAlleleList Class - The list allele type
+    """
+        GAlleleList Class - The list allele type
 
-    Example:
-       >>> alleles = GAlleles()
-       >>> choices = [1,2,3,4]
-       >>> lst = GAlleleList(choices)
-       >>> alleles.add(lst)
-       >>> alleles[0].getRandomAllele() in lst
-       True
-
+        Example:
+        ```pycon
+        >>> alleles = GAlleles()
+        >>> choices = [1,2,3,4]
+        >>> lst = GAlleleList(choices)
+        >>> alleles.add(lst)
+        >>> alleles[0].getRandomAllele() in lst
+        True
+        ```
     """
 
     def __init__(self, options=None):
-        """ The constructor of GAlleleList class """
+        """
+            The constructor of GAlleleList class
+        """
         self.options = []
         if options is not None:
             self.options.extend(options)
 
     def clear(self):
-        """ Removes all the allele options from the list """
+        """
+            Removes all the allele options from the list
+        """
         del self.options[:]
 
     def getRandomAllele(self):
-        """ Returns one random choice from the options list """
+        """
+            Returns one random choice from the options list
+        """
         return random.choice(self.options)
 
     def add(self, option):
-        """ Appends one option to the options list
+        """
+            Appends one option to the options list
 
-        :param option: option to be added in the list
+            ### Parameters
 
+            - `option`: option to be added in the list
         """
         self.options.append(option)
 
     def __getslice__(self, a, b):  # deprecated since 2.0, handled by getitem
-        """ Returns the slice part of options """
+        """
+            Returns the slice part of options
+        """
         return self.options[a:b]
 
     def __getitem__(self, index):
-        """ Returns the index option from the options list """
+        """
+            Returns the index option from the options list
+        """
         return self.options[index]
 
     def __setitem__(self, index, value):
-        """ Sets the index option of the list """
+        """
+            Sets the index option of the list
+        """
         self.options[index] = value
 
     def __iter__(self):
-        """ Return the list iterator """
+        """
+            Return the list iterator
+        """
         return iter(self.options)
 
     def __len__(self):
-        """ Returns the length of the options list """
+        """
+            Returns the length of the options list
+        """
         return len(self.options)
 
     def remove(self, option):
-        """ Removes the option from list
+        """
+            Removes the option from list
 
-        :param option: remove the option from the list
+            ### Parameters
 
+            - `option`: remove the option from the list
         """
         self.options.remove(option)
 
     def __repr__(self):
-        """ Return a string representation of the allele """
+        """
+            Return a string representation of the allele
+        """
         ret = "- GAlleleList\n"
         ret += "\tList size:\t %s\n" % (len(self),)
         ret += "\tAllele Options:\t %s\n\n" % (self.options,)
@@ -178,22 +221,28 @@ class GAlleleList(object):
 
 
 class GAlleleRange(object):
-    """ GAlleleRange Class - The range allele type
+    """
+        GAlleleRange Class - The range allele type
 
-    Example:
-       >>> ranges = GAlleleRange(0,100)
-       >>> ranges.getRandomAllele() >= 0 and ranges.getRandomAllele() <= 100
-       True
+        Example:
+        ```pycon
+        >>> ranges = GAlleleRange(0,100)
+        >>> ranges.getRandomAllele() >= 0 and ranges.getRandomAllele() <= 100
+        True
+        ```
 
-    :param begin: the begin of the range
-    :param end: the end of the range
-    :param real: if True, the range will be of real values
+        ### Parameters
 
+        - `begin`: the begin of the range
+        - `end`: the end of the range
+        - `real`: if True, the range will be of real values
     """
 
     def __init__(self, begin=Consts.CDefRangeMin,
                  end=Consts.CDefRangeMax, real=False):
-        """ The constructor of GAlleleRange class """
+        """
+            The constructor of GAlleleRange class
+        """
         self.beginEnd = [(begin, end)]
         self.real = real
         self.minimum = None
@@ -201,17 +250,21 @@ class GAlleleRange(object):
         self.__processMinMax()
 
     def __processMinMax(self):
-        """ Process the mininum and maximum of the Allele """
+        """
+            Process the mininum and maximum of the Allele
+        """
         self.minimum = min([x for x, y in self.beginEnd])
         self.maximum = max([y for x, y in self.beginEnd])
         # TODO crashes on empty beginend
 
     def add(self, begin, end):
-        """ Add a new range
+        """
+            Add a new range
 
-        :param begin: the begin of range
-        :param end: the end of the range
+            ### Parameters
 
+            - `begin`: the begin of range
+            - `end`: the end of the range
         """
         if begin > end:
             Util.raiseException(
@@ -233,21 +286,29 @@ class GAlleleRange(object):
         return iter(self.beginEnd)
 
     def getMaximum(self):
-        """ Return the maximum of all the ranges
+        """
+            Return the maximum of all the ranges
 
-        :rtype: the maximum value
+            ### Returns
+
+            the maximum value
         """
         return self.maximum
 
     def getMinimum(self):
-        """ Return the minimum of all the ranges
+        """
+            Return the minimum of all the ranges
 
-        :rtype: the minimum value
+            ### Returns
+
+            the minimum value
         """
         return self.minimum
 
     def clear(self):
-        """ Removes all ranges """
+        """
+            Removes all ranges
+        """
         del self.beginEnd[:]
         self.minimum = None
         self.maximum = None
@@ -255,7 +316,9 @@ class GAlleleRange(object):
         # processminmax is needed
 
     def getRandomAllele(self):
-        """ Returns one random choice between the range """
+        """
+            Returns one random choice between the range
+        """
         rand_func = random.uniform if self.real else random.randint
 
         if len(self.beginEnd) <= 1:  # TODO crashes after clear
@@ -265,23 +328,31 @@ class GAlleleRange(object):
         return rand_func(self.beginEnd[choice][0], self.beginEnd[choice][1])
 
     def setReal(self, flag=True):
-        """ Pass in True if the range is real or False if integer
+        """
+            Pass in True if the range is real or False if integer
 
-        :param flag: True or False
+            ### Parameters
 
+            - `flag`: True or False
         """
         self.real = flag  # TODO type-checking is needed
 
     def getReal(self):
-        """ Returns True if the range is real or False if it is integer """
+        """
+            Returns True if the range is real or False if it is integer
+        """
         return self.real
 
     def __len__(self):
-        """ Returns the ranges in the allele """
+        """
+            Returns the ranges in the allele
+        """
         return len(self.beginEnd)
 
     def __repr__(self):
-        """ Return a string representation of the allele """
+        """
+            Return a string representation of the allele
+        """
         ret = "- GAlleleRange\n"
         ret += "\tReal:\t\t %s\n" % (self.real,)
         ret += "\tRanges Count:\t %s\n" % (len(self),)

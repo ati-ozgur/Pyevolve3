@@ -1,10 +1,7 @@
 """
+    ## {py:mod}`Scaling` -- scaling schemes module
 
-:mod:`Scaling` -- scaling schemes module
-===========================================================
-
-This module have the *scaling schemes* like Linear scaling, etc.
-
+    This module have the *scaling schemes* like Linear scaling, etc.
 """
 
 import math
@@ -50,7 +47,9 @@ def LinearScaling(pop):
 
 
 def SigmaTruncScaling(pop):
-    """ Sigma Truncation scaling scheme, allows negative scores """
+    """
+        Sigma Truncation scaling scheme, allows negative scores
+    """
     from . import Consts
     logging.debug("Running sigma truncation scaling.")
     pop.statistics()

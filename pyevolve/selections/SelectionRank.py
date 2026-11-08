@@ -7,10 +7,10 @@ exploitation_weight = 0.2
 
 
 def SelectorFitnessProportional(population: GPopulation, **args):
-    """ The Fitness Proportional Selector
+    """
+        The Fitness Proportional Selector
 
-    See more information in the `SRS Selection Operator
-    <https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH>`_
+        See more information in the [SRS Selection Operator](https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH)
     """
 
     popSize = len(population)
@@ -46,11 +46,11 @@ SelectorFitnessProportional.probabilityWeights = None
 
 
 def SelectorLinearRanking(population: GPopulation, **args):
-    """ The Linear Ranking Selector
+    """
+        The Linear Ranking Selector
 
-    See more information in the `LRS Selection Operator
-    <https://eprints.ukh.ac.id/id/eprint/201/1/2015_Book_IntroductionToEvolutionaryComp.pdf>`_
-    page:82
+        See more information in the [LRS Selection Operator](https://eprints.ukh.ac.id/id/eprint/201/1/2015_Book_IntroductionToEvolutionaryComp.pdf)
+        page:82
     """
 
     selection_pressure = 1.5
@@ -89,10 +89,10 @@ SelectorLinearRanking.cachePopID = None
 
 
 def SelectorExponentialRanking(population: GPopulation, **args):
-    """ The Exponential Ranking Selector
+    """
+        The Exponential Ranking Selector
 
-   See more information in the `ERS Selection Operator
-    <https://tik-old.ee.ethz.ch/file/6c0e384dceb283cd4301339a895b72b8/TIK-Report11.pdf>`_
+        See more information in the [ERS Selection Operator](https://tik-old.ee.ethz.ch/file/6c0e384dceb283cd4301339a895b72b8/TIK-Report11.pdf)
     """
 
     c = 0.99
@@ -129,10 +129,10 @@ SelectorExponentialRanking.cachePopID = None
 
 
 def SelectorSplitRanking(population: GPopulation, **args):
-    """ The Split Ranking Selector
+    """
+        The Split Ranking Selector
 
-    See more information in the `SRS Selection Operator
-    <https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH>`_
+        See more information in the [SRS Selection Operator](https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH)
     """
 
     lamda1 = 0.3
@@ -173,10 +173,10 @@ SelectorSplitRanking.cachePopID = None
 
 
 def SelectorNewTournament(population: GPopulation, **args):
-    """ The New Tournament Selector
+    """
+        The New Tournament Selector
 
-    See more information in the `NTS Selection Operator
-    <https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH>`_
+        See more information in the [NTS Selection Operator](https://www.tandfonline.com/doi/full/10.1080/00949655.2023.2217463?casa_token=-Bl8otfKRMUAAAAA%3AvnyhGaBQku8ComC-8InY2ig3uWKd0XAaJvW0-3A1lz2531_rBRh8W3TjUim2hGfY0NCaYeTLKVlH)
     """
 
     popSize = len(population)
@@ -212,10 +212,10 @@ SelectorNewTournament.cachePopID = None
 
 
 def SelectorExplorationExploitationBalance(population: GPopulation, **args):
-    """ The Exploration Exploitation Balance Selector
+    """
+        The Exploration Exploitation Balance Selector
 
-    See more information in the `EEBS Selection Operator
-    <https://link.springer.com/article/10.1007/s12065-025-01028-8>`_
+        See more information in the [EEBS Selection Operator](https://link.springer.com/article/10.1007/s12065-025-01028-8)
     """
 
     global exploration_weight, exploitation_weight

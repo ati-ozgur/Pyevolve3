@@ -1,10 +1,7 @@
 """
+    ## {py:mod}`Crossovers` -- crossover methods module
 
-:mod:`Crossovers` -- crossover methods module
-=====================================================================
-
-In this module we have the genetic operators of crossover (or recombination) for each chromosome representation.
-
+    In this module we have the genetic operators of crossover (or recombination) for each chromosome representation.
 """
 
 
@@ -16,10 +13,12 @@ from .. import Consts
 # 1D Binary String
 
 def G1DBinaryStringXSinglePoint(genome, **args):
-    """ The crossover of 1D Binary String, Single Point
+    """
+        The crossover of 1D Binary String, Single Point
 
-    .. warning:: You can't use this crossover method for binary strings with length of 1.
-
+        :::{warning}
+        You can't use this crossover method for binary strings with length of 1.
+        :::
     """
     sister = None
     brother = None
@@ -46,10 +45,12 @@ def G1DBinaryStringXSinglePoint(genome, **args):
 
 
 def G1DBinaryStringXTwoPoint(genome, **args):
-    """ The 1D Binary String crossover, Two Point
+    """
+        The 1D Binary String crossover, Two Point
 
-    .. warning:: You can't use this crossover method for binary strings with length of 1.
-
+        :::{warning}
+        You can't use this crossover method for binary strings with length of 1.
+        :::
     """
     sister = None
     brother = None
@@ -78,7 +79,9 @@ def G1DBinaryStringXTwoPoint(genome, **args):
 
 
 def G1DBinaryStringXUniform(genome, **args):
-    """ The G1DList Uniform Crossover """
+    """
+        The G1DList Uniform Crossover
+    """
 
     sister = None
     brother = None
@@ -102,10 +105,12 @@ def G1DBinaryStringXUniform(genome, **args):
 #  2D Binary String
 
 def G2DBinaryStringXUniform(genome, **args):
-    """ The G2DBinaryString Uniform Crossover
+    """
+        The G2DBinaryString Uniform Crossover
 
-    .. versionadded:: 0.6
-       The *G2DBinaryStringXUniform* function
+        :::{versionadded} 0.6
+        The *G2DBinaryStringXUniform* function
+        :::
     """
 
     sister = None
@@ -131,10 +136,12 @@ def G2DBinaryStringXUniform(genome, **args):
 
 
 def G2DBinaryStringXSingleVPoint(genome, **args):
-    """ The crossover of G2DBinaryString, Single Vertical Point
+    """
+        The crossover of G2DBinaryString, Single Vertical Point
 
-    .. versionadded:: 0.6
-       The *G2DBinaryStringXSingleVPoint* function
+        :::{versionadded} 0.6
+        The *G2DBinaryStringXSingleVPoint* function
+        :::
     """
     sister = None
     brother = None
@@ -159,11 +166,12 @@ def G2DBinaryStringXSingleVPoint(genome, **args):
 
 
 def G2DBinaryStringXSingleHPoint(genome, **args):
-    """ The crossover of G2DBinaryString, Single Horizontal Point
+    """
+        The crossover of G2DBinaryString, Single Horizontal Point
 
-    .. versionadded:: 0.6
-       The *G2DBinaryStringXSingleHPoint* function
-
+        :::{versionadded} 0.6
+        The *G2DBinaryStringXSingleHPoint* function
+        :::
     """
     sister = None
     brother = None

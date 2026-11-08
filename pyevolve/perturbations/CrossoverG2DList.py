@@ -6,7 +6,9 @@ from .. import Consts
 # 2D List
 
 def G2DListCrossoverUniform(genome, **args):
-    """ The G2DList Uniform Crossover """
+    """
+        The G2DList Uniform Crossover
+    """
     sister = None
     brother = None
     gMom = args["mom"]
@@ -30,7 +32,9 @@ def G2DListCrossoverUniform(genome, **args):
 
 
 def G2DListCrossoverSingleVPoint(genome, **args):
-    """ The crossover of G2DList, Single Vertical Point """
+    """
+        The crossover of G2DList, Single Vertical Point
+    """
     sister = None
     brother = None
     gMom = args["mom"]
@@ -54,7 +58,9 @@ def G2DListCrossoverSingleVPoint(genome, **args):
 
 
 def G2DListCrossoverSingleHPoint(genome, **args):
-    """ The crossover of G2DList, Single Horizontal Point """
+    """
+        The crossover of G2DList, Single Horizontal Point
+    """
     sister = None
     brother = None
     gMom = args["mom"]

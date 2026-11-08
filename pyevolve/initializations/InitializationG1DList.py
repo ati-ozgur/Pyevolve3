@@ -1,17 +1,15 @@
 """
+    ## {py:mod}`Initializators` -- initialization methods module
 
-:mod:`Initializators` -- initialization methods module
-===================================================================
+    In this module we have the genetic operators of initialization for each
+    chromosome representation, the most part of initialization is done by
+    choosing random data.
 
-In this module we have the genetic operators of initialization for each
-chromosome representation, the most part of initialization is done by
-choosing random data.
-
-.. note:: In Pyevolve, the Initializator defines the data type that will
-          be used on the chromosome, for example, the :func:`G1DListInitializatorInteger`
-          will initialize the G1DList with Integers.
-
-
+    :::{note}
+    In Pyevolve, the Initializator defines the data type that will
+    be used on the chromosome, for example, the {py:func}`G1DListInitializatorInteger`
+    will initialize the G1DList with Integers.
+    :::
 """
 
 # 1D List
@@ -21,11 +19,13 @@ from .. import Util
 
 
 def G1DListInitializatorAllele(genome, **args):
-    """ Allele initialization function of G1DList
+    """
+        Allele initialization function of G1DList
 
-    To use this initializator, you must specify the *allele* genome parameter with the
-    :class:`GAllele.GAlleles` instance.
+        To use this initializator, you must specify the *allele* genome parameter with the
+        ### Parameters
 
+        - `class`: `GAllele.GAlleles` instance.
     """
 
     allele = genome.getParam("allele", None)

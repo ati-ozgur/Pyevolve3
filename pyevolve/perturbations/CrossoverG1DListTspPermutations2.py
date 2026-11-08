@@ -16,11 +16,10 @@ sister.genomeList = [22, 40, 7, 31, 26, 16, 45, 2, 49, 44, 47, 15, 3, 23, 19, 48
 
 
 def G1DListCrossoverOX6(genome, **kwargs):
-    """ The OX6 Crossover for G1DList  (order crossover)
+    """
+        The OX6 Crossover for G1DList  (order crossover)
 
-    See more information in `Solving travelling salesman problem
-    using genetic algorithm based on heuristic crossover and mutation operator
-    <https://www.impactjournals.us/index.php/download/archives/--1391174555-4.%20Eng-Solving%20Travelling%20Salesman-Kanchan%20Rani.pdf>`_.
+        See more information in [Solving travelling salesman problem using genetic algorithm based on heuristic crossover and mutation operator](https://www.impactjournals.us/index.php/download/archives/--1391174555-4.%20Eng-Solving%20Travelling%20Salesman-Kanchan%20Rani.pdf).
     """
 
     sister = None
@@ -56,12 +55,10 @@ def G1DListCrossoverOX6(genome, **kwargs):
 
 
 def G1DListCrossoverHX(genome, **kwargs):
-    """ The HX Crossover for G1DList  (half crossover)
+    """
+        The HX Crossover for G1DList  (half crossover)
 
-    See more information in `Analysis of the suitability
-    of using blind crossover operators in genetic algorithms
-    for solving routing problems
-    <https://ieeexplore.ieee.org/abstract/document/6608960>`_.
+        See more information in [Analysis of the suitability of using blind crossover operators in genetic algorithms for solving routing problems](https://ieeexplore.ieee.org/abstract/document/6608960).
     """
 
     sister = None

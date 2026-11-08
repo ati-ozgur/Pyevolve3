@@ -36,13 +36,17 @@ def G2DListInitializatorReal(genome, **args):
 
 
 def G2DListInitializatorAllele(genome, **args):
-    """ Allele initialization function of G2DList
+    """
+        Allele initialization function of G2DList
 
-    To use this initializator, you must specify the *allele* genome parameter with the
-    :class:`GAllele.GAlleles` instance.
+        To use this initializator, you must specify the *allele* genome parameter with the
+        ### Parameters
 
-    .. warning:: the :class:`GAllele.GAlleles` instance must have the homogeneous flag enabled
+        - `class`: `GAllele.GAlleles` instance.
 
+        :::{warning}
+        the {py:class}`GAllele.GAlleles` instance must have the homogeneous flag enabled
+        :::
     """
 
     allele = genome.getParam("allele", None)

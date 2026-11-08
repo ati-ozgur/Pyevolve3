@@ -1,13 +1,12 @@
 """
-:mod:`pyevolve` -- the main pyevolve namespace
-================================================================
+    ## {py:mod}`pyevolve` -- the main pyevolve namespace
 
-This is the main module of the pyevolve, every other module
-is above this namespace, for example, to import :mod:`Mutators`:
+    This is the main module of the pyevolve, every other module
+    is above this namespace, for example, to import {py:mod}`Mutators`:
 
-   >>> from pyevolve import Mutators
-
-
+    ```pycon
+    >>> from pyevolve import Mutators
+    ```
 """
 __all__ = ["Consts", "DBAdapters", "FunctionSlot",
            "GAllele", "GenomeBase", "GPopulation",
@@ -21,14 +20,18 @@ from . import Consts
 
 
 def logEnable(filename=Consts.CDefLogFile, level=Consts.CDefLogLevel):
-    """ Enable the log system for pyevolve
+    """
+        Enable the log system for pyevolve
 
-    :param filename: the log filename
-    :param level: the debugging level
+        ### Parameters
 
-    Example:
-       >>> pyevolve.logEnable()
+        - `filename`: the log filename
+        - `level`: the debugging level
 
+        Example:
+        ```pycon
+        >>> pyevolve.logEnable()
+        ```
     """
     import logging
     logging.basicConfig(level=level,

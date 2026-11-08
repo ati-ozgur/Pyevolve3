@@ -1,35 +1,34 @@
 """
-:mod:`GPopulation` -- the population module
-================================================================
+    ## {py:mod}`GPopulation` -- the population module
 
-This module contains the :class:`GPopulation.GPopulation` class, which is reponsible
-to keep the population and the statistics.
+    This module contains the {py:class}`GPopulation.GPopulation` class, which is reponsible
+    to keep the population and the statistics.
 
-Default Parameters
--------------------------------------------------------------
+    ### Default Parameters
 
-*Sort Type*
+    *Sort Type*
 
-   >>> Consts.sortType["scaled"]
+    ```pycon
+    >>> Consts.sortType["scaled"]
+    ```
 
-   The scaled sort type
+       The scaled sort type
 
-*Minimax*
+    *Minimax*
 
-   >>> Consts.minimaxType["maximize"]
+    ```pycon
+    >>> Consts.minimaxType["maximize"]
+    ```
 
-   Maximize the evaluation function
+       Maximize the evaluation function
 
-*Scale Method*
+    *Scale Method*
 
-   :func:`Scaling.LinearScaling`
+       {py:func}`Scaling.LinearScaling`
 
-   The Linear Scaling scheme
+       The Linear Scaling scheme
 
-Class
--------------------------------------------------------------
-
-
+    ### Class
 """
 
 from functools import cmp_to_key
@@ -52,31 +51,47 @@ except ImportError:
 
 
 def key_raw_score(individual):
-    """ A key function to return raw score
+    """
+        A key function to return raw score
 
-    :param individual: the individual instance
-    :rtype: the individual raw score
+        ### Parameters
 
-    .. note:: this function is used by the max()/min() python functions
+        - `individual`: the individual instance
 
+        ### Returns
+
+        the individual raw score
+
+        :::{note}
+        this function is used by the max()/min() python functions
+        :::
     """
     return individual.score
 
 
 def key_fitness_score(individual):
-    """ A key function to return fitness score, used by max()/min()
+    """
+        A key function to return fitness score, used by max()/min()
 
-    :param individual: the individual instance
-    :rtype: the individual fitness score
+        ### Parameters
 
-    .. note:: this function is used by the max()/min() python functions
+        - `individual`: the individual instance
 
+        ### Returns
+
+        the individual fitness score
+
+        :::{note}
+        this function is used by the max()/min() python functions
+        :::
     """
     return individual.fitness
 
 
 def multiprocessing_eval(ind):
-    """ Internal used by the multiprocessing """
+    """
+        Internal used by the multiprocessing
+    """
     ind.evaluate()
     return ind.score
 
@@ -88,42 +103,60 @@ def multiprocessing_eval_full(ind):
 
 
 class GPopulation(object):
-    """ GPopulation Class - The container for the population
+    """
+        GPopulation Class - The container for the population
 
-    **Examples**
-       Get the population from the :class:`GSimpleGA.GSimpleGA` (GA Engine) instance
-          >>> pop = ga_engine.getPopulation()
+        **Examples**
+           Get the population from the {py:class}`GSimpleGA.GSimpleGA` (GA Engine) instance
+        ```pycon
+        >>> pop = ga_engine.getPopulation()
+        ```
 
-       Get the best fitness individual
-          >>> bestIndividual = pop.bestFitness()
+           Get the best fitness individual
+        ```pycon
+        >>> bestIndividual = pop.bestFitness()
+        ```
 
-       Get the best raw individual
-          >>> bestIndividual = pop.bestRaw()
+           Get the best raw individual
+        ```pycon
+        >>> bestIndividual = pop.bestRaw()
+        ```
 
-       Get the statistics from the :class:`Statistics.Statistics` instance
-          >>> stats = pop.getStatistics()
-          >>> print stats["rawMax"]
-          10.4
+           Get the statistics from the {py:class}`Statistics.Statistics` instance
+        ```pycon
+        >>> stats = pop.getStatistics()
+        >>> print stats["rawMax"]
+        10.4
+        ```
 
-       Iterate, get/set individuals
-          >>> for ind in pop:
-          >>>   print ind
-          (...)
+           Iterate, get/set individuals
+        ```pycon
+        >>> for ind in pop:
+        >>>   print ind
+        (...)
+        ```
 
-          >>> for i in range(len(pop)):
-          >>>    print pop[i]
-          (...)
+        ```pycon
+        >>> for i in range(len(pop)):
+        >>>    print pop[i]
+        (...)
+        ```
 
-          >>> pop[10] = newGenome
-          >>> pop[10].fitness
-          12.5
+        ```pycon
+        >>> pop[10] = newGenome
+        >>> pop[10].fitness
+        12.5
+        ```
 
-    :param genome: the :term:`Sample genome`, or a GPopulation object, when cloning.
+        ### Parameters
 
+        - `genome`: the {term}`Sample genome`, or a GPopulation object, when cloning.
     """
 
     def __init__(self, genome):
-        """ The GPopulation Class creator """
+        """
+            The GPopulation Class creator
+        """
 
         if isinstance(genome, GPopulation):
             self.oneSelfGenome = genome.oneSelfGenome
@@ -163,18 +196,24 @@ class GPopulation(object):
         self.stats = Statistics()
 
     def setMinimax(self, minimax):
-        """ Sets the population minimax
+        """
+            Sets the population minimax
 
-        Example:
-           >>> pop.setMinimax(Consts.minimaxType["maximize"])
+            Example:
+            ```pycon
+            >>> pop.setMinimax(Consts.minimaxType["maximize"])
+            ```
 
-        :param minimax: the minimax type
+            ### Parameters
 
+            - `minimax`: the minimax type
         """
         self.minimax = minimax
 
     def __repr__(self):
-        """ Returns the string representation of the population """
+        """
+            Returns the string representation of the population
+        """
         ret = "- GPopulation\n"
         ret += "\tPopulation Size:\t %d\n" % (self.popSize,)
         ret += "\tSort Type:\t\t %s\n" % \
@@ -188,38 +227,52 @@ class GPopulation(object):
         return ret
 
     def __len__(self):
-        """ Return the length of population """
+        """
+            Return the length of population
+        """
         return len(self.internalPop)
 
     def __getitem__(self, key):
-        """ Returns the specified individual from population """
+        """
+            Returns the specified individual from population
+        """
         return self.internalPop[key]
 
     def __iter__(self):
-        """ Returns the iterator of the population """
+        """
+            Returns the iterator of the population
+        """
         return iter(self.internalPop)
 
     def __setitem__(self, key, value):
-        """ Set an individual of population """
+        """
+            Set an individual of population
+        """
         self.internalPop[key] = value
         self.clearFlags()
 
     def clearFlags(self):
-        """ Clear the sorted and statted internal flags """
+        """
+            Clear the sorted and statted internal flags
+        """
         self.sorted = False
         self.statted = False
 
     def getStatistics(self):
-        """ Return a Statistics class for statistics
+        """
+            Return a Statistics class for statistics
 
-        :rtype: the :class:`Statistics.Statistics` instance
+            ### Returns
 
+            the {py:class}`Statistics.Statistics` instance
         """
         self.statistics()
         return self.stats
 
     def statistics(self):
-        """ Do statistical analysis of population and set 'statted' to True """
+        """
+            Do statistical analysis of population and set 'statted' to True
+        """
         if self.statted:
             return
         logging.debug("Running statistical calculations")
@@ -250,33 +303,46 @@ class GPopulation(object):
         self.statted = True
 
     def bestFitness(self, index=0):
-        """ Return the best scaled fitness individual of population
+        """
+            Return the best scaled fitness individual of population
 
-        :param index: the *index* best individual
-        :rtype: the individual
+            ### Parameters
 
+            - `index`: the *index* best individual
+
+            ### Returns
+
+            the individual
         """
         self.sort()
         return self.internalPop[index]
 
     def worstFitness(self):
-        """ Return the worst scaled fitness individual of the population
+        """
+            Return the worst scaled fitness individual of the population
 
-        :rtype: the individual
+            ### Returns
 
+            the individual
         """
         self.sort()
         return self.internalPop[-1]
 
     def bestRaw(self, index=0):
-        """ Return the best raw score individual of population
+        """
+            Return the best raw score individual of population
 
-        :param index: the *index* best raw individual
-        :rtype: the individual
+            ### Parameters
 
-        .. versionadded:: 0.6
-           The parameter `index`.
+            - `index`: the *index* best raw individual
 
+            ### Returns
+
+            the individual
+
+            :::{versionadded} 0.6
+            The parameter `index`.
+            :::
         """
         if self.sortType == Consts.sortType["raw"]:
             return self.internalPop[index]
@@ -285,13 +351,16 @@ class GPopulation(object):
             return self.internalPopRaw[index]
 
     def worstRaw(self):
-        """ Return the worst raw score individual of population
+        """
+            Return the worst raw score individual of population
 
-        :rtype: the individual
+            ### Returns
 
-        .. versionadded:: 0.6
-           The parameter `index`.
+            the individual
 
+            :::{versionadded} 0.6
+            The parameter `index`.
+            :::
         """
         if self.sortType == Consts.sortType["raw"]:
             return self.internalPop[-1]
@@ -300,7 +369,9 @@ class GPopulation(object):
             return self.internalPopRaw[-1]
 
     def sort(self):
-        """ Sort the population """
+        """
+            Sort the population
+        """
         if self.sorted:
             return
         rev = (self.minimax == Consts.minimaxType["maximize"])
@@ -318,30 +389,40 @@ class GPopulation(object):
         self.sorted = True
 
     def setPopulationSize(self, size):
-        """ Set the population size
+        """
+            Set the population size
 
-        :param size: the population size
+            ### Parameters
 
+            - `size`: the population size
         """
         self.popSize = size
 
     def setSortType(self, sort_type):
-        """ Sets the sort type
+        """
+            Sets the sort type
 
-        Example:
-           >>> pop.setSortType(Consts.sortType["scaled"])
+            Example:
+            ```pycon
+            >>> pop.setSortType(Consts.sortType["scaled"])
+            ```
 
-        :param sort_type: the Sort Type
+            ### Parameters
 
+            - `sort_type`: the Sort Type
         """
         self.sortType = sort_type
 
     def setInitialPopulation(self, init_population):
-        """ Add initial population to fill some or all the population """
+        """
+            Add initial population to fill some or all the population
+        """
         self.internalPop = init_population
 
     def create(self, **args):
-        """ Clone the example genome to fill the population """
+        """
+            Clone the example genome to fill the population
+        """
         self.minimax = args["minimax"]
         if not self.internalPop:
             self.internalPop = [self.oneSelfGenome.clone() for i in range(self.popSize)]
@@ -358,8 +439,10 @@ class GPopulation(object):
                 return True
 
     def initialize(self, **args):
-        """ Initialize all individuals of population,
-        this calls the initialize() of individuals """
+        """
+            Initialize all individuals of population,
+            this calls the initialize() of individuals
+        """
         logging.debug("Initializing the population")
 
         if self.oneSelfGenome.getParam("full_diversity", True) and hasattr(self.oneSelfGenome, "compare"):
@@ -374,10 +457,12 @@ class GPopulation(object):
         self.clearFlags()
 
     def evaluate(self, **args):
-        """ Evaluate all individuals in population, calls the evaluate() method of individuals
+        """
+            Evaluate all individuals in population, calls the evaluate() method of individuals
 
-        :param args: this params are passed to the evaluation function
+            ### Parameters
 
+            - `args`: this params are passed to the evaluation function
         """
         # We have multiprocessing
         if self.multiProcessing[0] and MULTI_PROCESSING:
@@ -404,10 +489,12 @@ class GPopulation(object):
         self.clearFlags()
 
     def scale(self, **args):
-        """ Scale the population using the scaling method
+        """
+            Scale the population using the scaling method
 
-        :param args: this parameter is passed to the scale method
+            ### Parameters
 
+            - `args`: this parameter is passed to the scale method
         """
         for it in self.scaleMethod.applyFunctions(self, **args):
             pass
@@ -423,7 +510,9 @@ class GPopulation(object):
         self.sorted = False
 
     def printStats(self):
-        """ Print statistics of the current population """
+        """
+            Print statistics of the current population
+        """
         message = ""
         if self.sortType == Consts.sortType["scaled"]:
             message = "Max/Min/Avg Fitness(Raw) \
@@ -435,12 +524,16 @@ class GPopulation(object):
         return message
 
     def copy(self, pop):
-        """ Copy current population to 'pop'
+        """
+            Copy current population to 'pop'
 
-        :param pop: the destination population
+            ### Parameters
 
-        .. warning:: this method do not copy the individuals, only the population logic
+            - `pop`: the destination population
 
+            :::{warning}
+            this method do not copy the individuals, only the population logic
+            :::
         """
         pop.popSize = self.popSize
         pop.sortType = self.sortType
@@ -450,39 +543,53 @@ class GPopulation(object):
         pop.multiProcessing = self.multiProcessing
 
     def getParam(self, key, nvl=None):
-        """ Gets an internal parameter
+        """
+            Gets an internal parameter
 
-        Example:
-           >>> population.getParam("tournamentPool")
-           5
+            Example:
+            ```pycon
+            >>> population.getParam("tournamentPool")
+            5
+            ```
 
-        :param key: the key of param
-        :param nvl: if the key doesn't exist, the nvl will be returned
+            ### Parameters
 
+            - `key`: the key of param
+            - `nvl`: if the key doesn't exist, the nvl will be returned
         """
         return self.internalParams.get(key, nvl)
 
     def setParams(self, **args):
-        """ Gets an internal parameter
+        """
+            Gets an internal parameter
 
-        Example:
-           >>> population.setParams(tournamentPool=5)
+            Example:
+            ```pycon
+            >>> population.setParams(tournamentPool=5)
+            ```
 
-        :param args: parameters to set
+            ### Parameters
 
-        .. versionadded:: 0.6
-           The `setParams` method.
+            - `args`: parameters to set
+
+            :::{versionadded} 0.6
+            The `setParams` method.
+            :::
         """
         self.internalParams.update(args)
 
     def clear(self):
-        """ Remove all individuals from population """
+        """
+            Remove all individuals from population
+        """
         del self.internalPop[:]
         del self.internalPopRaw[:]
         self.clearFlags()
 
     def clone(self):
-        """ Return a brand-new cloned population """
+        """
+            Return a brand-new cloned population
+        """
         newpop = GPopulation(self.oneSelfGenome)
         self.copy(newpop)
         return newpop

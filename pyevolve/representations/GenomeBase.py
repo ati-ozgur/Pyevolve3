@@ -1,19 +1,18 @@
 """
+    ## {py:mod}`GenomeBase` -- the genomes base module
 
-:mod:`GenomeBase` -- the genomes base module
-================================================================
-
-This module have the class which every representation extends,
-if you are planning to create a new representation, you must
-take a inside look into this module.
-
+    This module have the class which every representation extends,
+    if you are planning to create a new representation, you must
+    take a inside look into this module.
 """
 
 from ..FunctionSlot import FunctionSlot
 
 
 class GenomeBase(object):
-    """ GenomeBase Class - The base of all chromosome representation """
+    """
+        GenomeBase Class - The base of all chromosome representation
+    """
     __slots__ = ["evaluator", "initializator", "mutator", "crossover", "internalParams", "score", "fitness"]
 
     def __init__(self):
@@ -28,18 +27,22 @@ class GenomeBase(object):
         self.fitness = 0.0
 
     def getRawScore(self):
-        """ Get the Raw Score of the genome
+        """
+            Get the Raw Score of the genome
 
-        :rtype: genome raw score
+            ### Returns
 
+            genome raw score
         """
         return self.score
 
     def getFitnessScore(self):
-        """ Get the Fitness Score of the genome
+        """
+            Get the Fitness Score of the genome
 
-        :rtype: genome fitness score
+            ### Returns
 
+            genome fitness score
         """
         return self.fitness
 
@@ -60,65 +63,88 @@ class GenomeBase(object):
         return ret
 
     def setParams(self, **args):
-        """ Set the internal params
+        """
+            Set the internal params
 
-        Example:
-           >>> genome.setParams(rangemin=0, rangemax=100, gauss_mu=0, gauss_sigma=1)
+            Example:
+            ```pycon
+            >>> genome.setParams(rangemin=0, rangemax=100, gauss_mu=0, gauss_sigma=1)
+            ```
 
-        .. note:: All the individuals of the population shares this parameters and uses
-                  the same instance of this dict.
+            :::{note}
+            All the individuals of the population shares this parameters and uses
+            the same instance of this dict.
+            :::
 
-        :param args: this params will saved in every chromosome for genetic op. use
+            ### Parameters
 
+            - `args`: this params will saved in every chromosome for genetic op. use
         """
         self.internalParams.update(args)
 
     def getParam(self, key, nvl=None):
-        """ Gets an internal parameter
+        """
+            Gets an internal parameter
 
-        Example:
-           >>> genome.getParam("rangemax")
-           100
+            Example:
+            ```pycon
+            >>> genome.getParam("rangemax")
+            100
+            ```
 
-        .. note:: All the individuals of the population shares this parameters and uses
-                  the same instance of this dict.
+            :::{note}
+            All the individuals of the population shares this parameters and uses
+            the same instance of this dict.
+            :::
 
-        :param key: the key of param
-        :param nvl: if the key doesn't exist, the nvl will be returned
+            ### Parameters
 
+            - `key`: the key of param
+            - `nvl`: if the key doesn't exist, the nvl will be returned
         """
         return self.internalParams.get(key, nvl)
 
     def resetStats(self):
-        """ Clear score and fitness of genome """
+        """
+            Clear score and fitness of genome
+        """
         self.score = 0.0
         self.fitness = 0.0
 
     def evaluate(self, **args):
-        """ Called to evaluate genome
+        """
+            Called to evaluate genome
 
-        :param args: this parameters will be passes to the evaluator
+            ### Parameters
 
+            - `args`: this parameters will be passes to the evaluator
         """
         self.resetStats()
         for it in self.evaluator.applyFunctions(self, **args):
             self.score += it
 
     def initialize(self, **args):
-        """ Called to initialize genome
+        """
+            Called to initialize genome
 
-        :param args: this parameters will be passed to the initializator
+            ### Parameters
 
+            - `args`: this parameters will be passed to the initializator
         """
         for it in self.initializator.applyFunctions(self, **args):
             pass
 
     def mutate(self, **args):
-        """ Called to mutate the genome
+        """
+            Called to mutate the genome
 
-        :param args: this parameters will be passed to the mutator
-        :rtype: the number of mutations returned by mutation operator
+            ### Parameters
 
+            - `args`: this parameters will be passed to the mutator
+
+            ### Returns
+
+            the number of mutations returned by mutation operator
         """
         nmuts = 0
         for it in self.mutator.applyFunctions(self, **args):
@@ -126,13 +152,17 @@ class GenomeBase(object):
         return nmuts
 
     def copy(self, g):
-        """ Copy the current GenomeBase to 'g'
+        """
+            Copy the current GenomeBase to 'g'
 
-        :param g: the destination genome
+            ### Parameters
 
-        .. note:: If you are planning to create a new chromosome representation, you
-                  **must** implement this method on your class.
+            - `g`: the destination genome
 
+            :::{note}
+            If you are planning to create a new chromosome representation, you
+            **must** implement this method on your class.
+            :::
         """
         g.score = self.score
         g.fitness = self.fitness
@@ -143,12 +173,17 @@ class GenomeBase(object):
         g.internalParams = self.internalParams
 
     def clone(self):
-        """ Clone this GenomeBase
+        """
+            Clone this GenomeBase
 
-        :rtype: the clone genome
+            ### Returns
 
-        .. note:: If you are planning to create a new chromosome representation, you
-                  **must** implement this method on your class.
+            the clone genome
+
+            :::{note}
+            If you are planning to create a new chromosome representation, you
+            **must** implement this method on your class.
+            :::
         """
         newcopy = GenomeBase()
         self.copy(newcopy)

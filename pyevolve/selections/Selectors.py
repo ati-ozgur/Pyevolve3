@@ -1,10 +1,7 @@
 """
+    ## {py:mod}`Selectors` -- selection methods module
 
-:mod:`Selectors` -- selection methods module
-==============================================================
-
-This module have the *selection methods*, like roulette wheel, tournament, ranking, etc.
-
+    This module have the *selection methods*, like roulette wheel, tournament, ranking, etc.
 """
 
 import random
@@ -43,23 +40,27 @@ GRankSelector.cacheIndices = None
 
 
 def GUniformSelector(population, **args):
-    """ The Uniform Selector """
+    """
+        The Uniform Selector
+    """
     return population[random.randint(0, len(population) - 1)]
 
 
 def GTournamentSelector(population, **args):
-    """ The Tournament Selector
+    """
+        The Tournament Selector
 
-    It accepts the *tournamentPool* population parameter.
+        It accepts the *tournamentPool* population parameter.
 
-    .. note::
-       the Tournament Selector uses the Roulette Wheel to
-       pick individuals for the pool
+        :::{note}
+        the Tournament Selector uses the Roulette Wheel to
+        pick individuals for the pool
+        :::
 
-    .. versionchanged:: 0.6
-       Changed the parameter `poolSize` to the `tournamentPool`, now the selector
-       gets the pool size from the population.
-
+        :::{versionchanged} 0.6
+        Changed the parameter `poolSize` to the `tournamentPool`, now the selector
+        gets the pool size from the population.
+        :::
     """
 
     choosen = None
@@ -104,7 +105,9 @@ def GTournamentSelectorAlternative(population, **args):
 
 
 def GRouletteWheel(population, **args):
-    """ The Roulette Wheel selector """
+    """
+        The Roulette Wheel selector
+    """
     psum = None
     if args["popID"] != GRouletteWheel.cachePopID:
         GRouletteWheel.cachePopID = args["popID"]
@@ -134,7 +137,9 @@ GRouletteWheel.cacheWheel = None
 
 
 def GRouletteWheel_PrepareWheel(population):
-    """ A preparation for Roulette Wheel selection """
+    """
+        A preparation for Roulette Wheel selection
+    """
 
     len_pop = len(population)
 

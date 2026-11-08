@@ -3,17 +3,21 @@ from random import choice as rand_choice
 
 
 def G1DBinaryStringInitializator(genome, **args):
-    """ 1D Binary String initializator """
+    """
+        1D Binary String initializator
+    """
     genome.genomeList = [rand_choice((0, 1)) for _ in range(genome.getListSize())]
 
 
 # 2D Binary String
 
 def G2DBinaryStringInitializator(genome, **args):
-    """ Integer initialization function of 2D Binary String
+    """
+        Integer initialization function of 2D Binary String
 
-    .. versionadded:: 0.6
-       The *G2DBinaryStringInitializator* function
+        :::{versionadded} 0.6
+        The *G2DBinaryStringInitializator* function
+        :::
     """
     genome.clearString()
 
