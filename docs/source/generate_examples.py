@@ -1,3 +1,4 @@
+import ast
 from pathlib import Path
 
 
@@ -25,10 +26,26 @@ def main() -> None:
         title = title.title()
         relative_path = example_file.relative_to(SOURCE_DIR.parents[1]).as_posix()
         include_path = f"../../{relative_path}"
+        source = example_file.read_text(encoding="utf-8")
+        module_docstring = ast.get_docstring(ast.parse(source))
+        if module_docstring:
+            module_docstring = "\n".join(
+                line.rstrip() for line in module_docstring.splitlines()
+            )
+        sections.extend([f"## {title}", ""])
+
+        if module_docstring:
+            sections.extend(
+                [
+                    "### Module documentation",
+                    "",
+                    module_docstring,
+                    "",
+                ]
+            )
+
         sections.extend(
             [
-                f"## {title}",
-                "",
                 f"Filename: `{relative_path}`",
                 "",
                 "```python",
