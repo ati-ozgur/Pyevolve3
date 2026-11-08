@@ -3,11 +3,9 @@
 All the examples can be downloaded from the [download sec](intro.md#download_sec) section, **they are not**
 included in the installation package.
 
-## Example 1 - Simple example
+## Example01 Simple
 
 Filename: `examples/pyevolve_ex01_simple.py`
-
-This is Example #1, a very simple example:
 
 ```python
 
@@ -15,12 +13,29 @@ This is Example #1, a very simple example:
 
 ```
 
-## Example 2 - Real numbers, Gaussian Mutator
+## Example01 Simple Dbadapter
+
+Filename: `examples/pyevolve_ex01_simple_dbadapter.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex01_simple_dbadapter.py >}}
+
+```
+
+## Example01 Simple Minimize
+
+Filename: `examples/pyevolve_ex01_simple_minimize.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex01_simple_minimize.py >}}
+
+```
+
+## Example02 Realgenetic Algorithmuss
 
 Filename: `examples/pyevolve_ex02_realgauss.py`
-
-This example uses the `Initializators.G1DListInitializatorReal` initializator
-and the `Mutators.G1DListMutatorRealGaussian` mutator:
 
 ```python
 
@@ -28,12 +43,23 @@ and the `Mutators.G1DListMutatorRealGaussian` mutator:
 
 ```
 
-## Example 3 - Schaffer F6 deceptive function
+## Example03 Schaffer
+
+
+Minimize the Schaffer F6 function with a real-valued genetic algorithm.
+
+The Schaffer F6 function is a deceptive function, considered a GA-hard function to optimize:
+
+The two-dimensional genome is initialized with real values and evolved using
+Gaussian mutation and roulette-wheel selection.
+
+Run this example with ``python examples/pyevolve_ex03_schaffer.py``.
+
+Public functions:
+    schafferF6(genome): Evaluate the Schaffer F6 objective for a genome.
+    run_main(): Configure and run the genetic algorithm.
 
 Filename: `examples/pyevolve_ex03_schaffer.py`
-
-This examples tries to minimize the Schaffer F6 function. This function is a
-deceptive function, considered a GA-hard function to optimize:
 
 ```python
 
@@ -41,12 +67,13 @@ deceptive function, considered a GA-hard function to optimize:
 
 ```
 
-## Example 4 - Using Sigma truncation scaling
+## Example04 Sigmatrunc
+
+
+This example shows the use of the sigma truncation scale method.
+It tries to minimize a function with negative results:
 
 Filename: `examples/pyevolve_ex04_sigmatrunc.py`
-
-This example shows the use of the sigma truncation scale method. It tries
-to minimize a function with negative results:
 
 ```python
 
@@ -54,11 +81,12 @@ to minimize a function with negative results:
 
 ```
 
-## Example 5 - Step callback function
+## Example05 Callback
 
-Filename: `examples/pyevolve_ex05_callback.py`
 
 This example shows the use of the `step callback function`:
+
+Filename: `examples/pyevolve_ex05_callback.py`
 
 ```python
 
@@ -66,11 +94,15 @@ This example shows the use of the `step callback function`:
 
 ```
 
-## Example 6 - The DB Adapters
+## Example06 Dbadapter
 
-Filename: `examples/pyevolve_ex06_dbadapter.py`
 
 This example shows the use of the DB Adapters (`DBAdapters`) :
+You can use the DB Adapters to store the evolution data in
+    - a database,
+    - CSV file.
+
+Filename: `examples/pyevolve_ex06_dbadapter.py`
 
 ```python
 
@@ -78,11 +110,12 @@ This example shows the use of the DB Adapters (`DBAdapters`) :
 
 ```
 
-## Example 7 - The Rastrigin function
+## Example07 Rastrigin
 
-Filename: `examples/pyevolve_ex07_rastrigin.py`
 
 This example minimizes the deceptive function Rastrigin with 20 variables:
+
+Filename: `examples/pyevolve_ex07_rastrigin.py`
 
 ```python
 
@@ -90,12 +123,13 @@ This example minimizes the deceptive function Rastrigin with 20 variables:
 
 ```
 
-## Example 8 - The Gaussian Integer Mutator
+## Example08 Genetic Algorithmuss Int
 
-Filename: `examples/pyevolve_ex08_gauss_int.py`
 
 This example shows the use of the Gaussian Integer Mutator:
 (`Mutators.G1DListMutatorIntegerGaussian`):
+
+Filename: `examples/pyevolve_ex08_gauss_int.py`
 
 ```python
 
@@ -103,11 +137,12 @@ This example shows the use of the Gaussian Integer Mutator:
 
 ```
 
-## Example 9 - The 2D List genome
+## Example09 G2Dlist
 
-Filename: `examples/pyevolve_ex09_g2dlist.py`
 
 This example shows the use of the 2D list genome (`G2DList.G2DList`):
+
+Filename: `examples/pyevolve_ex09_g2dlist.py`
 
 ```python
 
@@ -115,11 +150,12 @@ This example shows the use of the 2D list genome (`G2DList.G2DList`):
 
 ```
 
-## Example 10 - The 1D Binary String
+## Example10 G1Dbinstr
 
-Filename: `examples/pyevolve_ex10_g1dbinstr.py`
 
 This example shows the use of the 1D Binary String genome:
+
+Filename: `examples/pyevolve_ex10_g1dbinstr.py`
 
 ```python
 
@@ -127,11 +163,9 @@ This example shows the use of the 1D Binary String genome:
 
 ```
 
-## Example 11 - The use of alleles
+## Example11 Allele
 
 Filename: `examples/pyevolve_ex11_allele.py`
-
-This example shows the use of alleles:
 
 ```python
 
@@ -139,17 +173,160 @@ This example shows the use of alleles:
 
 ```
 
-## Example 12 - The Travelling Salesman Problem (TSP)
+## Example13 Sphere
 
-Filename: `examples/pyevolve_ex_tsp_01.py`
 
-This example shows the use of Pyevolve to solve the [TSP](http://en.wikipedia.org/wiki/Traveling_salesman_problem):
+This is the GA to solve the sphere function:
+
+Filename: `examples/pyevolve_ex13_sphere.py`
 
 ```python
 
-{{< include ../../examples/pyevolve_ex_tsp_01.py >}}
+{{< include ../../examples/pyevolve_ex13_sphere.py >}}
 
 ```
+
+## Example14 Ackley
+
+
+This example minimizes the Ackley F1 function, a deceptive function:
+
+Filename: `examples/pyevolve_ex14_ackley.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex14_ackley.py >}}
+
+```
+
+## Example15 Rosenbrock
+
+
+This example minimizes the Rosenbrock function, another deceptive function:
+
+Filename: `examples/pyevolve_ex15_rosenbrock.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex15_rosenbrock.py >}}
+
+```
+
+## Example16 G2Dbinstr
+
+Filename: `examples/pyevolve_ex16_g2dbinstr.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex16_g2dbinstr.py >}}
+
+```
+
+## Example17 Gtree
+
+Filename: `examples/pyevolve_ex17_gtree.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex17_gtree.py >}}
+
+```
+
+## Example18 Gp
+
+Filename: `examples/pyevolve_ex18_gp.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex18_gp.py >}}
+
+```
+
+## Example19 Gp
+
+Filename: `examples/pyevolve_ex19_gp.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex19_gp.py >}}
+
+```
+
+## Example20 Gp Dotwrite
+
+Filename: `examples/pyevolve_ex20_gp_dotwrite.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex20_gp_dotwrite.py >}}
+
+```
+
+## Example21 Nqueens
+
+
+This example shows the use of GA to solve the n-queens problem for a
+chess board of size 64x64:
+
+Filename: `examples/pyevolve_ex21_nqueens.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex21_nqueens.py >}}
+
+```
+
+## Example22 Monkey
+
+
+This example was kindly contributed by Jelle Feringa, it shows the
+[Infinite Monkey Theorem](http://en.wikipedia.org/wiki/Infinite_monkey_theorem):
+
+Filename: `examples/pyevolve_ex22_monkey.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex22_monkey.py >}}
+
+```
+
+## Example23 Initial Population
+
+Filename: `examples/pyevolve_ex23_initial_population.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex23_initial_population.py >}}
+
+```
+
+## Example24 Real Minimum Putnam B1
+
+Filename: `examples/pyevolve_ex24_real_minimum_Putnam_B1.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex24_real_minimum_Putnam_B1.py >}}
+
+```
+
+## Example Cvrp Genetic Algorithm Hybrid Selection
+
+Filename: `examples/pyevolve_ex_cvrp_ga_hybrid_selection.py`
+
+```python
+
+{{< include ../../examples/pyevolve_ex_cvrp_ga_hybrid_selection.py >}}
+
+```
+
+## Example Traveling Sales Person 01
+
+
+The Travelling Salesman Problem (TSP)
+
+
+This example shows the use of Pyevolve to solve the [TSP](http://en.wikipedia.org/wiki/Traveling_salesman_problem):
 
 This example will plot a file called `tsp_result.png` in the same
 current working directory. The generated image will be the best result of the
@@ -167,177 +344,15 @@ To plot this image, you will need the Python Imaging Library (PIL).
   powerful image processing and graphics capabilities.
 :::
 
-## Example 13 - The sphere function
-
-Filename: `examples/pyevolve_ex13_sphere.py`
-
-This is the GA to solve the sphere function:
+Filename: `examples/pyevolve_ex_tsp_01.py`
 
 ```python
 
-{{< include ../../examples/pyevolve_ex13_sphere.py >}}
+{{< include ../../examples/pyevolve_ex_tsp_01.py >}}
 
 ```
 
-## Example 14 - The Ackley function
-
-Filename: `examples/pyevolve_ex14_ackley.py`
-
-This example minimizes the Ackley F1 function, a deceptive function:
-
-```python
-
-{{< include ../../examples/pyevolve_ex14_ackley.py >}}
-
-```
-
-## Example 15 - The Rosenbrock function
-
-Filename: `examples/pyevolve_ex15_rosenbrock.py`
-
-This example minimizes the Rosenbrock function, another deceptive function:
-
-```python
-
-{{< include ../../examples/pyevolve_ex15_rosenbrock.py >}}
-
-```
-
-## Example 16 - The 2D Binary String
-
-Filename: `examples/pyevolve_ex16_g2dbinstr.py`
-
-This example shows the use of the 2D Binary String genome:
-
-```python
-
-{{< include ../../examples/pyevolve_ex16_g2dbinstr.py >}}
-
-```
-
-## Example 17 - The Tree genome example
-
-Filename: `examples/pyevolve_ex17_gtree.py`
-
-This example shows the use of the Tree genome:
-
-```python
-
-{{< include ../../examples/pyevolve_ex17_gtree.py >}}
-
-```
-
-## Example 18 - The Genetic Programming example {#pyevolve-example18}
-
-Filename: `examples/pyevolve_ex18_gp.py`
-
-This example shows the use of the GTreeGP genome (for Genetic Programming):
-
-```python
-
-{{< include ../../examples/pyevolve_ex18_gp.py >}}
-
-```
-
-## Example 21 - The n-queens problem (64x64 chess board)
-
-Filename: `examples/pyevolve_ex21_nqueens.py`
-
-This example shows the use of GA to solve the n-queens problem for a
-chess board of size 64x64:
-
-```python
-
-{{< include ../../examples/pyevolve_ex21_nqueens.py >}}
-
-```
-
-## Example 22 - The Infinite Monkey Theorem
-
-Filename: `examples/pyevolve_ex22_monkey.py`
-
-This example was kindly contributed by Jelle Feringa, it shows the
-[Infinite Monkey Theorem](http://en.wikipedia.org/wiki/Infinite_monkey_theorem):
-
-```python
-
-{{< include ../../examples/pyevolve_ex22_monkey.py >}}
-
-```
-
-## Additional examples
-
-### Simple example with a DB adapter
-
-Filename: `examples/pyevolve_ex01_simple_dbadapter.py`
-
-```python
-
-{{< include ../../examples/pyevolve_ex01_simple_dbadapter.py >}}
-
-```
-
-### Simple example with minimization
-
-Filename: `examples/pyevolve_ex01_simple_minimize.py`
-
-```python
-
-{{< include ../../examples/pyevolve_ex01_simple_minimize.py >}}
-
-```
-
-### Genetic programming example
-
-Filename: `examples/pyevolve_ex19_gp.py`
-
-```python
-
-{{< include ../../examples/pyevolve_ex19_gp.py >}}
-
-```
-
-### Genetic programming example with dot output
-
-Filename: `examples/pyevolve_ex20_gp_dotwrite.py`
-
-```python
-
-{{< include ../../examples/pyevolve_ex20_gp_dotwrite.py >}}
-
-```
-
-### Initial population example
-
-Filename: `examples/pyevolve_ex23_initial_population.py`
-
-```python
-
-{{< include ../../examples/pyevolve_ex23_initial_population.py >}}
-
-```
-
-### Putnam B1 example
-
-Filename: `examples/pyevolve_ex24_real_minimum_Putnam_B1.py`
-
-```python
-
-{{< include ../../examples/pyevolve_ex24_real_minimum_Putnam_B1.py >}}
-
-```
-
-### Hybrid-selection CVRP example
-
-Filename: `examples/pyevolve_ex_cvrp_ga_hybrid_selection.py`
-
-```python
-
-{{< include ../../examples/pyevolve_ex_cvrp_ga_hybrid_selection.py >}}
-
-```
-
-### TSP selector example
+## Example Traveling Sales Person 02 Selector
 
 Filename: `examples/pyevolve_ex_tsp_02_selector.py`
 
@@ -347,7 +362,7 @@ Filename: `examples/pyevolve_ex_tsp_02_selector.py`
 
 ```
 
-### TSP Greedy crossover example
+## Example Traveling Sales Person 03 Genetic Algorithm Crossover Greedy
 
 Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_Greedy.py`
 
@@ -357,7 +372,7 @@ Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_Greedy.py`
 
 ```
 
-### TSP IGX crossover example
+## Example Traveling Sales Person 03 Genetic Algorithm Crossover Igx
 
 Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_IGX.py`
 
@@ -367,7 +382,7 @@ Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_IGX.py`
 
 ```
 
-### TSP PMX crossover example
+## Example Traveling Sales Person 03 Genetic Algorithm Crossover Pmx
 
 Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_PMX.py`
 
@@ -377,7 +392,7 @@ Filename: `examples/pyevolve_ex_tsp_03_ga_crossover_PMX.py`
 
 ```
 
-### TSP selector exploration and exploitation example
+## Example Traveling Sales Person 04 Selectorexplorationexploitationbalance
 
 Filename: `examples/pyevolve_ex_tsp_04_SelectorExplorationExploitationBalance.py`
 
@@ -387,7 +402,7 @@ Filename: `examples/pyevolve_ex_tsp_04_SelectorExplorationExploitationBalance.py
 
 ```
 
-### TSP distance crossover example
+## Example Traveling Sales Person 05 Genetic Algorithm Crossover Distance
 
 Filename: `examples/pyevolve_ex_tsp_05_ga_crossover_distance.py`
 
@@ -397,7 +412,7 @@ Filename: `examples/pyevolve_ex_tsp_05_ga_crossover_distance.py`
 
 ```
 
-### TSP distance crossover loop example
+## Example Traveling Sales Person 05 Genetic Algorithm Crossover Distance Loop
 
 Filename: `examples/pyevolve_ex_tsp_05_ga_crossover_distance_loop.py`
 
@@ -407,7 +422,7 @@ Filename: `examples/pyevolve_ex_tsp_05_ga_crossover_distance_loop.py`
 
 ```
 
-### TSP coordinate hybrid-selection example
+## Example Traveling Sales Person 06 Genetic Algorithm Hybrid Selection Coordinate
 
 Filename: `examples/pyevolve_ex_tsp_06_ga_hybrid_selection_coordinate.py`
 
@@ -417,7 +432,7 @@ Filename: `examples/pyevolve_ex_tsp_06_ga_hybrid_selection_coordinate.py`
 
 ```
 
-### TSP distance hybrid-selection example
+## Example Traveling Sales Person 07 Genetic Algorithm Hybrid Selection Distance
 
 Filename: `examples/pyevolve_ex_tsp_07_ga_hybrid_selection_distance.py`
 
@@ -427,7 +442,7 @@ Filename: `examples/pyevolve_ex_tsp_07_ga_hybrid_selection_distance.py`
 
 ```
 
-### TSP hybrid-selection distance example
+## Example Traveling Sales Person 08 Genetic Algorithm Hybrid Selection Distance
 
 Filename: `examples/pyevolve_ex_tsp_08_ga_hybrid_selection_distance.py`
 

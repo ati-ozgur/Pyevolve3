@@ -1,6 +1,5 @@
 """
 This example shows the use of the 2D list genome (`G2DList.G2DList`):
-
 """
 from pyevolve.representations import G2DList
 from pyevolve import GSimpleGA

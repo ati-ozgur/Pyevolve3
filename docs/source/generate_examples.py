@@ -37,7 +37,6 @@ def main() -> None:
         if module_docstring:
             sections.extend(
                 [
-                    "### Module documentation",
                     "",
                     module_docstring,
                     "",
