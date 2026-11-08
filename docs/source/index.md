@@ -30,21 +30,16 @@ You can download this manual also in other formats:
 
 : *This is a PDF file version with this manual*
 
-[Pyevolve CHM Manual](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1-manual.chm) v.{{ release }} (*CHM - Windows Help*)
 
-: *This is the CHM (Windows Help) version of this manual*
 
 ## Get Involved !
 
-Join with us in [Pyevolve mail-list](http://groups.google.com/group/pyevolve).
-
-Bug reports are in the [Github issues](https://github.com/perone/Pyevolve/issues),
+Bug reports are in the [Github issues](https://github.com/ati-ozgur/Pyevolve3/issues),
 and please, feel free to create new issues with criticisms or suggestions.
 
-Since August/2011, the entire source code of the project is now hosted
-at [Github :: Pyevolve](https://github.com/perone/Pyevolve).
+Since 2016, the entire source code of the project is now hosted
+at [Github :: Pyevolve3](https://github.com/ati-ozgur/Pyevolve3).
 
-Visit the project [blog site](http://pyevolve.sourceforge.net/wordpress) and leave your comment.
 
 ## Contents
 
