@@ -38,7 +38,6 @@ from .GenomeBase import GenomeBase
 from .GTreeBase import GTreeBase
 from .GTreeNodeBase import GTreeNodeBase
 from .. import Util
-from .. import Consts
 
 try:
     import pydot_ng as pydot
@@ -64,9 +63,11 @@ class GTree(GTreeBase):
     def __init__(self, root_node=None):
 
         super(GTree, self).__init__(root_node)
-        self.initializator.set(Consts.CDefGTreeInit)
-        self.mutator.set(Consts.CDefGGTreeMutator)
-        self.crossover.set(Consts.CDefGTreeCrossover)
+        from .. import ConstsTree
+
+        self.initializator.set(ConstsTree.CDefGTreeInit)
+        self.mutator.set(ConstsTree.CDefGGTreeMutator)
+        self.crossover.set(ConstsTree.CDefGTreeCrossover)
 
     def __repr__(self):
         """ Return a string representation of Genome """
@@ -350,9 +351,11 @@ class GTreeGP(GTreeBase):
 
         super(GTreeGP, self).__init__(root_node)
         if not cloning:
-            self.initializator.set(Consts.CDefGTreeGPInit)
-            self.mutator.set(Consts.CDefGGTreeGPMutator)
-            self.crossover.set(Consts.CDefGTreeGPCrossover)
+            from .. import ConstsTree
+
+            self.initializator.set(ConstsTree.CDefGTreeGPInit)
+            self.mutator.set(ConstsTree.CDefGGTreeGPMutator)
+            self.crossover.set(ConstsTree.CDefGTreeGPCrossover)
 
     def __repr__(self):
         """ Return a string representation of Genome """
