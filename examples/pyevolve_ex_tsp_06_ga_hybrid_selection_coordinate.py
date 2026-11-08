@@ -6,7 +6,7 @@ from helper_tsp import crossover_methods, dict_crossoever_operators, get_distanc
 from helper_tsp_selector import run_experiment_series, run_selector_ga
 
 
-GENERATION_COUNT = 101
+GENERATION_COUNT = 3
 STRATEGY = "deterministic"
 
 
@@ -14,7 +14,9 @@ def main_run(crossover_operator_func, problemname, log_file):
     path = os.path.join(os.path.dirname(__file__), "tsp_datasets", problemname + ".tsp")
     problem = tsplib95.load(path)
     coordinates = [tuple(problem.node_coords[index]) for index in problem.get_nodes()]
-    distance_matrix, _ = get_distance_matrixes_from_coordinates(coordinates)
+    distance_matrix, distance_matrix_list = get_distance_matrixes_from_coordinates(
+        coordinates
+    )
     run_selector_ga(
         crossover_operator_func,
         distance_matrix,
@@ -24,6 +26,7 @@ def main_run(crossover_operator_func, problemname, log_file):
         generation_count=GENERATION_COUNT,
         coordinates=coordinates,
         save_images=False,
+        distance_matrix_list=distance_matrix_list,
     )
 
 

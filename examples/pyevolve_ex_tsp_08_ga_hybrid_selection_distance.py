@@ -3,7 +3,7 @@ from helper_tsp import get_distance_matrixes_from_tsp_problem
 from helper_tsp_selector import run_experiment_series, run_selector_ga
 
 
-GENERATION_COUNT = 101
+GENERATION_COUNT = 3
 STRATEGY = "deterministic"
 
 
@@ -19,6 +19,7 @@ def main_run(crossover_operator_func, problemname, log_file):
         log_file,
         STRATEGY,
         generation_count=GENERATION_COUNT,
+        distance_matrix_list=distance_matrix_list,
     )
 
 

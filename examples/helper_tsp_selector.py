@@ -232,11 +232,14 @@ def run_selector_ga(
     save_images=False,
     evaluator=None,
     genome_values=None,
+    distance_matrix_list=None,
 ):
     controller = SelectorController(strategy, generation_count)
     genome_size = len(genome_values) if genome_values is not None else city_count
     genome = G1DList.G1DList(genome_size)
     genome.setParams(dist=distance_matrix)
+    if distance_matrix_list is not None:
+        genome.setParams(distance_matrix_list=distance_matrix_list)
     if evaluator is None:
         def evaluator(chromosome):
             return tour_length(distance_matrix, chromosome, city_count)
