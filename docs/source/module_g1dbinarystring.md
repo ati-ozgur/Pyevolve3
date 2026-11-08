@@ -1,7 +1,7 @@
 # G1DBinaryString
 
 ```{eval-rst}
-.. automodule:: G1DBinaryString
+.. automodule:: pyevolve.representations.G1DBinaryString
    :members:
    :inherited-members:
 

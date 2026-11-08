@@ -1,7 +1,7 @@
 # GenomeBase
 
 ```{eval-rst}
-.. automodule:: GenomeBase
+.. automodule:: pyevolve.representations.GenomeBase
    :members:
    :inherited-members:
 ```

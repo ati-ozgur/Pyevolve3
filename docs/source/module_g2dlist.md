@@ -1,7 +1,7 @@
 # G2DList
 
 ```{eval-rst}
-.. automodule:: G2DList
+.. automodule:: pyevolve.representations.G2DList
    :members:
    :inherited-members:
 

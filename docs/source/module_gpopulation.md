@@ -1,7 +1,7 @@
 # GPopulation
 
 ```{eval-rst}
-.. automodule:: GPopulation
+.. automodule:: pyevolve.GPopulation
    :members:
 
 

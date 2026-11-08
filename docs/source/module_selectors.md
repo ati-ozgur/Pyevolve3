@@ -1,6 +1,6 @@
 # Selectors
 
 ```{eval-rst}
-.. automodule:: Selectors
+.. automodule:: pyevolve.selections.Selectors
    :members:
 ```

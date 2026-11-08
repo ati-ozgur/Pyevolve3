@@ -1,6 +1,6 @@
 # GAllele
 
 ```{eval-rst}
-.. automodule:: GAllele
+.. automodule:: pyevolve.representations.GAllele
    :members:
 ```

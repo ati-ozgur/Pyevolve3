@@ -1,6 +1,6 @@
 # Util
 
 ```{eval-rst}
-.. automodule:: Util
+.. automodule:: pyevolve.Util
    :members:
 ```

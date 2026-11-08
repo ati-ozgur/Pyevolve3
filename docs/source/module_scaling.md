@@ -1,6 +1,6 @@
 # Scaling
 
 ```{eval-rst}
-.. automodule:: Scaling
+.. automodule:: pyevolve.Scaling
    :members:
 ```

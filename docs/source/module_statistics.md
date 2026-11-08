@@ -1,6 +1,6 @@
 # Statistics
 
 ```{eval-rst}
-.. automodule:: Statistics
+.. automodule:: pyevolve.Statistics
    :members:
 ```
