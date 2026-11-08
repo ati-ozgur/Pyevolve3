@@ -6,7 +6,7 @@ from helper_tsp import dict_crossoever_operators
 from helper_tsp_selector import run_experiment_series, run_selector_ga
 
 
-GENERATION_COUNT = 101
+GENERATION_COUNT = 3
 STRATEGY = "deterministic"
 PROBLEM_DIRECTORY = os.path.join(os.path.dirname(__file__), "vrp_datasets", "small")
 CVRP_CROSSOVER_METHODS = (
@@ -33,11 +33,15 @@ def main_run(crossover_func, problemname, log_file):
     depot_index = 0
     capacity = problem.capacity
 
-    distance_matrix = {
+    distance_matrix_dict = {
         (row, column): float(problem.get_weight(original_nodes[row], original_nodes[column]))
         for row in range(node_count)
         for column in range(node_count)
     }
+    distance_matrix_list = [
+        [distance_matrix_dict[row, column] for column in range(node_count)]
+        for row in range(node_count)
+    ]
     demands = {
         node_indexes[node]: problem.demands.get(node, 0)
         for node in original_nodes
@@ -52,25 +56,26 @@ def main_run(crossover_func, problemname, log_file):
         for node in chromosome.getInternalList():
             demand = demands.get(node, 0)
             if current_load + demand > capacity:
-                total_distance += distance_matrix[last_node, depot_index]
-                total_distance += distance_matrix[depot_index, node]
+                total_distance += distance_matrix_dict[last_node, depot_index]
+                total_distance += distance_matrix_dict[depot_index, node]
                 current_load = demand
             else:
-                total_distance += distance_matrix[last_node, node]
+                total_distance += distance_matrix_dict[last_node, node]
                 current_load += demand
             last_node = node
 
-        return total_distance + distance_matrix[last_node, depot_index]
+        return total_distance + distance_matrix_dict[last_node, depot_index]
 
     run_selector_ga(
         crossover_func,
-        distance_matrix,
+        distance_matrix_dict,
         node_count,
         log_file,
         STRATEGY,
         generation_count=GENERATION_COUNT,
         evaluator=cvrp_fitness,
         genome_values=customers,
+        distance_matrix_list=distance_matrix_list,
     )
 
 
