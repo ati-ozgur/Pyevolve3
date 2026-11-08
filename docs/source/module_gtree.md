@@ -1,3 +1,3 @@
 # GTree
 
-See the {doc}`pyevolve.representations.GTree API reference <apidocs/pyevolve.representations.GTree/pyevolve.representations.GTree>`.
+See the [pyevolve.representations.GTree API reference](reference/representations.GTree.qmd).

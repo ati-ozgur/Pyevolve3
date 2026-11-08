@@ -11,8 +11,8 @@ def G1DListMutatorSwap(genome, **args):
     """
         The mutator of G1DList, Swap Mutator
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
     if args["pmut"] <= 0.0:
@@ -37,8 +37,8 @@ def G1DListMutatorSIM(genome, **args):
     """
         The mutator of G1DList, Simple Inversion Mutation
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
     mutations = 0

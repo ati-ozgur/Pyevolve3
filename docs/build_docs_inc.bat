@@ -1,2 +1,2 @@
 @echo off
-sphinx-build -b html .\source .\build
+call "%~dp0build_docs.bat"

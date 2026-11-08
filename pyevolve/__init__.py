@@ -1,8 +1,8 @@
 """
-    ## {py:mod}`pyevolve` -- the main pyevolve namespace
+    ## `pyevolve` -- the main pyevolve namespace
 
     This is the main module of the pyevolve, every other module
-    is above this namespace, for example, to import {py:mod}`Mutators`:
+    is above this namespace, for example, to import `Mutators`:
 
     ```pycon
     >>> from pyevolve import Mutators

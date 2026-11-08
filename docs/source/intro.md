@@ -1,6 +1,6 @@
 # Introduction
 
-This is the documentation for Pyevolve release {{ release }}. Since version 0.5, Pyevolve has changed in many aspects - many new features were added and **many** bugs were fixed. This documentation describes those changes, the new API and new features.
+This is the documentation for Pyevolve release 0.7. Since version 0.5, Pyevolve has changed in many aspects - many new features were added and **many** bugs were fixed. This documentation describes those changes, the new API and new features.
 
 Pyevolve was developed to be a *complete genetic algorithm framework written in pure python*. The main objectives of Pyevolve are:
 
@@ -13,13 +13,11 @@ Pyevolve was developed to be a *complete genetic algorithm framework written in 
 - **default parameters**, There must be sensible defaults for all operators, settings, etc.
 - **open-source**, the source must be available to everyone.
 
-(requirements)=
-
-## Requirements
+## Requirements {#requirements}
 
 Pyevolve can be executed on **Windows**, **Linux** and **Mac** platforms.
 
-:::{note}
+::: {.callout-note}
 On the Mac platform, it was reported that *Pyevolve 0.5* can't enter in the
 Interactive Mode.
 :::
@@ -45,8 +43,7 @@ Pyevolve requires the following modules:
 - **Optional, for MySQL DB Adapter**: [MySQL for Python](http://sourceforge.net/projects/mysql-python/)
   : MySQL-python [^mysqldb] is used by the MySQL DB Adapter.
 
-```{rubric} Footnotes
-```
+## Footnotes
 
 [^matplotlib]: Matplotlib is Copyright (c) 2002-2008 John D. Hunter; All Rights Reserved
 
@@ -56,23 +53,21 @@ Pyevolve requires the following modules:
 
 [^mysqldb]: MySQLdb was developed by Andy Dustman and contributors.
 
-(download_sec)=
-
-## Downloads
+## Downloads {#download_sec}
 
 ### Windows
 
 Installers for Microsoft Windows platform:
 
-[Pyevolve](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.win32-py2.5.exe) v.{{ release }} (*installer*) for Python 2.5
+[Pyevolve](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.win32-py2.5.exe) v.0.7 (*installer*) for Python 2.5
 
 : *This is an .exe installer for Microsoft Windows XP/Vista*
 
-[Pyevolve](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.win32-py2.6.exe) v.{{ release }} (*installer*) for Python 2.6
+[Pyevolve](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.win32-py2.6.exe) v.0.7 (*installer*) for Python 2.6
 
 : *This is an .exe installer for Microsoft Windows XP/Vista*
 
-[Pyevolve](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.tar.gz) v.{{ release }} (*source code*) for Python 2.x
+[Pyevolve](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.tar.gz) v.0.7 (*source code*) for Python 2.x
 
 : *This is the source code*
 
@@ -80,21 +75,21 @@ Installers for Microsoft Windows platform:
 
 Installation package for Linux platform:
 
-[Pyevolve](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.tar.gz) v.{{ release }} (*source code*) for Python 2.x
+[Pyevolve](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1.tar.gz) v.0.7 (*source code*) for Python 2.x
 
 : *This is the source code*
 
 ### Examples package
 
-Examples package for Pyevolve v.{{ release }}:
+Examples package for Pyevolve v.0.7:
 
-[Pyevolve examples](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1-examples.zip) v.{{ release }} (*examples*)
+[Pyevolve examples](http://pyevolve.sourceforge.net/distribution/0_6rc1/Pyevolve-0.6rc1-examples.zip) v.0.7 (*examples*)
 
 : *This is an package with the Pyevolve source code*
 
 ## Installation
 
-You can download the specific Pyevolve version from the {ref}`download_sec` section, or by using *easy_install*.
+You can download the specific Pyevolve version from the [download sec](intro.md#download_sec) section, or by using *easy_install*.
 
 The installation can be done the most easiest by using the *easy_install*:
 
@@ -136,10 +131,7 @@ The *easy_install* utility is part of [setuptools](http://pypi.python.org/pypi/s
 
 : **1D List**, **2D List**, **1D Binary String**, **2D Binary String** and **Tree**
 
-  :::{note}
-  it is important to note that the 1D List, 2D List and Tree can carry
-  any type of python objects or primitives.
-  :::
+  **Note:** it is important to note that the 1D List, 2D List and Tree can carry any type of python objects or primitives.
 
 **Crossover Methods**
 
@@ -227,10 +219,10 @@ The *easy_install* utility is part of [setuptools](http://pypi.python.org/pypi/s
 
 > **Tree**
 >
-> :::{warning}
-> the Tree of Genetic Programming is the class {class}`GTree.GTreeGP`
-> and not the {class}`GTree.GTree` class of the Genetic Algorithm representation.
-> :::
+> **Warning:**
+> the Tree of Genetic Programming is the class `GTree.GTreeGP`
+> and not the `GTree.GTree` class of the Genetic Algorithm representation.
+
 
 **Crossover Methods**
 
@@ -276,7 +268,7 @@ In this section, you will find study material to learn more about Genetic Algori
 
 **Michalewicz, Zbigniew (1999)**, *Genetic Algorithms + Data Structures = Evolution Programs*, Springer-Verlag.
 
-:::{seealso}
+::: {.callout-tip}
 [Wikipedia: Genetic Algorithms](http://en.wikipedia.org/wiki/Genetic_algorithm)
 
 : The Wikipedia article about Genetic Algorithms.
@@ -307,7 +299,7 @@ this book is also available online (a GREAT initiative from authors) in [Book Si
 
 **Koza, John R.**, *Genetic Programming: On the Programming of Computers by Means of Natural Selection*, MIT Press, 1992.
 
-:::{seealso}
+::: {.callout-tip}
 [Wikipedia: Genetic Programming](http://en.wikipedia.org/wiki/Genetic_programming)
 
 : The Wikipedia article about Genetic Programming.
@@ -330,13 +322,13 @@ this book is also available online (a GREAT initiative from authors) in [Book Si
 
 ## Glossary / Concepts
 
-::::{glossary}
+
 Raw score
-: The raw score represents the score returned by the {term}`Evaluation function`. This score
+: The raw score represents the score returned by the `Evaluation function`. This score
   is not scaled.
 
 Fitness score
-: The fitness score is the scaled raw score. For example, if you use Linear Scaling ({func}`Scaling.LinearScaling`),
+: The fitness score is the scaled raw score. For example, if you use Linear Scaling (`Scaling.LinearScaling`),
   the fitness score will be the raw score scaled with the Linear Scaling method. The fitness score represents
   how good the individual is relative to our population.
 
@@ -345,11 +337,7 @@ Evaluation function
   evaluates the genome, giving it a raw score. The objective of this function is to quantify the
   solutions (individuals, chromosomes)
 
-  :::{seealso}
-  [Wikipedia: Fitness Function](http://en.wikipedia.org/wiki/Fitness_function)
-
-  : An article talking about the Evaluation function, or the "Fitness Function".
-  :::
+  **See also:** [Wikipedia: Fitness Function](http://en.wikipedia.org/wiki/Fitness_function) An article talking about the Evaluation function, or the "Fitness Function".
 
 Sample genome
 : The sample genome is the genome which is used as a configuration base for all the new replicated
@@ -361,50 +349,38 @@ Interactive mode
   are provided with some analysis functions and you can interact with the population of individuals at the
   specific generation.
 
-  :::{seealso}
-  Module {mod}`Interaction`
-
-  : The Interaction module.
-  :::
+  **See also:** Module `Interaction` The Interaction module.
 
 Step callback function
-: This function, when attached to the GA Engine ({class}`GSimpleGA.GSimpleGA`), will be called
+: This function, when attached to the GA Engine (`GSimpleGA.GSimpleGA`), will be called
   every generation. It receives one parameter, the GA Engine by itself.
 
 Data Type Independent
 : When a genetic operator is data type idependent, it will operate on different
   data types but not with different chromosome representations. For example, the
-  {func}`Mutators.G1DListMutatorSwap` mutator will operate on Real, Allele or
-  Integer {class}`G1DList.G1DList` chromosome, but not on {class}`G2DList.G2DList`
+  `Mutators.G1DListMutatorSwap` mutator will operate on Real, Allele or
+  Integer `G1DList.G1DList` chromosome, but not on `G2DList.G2DList`
   chromosome.
 
 Standardized Fitness
 : The standardized fitness restates the raw score so that a lower numerical value is
   always a better value.
 
-  :::{seealso}
-  [Genetic Programming: On the Programming of Computers by Means of Natural Selection](http://www.amazon.com/Genetic-Programming-Computers-Selection-Adaptive/dp/0262111705)
-
-  : A book from John R. Koza about Genetic Programming.
-  :::
+  **See also:** [Genetic Programming: On the Programming of Computers by Means of Natural Selection](http://www.amazon.com/Genetic-Programming-Computers-Selection-Adaptive/dp/0262111705) A book from John R. Koza about Genetic Programming.
 
 Adjusted Fitness
 : The adjusted fitness is a measure computed from the Standardized Fitness. The Adjusted Fitness is always
   between 0 and 1 and it's always larger for better individuals.
 
-  :::{seealso}
-  [Genetic Programming: On the Programming of Computers by Means of Natural Selection](http://www.amazon.com/Genetic-Programming-Computers-Selection-Adaptive/dp/0262111705)
-
-  : A book from John R. Koza about Genetic Programming.
-  :::
+  **See also:** [Genetic Programming: On the Programming of Computers by Means of Natural Selection](http://www.amazon.com/Genetic-Programming-Computers-Selection-Adaptive/dp/0262111705) A book from John R. Koza about Genetic Programming.
 
 Non-terminal node
 : The non-terminal node or non-terminal function is a function in a parse tree which is either a root
   or a branch in that tree. In GP, we call non-terminal nodes as "functions", the opposite of
   terminal nodes, which are the variables of the GP.
-::::
 
-:::{seealso}
+
+::: {.callout-tip}
 [Wikipedia: Genetic Algorithm](http://en.wikipedia.org/wiki/Genetic_algorithm)
 
 : An article talking about Genetic Algorithms.
@@ -425,15 +401,15 @@ should run PyS60, you can download it from the [Maemo garage project home](https
 
 To install Pyevolve in PyS60 you simple need to copy the "pyevolve" package (you can use the sources of Pyevolve
 or even the "pyevolve" of your Python installation to the smartphone in a place that PyS60 can find it, usually
-in {file}`c:\\resource\\Python25`, for more information read the PyS60 documentation. The Genetic Algorithms and the
+in `c:\\resource\\Python25`, for more information read the PyS60 documentation. The Genetic Algorithms and the
 Genetic Programming cores of Pyevolve was tested with PyS60 2.0, but to use Genetic Programming, you must
-explicitly define the funtions of the GP, like in {ref}`snippet_gp_explicit`.
+explicitly define the funtions of the GP, like in [snippet gp explicit](getstarted.md#snippet_gp_explicit).
 
 Of course not all features of Pyevolve are supported in PyS60, for example some DBAdapters and the graphical
 plotting tool, since no matplotlib port is available to PyS60 at the moment. Pyevolve was tested with PyS60 2.0
 in a Nokia N78 and in a Nokia N73 smartphones.
 
-:::{seealso}
+::: {.callout-tip}
 [Croozeus.com - home to PyS60 developers](http://croozeus.com/)
 
 : A lot of information and tutorials about PyS60, very recommended.
@@ -460,7 +436,7 @@ Pyevolve was tested against Jython 2.5.1 in Java v.1.6.0_18
 Java(TM) SE Runtime Environment (build 1.6.0_18-b07)
 Java HotSpot(TM) Client VM (build 16.0-b13, mixed mode, sharing)
 
-:::{seealso}
+::: {.callout-tip}
 [Jython](http://www.jython.org/)
 
 : Official Jython project home.
@@ -479,7 +455,7 @@ IronPython is currently language-compatible with Python 2.6.
 Pyevolve was tested against the IronPython 2.6 (2.6.10920.0) in a Windows XP SP3
 with .NET 2.0.50727.3603.
 
-:::{seealso}
+::: {.callout-tip}
 [Official IronPython project home](http://www.ironpython.net)
 
 : Official IronPython project home.
@@ -501,7 +477,7 @@ OS of iPod. You just need to put the Pyevolve package inside the directory where
 you'll call your application or just put it inside another place where the Python
 from iPod/iPhone can found in path.
 
-:::{seealso}
+::: {.callout-tip}
 [Miniguide to install Python on iPhone](http://coding.derkeiler.com/Archive/Python/comp.lang.python/2008-11/msg00252.html)
 
 : Miniguide on how to install Python on iPhone
@@ -523,7 +499,7 @@ ways users and developers uses to increase the performance of Pyevolve:
 > : Cython is a specific language used to create C/C++ extensions for Python, it is based
 >   on the Python language itself, so if you think Psyco is not enought or aren't giving
 >   too much optimizations, you can use Cython to create your own C/C++ extensions; the
->   best approach is to use Cython to build your {term}`Evaluation function`, which is
+>   best approach is to use Cython to build your `Evaluation function`, which is
 >   usually the most consuming part of Genetic Algorithms.
 >
 > **PyPy**
@@ -534,7 +510,7 @@ ways users and developers uses to increase the performance of Pyevolve:
 >   only using pure-Python modules in your application, you definitively
 >   should use PyPy.
 
-:::{seealso}
+::: {.callout-tip}
 [Psyco at Sourceforge.net](http://psyco.sourceforge.net/)
 
 : The official site of Psyco at Sourceforge.net

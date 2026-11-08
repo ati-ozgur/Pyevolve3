@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`Scaling` -- scaling schemes module
+    ## `Scaling` -- scaling schemes module
 
     This module have the *scaling schemes* like Linear scaling, etc.
 """

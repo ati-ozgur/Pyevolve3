@@ -3,8 +3,8 @@
 Pyevolve comes with an Graphical Plotting Tool. This utility uses the great
 python plotting library called Matplotlib.
 
-:::{seealso}
-{ref}`requirements` section.
+::: {.callout-tip}
+[requirements](intro.md#requirements) section.
 :::
 
 You can find the Pyevolve plotting tool in your python Scripts directory, the
@@ -12,7 +12,7 @@ tool is named **pyevolve_graph.py**.
 
 ## Graphical Plotting Tool Options
 
-**pyevolve_graph.py**, installed in {file}`\\Python2{x}\\Scripts\\pyevolve_graph.py`.
+**pyevolve_graph.py**, installed in `\\Python2{x}\\Scripts\\pyevolve_graph.py`.
 
 This is the documentation you get by calling the *--help* option:
 
@@ -77,7 +77,7 @@ Options:
 
 ## Usage
 
-To use this graphical plotting tool, you need to use the {class}`DBAdapters.DBSQLite`
+To use this graphical plotting tool, you need to use the `DBAdapters.DBSQLite`
 adapter and create the database file. Pyevolve uses the "identify" concept. The value
 of this parameter means the same value used in the "identify" parameter of the DB Adapter.
 
@@ -90,7 +90,7 @@ ga.setDBAdapter(sqlite_adapter)
 
 This DB Adapter attached to the GA Engine will create the database file named "pyevolve.db".
 
-:::{seealso}
+::: {.callout-tip}
 [Sqliteman, a tool for sqlite3 databases](http://sqliteman.com/)
 
 : I recommend the Sqliteman tool to open the database and see the contents or structure, if
@@ -148,9 +148,7 @@ pyevolve_graph.py -i ex1 -1 -m
 pyevolve_graph.py -i ex1_run1,ex1_run2,ex1_run3 -6
 ```
 
-(graphs_screens)=
-
-## Graph Types and Screenshots
+## Graph Types and Screenshots {#graphs_screens}
 
 Here are described all the graph types and some screenshots.
 
@@ -167,9 +165,7 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -1
 ```
 
-```{image} imgs/graph_1_ex1.png
-:align: center
-```
+![](imgs/graph_1_ex1.png){fig-align="center"}
 
 ### Error bars graph (fitness scores) / "-2" option
 
@@ -182,11 +178,9 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -2
 ```
 
-```{image} imgs/graph_2_ex1.png
-:align: center
-```
+![](imgs/graph_2_ex1.png){fig-align="center"}
 
-:::{note}
+::: {.callout-note}
 This graph is from a GA using the **Linear Scaling** scheme and the **Roulette
 Wheel** selection method.
 :::
@@ -207,11 +201,9 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -3
 ```
 
-```{image} imgs/graph_3_ex1.png
-:align: center
-```
+![](imgs/graph_3_ex1.png){fig-align="center"}
 
-:::{note}
+::: {.callout-note}
 We can see in this graph the minimum standard deviation at the
 convergence point. The GA Engine stopped the evolution
 using these criteria.
@@ -231,11 +223,9 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -4
 ```
 
-```{image} imgs/graph_4_ex1.png
-:align: center
-```
+![](imgs/graph_4_ex1.png){fig-align="center"}
 
-:::{note}
+::: {.callout-note}
 This graph is from a GA using the **Linear Scaling** scheme and the **Roulette
 Wheel** selection method.
 :::
@@ -255,9 +245,7 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -5
 ```
 
-```{image} imgs/graph_5_ex1.png
-:align: center
-```
+![](imgs/graph_5_ex1.png){fig-align="center"}
 
 ### Compare best raw score of two or more evolutions / "-6" option
 
@@ -277,11 +265,9 @@ This graph was generated using:
 pyevolve_graph.py -i ex1_run1,ex1_run2,ex1_run3 -6
 ```
 
-```{image} imgs/graph_6_ex1.png
-:align: center
-```
+![](imgs/graph_6_ex1.png){fig-align="center"}
 
-:::{note}
+::: {.callout-note}
 The evolution identified by "ex1_run3" (red color) is the
 evolution in which the best raw score (20) was got first at the
 generation 80, compared to the other runs.
@@ -298,9 +284,7 @@ This graph was generated using:
 pyevolve_graph.py -i ex1_run1,ex1_run2,ex1_run3 -7
 ```
 
-```{image} imgs/graph_7_ex1.png
-:align: center
-```
+![](imgs/graph_7_ex1.png){fig-align="center"}
 
 ### Heat map of population raw score distribution / "-8" option
 
@@ -317,9 +301,7 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -8
 ```
 
-```{image} imgs/graph_8_ex1.png
-:align: center
-```
+![](imgs/graph_8_ex1.png){fig-align="center"}
 
 Using another colormap like the "spectral", we can see more interesting
 patterns:
@@ -330,11 +312,9 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -8 -c spectral
 ```
 
-```{image} imgs/graph_8_ex1_spec.png
-:align: center
-```
+![](imgs/graph_8_ex1_spec.png){fig-align="center"}
 
-:::{warning}
+::: {.callout-warning}
 This graph generation can be very slow if you have too many generations.
 You can use the "-g" option to limit your generations.
 :::
@@ -350,11 +330,9 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -9
 ```
 
-```{image} imgs/graph_9_ex1.png
-:align: center
-```
+![](imgs/graph_9_ex1.png){fig-align="center"}
 
-:::{note}
+::: {.callout-note}
 Here you can note some interesting things, in this graph of the scaled
 score, the individual's fitnesses seem almost equaly distributed in the
 population.
@@ -368,11 +346,9 @@ This graph was generated using:
 pyevolve_graph.py -i ex1 -9 -c hot
 ```
 
-```{image} imgs/graph_9_ex1_hot.png
-:align: center
-```
+![](imgs/graph_9_ex1_hot.png){fig-align="center"}
 
-:::{warning}
+::: {.callout-warning}
 This graph generation can be very slow if you have too many generations.
 You can use the "-g" option to limit your generations.
 :::

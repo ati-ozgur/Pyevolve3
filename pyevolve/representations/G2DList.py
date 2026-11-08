@@ -1,28 +1,28 @@
 """
-    ## {py:mod}`G2DList` -- the 2D list chromosome
+    ## `G2DList` -- the 2D list chromosome
 
     This is the 2D List representation, this list can carry real numbers or
     integers or any kind of object, by default, we have genetic operators
     for integer and real lists, which can be found on the respective modules.
-    This chromosome class extends the {py:class}`GenomeBase.GenomeBase`.
+    This chromosome class extends the `GenomeBase.GenomeBase`.
 
     ### Default Parameters
 
     *Initializator*
 
-       {py:func}`Initializators.G2DListInitializatorInteger`
+       `Initializators.G2DListInitializatorInteger`
 
        The Integer Initializator for G2DList
 
     *Mutator*
 
-       {py:func}`Mutators.G2DListMutatorSwap`
+       `Mutators.G2DListMutatorSwap`
 
        The Swap Mutator for G2DList
 
     *Crossover*
 
-       {py:func}`Crossovers.G2DListCrossoverUniform`
+       `Crossovers.G2DListCrossoverUniform`
 
        The Uniform Crossover for G2DList
 
@@ -37,10 +37,8 @@ class G2DList(GenomeBase):
     """
         G2DList Class - The 2D List chromosome representation
 
-        Inheritance diagram for {py:class}`G2DList.G2DList`:
+        Inheritance diagram: ``G2DList.G2DList``
 
-        :::{inheritance-diagram} pyevolve.representations.G2DList.G2DList
-        :::
 
         **Examples**
 
@@ -217,7 +215,7 @@ class G2DList(GenomeBase):
         """
             Returns a resumed string representation of the Genome
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The *resumeString* method.
             :::
         """

@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`Selectors` -- selection methods module
+    ## `Selectors` -- selection methods module
 
     This module have the *selection methods*, like roulette wheel, tournament, ranking, etc.
 """
@@ -52,12 +52,12 @@ def GTournamentSelector(population, **args):
 
         It accepts the *tournamentPool* population parameter.
 
-        :::{note}
+        ::: {.callout-note}
         the Tournament Selector uses the Roulette Wheel to
         pick individuals for the pool
         :::
 
-        :::{versionchanged} 0.6
+        ::: {.callout-note title="Changed in version 0.6"}
         Changed the parameter `poolSize` to the `tournamentPool`, now the selector
         gets the pool size from the population.
         :::

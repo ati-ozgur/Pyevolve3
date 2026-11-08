@@ -1,0 +1,127 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.md"
+    - "reference/**/*.qmd"
+
+website:
+  title: Pyevolve3
+  navbar:
+    left:
+      - href: index.md
+        text: Home
+      - href: modules.md
+        text: API
+      - href: examples.md
+        text: Examples
+      - href: https://github.com/ati-ozgur/Pyevolve3
+        text: GitHub
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - index.md
+      - section: Overview
+        contents:
+          - whatsnew.md
+          - intro.md
+          - getstarted.md
+      - section: Reference
+        contents:
+          - modules.md
+          - module_pyevolve.md
+          - module_const.md
+          - module_dbadapters.md
+          - module_functionslot.md
+          - module_gpopulation.md
+          - module_gsimplega.md
+          - module_interaction.md
+          - module_scaling.md
+          - module_statistics.md
+          - module_util.md
+          - module_initializators.md
+          - module_crossovers.md
+          - module_mutators.md
+          - module_selectors.md
+          - module_allele.md
+          - module_g1dbinarystring.md
+          - module_g1dlist.md
+          - module_g2dbinarystring.md
+          - module_g2dlist.md
+          - module_genomebase.md
+          - module_gtree.md
+          - reference/index.qmd
+      - section: Guides
+        contents:
+          - graphs.md
+          - examples.md
+          - testing.md
+          - faq.md
+          - contributors.md
+          - license.md
+          - contact.md
+  page-navigation: true
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: false
+
+quartodoc:
+  package: pyevolve
+  parser: sphinx
+  dir: reference
+  title: Pyevolve API reference
+  sections:
+    - title: Core
+      contents:
+        - Consts
+        - ConstsTree
+        - DBAdapters
+        - FunctionSlot
+        - GPopulation
+        - GSimpleGA
+        - Interaction
+        - Scaling
+        - Statistics
+        - Util
+    - title: Initializations
+      contents:
+        - initializations.InitializationBinary
+        - initializations.InitializationG1DList
+        - initializations.InitializationG2DList
+        - initializations.InitializationPermutations
+        - initializations.InitializationTree
+    - title: Genetic operators
+      contents:
+        - perturbations.CrossoverBinary
+        - perturbations.CrossoverG1DList
+        - perturbations.CrossoverG1DListTspPermutations
+        - perturbations.CrossoverG1DListTspPermutations2
+        - perturbations.CrossoverG2DList
+        - perturbations.CrossoverTree
+        - perturbations.DoublyCircularLinkedList
+        - perturbations.G1DListCrossoverSRX_Helper
+        - perturbations.MutatorBinary
+        - perturbations.MutatorG1DList
+        - perturbations.MutatorG1DListPermutations
+        - perturbations.MutatorG2DList
+        - perturbations.MutatorTree
+    - title: Representations
+      contents:
+        - representations.G1DBase
+        - representations.G1DBinaryString
+        - representations.G1DList
+        - representations.G2DBinaryString
+        - representations.G2DList
+        - representations.GAllele
+        - representations.GenomeBase
+        - representations.GTree
+        - representations.GTreeBase
+        - representations.GTreeNodeBase
+    - title: Selection
+      contents:
+        - selections.SelectionRank
+        - selections.Selectors

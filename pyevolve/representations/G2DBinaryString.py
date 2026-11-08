@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`G2DBinaryString` -- the classical binary string chromosome
+    ## `G2DBinaryString` -- the classical binary string chromosome
 
     This representation is a 2D Binary String, the string looks like
     this matrix:
@@ -13,24 +13,24 @@
 
     *Initializator*
 
-       {py:func}`Initializators.G2DBinaryStringInitializator`
+       `Initializators.G2DBinaryStringInitializator`
 
        The Binatry String Initializator for G2DBinaryString
 
     *Mutator*
 
-       {py:func}`Mutators.G2DBinaryStringMutatorFlip`
+       `Mutators.G2DBinaryStringMutatorFlip`
 
        The Flip Mutator for G2DBinaryString
 
     *Crossover*
 
-       {py:func}`Crossovers.G2DBinaryStringXSinglePoint`
+       `Crossovers.G2DBinaryStringXSinglePoint`
 
        The Single Point Crossover for G2DBinaryString
 
-    :::{versionadded} 0.6
-    Added the module {py:mod}`G2DBinaryString`
+    ::: {.callout-note title="Added in version 0.6"}
+    Added the module `G2DBinaryString`
     :::
 
     ### Class
@@ -45,10 +45,8 @@ class G2DBinaryString(GenomeBase):
     """
         G3DBinaryString Class - The 2D Binary String chromosome
 
-        Inheritance diagram for {py:class}`G2DBinaryString.G2DBinaryString`:
+        Inheritance diagram: ``G2DBinaryString.G2DBinaryString``
 
-        :::{inheritance-diagram} pyevolve.representations.G2DBinaryString.G2DBinaryString
-        :::
 
         Example:
         ```pycon

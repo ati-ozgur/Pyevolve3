@@ -1,3 +1,3 @@
 # FunctionSlot
 
-See the {doc}`pyevolve.FunctionSlot API reference <apidocs/pyevolve/pyevolve.FunctionSlot>`.
+See the [pyevolve.FunctionSlot API reference](reference/FunctionSlot.qmd).

@@ -1,25 +1,7 @@
-# Modules
+# API modules
 
-Documentation of the all Pyevolve modules.
-All modules above listed are under the "pyevolve" namespace.
+The Pyevolve modules provide the genetic algorithm engine, operators, representations,
+selection methods, and supporting utilities.
 
-Contents:
-
-```{toctree}
-:maxdepth: 3
-
-module_pyevolve
-```
-
-## Generated API reference
-
-{doc}`Browse the complete API reference <apidocs/index>`.
-
-```{toctree}
-:hidden:
-:glob:
-:maxdepth: 3
-
-apidocs/index
-apidocs/pyevolve.*/*
-```
+Browse the [complete API reference](reference/index.qmd) or see the
+[top-level `pyevolve` package](reference/pyevolve.qmd).

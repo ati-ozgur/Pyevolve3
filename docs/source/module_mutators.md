@@ -2,8 +2,8 @@
 
 API references:
 
-- {doc}`pyevolve.perturbations.MutatorBinary <apidocs/pyevolve.perturbations.MutatorBinary/pyevolve.perturbations.MutatorBinary>`
-- {doc}`pyevolve.perturbations.MutatorG1DList <apidocs/pyevolve.perturbations.MutatorG1DList/pyevolve.perturbations.MutatorG1DList>`
-- {doc}`pyevolve.perturbations.MutatorG1DListPermutations <apidocs/pyevolve.perturbations.MutatorG1DListPermutations/pyevolve.perturbations.MutatorG1DListPermutations>`
-- {doc}`pyevolve.perturbations.MutatorG2DList <apidocs/pyevolve.perturbations.MutatorG2DList/pyevolve.perturbations.MutatorG2DList>`
-- {doc}`pyevolve.perturbations.MutatorTree <apidocs/pyevolve.perturbations.MutatorTree/pyevolve.perturbations.MutatorTree>`
+- [pyevolve.perturbations.MutatorBinary](reference/perturbations.MutatorBinary.qmd)
+- [pyevolve.perturbations.MutatorG1DList](reference/perturbations.MutatorG1DList.qmd)
+- [pyevolve.perturbations.MutatorG1DListPermutations](reference/perturbations.MutatorG1DListPermutations.qmd)
+- [pyevolve.perturbations.MutatorG2DList](reference/perturbations.MutatorG2DList.qmd)
+- [pyevolve.perturbations.MutatorTree](reference/perturbations.MutatorTree.qmd)

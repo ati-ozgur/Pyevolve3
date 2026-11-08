@@ -15,7 +15,7 @@ def G2DBinaryStringInitializator(genome, **args):
     """
         Integer initialization function of 2D Binary String
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *G2DBinaryStringInitializator* function
         :::
     """

@@ -1,3 +1,3 @@
 # Scaling
 
-See the {doc}`pyevolve.Scaling API reference <apidocs/pyevolve/pyevolve.Scaling>`.
+See the [pyevolve.Scaling API reference](reference/Scaling.qmd).

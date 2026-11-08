@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`GTree` and GTreeGP -- the tree chromosomes
+    ## `GTree` and GTreeGP -- the tree chromosomes
 
     This is the rooted tree representation, this chromosome representation
     can carry any data-type.
@@ -8,23 +8,23 @@
 
     *Initializator*
 
-      {py:func}`Initializators.GTreeInitializatorInteger`
+      `Initializators.GTreeInitializatorInteger`
 
        The Integer Initializator for GTree
 
     *Mutator*
 
-       {py:func}`Mutators.GTreeMutatorIntegerRange`
+       `Mutators.GTreeMutatorIntegerRange`
 
        The Integer Range mutator for GTree
 
     *Crossover*
 
-       {py:func}`Crossovers.GTreeCrossoverSinglePointStrict`
+       `Crossovers.GTreeCrossoverSinglePointStrict`
 
        The Strict Single Point crossover for GTree
 
-    :::{versionadded} 0.6
+    ::: {.callout-note title="Added in version 0.6"}
     The *GTree* module.
     :::
 
@@ -52,10 +52,8 @@ class GTree(GTreeBase):
     """
         The GTree class - The tree chromosome representation
 
-        Inheritance diagram for {py:class}`GTree.GTree`:
+        Inheritance diagram: ``GTree.GTree``
 
-        :::{inheritance-diagram} pyevolve.representations.GTree.GTree
-        :::
 
         ### Parameters
 
@@ -108,10 +106,8 @@ class GTreeNode(GTreeNodeBase):
     """
         The GTreeNode class - The node representation
 
-        Inheritance diagram for {py:class}`GTree.GTreeNode`:
+        Inheritance diagram: ``GTree.GTreeNode``
 
-        :::{inheritance-diagram} pyevolve.representations.GTree.GTreeNode
-        :::
 
         ### Parameters
 
@@ -277,10 +273,8 @@ class GTreeNodeGP(GTreeNodeBase):
     """
         The GTreeNodeGP Class - The Genetic Programming Node representation
 
-        Inheritance diagram for {py:class}`GTree.GTreeNodeGP`:
+        Inheritance diagram: ``GTree.GTreeNodeGP``
 
-        :::{inheritance-diagram} pyevolve.representations.GTree.GTreeNodeGP
-        :::
 
         ### Parameters
 
@@ -413,10 +407,8 @@ class GTreeGP(GTreeBase):
     """
         The GTreeGP Class - The Genetic Programming Tree representation
 
-        Inheritance diagram for {py:class}`GTree.GTreeGP`:
+        Inheritance diagram: ``GTree.GTreeGP``
 
-        :::{inheritance-diagram} pyevolve.representations.GTree.GTreeGP
-        :::
 
         ### Parameters
 
@@ -593,7 +585,7 @@ class GTreeGP(GTreeBase):
         """
             Get the compiled code for the Tree expression
             After getting the compiled code object, you just need to evaluate it using
-            the {py:func}`eval` native Python method.
+            the `eval` native Python method.
 
             ### Returns
 

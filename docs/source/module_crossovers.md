@@ -2,9 +2,9 @@
 
 API references:
 
-- {doc}`pyevolve.perturbations.CrossoverBinary <apidocs/pyevolve.perturbations.CrossoverBinary/pyevolve.perturbations.CrossoverBinary>`
-- {doc}`pyevolve.perturbations.CrossoverG1DList <apidocs/pyevolve.perturbations.CrossoverG1DList/pyevolve.perturbations.CrossoverG1DList>`
-- {doc}`pyevolve.perturbations.CrossoverG1DListTspPermutations <apidocs/pyevolve.perturbations.CrossoverG1DListTspPermutations/pyevolve.perturbations.CrossoverG1DListTspPermutations>`
-- {doc}`pyevolve.perturbations.CrossoverG1DListTspPermutations2 <apidocs/pyevolve.perturbations.CrossoverG1DListTspPermutations2/pyevolve.perturbations.CrossoverG1DListTspPermutations2>`
-- {doc}`pyevolve.perturbations.CrossoverG2DList <apidocs/pyevolve.perturbations.CrossoverG2DList/pyevolve.perturbations.CrossoverG2DList>`
-- {doc}`pyevolve.perturbations.CrossoverTree <apidocs/pyevolve.perturbations.CrossoverTree/pyevolve.perturbations.CrossoverTree>`
+- [pyevolve.perturbations.CrossoverBinary](reference/perturbations.CrossoverBinary.qmd)
+- [pyevolve.perturbations.CrossoverG1DList](reference/perturbations.CrossoverG1DList.qmd)
+- [pyevolve.perturbations.CrossoverG1DListTspPermutations](reference/perturbations.CrossoverG1DListTspPermutations.qmd)
+- [pyevolve.perturbations.CrossoverG1DListTspPermutations2](reference/perturbations.CrossoverG1DListTspPermutations2.qmd)
+- [pyevolve.perturbations.CrossoverG2DList](reference/perturbations.CrossoverG2DList.qmd)
+- [pyevolve.perturbations.CrossoverTree](reference/perturbations.CrossoverTree.qmd)

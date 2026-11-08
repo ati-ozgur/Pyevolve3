@@ -1,7 +1,7 @@
 """
-    ## {py:mod}`DBAdapters` -- database adapters for statistics
+    ## `DBAdapters` -- database adapters for statistics
 
-    :::{warning}
+    ::: {.callout-warning}
     the use the of a DB Adapter can reduce the performance of the
     Genetic Algorithm.
     :::
@@ -11,8 +11,8 @@
     You can use the database to plot evolution statistics graphs later. In this
     module, you'll find the adapters above cited.
 
-    :::{seealso}
-    Method {py:meth}`GSimpleGA.GSimpleGA.setDBAdapter`
+    ::: {.callout-tip}
+    Method `GSimpleGA.GSimpleGA.setDBAdapter`
        DB Adapters are set in the GSimpleGA Class.
     :::
 """
@@ -37,8 +37,8 @@ class DBBaseAdapter(object):
 
         - `frequency`: the the generational dump frequency
 
-        :::{versionadded} 0.6
-        Added the {py:class}`DBBaseAdapter` class.
+        ::: {.callout-note title="Added in version 0.6"}
+        Added the `DBBaseAdapter` class.
         :::
     """
 
@@ -129,10 +129,8 @@ class DBFileCSV(DBBaseAdapter):
     """
         DBFileCSV Class - Adapter to dump statistics in CSV format
 
-        Inheritance diagram for {py:class}`DBAdapters.DBFileCSV`:
+        Inheritance diagram: ``DBAdapters.DBFileCSV``
 
-        :::{inheritance-diagram} pyevolve.DBAdapters.DBFileCSV
-        :::
 
         Example:
         ```pycon
@@ -145,8 +143,8 @@ class DBFileCSV(DBBaseAdapter):
            :param frequency: the generational dump frequency
            :param reset: if True, the file old data will be overwrite with the new
 
-        :::{versionadded} 0.6
-        Removed the stub methods and subclassed the {py:class}`DBBaseAdapter` class.
+        ::: {.callout-note title="Added in version 0.6"}
+        Removed the stub methods and subclassed the `DBBaseAdapter` class.
         :::
     """
 
@@ -180,7 +178,7 @@ class DBFileCSV(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -215,7 +213,7 @@ class DBFileCSV(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -230,17 +228,15 @@ class DBURLPost(DBBaseAdapter):
     """
         DBURLPost Class - Adapter to call an URL with statistics
 
-        Inheritance diagram for {py:class}`DBAdapters.DBURLPost`:
+        Inheritance diagram: ``DBAdapters.DBURLPost``
 
-        :::{inheritance-diagram} pyevolve.DBAdapters.DBURLPost
-        :::
 
         Example:
         ```pycon
         >>> dbadapter = DBURLPost(url="http://localhost/post.py", identify="test")
         ```
 
-        The parameters that will be sent is all the statistics described in the {py:class}`Statistics.Statistics`
+        The parameters that will be sent is all the statistics described in the `Statistics.Statistics`
         class, and the parameters:
 
         **generation**
@@ -249,8 +245,8 @@ class DBURLPost(DBBaseAdapter):
         **identify**
            The id specified by user
 
-        :::{note}
-        see the {py:class}`Statistics.Statistics` documentation.
+        ::: {.callout-note}
+        see the `Statistics.Statistics` documentation.
         :::
 
         ### Parameters
@@ -260,8 +256,8 @@ class DBURLPost(DBBaseAdapter):
         - `frequency`: the generational dump frequency
         - `post`: if True, the POST method will be used, otherwise GET will be used.
 
-        :::{versionadded} 0.6
-        Removed the stub methods and subclassed the {py:class}`DBBaseAdapter` class.
+        ::: {.callout-note title="Added in version 0.6"}
+        Removed the stub methods and subclassed the `DBBaseAdapter` class.
         :::
     """
 
@@ -292,7 +288,7 @@ class DBURLPost(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -308,7 +304,7 @@ class DBURLPost(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -330,10 +326,8 @@ class DBSQLite(DBBaseAdapter):
     """
         DBSQLite Class - Adapter to dump data in SQLite3 database format
 
-        Inheritance diagram for {py:class}`DBAdapters.DBSQLite`:
+        Inheritance diagram: ``DBAdapters.DBSQLite``
 
-        :::{inheritance-diagram} pyevolve.DBAdapters.DBSQLite
-        :::
 
         Example:
         ```pycon
@@ -394,7 +388,7 @@ class DBSQLite(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -517,7 +511,7 @@ class DBSQLite(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -547,10 +541,8 @@ class DBXMLRPC(DBBaseAdapter):
     """
         DBXMLRPC Class - Adapter to dump statistics to a XML Remote Procedure Call
 
-        Inheritance diagram for {py:class}`DBAdapters.DBXMLRPC`:
+        Inheritance diagram: ``DBAdapters.DBXMLRPC``
 
-        :::{inheritance-diagram} pyevolve.DBAdapters.DBXMLRPC
-        :::
 
         Example:
         ```pycon
@@ -562,7 +554,7 @@ class DBXMLRPC(DBBaseAdapter):
            :param identify: the identify of the run
            :param frequency: the generational dump frequency
 
-        :::{note}
+        ::: {.callout-note}
         The XML RPC Server must implement the *insert* method, wich receives
         a python dictionary as argument.
         :::
@@ -580,8 +572,8 @@ class DBXMLRPC(DBBaseAdapter):
            server.register_function(insert, "insert")
            server.serve_forever()
 
-        :::{versionadded} 0.6
-        The {py:class}`DBXMLRPC` class.
+        ::: {.callout-note title="Added in version 0.6"}
+        The `DBXMLRPC` class.
         :::
     """
 
@@ -611,7 +603,7 @@ class DBXMLRPC(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -630,7 +622,7 @@ class DBXMLRPC(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -645,12 +637,10 @@ class DBVPythonGraph(DBBaseAdapter):
     """
         The DBVPythonGraph Class - A DB Adapter for real-time visualization using VPython
 
-        Inheritance diagram for {py:class}`DBAdapters.DBVPythonGraph`:
+        Inheritance diagram: ``DBAdapters.DBVPythonGraph``
 
-        :::{inheritance-diagram} pyevolve.DBAdapters.DBVPythonGraph
-        :::
 
-        :::{note}
+        ::: {.callout-note}
         to use this DB Adapter, you **must** install VPython first.
         :::
 
@@ -666,7 +656,7 @@ class DBVPythonGraph(DBBaseAdapter):
         - `genmax`: use the generations as max value for x-axis, default False
         - `frequency`: the generational dump frequency
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *DBVPythonGraph* class.
         :::
     """
@@ -748,10 +738,8 @@ class DBMySQLAdapter(DBBaseAdapter):
     """
         DBMySQLAdapter Class - Adapter to dump data in MySql database server
 
-        Inheritance diagram for {py:class}`DBAdapters.DBMySQLAdapter`:
+        Inheritance diagram: ``DBAdapters.DBMySQLAdapter``
 
-        :::{inheritance-diagram} pyevolve.DBAdapters.DBMySQLAdapter
-        :::
 
         Example:
         ```pycon
@@ -825,7 +813,7 @@ class DBMySQLAdapter(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """
@@ -944,7 +932,7 @@ class DBMySQLAdapter(DBBaseAdapter):
 
             - `ga_engine`: the GA Engine
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The method now receives the *ga_engine* parameter.
             :::
         """

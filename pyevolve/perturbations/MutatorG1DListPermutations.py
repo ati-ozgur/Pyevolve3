@@ -11,8 +11,8 @@ def G1DListMutatorSwap(genome: G1DList, **args):
     """
         The mutator of G1DList, Swap Mutator
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
 
@@ -41,8 +41,8 @@ def G1DListMutatorSimpleInversion(genome, **args):
     """
         The mutator of G1DList, Simple Inversion Mutation
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
 
@@ -74,8 +74,8 @@ def G1DListMutatorScramble(genome, **args):
     """
         The mutator of G1DList, Scramble Mutation
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
 
@@ -107,8 +107,8 @@ def G1DListMutatorDisplacement(genome, **args):
     """
         The mutator of G1DList, Displacement Mutation
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
 
@@ -143,8 +143,8 @@ def G1DListMutatorInversion(genome, **args):
     """
         The mutator of G1DList, Inversion Mutation
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
 
@@ -180,8 +180,8 @@ def G1DListMutatorInsertion(genome, **args):
     """
         The mutator of G1DList, Insertion Mutation
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
     mutations = 0

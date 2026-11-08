@@ -4,8 +4,7 @@ If you have any questions or suggestions, you can contact me at:
 
 <mailto:christian.perone@gmail.com>
 
-```{image} imgs/brasil_flag.jpg
-```
+![](imgs/brasil_flag.jpg)
 
 Please use the word "pyevolve" in the email subject.
 

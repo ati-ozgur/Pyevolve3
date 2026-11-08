@@ -1,3 +1,3 @@
 # Consts
 
-See the {doc}`pyevolve.Consts API reference <apidocs/pyevolve/pyevolve.Consts>`.
+See the [pyevolve.Consts API reference](reference/Consts.qmd).

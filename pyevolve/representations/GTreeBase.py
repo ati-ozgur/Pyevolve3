@@ -11,13 +11,13 @@ class GTreeBase(GenomeBase):
     """
         GTreeBase Class - The base class for the tree genomes
 
-        This chromosome class extends the {py:class}`GenomeBase` classes.
+        This chromosome class extends the `GenomeBase` classes.
 
         ### Parameters
 
         - `root_node`: the root node of the tree
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         Added the *GTreeBase* class
         :::
     """
@@ -83,7 +83,7 @@ class GTreeBase(GenomeBase):
         """
             Returns the height of a node
 
-            :::{note}
+            ::: {.callout-note}
             If the node has no childs, the height will be 0.
             :::
 
@@ -230,7 +230,7 @@ class GTreeBase(GenomeBase):
 
             - `g`: the destination GTreeBase tree
 
-            :::{note}
+            ::: {.callout-note}
             If you are planning to create a new chromosome representation, you
             **must** implement this method on your class.
             :::
@@ -263,7 +263,7 @@ class GTreeBase(GenomeBase):
 
             the clone genome
 
-            :::{note}
+            ::: {.callout-note}
             If you are planning to create a new chromosome representation, you
             **must** implement this method on your class.
             :::

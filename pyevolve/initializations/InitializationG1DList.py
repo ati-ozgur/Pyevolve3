@@ -1,13 +1,13 @@
 """
-    ## {py:mod}`Initializators` -- initialization methods module
+    ## `Initializators` -- initialization methods module
 
     In this module we have the genetic operators of initialization for each
     chromosome representation, the most part of initialization is done by
     choosing random data.
 
-    :::{note}
+    ::: {.callout-note}
     In Pyevolve, the Initializator defines the data type that will
-    be used on the chromosome, for example, the {py:func}`G1DListInitializatorInteger`
+    be used on the chromosome, for example, the `G1DListInitializatorInteger`
     will initialize the G1DList with Integers.
     :::
 """

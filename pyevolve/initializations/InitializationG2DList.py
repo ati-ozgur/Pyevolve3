@@ -44,8 +44,8 @@ def G2DListInitializatorAllele(genome, **args):
 
         - `class`: `GAllele.GAlleles` instance.
 
-        :::{warning}
-        the {py:class}`GAllele.GAlleles` instance must have the homogeneous flag enabled
+        ::: {.callout-warning}
+        the `GAllele.GAlleles` instance must have the homogeneous flag enabled
         :::
     """
 

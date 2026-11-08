@@ -5,13 +5,13 @@ class G1DBase(GenomeBase):
     """
         G1DBase Class - The base class for 1D chromosomes
 
-        This chromosome class extends the {py:class}`GenomeBase` classes.
+        This chromosome class extends the `GenomeBase` classes.
 
         ### Parameters
 
         - `size`: the 1D list size
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         Added the *G1DBase* class
         :::
     """
@@ -81,7 +81,7 @@ class G1DBase(GenomeBase):
         """
             Returns the list supposed size
 
-            :::{warning}
+            ::: {.callout-warning}
             this is different from what the len(obj) returns
             :::
         """

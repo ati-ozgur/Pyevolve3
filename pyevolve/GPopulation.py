@@ -1,7 +1,7 @@
 """
-    ## {py:mod}`GPopulation` -- the population module
+    ## `GPopulation` -- the population module
 
-    This module contains the {py:class}`GPopulation.GPopulation` class, which is reponsible
+    This module contains the `GPopulation.GPopulation` class, which is reponsible
     to keep the population and the statistics.
 
     ### Default Parameters
@@ -24,7 +24,7 @@
 
     *Scale Method*
 
-       {py:func}`Scaling.LinearScaling`
+       `Scaling.LinearScaling`
 
        The Linear Scaling scheme
 
@@ -62,7 +62,7 @@ def key_raw_score(individual):
 
         the individual raw score
 
-        :::{note}
+        ::: {.callout-note}
         this function is used by the max()/min() python functions
         :::
     """
@@ -81,7 +81,7 @@ def key_fitness_score(individual):
 
         the individual fitness score
 
-        :::{note}
+        ::: {.callout-note}
         this function is used by the max()/min() python functions
         :::
     """
@@ -107,7 +107,7 @@ class GPopulation(object):
         GPopulation Class - The container for the population
 
         **Examples**
-           Get the population from the {py:class}`GSimpleGA.GSimpleGA` (GA Engine) instance
+           Get the population from the `GSimpleGA.GSimpleGA` (GA Engine) instance
         ```pycon
         >>> pop = ga_engine.getPopulation()
         ```
@@ -122,7 +122,7 @@ class GPopulation(object):
         >>> bestIndividual = pop.bestRaw()
         ```
 
-           Get the statistics from the {py:class}`Statistics.Statistics` instance
+           Get the statistics from the `Statistics.Statistics` instance
         ```pycon
         >>> stats = pop.getStatistics()
         >>> print stats["rawMax"]
@@ -150,7 +150,7 @@ class GPopulation(object):
 
         ### Parameters
 
-        - `genome`: the {term}`Sample genome`, or a GPopulation object, when cloning.
+        - `genome`: the `Sample genome`, or a GPopulation object, when cloning.
     """
 
     def __init__(self, genome):
@@ -264,7 +264,7 @@ class GPopulation(object):
 
             ### Returns
 
-            the {py:class}`Statistics.Statistics` instance
+            the `Statistics.Statistics` instance
         """
         self.statistics()
         return self.stats
@@ -340,7 +340,7 @@ class GPopulation(object):
 
             the individual
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The parameter `index`.
             :::
         """
@@ -358,7 +358,7 @@ class GPopulation(object):
 
             the individual
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The parameter `index`.
             :::
         """
@@ -531,7 +531,7 @@ class GPopulation(object):
 
             - `pop`: the destination population
 
-            :::{warning}
+            ::: {.callout-warning}
             this method do not copy the individuals, only the population logic
             :::
         """
@@ -572,7 +572,7 @@ class GPopulation(object):
 
             - `args`: parameters to set
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The `setParams` method.
             :::
         """

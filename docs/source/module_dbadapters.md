@@ -1,3 +1,3 @@
 # DBAdapters
 
-See the {doc}`pyevolve.DBAdapters API reference <apidocs/pyevolve/pyevolve.DBAdapters>`.
+See the [pyevolve.DBAdapters API reference](reference/DBAdapters.qmd).

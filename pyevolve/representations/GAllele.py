@@ -1,7 +1,7 @@
 """
-    ## {py:mod}`GAllele` -- the genome alleles module
+    ## `GAllele` -- the genome alleles module
 
-    In this module, there are the {py:class}`GAllele.GAlleles` class (which is the
+    In this module, there are the `GAllele.GAlleles` class (which is the
     class that holds the allele types) and all the
     allele types to use with the supported chromosomes.
 """
@@ -44,7 +44,7 @@ class GAlleles(object):
         """
             To add more alleles using the += operator
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The __iadd__ method.
             :::
         """

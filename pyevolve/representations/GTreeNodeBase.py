@@ -10,7 +10,7 @@ class GTreeNodeBase(object):
         - `parent`: the parent node of the node
         - `childs`: the childs of the node, must be a list of nodes
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         Added the *GTreeNodeBase* class
         :::
     """
@@ -123,7 +123,7 @@ class GTreeNodeBase(object):
 
             - `g`: the destination node
 
-            :::{note}
+            ::: {.callout-note}
             If you are planning to create a new chromosome representation, you
             **must** implement this method on your class.
             :::
@@ -139,7 +139,7 @@ class GTreeNodeBase(object):
 
             the clone genome
 
-            :::{note}
+            ::: {.callout-note}
             If you are planning to create a new chromosome representation, you
             **must** implement this method on your class.
             :::

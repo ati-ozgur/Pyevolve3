@@ -1,8 +1,8 @@
 """
-    ## {py:mod}`Consts` -- constants module
+    ## `Consts` -- constants module
 
     Pyevolve have defaults in all genetic operators, settings and etc, this is an issue to helps the user in the API use
-    and minimize the source code needed to make simple things. In the module {py:mod}`Consts`, you will find those defaults
+    and minimize the source code needed to make simple things. In the module `Consts`, you will find those defaults
     settings. You are encouraged to see the constants, but not to change directly on the module, there are methods for this.
 
     ### General constants
@@ -68,42 +68,42 @@
     The classes which are used in Genetic Programming, used to detected the
     correct mode when starting the evolution
 
-    ### Selection methods constants ({py:mod}`Selectors`)
+    ### Selection methods constants (`Selectors`)
 
     #### `CDefTournamentPoolSize`
 
-    The default pool size for the Tournament Selector ({py:func}`Selectors.GTournamentSelector`).
+    The default pool size for the Tournament Selector (`Selectors.GTournamentSelector`).
 
-    ### Scaling scheme constants ({py:mod}`Scaling`)
+    ### Scaling scheme constants (`Scaling`)
 
     #### `CDefScaleLinearMultiplier`
 
-    The multiplier of the Linear ({py:func}`Scaling.LinearScaling`) scaling scheme.
+    The multiplier of the Linear (`Scaling.LinearScaling`) scaling scheme.
 
     #### `CDefScaleSigmaTruncMultiplier`
 
-    The default Sigma Truncation ({py:func}`Scaling.SigmaTruncScaling`) scaling scheme.
+    The default Sigma Truncation (`Scaling.SigmaTruncScaling`) scaling scheme.
 
     #### `CDefScalePowerLawFactor`
 
-    The default Power Law ({py:func}`Scaling.PowerLawScaling`) scaling scheme factor.
+    The default Power Law (`Scaling.PowerLawScaling`) scaling scheme factor.
 
     #### `CDefScaleBoltzMinTemp`
 
-    The default mininum temperature of the ({py:func}`Scaling.BoltzmannScaling`) scaling scheme factor.
+    The default mininum temperature of the (`Scaling.BoltzmannScaling`) scaling scheme factor.
 
     #### `CDefScaleBoltzFactor`
 
-    The default Boltzmann Factor of ({py:func}`Scaling.BoltzmannScaling`) scaling scheme factor.
+    The default Boltzmann Factor of (`Scaling.BoltzmannScaling`) scaling scheme factor.
     This is the factor that the temperature will be subtracted.
 
     #### `CDefScaleBoltzStart`
 
-    The default Boltzmann start temperature ({py:func}`Scaling.BoltzmannScaling`).
+    The default Boltzmann start temperature (`Scaling.BoltzmannScaling`).
     If you don't set the start temperature parameter, this will be the default initial
     temperature for the Boltzmann scaling scheme.
 
-    ### Population constants ({py:class}`GPopulation.GPopulation`)
+    ### Population constants (`GPopulation.GPopulation`)
 
     #### `CDefPopSortType`
 
@@ -117,67 +117,67 @@
 
     Default scaling scheme.
 
-    ### 1D Binary String Defaults ({py:class}`G1DBinaryString.G1DBinaryString`)
+    ### 1D Binary String Defaults (`G1DBinaryString.G1DBinaryString`)
 
     #### `CDefG1DBinaryStringMutator`
 
-    The default mutator for the 1D Binary String ({py:class}`G1DBinaryString.G1DBinaryString`) chromosome.
+    The default mutator for the 1D Binary String (`G1DBinaryString.G1DBinaryString`) chromosome.
 
     #### `CDefG1DBinaryStringCrossover`
 
-    The default crossover method for the 1D Binary String ({py:class}`G1DBinaryString.G1DBinaryString`) chromosome.
+    The default crossover method for the 1D Binary String (`G1DBinaryString.G1DBinaryString`) chromosome.
 
     #### `CDefG1DBinaryStringInit`
 
-    The default initializator for the 1D Binary String ({py:class}`G1DBinaryString.G1DBinaryString`) chromosome.
+    The default initializator for the 1D Binary String (`G1DBinaryString.G1DBinaryString`) chromosome.
 
     #### `CDefG1DBinaryStringUniformProb`
 
     The default uniform probability used for some uniform genetic operators for the
-    1D Binary String ({py:class}`G1DBinaryString.G1DBinaryString`) chromosome.
+    1D Binary String (`G1DBinaryString.G1DBinaryString`) chromosome.
 
-    ### 2D Binary String Defaults ({py:class}`G2DBinaryString.G2DBinaryString`)
+    ### 2D Binary String Defaults (`G2DBinaryString.G2DBinaryString`)
 
     #### `CDefG2DBinaryStringMutator`
 
-    The default mutator for the 2D Binary String ({py:class}`G2DBinaryString.G2DBinaryString`) chromosome.
+    The default mutator for the 2D Binary String (`G2DBinaryString.G2DBinaryString`) chromosome.
 
     #### `CDefG2DBinaryStringCrossover`
 
-    The default crossover method for the 2D Binary String ({py:class}`G2DBinaryString.G2DBinaryString`) chromosome.
+    The default crossover method for the 2D Binary String (`G2DBinaryString.G2DBinaryString`) chromosome.
 
     #### `CDefG2DBinaryStringInit`
 
-    The default initializator for the 2D Binary String ({py:class}`G2DBinaryString.G2DBinaryString`) chromosome.
+    The default initializator for the 2D Binary String (`G2DBinaryString.G2DBinaryString`) chromosome.
 
     #### `CDefG2DBinaryStringUniformProb`
 
     The default uniform probability used for some uniform genetic operators for the
-    2D Binary String ({py:class}`G2DBinaryString.G2DBinaryString`) chromosome.
+    2D Binary String (`G2DBinaryString.G2DBinaryString`) chromosome.
 
-    ### 1D List chromosome constants ({py:class}`G1DList.G1DList`)
+    ### 1D List chromosome constants (`G1DList.G1DList`)
 
     #### `CDefG1DListMutIntMU`
 
-    Default *mu* value of the 1D List Gaussian Integer Mutator ({py:func}`Mutators.G1DListMutatorIntegerGaussian`),
+    Default *mu* value of the 1D List Gaussian Integer Mutator (`Mutators.G1DListMutatorIntegerGaussian`),
     the *mu* represents the mean of the distribution.
 
     #### `CDefG1DListMutIntSIGMA`
 
-    Default *sigma* value of the 1D List Gaussian Integer Mutator ({py:func}`Mutators.G1DListMutatorIntegerGaussian`),
+    Default *sigma* value of the 1D List Gaussian Integer Mutator (`Mutators.G1DListMutatorIntegerGaussian`),
     the *sigma* represents the standard deviation of the distribution.
 
     #### `CDefG1DListMutRealMU`
 
-    Default *mu* value of the 1D List Gaussian Real Mutator ({py:func}`Mutators.G1DListMutatorRealGaussian`),
+    Default *mu* value of the 1D List Gaussian Real Mutator (`Mutators.G1DListMutatorRealGaussian`),
     the *mu* represents the mean of the distribution.
 
     #### `CDefG1DListMutRealSIGMA`
 
-    Default *sigma* value of the 1D List Gaussian Real Mutator ({py:func}`Mutators.G1DListMutatorRealGaussian`),
+    Default *sigma* value of the 1D List Gaussian Real Mutator (`Mutators.G1DListMutatorRealGaussian`),
     the *sigma* represents the mean of the distribution.
 
-    ### Tree chromosome constants ({py:class}`GTree.GTree`)
+    ### Tree chromosome constants (`GTree.GTree`)
 
     #### `CDefGTreeInit`
 
@@ -191,26 +191,26 @@
 
     Default crossover of the tree chromosome.
 
-    ### 2D List chromosome constants ({py:class}`G2DList.G2DList`)
+    ### 2D List chromosome constants (`G2DList.G2DList`)
 
     #### `CDefG2DListMutRealMU`
 
-    Default *mu* value of the 2D List Gaussian Real Mutator ({py:func}`Mutators.G2DListMutatorRealGaussian`),
+    Default *mu* value of the 2D List Gaussian Real Mutator (`Mutators.G2DListMutatorRealGaussian`),
     the *mu* represents the mean of the distribution.
 
     #### `CDefG2DListMutRealSIGMA`
 
-    Default *sigma* value of the 2D List Gaussian Real Mutator ({py:func}`Mutators.G2DListMutatorRealGaussian`),
+    Default *sigma* value of the 2D List Gaussian Real Mutator (`Mutators.G2DListMutatorRealGaussian`),
     the *sigma* represents the mean of the distribution.
 
     #### `CDefG2DListMutIntMU`
 
-    Default *mu* value of the 2D List Gaussian Integer Mutator ({py:func}`Mutators.G2DListMutatorIntegerGaussian`),
+    Default *mu* value of the 2D List Gaussian Integer Mutator (`Mutators.G2DListMutatorIntegerGaussian`),
     the *mu* represents the mean of the distribution.
 
     #### `CDefG2DListMutIntSIGMA`
 
-    Default *sigma* value of the 2D List Gaussian Integer Mutator ({py:func}`Mutators.G2DListMutatorIntegerGaussian`),
+    Default *sigma* value of the 2D List Gaussian Integer Mutator (`Mutators.G2DListMutatorIntegerGaussian`),
     the *sigma* represents the mean of the distribution.
 
     #### `CDefG2DListMutator`
@@ -227,9 +227,9 @@
 
     #### `CDefG2DListCrossUniformProb`
 
-    Default uniform probability for the 2D List Uniform Crossover method ({py:func}`G2DListCrossoverUniform`).
+    Default uniform probability for the 2D List Uniform Crossover method (`G2DListCrossoverUniform`).
 
-    ### GA Engine constants ({py:class}`GSimpleGA.GSimpleGA`)
+    ### GA Engine constants (`GSimpleGA.GSimpleGA`)
 
     #### `CDefGAGenerations`
 
@@ -251,11 +251,11 @@
 
     Default selector method.
 
-    ### DB Adapters constants ({py:mod}`DBAdapters`)
+    ### DB Adapters constants (`DBAdapters`)
 
     Constants for the DB Adapters
 
-    ##### SQLite3 DB Adapter Constants ({py:class}`DBAdapters.DBSQLite`)
+    ##### SQLite3 DB Adapter Constants (`DBAdapters.DBSQLite`)
 
     #### `CDefSQLiteDBName`
 
@@ -277,7 +277,7 @@
 
     Default commit frequency.
 
-    ##### MySQL DB Adapter Constants ({py:class}`DBAdapters.DBMySQLAdapter`)
+    ##### MySQL DB Adapter Constants (`DBAdapters.DBMySQLAdapter`)
 
     #### `CDefMySQLDBName`
 
@@ -307,13 +307,13 @@
 
     Default MySQL connection TCP port.
 
-    ##### URL Post DB Adapter Constants ({py:class}`DBAdapters.DBURLPost`)
+    ##### URL Post DB Adapter Constants (`DBAdapters.DBURLPost`)
 
     #### `CDefURLPostStatsGenFreq`
 
     Default generational frequency for dump statistics.
 
-    ##### CSV File DB Adapter Constants ({py:class}`DBAdapters.DBFileCSV`)
+    ##### CSV File DB Adapter Constants (`DBAdapters.DBFileCSV`)
 
     #### `CDefCSVFileName`
 
@@ -323,7 +323,7 @@
 
     Default generational frequency for dump statistics.
 
-    ##### XMP RPC DB Adapter Constants ({py:class}`DBAdapters.DBXMLRPC`)
+    ##### XMP RPC DB Adapter Constants (`DBAdapters.DBXMLRPC`)
 
     #### `CDefXMLRPCStatsGenFreq`
 

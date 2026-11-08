@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`Mutators` -- mutation methods module
+    ## `Mutators` -- mutation methods module
 
     In this module we have the genetic operators of mutation for each chromosome representation.
 """
@@ -16,7 +16,7 @@ def GTreeMutatorSwap(genome, **args):
     """
         The mutator of GTree, Swap Mutator
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *GTreeMutatorSwap* function
         :::
     """
@@ -48,7 +48,7 @@ def GTreeMutatorIntegerRange(genome, **args):
 
         Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *GTreeMutatorIntegerRange* function
         :::
     """
@@ -86,7 +86,7 @@ def GTreeMutatorRealRange(genome, **args):
 
         Accepts the *rangemin* and *rangemax* genome parameters, both optional.
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *GTreeMutatorRealRange* function
         :::
     """
@@ -201,7 +201,7 @@ def GTreeGPMutatorOperation(genome, **args):
     """
         The mutator of GTreeGP, Operation Mutator
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *GTreeGPMutatorOperation* function
         :::
     """
@@ -267,7 +267,7 @@ def GTreeGPMutatorSubtree(genome, **args):
 
         This mutator will recreate random subtree of the tree using the grow algorithm.
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *GTreeGPMutatorSubtree* function
         :::
     """

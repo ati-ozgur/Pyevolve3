@@ -1,3 +1,3 @@
 # Util
 
-See the {doc}`pyevolve.Util API reference <apidocs/pyevolve/pyevolve.Util>`.
+See the [pyevolve.Util API reference](reference/Util.qmd).

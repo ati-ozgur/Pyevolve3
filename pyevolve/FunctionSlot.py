@@ -1,12 +1,12 @@
 """
-    ## {py:mod}`FunctionSlot` -- function slots module
+    ## `FunctionSlot` -- function slots module
 
     The *function slot* concept is large used by Pyevolve, the idea
     is simple, each genetic operator or any operator, can be assigned
     to a slot, by this way, we can add more than simple one operator,
     we can have for example, two or more mutator operators at same time,
-    two or more evaluation functions, etc. In this {py:mod}`FunctionSlot` module,
-    you'll find the class {py:class}`FunctionSlot.FunctionSlot`, which is the slot class.
+    two or more evaluation functions, etc. In this `FunctionSlot` module,
+    you'll find the class `FunctionSlot.FunctionSlot`, which is the slot class.
 """
 
 from random import uniform as rand_uniform
@@ -81,7 +81,7 @@ class FunctionSlot(object):
         """
             To add more functions using the += operator
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The __iadd__ method.
             :::
         """
@@ -112,7 +112,7 @@ class FunctionSlot(object):
         """
             Return the number of functions on the slot
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The *__len__* method
             :::
         """
@@ -150,7 +150,7 @@ class FunctionSlot(object):
             - `weight`: used when you enable the *random apply*, it's the weight
                              of the function for the random selection
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The `weight` parameter.
             :::
         """
@@ -174,11 +174,11 @@ class FunctionSlot(object):
             - `weight`: used when you enable the *random apply*, it's the weight
                              of the function for the random selection
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The `weight` parameter.
             :::
 
-            :::{note}
+            ::: {.callout-note}
             the method *set* of the function slot remove all previous
             functions added to the slot.
             :::

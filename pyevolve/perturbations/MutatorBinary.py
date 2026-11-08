@@ -65,7 +65,7 @@ def G2DBinaryStringMutatorSwap(genome, **args):
     """
         The mutator of G2DBinaryString, Swap Mutator
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *G2DBinaryStringMutatorSwap* function
         :::
     """
@@ -98,7 +98,7 @@ def G2DBinaryStringMutatorFlip(genome, **args):
     """
         A flip mutator for G2DBinaryString
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *G2DBinaryStringMutatorFlip* function
         :::
     """

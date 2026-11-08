@@ -11,7 +11,7 @@ def G1DListCrossoverSinglePoint(genome, **args):
     """
         The crossover of G1DList, Single Point
 
-        :::{warning}
+        ::: {.callout-warning}
         You can't use this crossover method for lists with just one element.
         :::
     """
@@ -44,7 +44,7 @@ def G1DListCrossoverTwoPoint(genome, **args):
     """
         The G1DList crossover, Two Point
 
-        :::{warning}
+        ::: {.callout-warning}
         You can't use this crossover method for lists with just one element.
         :::
     """
@@ -107,7 +107,7 @@ def G1DListCrossoverRealSBX(genome, **args):
         Some implementation [reference](http://vision.ucsd.edu/~sagarwal/icannga.pdf).
         And another reference to the [Simulated Binary Crossover](http://www.mitpressjournals.org/doi/abs/10.1162/106365601750190406).
 
-        :::{warning}
+        ::: {.callout-warning}
         This crossover method is Data Type Dependent, which means that
         must be used for 1D genome of real values.
         :::

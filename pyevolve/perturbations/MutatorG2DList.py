@@ -10,8 +10,8 @@ def G2DListMutatorSwap(genome, **args):
     """
         The mutator of G1DList, Swap Mutator
 
-        :::{note}
-        this mutator is {term}`Data Type Independent`
+        ::: {.callout-note}
+        this mutator is `Data Type Independent`
         :::
     """
 
@@ -188,8 +188,8 @@ def G2DListMutatorAllele(genome, **args):
 
         - `class`: `GAllele.GAlleles` instance.
 
-        :::{warning}
-        the {py:class}`GAllele.GAlleles` instance must have the homogeneous flag enabled
+        ::: {.callout-warning}
+        the `GAllele.GAlleles` instance must have the homogeneous flag enabled
         :::
     """
     if args["pmut"] <= 0.0:

@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`G1DBinaryString` -- the classical binary string chromosome
+    ## `G1DBinaryString` -- the classical binary string chromosome
 
     This is the classical chromosome representation on GAs, it is the 1D
     Binary String. This string looks like "00011101010".
@@ -8,19 +8,19 @@
 
     *Initializator*
 
-       {py:func}`Initializators.G1DBinaryStringInitializator`
+       `Initializators.G1DBinaryStringInitializator`
 
        The Binatry String Initializator for G1DBinaryString
 
     *Mutator*
 
-       {py:func}`Mutators.G1DBinaryStringMutatorFlip`
+       `Mutators.G1DBinaryStringMutatorFlip`
 
        The Flip Mutator for G1DBinaryString
 
     *Crossover*
 
-       {py:func}`Crossovers.G1DBinaryStringXSinglePoint`
+       `Crossovers.G1DBinaryStringXSinglePoint`
 
        The Single Point Crossover for G1DBinaryString
 
@@ -37,12 +37,10 @@ class G1DBinaryString(G1DBase):
     """
         G1DBinaryString Class - The 1D Binary String chromosome
 
-        Inheritance diagram for {py:class}`G1DBinaryString.G1DBinaryString`:
+        Inheritance diagram: ``G1DBinaryString.G1DBinaryString``
 
-        :::{inheritance-diagram} pyevolve.representations.G1DBinaryString.G1DBinaryString
-        :::
 
-        This chromosome class extends the {py:class}`GenomeBase.G1DBase` class.
+        This chromosome class extends the `GenomeBase.G1DBase` class.
 
         Example:
         ```pycon

@@ -5,16 +5,14 @@ Pyevolve combined with the Python language can be a powerful tool. The best way 
 ## First Example
 
 To make the API easy to use, we have provided default values for almost every parameter in Pyevolve.
-For example, when you use the {class}`G1DList.G1DList` genome without specifying the Mutator, Crossover and Initializator, you will be using the default ones: Swap Mutator, One Point Crossover and the Integer Initialzator. All those default parameters are specified in the {mod}`Consts` module (and you are highly encouraged to take a look at source code).
+For example, when you use the `G1DList.G1DList` genome without specifying the Mutator, Crossover and Initializator, you will be using the default ones: Swap Mutator, One Point Crossover and the Integer Initialzator. All those default parameters are specified in the `Consts` module (and you are highly encouraged to take a look at source code).
 
 Let's begin with the first simple example (Ex. 1). First of all, you must know your problem: in this case, our problem is to find a simple 1D list of integers of *n*-size with zero in all positions.
 At first look, we know by intuition that the representation needed for this
-problem is a 1D List, which you can find in Pyevolve by the name of {class}`G1DList.G1DList`, which means Genome 1D List. This representation is based on a python list as you will see, and is very easy to manipulate.
-The next step is to define the {term}`evaluation function` to our Genetic Algorithm. We want all the *n* list positions with value of '0', so we can propose the evaluation function:
+problem is a 1D List, which you can find in Pyevolve by the name of `G1DList.G1DList`, which means Genome 1D List. This representation is based on a python list as you will see, and is very easy to manipulate.
+The next step is to define the `evaluation function` to our Genetic Algorithm. We want all the *n* list positions with value of '0', so we can propose the evaluation function:
 
-```{image} imgs/ex1equation.png
-:align: center
-```
+![](imgs/ex1equation.png){fig-align="center"}
 
 As you can see in the above equation, with the *x* variable representing our genome list of integers, the *f(x)* shows our evaluation function, which is the sum of '0' values in the list. For example, if we have a list with 10 elements like this:
 
@@ -24,7 +22,7 @@ x = [1, 2, 3, 8, 0, 2, 0, 4, 1, 0]
 
 we will get the raw score [^rawscore] value of 3, or *f(x)* = 3. It's very simple to understand. Now, let's code this.
 
-We will define our {term}`evaluation function` **"eval_func"** as:
+We will define our `evaluation function` **"eval_func"** as:
 
 ```
 # This function is the evaluation function, we want
@@ -40,8 +38,8 @@ def eval_func(chromosome):
    return score
 ```
 
-As you can see, this evaluation function tests each element in the list for equality with '0' and returns the proportional score value. The {class}`G1DList.G1DList` chromosome is not a python list by itself but it encapsulates one and exposes the methods for this list, like the iterator used in the above loop.
-The next step is the creation of a {term}`sample genome` [^samplegenome] for the Genetic Algorithm. We can define our genome as this:
+As you can see, this evaluation function tests each element in the list for equality with '0' and returns the proportional score value. The `G1DList.G1DList` chromosome is not a python list by itself but it encapsulates one and exposes the methods for this list, like the iterator used in the above loop.
+The next step is the creation of a `sample genome` [^samplegenome] for the Genetic Algorithm. We can define our genome as this:
 
 ```
 # Genome instance
@@ -51,24 +49,24 @@ genome = G1DList.G1DList(20)
 genome.evaluator.set(eval_func)
 ```
 
-This will create an instance of the {class}`G1DList.G1DList` class (which resides in the {mod}`G1DList` module) with the list *n*-size of 20 and sets the evaluation function of the genome to the evaluation function **"eval_func"** that we created before.
+This will create an instance of the `G1DList.G1DList` class (which resides in the `G1DList` module) with the list *n*-size of 20 and sets the evaluation function of the genome to the evaluation function **"eval_func"** that we created before.
 
 But wait - where is the range of integers that will be used in the list? Where are the mutator, crossover and initialization functions? They are all set to their default parameters. Using these parameters keep things simple.
 
-By default (and you have the **documentation** to find these defaults), the range of the integers in the {class}`G1DList.G1DList` is between the inverval \[ {attr}`Consts.CDefRangeMin`, {attr}`Consts.CDefRangeMax`\] inclusive, and genetic operators is the same I have cited before: Swap Mutator {func}`Mutators.G1DListMutatorSwap`, One Point Crossover {func}`Crossovers.G1DListCrossoverSinglePoint` and the Integer Initializator {func}`Initializators.G1DListInitializatorInteger`. You can change everything with the API. For example, you can pass the ranges to the genome like so:
+By default (and you have the **documentation** to find these defaults), the range of the integers in the `G1DList.G1DList` is between the inverval \[ `Consts.CDefRangeMin`, `Consts.CDefRangeMax`\] inclusive, and genetic operators is the same I have cited before: Swap Mutator `Mutators.G1DListMutatorSwap`, One Point Crossover `Crossovers.G1DListCrossoverSinglePoint` and the Integer Initializator `Initializators.G1DListInitializatorInteger`. You can change everything with the API. For example, you can pass the ranges to the genome like so:
 
 ```
 genome.setParams(rangemin=0, rangemax=10)
 ```
 
 Right, now that we have our evaluation function and our first genome ready, the next step is to create our Genetic Algorithm Engine, the GA Core which will do the evolution, control statistics, etc...
-The GA Engine which we will use is the {class}`GSimpleGA.GSimpleGA` which resides in the {mod}`GSimpleGA` module. This GA Engine is the genetic algorithm [^ganote] described by Goldberg. So, let's create the engine:
+The GA Engine which we will use is the `GSimpleGA.GSimpleGA` which resides in the `GSimpleGA` module. This GA Engine is the genetic algorithm [^ganote] described by Goldberg. So, let's create the engine:
 
 ```
 ga = GSimpleGA.GSimpleGA(genome)
 ```
 
-The GA is now ready to use. We have simply created our GA Engine with the previously created genome. You might be asking: "*Where did we set the selector method, the number of generations, and the mutation rate?*". Again: we are using the default settings. By default, the GA will evolve for 100 generations with a population size of 80 individuals, it will use the mutation rate of 2% (there is a 2% chance that each individual created in a generation is mutated using the chosen mutation operator) and a crossover rate of 80% (there is an 80% chance that each individual created in a generation is created using the chosen crossover operator), the default selector is the Ranking Selection ({func}`Selectors.GRankSelector`) method. Those default parameters were not picked at random, they are all based on the commonly used settings.
+The GA is now ready to use. We have simply created our GA Engine with the previously created genome. You might be asking: "*Where did we set the selector method, the number of generations, and the mutation rate?*". Again: we are using the default settings. By default, the GA will evolve for 100 generations with a population size of 80 individuals, it will use the mutation rate of 2% (there is a 2% chance that each individual created in a generation is mutated using the chosen mutation operator) and a crossover rate of 80% (there is an 80% chance that each individual created in a generation is created using the chosen crossover operator), the default selector is the Ranking Selection (`Selectors.GRankSelector`) method. Those default parameters were not picked at random, they are all based on the commonly used settings.
 
 Now, all we need to do is to evolve the population!
 
@@ -81,14 +79,14 @@ ga.evolve(freq_stats=10)
 print ga.bestIndividual()
 ```
 
-:::{note}
+::: {.callout-note}
 Pyevolve have the \_\_repr\_\_() function implemented for almost all objects, this means that you
 can use syntax like 'print object' and the object information will be show in an
 pretty format.
 :::
 
 Ready, now we have our first Genetic Algorithm. It looks more like a "Hello GA!" application. The code above shows the call of
-the {meth}`GSimpleGA.GSimpleGA.evolve` method, with the parameter *freq_stats=10*. This method will do the evolution and will show the statistics every 10th generation. The next method called is the {meth}`GSimpleGA.GSimpleGA.bestIndividual`. This method will return the best individual after the end of the evolution, and with the *print* python command, the genome is shown on the screen.
+the `GSimpleGA.GSimpleGA.evolve` method, with the parameter *freq_stats=10*. This method will do the evolution and will show the statistics every 10th generation. The next method called is the `GSimpleGA.GSimpleGA.bestIndividual`. This method will return the best individual after the end of the evolution, and with the *print* python command, the genome is shown on the screen.
 
 When running the code, this is the resulting output:
 
@@ -148,30 +146,29 @@ ga.evolve(freq_stats=10)
 print ga.bestIndividual()
 ```
 
-```{rubric} Footnotes
-```
+## Footnotes
 
-[^rawscore]: It is important to note that in Pyevolve, we have {term}`raw score` and {term}`fitness score`, the raw score is the return of the evaluation function and the fitness score is the scaled score or the raw score in absence of a scaling scheme.
+[^rawscore]: It is important to note that in Pyevolve, we have `raw score` and `fitness score`, the raw score is the return of the evaluation function and the fitness score is the scaled score or the raw score in absence of a scaling scheme.
 
-[^samplegenome]: The term {term}`sample genome` means one genome which provides the main configuration for all individuals.
+[^samplegenome]: The term `sample genome` means one genome which provides the main configuration for all individuals.
 
 [^ganote]: This GA uses non-overlapping populations.
 
 ## The Interactive Mode
 
-Pyevolve introduced the concept of the {term}`Interactive Mode` in
+Pyevolve introduced the concept of the `Interactive Mode` in
 the course of evolution. When you are evolving, and the Interactive Mode
 is enabled, you can press the *ESC Key* anytime during the evolution process. By
 pressing that key, you will enter the interactive mode, with a normal
-python prompt and the {mod}`Interaction` module exposed to you as the "it"
+python prompt and the `Interaction` module exposed to you as the "it"
 module.
 
-:::{warning}
+::: {.callout-warning}
 note that the Interactive Mode for Linux/Mac was disabled in the
 0.6 release of Pyevolve. The cause was the platform dependant code.
 To use it in Linux/Mac you must set the generation in wich Pyevolve
-will enter in the Interactive Mode by using {meth}`GSimpleGA.GSimpleGA.setInteractiveGeneration`
-method; see the {mod}`Interaction` module documentation for more information.
+will enter in the Interactive Mode by using `GSimpleGA.GSimpleGA.setInteractiveGeneration`
+method; see the `Interaction` module documentation for more information.
 :::
 
 If you want to continue the evolution, just press *CTRL-D* on Linux or *CTRL-Z*
@@ -202,9 +199,9 @@ Now, *what you can do* with this prompt !?
 - Plot graphics of the current population
 - Data analysis, etc... python is your limit.
 
-:::{note}
+::: {.callout-note}
 to use graphical plots you will obviously need the Matplotlib, see more information
-in the {ref}`requirements` section for more information.
+in the [requirements](intro.md#requirements) section for more information.
 :::
 
 ### Inspecting the population
@@ -276,7 +273,7 @@ Press CTRL-Z to quit interactive mode.
 
 ### The exposed modules and objects
 
-The {mod}`Interaction` module is imported with the name "it", you can see
+The `Interaction` module is imported with the name "it", you can see
 it's contents by calling the python native *dir()*:
 
 ```
@@ -288,11 +285,11 @@ The namespace has the following modules:
 
 > *ga_engine*
 >
-> : The {class}`GSimpleGA.GSimpleGA` instance, the GA Engine.
+> : The `GSimpleGA.GSimpleGA` instance, the GA Engine.
 >
 > *it*
 >
-> : The {mod}`Interaction` module, with the utilities and graph
+> : The `Interaction` module, with the utilities and graph
 >   plotting functions.
 >
 > *population*
@@ -301,7 +298,7 @@ The namespace has the following modules:
 >
 > *pyevolve*
 >
-> : The main namespace, the {mod}`pyevolve` module.
+> : The main namespace, the `pyevolve` module.
 
 **Using the "it" module**
 
@@ -311,9 +308,7 @@ The namespace has the following modules:
 > > >>> it.plotHistPopScore(population)
 > > ```
 > >
-> > ```{image} imgs/iteract_histogram.png
-> > :align: center
-> > ```
+> > ![](imgs/iteract_histogram.png){fig-align="center"}
 >
 > *Plotting the current population raw scores distribution*
 >
@@ -321,9 +316,7 @@ The namespace has the following modules:
 > > >>> it.plotPopScore(population)
 > > ```
 > >
-> > ```{image} imgs/iteract_plotraw.png
-> > :align: center
-> > ```
+> > ![](imgs/iteract_plotraw.png){fig-align="center"}
 >
 > *Get all the population raw scores*
 >
@@ -340,8 +333,8 @@ The namespace has the following modules:
 
 ### Creating the representation
 
-The first thing you must do is to view the source code of the {class}`GenomeBase.GenomeBase` class
-or the source of the {class}`G1DBinaryString.G1DBinaryString` class; they are very
+The first thing you must do is to view the source code of the `GenomeBase.GenomeBase` class
+or the source of the `G1DBinaryString.G1DBinaryString` class; they are very
 simple to understand.
 
 These are the steps to extend Pyevolve with a new representation:
@@ -358,13 +351,13 @@ These are the steps to extend Pyevolve with a new representation:
 Well, let's begin with the creation of the elegant **1D Binary String** chromosome. This
 chromosome is nothing more than a simple array of '0's or '1's, like so: *"001001000"*.
 
-:::{note}
+::: {.callout-note}
 This 1D Binary String chromosome is an Pyevolve existing chromosome, of course, in the
 Pyevolve implementation we have more features that we will implement here in this simple
 example.
 :::
 
-All of our new chromosomes **must** extend the base class called {class}`GenomeBase.GenomeBase`,
+All of our new chromosomes **must** extend the base class called `GenomeBase.GenomeBase`,
 this class contains the basic slots for the genetic operators and all the internal stuff that
 you don't need to care about.
 
@@ -377,7 +370,7 @@ class G1DBinaryString(GenomeBase):
    pass
 ```
 
-As you can see, we have imported the {class}`GenomeBase.GenomeBase` class from the {mod}`GenomeBase`
+As you can see, we have imported the `GenomeBase.GenomeBase` class from the `GenomeBase`
 module and we have created the *G1DBinaryString* class extending the base class.
 
 The next step is to create our constructor method for our class. I'll show it first and explain later:
@@ -401,9 +394,9 @@ Next, we set our initializator, mutator and crossover to constants. These consta
 the functions of our genetic operators, but if you want, you can set them later. In this example,
 we will use the defaults for the G1D Binary String.
 
-:::{note}
+::: {.callout-note}
 The attributes self.initializator, self.mutator and self.crossover are all inherited
-from the GenomeBase class. They are all function slots ({class}`FunctionSlot.FunctionSlot`).
+from the GenomeBase class. They are all function slots (`FunctionSlot.FunctionSlot`).
 :::
 
 Now, you *must* provide the **copy()** and **clone()** methods for your chromosome, because they
@@ -427,7 +420,7 @@ As you can see, we first call the base class *copy()* method and later we copy
 our string length attribute and our internal *genomeString*, which is our list
 of '0's and '1's.
 
-:::{warning}
+::: {.callout-warning}
 It is very important to note that you must **COPY** and not just create
 a reference to the object. On the line that we have the *self.genomeString[:]*,
 if you use just *self.genomeString*, you will create a **REFERENCE** to this
@@ -470,7 +463,7 @@ follows:
 
 1. Create a new method such that the name reflects the type of chromosome
    representation it works with, and the crossover method name. For example,
-   {func}`Crossovers.G1DListCrossoverRealSBX`, can work with 1D List representations
+   `Crossovers.G1DListCrossoverRealSBX`, can work with 1D List representations
    and it operates on real values and it is the SBX crossover operator.
 2. The method must accept two parameters, 'genome' and 'args'.
 3. From 'args', get the two parents which will take part in the crossover,
@@ -479,12 +472,12 @@ follows:
    and brother.
 5. Simply return the sister and brother.
 
-Any constants that your crossover method uses should be defined in Consts.py ({mod}`Consts`).
+Any constants that your crossover method uses should be defined in Consts.py (`Consts`).
 
 ## Genetic Programming Tutorial
 
 In the release 0.6 of Pyevolve, the new Genetic Programming core was added to the framework.
-In the {ref}`pyevolve-example18` you'll see how simple and easy the Pyevolve GP core is
+In the [pyevolve-example18](examples.md#pyevolve-example18) you'll see how simple and easy the Pyevolve GP core is
 when compared with other statically-typed languages.
 
 Here is a simple example:
@@ -550,18 +543,18 @@ from pyevolve import Consts
 import math
 ```
 
-The {mod}`Util` module is where we'll find many utilities functions and classes like {class}`Util.ErrorAccumulator`.
-The {mod}`GTree` is where the {class}`GTree.GTreeGP` class resides, which is the main genome used by the GP core of Pyevolve.
-Note that we are importing the {mod}`GSimpleGA` module, in fact, the GA core will detect when you use a Genetic Programming
-genome and will act as the GP core. The modules {mod}`Consts` and {mod}`math` imported here are for auxiliary use only.
+The `Util` module is where we'll find many utilities functions and classes like `Util.ErrorAccumulator`.
+The `GTree` is where the `GTree.GTreeGP` class resides, which is the main genome used by the GP core of Pyevolve.
+Note that we are importing the `GSimpleGA` module, in fact, the GA core will detect when you use a Genetic Programming
+genome and will act as the GP core. The modules `Consts` and `math` imported here are for auxiliary use only.
 Next we have:
 
 ```
 rmse_accum = Util.ErrorAccumulator()
 ```
 
-Here we instantiate the {class}`Util.ErrorAccumulator`, which is a simple accumulator for errors. It has methods for getting
-{term}`Adjusted Fitness`, [Mean Square Error](http://en.wikipedia.org/wiki/Mean_squared_error),
+Here we instantiate the `Util.ErrorAccumulator`, which is a simple accumulator for errors. It has methods for getting
+`Adjusted Fitness`, [Mean Square Error](http://en.wikipedia.org/wiki/Mean_squared_error),
 [Root Mean Square Error](http://en.wikipedia.org/wiki/Root_mean_squared_error), mean, squared or non-squared error measures.
 In the next block we define some GP operators:
 
@@ -576,7 +569,7 @@ Observe that they are simple Python functions starting with the "gp" prefix. Thi
 Pyevolve to automatically add them as non-terminals of the GP core. As you can note, the square root is a protected
 square root, since it uses the absolute value of "a" (we don't have square root of negative numbers, except in the
 complex analysis). You can define any other function you want.
-Later we have the declaration of the {term}`Evaluation function` for the GP core:
+Later we have the declaration of the `Evaluation function` for the GP core:
 
 ```
 def eval_func(chromosome):
@@ -593,18 +586,18 @@ def eval_func(chromosome):
    return rmse_accum.getRMSE()
 ```
 
-As you see, the {func}`eval_func` receives one parameter, the chromosome (the GP Tree in our case, an instance of the
-{class}`GTree.GTreeGP` class). We first declare the global error accumulator and reset it, since we'll start to evaluate
-a new individual, a new "program". In the line where we call {meth}`GTree.GTreeGP.getCompiledCode()`, here is what
+As you see, the `eval_func` receives one parameter, the chromosome (the GP Tree in our case, an instance of the
+`GTree.GTreeGP` class). We first declare the global error accumulator and reset it, since we'll start to evaluate
+a new individual, a new "program". In the line where we call `GTree.GTreeGP.getCompiledCode()`, here is what
 happens: Pyevolve will get the pre-ordered expression of the GP Tree and then will compile it into Python bytecode,
-and will return to you an object of the type "code". This object can then be executed using the Python native {func}`eval`
+and will return to you an object of the type "code". This object can then be executed using the Python native `eval`
 function. Why compile it to bytecode ? Because if we don't compile the program into Python bytecode, we will need
 to parse the Tree every time we want to evaluate our program using defined variables, and since this is a commom use
 of the GP program, this is the fastest way we can do it in pure Python.
 
 In the next block, we simply iterate using two variables "a" and "b".
 
-:::{note}
+::: {.callout-note}
 Please note that the variable names here is the same that we will use as terminals later.
 :::
 
@@ -612,10 +605,10 @@ What you see now is the evaluation of the "code_comp" (which is the GP individua
 function in which we want to fit (the Pythagorean theorem). Next we simply add the "target" value we got from the
 Pythagorean theorem and the "evaluated" value of the individual to the Error Accumulator.
 In the end of the evaluation function, we return the [Root Mean Square Error](http://en.wikipedia.org/wiki/Root_mean_squared_error).
-If you don't like to add the evaluated and the target values using a tuple, you can use the {meth}`Util.ErrorAccumulator.append`
+If you don't like to add the evaluated and the target values using a tuple, you can use the `Util.ErrorAccumulator.append`
 method, which will give the same results.
 
-Next we start to define our {func}`main_run` function:
+Next we start to define our `main_run` function:
 
 ```
 def main_run():
@@ -624,14 +617,14 @@ def main_run():
    genome.evaluator.set(eval_func)
 ```
 
-The first thing we instantiate here is the {class}`GTree.GTreeGP` class (the GP individual, the Tree). Next
+The first thing we instantiate here is the `GTree.GTreeGP` class (the GP individual, the Tree). Next
 we set some parameters of the GTreeGP. The first is the "max_depth", which is used by genetic operators
 and initializators to control bloat; in this case, we use 4, which means that no Tree with a height > 4 will
 grow. Next we set the "method", this is the initialization method, and the values accepted here depends of
 the initialization method used, since we do not have specified the initialization method, Pyevolve will
-use the default, which is the {func}`Initializators.GTreeGPInitializator` (it accepts "grow", "full" and "ramped"
+use the default, which is the `Initializators.GTreeGPInitializator` (it accepts "grow", "full" and "ramped"
 methods for Tree initialization. And in the last line of this block, we set the previously defined evaluation
-function called {func}`eval_func`.
+function called `eval_func`.
 In the next block we then instantiate the GSimpleGA core and set some parameters:
 
 ```
@@ -640,12 +633,12 @@ ga.setParams(gp_terminals       = ['a', 'b'],
              gp_function_prefix = "gp")
 ```
 
-The "ga" object will hold an instance of the {class}`GSimpleGA.GSimpleGA` class, which is the core for both
+The "ga" object will hold an instance of the `GSimpleGA.GSimpleGA` class, which is the core for both
 Genetic Algorithms and Genetic Programming. Pyevolve will automatically detect if you are creating a environment
 for a GP or for a GA. Next we set some parameters of the core, the first is a list called "gp_terminals".
 The "gp_terminals" will hold the "variables" or in GP vocabulary . Note that the
-name of the terminals are the same we used in our evaluation function called {func}`eval_func`. The next step
-is to define the prefix of the GP operators (functions) or the {term}`Non-terminal node`. Pyevolve will automatically
+name of the terminals are the same we used in our evaluation function called `eval_func`. The next step
+is to define the prefix of the GP operators (functions) or the `Non-terminal node`. Pyevolve will automatically
 search for all functions defined in the module which starts with "gp" (example: gp_sub, gp_add, gp_IHateJava, etc...)
 and will add these functions as the non-terminal nodes of the GP core.
 
@@ -672,7 +665,7 @@ if __name__ == "__main__":
 ```
 
 This part is important, since Pyevolve needs to know some information about objects in the main module using instrospection.
-You **NEED** to declare this check, the {mod}`multiprocessing` module of Python only works with this too, so if
+You **NEED** to declare this check, the `multiprocessing` module of Python only works with this too, so if
 you're planning to use it, please do not forget it.
 
 And that's it, you have completed your first GP program.
@@ -680,9 +673,9 @@ And that's it, you have completed your first GP program.
 ### Visualizing individuals
 
 Pyevolve comes with a plotting utility to create images of your GP individuals. It uses
-"pydot" and "Graphviz" to create those images. For more information, see the {ref}`requirements` section.
+"pydot" and "Graphviz" to create those images. For more information, see the [requirements](intro.md#requirements) section.
 What you need to change to see, for example, the first 3 best individuals of your first generation is to
-add a {term}`Step callback function` into the code. Let's first define the callback function:
+add a `Step callback function` into the code. Let's first define the callback function:
 
 ```
 def step_callback(gp_engine):
@@ -691,7 +684,7 @@ def step_callback(gp_engine):
 ```
 
 The code is self-explanatory, the parameter is the GP core, first we check if it is the first generation and
-then we use the {meth}`GTree.GTreeGP.writePopulationDot` method to write to the "trees.jpg" file, the
+then we use the `GTree.GTreeGP.writePopulationDot` method to write to the "trees.jpg" file, the
 range from 0 and 3 individuals of the population. Then in the main function where we instantiate the GP core,
 we simply use:
 
@@ -701,9 +694,7 @@ ga.stepCallback.set(step_callback)
 
 And the result will be:
 
-```{image} imgs/gp_trees_img1.jpg
-:align: center
-```
+![](imgs/gp_trees_img1.jpg){fig-align="center"}
 
 ## Snippets
 
@@ -719,14 +710,14 @@ Here are some snippets to help you.
 > > >>> genome.mutator.add(Mutators.G1DListMutatorSwap)
 > > ```
 >
-> The first line will set the {func}`Mutators.G1DListMutatorRealGaussian`, and the second line
-> add one more mutator, the {func}`Mutators.G1DListMutatorSwap`.
+> The first line will set the `Mutators.G1DListMutatorRealGaussian`, and the second line
+> add one more mutator, the `Mutators.G1DListMutatorSwap`.
 >
 > As you can see, it's very simple and easy, and you will have two mutation
 > operators at same time.
 >
 > If you want just one of these mutators (picked at random) to be executed at
-> the mutation process, set the *random apply* parameter of the {class}`FunctionSlot.FunctionSlot`
+> the mutation process, set the *random apply* parameter of the `FunctionSlot.FunctionSlot`
 > class to True
 >
 > ```
@@ -746,7 +737,7 @@ Here are some snippets to help you.
 > > >>> setOfAlleles.add(a)
 > > ```
 >
-> Done. Your setOfAlleles is the {class}`GAllele.GAlleles` class instance with
+> Done. Your setOfAlleles is the `GAllele.GAlleles` class instance with
 > the *lst* ([ "1", "two", 0, 777 ]) as alleles in all genes.
 
 ### Changing the selection method
@@ -759,14 +750,14 @@ Here are some snippets to help you.
 > > ```
 >
 > In this example, we change the selection method to the
-> {func}`Selectors.GTournamentSelector`, the Tournament Selector.
+> `Selectors.GTournamentSelector`, the Tournament Selector.
 
 ### Repeating an evolution with a specific seed
 
 > Using a specific seed, you can guarantee that the evolution will be always
 > the same, no matter the number of executions you make.
 > To initialize the GA Engine with the specific seed, use the *seed* parameter
-> when instantiating the {class}`GSimpleGA.GSimpleGA` class:
+> when instantiating the `GSimpleGA.GSimpleGA` class:
 >
 > ```
 > ga_engine = GSimpleGA(genome, 123)
@@ -779,7 +770,7 @@ Here are some snippets to help you.
 ### Writing the evolution statistics to a CSV File
 
 > You can write all the statistics of an evolution to a CSV (Comma Separated Values)
-> file using the DB Adapter called {class}`DBAdapters.DBFileCSV`, just create
+> file using the DB Adapter called `DBAdapters.DBFileCSV`, just create
 > an instance of the adapter and attach it to the GA Engine:
 >
 > ```
@@ -793,7 +784,7 @@ Here are some snippets to help you.
 
 ### Use the HTTP Post to dump GA statistics
 
-> With the {class}`DBAdapters.DBURLPost`, you can call an URL with the
+> With the `DBAdapters.DBURLPost`, you can call an URL with the
 > population statistics in every generation or at specific generation
 > of the evolution:
 >
@@ -806,11 +797,11 @@ Here are some snippets to help you.
 > every 100 generations. By default, the adapter will use the HTTP POST method to send
 > the parameters, but you can use GET method setting the *post* paramter to *False*.
 >
-> See the mod:`Statistics` and {class}`DBAdapters.DBURLPost` documentation.
+> See the mod:`Statistics` and `DBAdapters.DBURLPost` documentation.
 
-### Using two or more {term}`evaluation function`
+### Using two or more `evaluation function`
 
-> To use two or more {term}`evaluation function`, you can just add all
+> To use two or more `evaluation function`, you can just add all
 > the evaluators to the slot:
 >
 > ```
@@ -821,10 +812,10 @@ Here are some snippets to help you.
 > The resulting raw score of the genome, when evaluated using more than
 > one evaluation function, will be the sum of all returned scores.
 >
-> :::{note}
+> **Note:**
 > the method *set* of the function slot remove all previous
 > functions added to the slot.
-> :::
+
 
 ### Real-time statistics visualization
 
@@ -834,24 +825,22 @@ Here are some snippets to help you.
 > **Console statistics**
 >
 > > You can view the statistics by setting the *freq_stats* parameter
-> > of the {meth}`GSimpleGA.GSimpleGA.evolve` method. It will dump
+> > of the `GSimpleGA.GSimpleGA.evolve` method. It will dump
 > > the statistics in the console.
 >
 > **Using the sqlite3 DB Adapter**
 >
-> > You can use the {class}`DBAdapters.DBSQLite` DB Adapter and set
+> > You can use the `DBAdapters.DBSQLite` DB Adapter and set
 > > the *commit_freq* to a low value, so you can use the Graphical
 > > Plotting Tool of Pyevolve to create graphics while evolving.
 >
 > **Using the VPython DB Adapter**
 >
-> > Use the {class}`DBAdapters.DBVPythonGraph` DB Adapter, this DB
+> > Use the `DBAdapters.DBVPythonGraph` DB Adapter, this DB
 > > Adapter will show four statistical graphs, it is fast and
 > > easy to use.
 
-(snippet_gp_explicit)=
-
-### How to manually add non-terminal functions to Genetic Programming core
+### How to manually add non-terminal functions to Genetic Programming core {#snippet_gp_explicit}
 
 When you set Pyevolve to automatically catch non-terminal functions for your GP
 core you do something like this:
@@ -880,8 +869,8 @@ we have "gp_add" with 2 parameters, "gp_sub" with 2 and "gp_sqrt" with just one.
 ### Passing extra parameters to the individual
 
 Sometimes we want to add extra parameters which we need the individuals must
-carry, in this case, we can use the method {meth}`GenomeBase.GenomeBase.setParams`
-to set internal parameters of the individual and the method {meth}`GenomeBase.GenomeBase.getParam`
+carry, in this case, we can use the method `GenomeBase.GenomeBase.setParams`
+to set internal parameters of the individual and the method `GenomeBase.GenomeBase.getParam`
 to get it's parameters back, see an example:
 
 ```
@@ -895,7 +884,7 @@ def main():
    # (...)
 ```
 
-:::{note}
+::: {.callout-note}
 Due to performance issues, Pyevolve doesn't copy the internal parameters
 into each new created individual, it simple references the original
 parameters, this reduces memory and increases speed.
@@ -913,4 +902,4 @@ ga.setParams(gp_terminals       = ['a', 'b', 'ephemeral:random.randint(1,10)'],
 ```
 
 In this example, the ephemeral constant will be an integer value between 1 and 10. You
-can use any method of the Python {mod}`random` module to specify the ephemeral constant.
+can use any method of the Python `random` module to specify the ephemeral constant.

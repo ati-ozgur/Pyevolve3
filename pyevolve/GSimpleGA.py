@@ -163,11 +163,11 @@ class GSimpleGA(object):
 
         ### Parameters
 
-        - `genome`: the {term}`Sample Genome`
+        - `genome`: the `Sample Genome`
         - `interactiveMode`: this flag enables the Interactive Mode, the default is True
         - `seed`: the random seed value
 
-        :::{note}
+        ::: {.callout-note}
         if you use the same random seed, all the runs of algorithm will be the same
         :::
     """
@@ -268,7 +268,7 @@ class GSimpleGA(object):
             >>> ga_engine(freq_stats=10)
             ```
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The callable method.
             :::
         """
@@ -324,7 +324,7 @@ class GSimpleGA(object):
 
             - `generation`: the generation number, use "-1" to disable
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The *setInteractiveGeneration* method.
             :::
         """
@@ -341,7 +341,7 @@ class GSimpleGA(object):
 
             the generation number or -1 if not set
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The *getInteractiveGeneration* method.
             :::
         """
@@ -355,7 +355,7 @@ class GSimpleGA(object):
 
             - `numreplace`: the number of individuals
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The *setElitismReplacement* method.
             :::
         """
@@ -402,7 +402,7 @@ class GSimpleGA(object):
         """
             Sets the Migration Adapter
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             The `setMigrationAdapter` method.
             :::
         """
@@ -417,9 +417,9 @@ class GSimpleGA(object):
 
             ### Parameters
 
-            - `dbadapter`: one of the {py:mod}`DBAdapters` classes instance
+            - `dbadapter`: one of the `DBAdapters` classes instance
 
-            :::{warning}
+            ::: {.callout-warning}
             the use the of a DB Adapter can reduce the speed performance of the
             Genetic Algorithm.
             :::
@@ -436,7 +436,7 @@ class GSimpleGA(object):
 
             - `size`: the population size
 
-            :::{note}
+            ::: {.callout-note}
             the population size must be >= 2
             :::
         """
@@ -505,7 +505,7 @@ class GSimpleGA(object):
 
             the number of generations
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             Added the *getGenerations* method
             :::
         """
@@ -561,7 +561,7 @@ class GSimpleGA(object):
 
             ### Returns
 
-            a instance from one of the {py:mod}`DBAdapters` classes
+            a instance from one of the `DBAdapters` classes
         """
         return self.dbAdapter
 
@@ -619,7 +619,7 @@ class GSimpleGA(object):
 
             ### Returns
 
-            the population ({py:class}`GPopulation.GPopulation`)
+            the population (`GPopulation.GPopulation`)
         """
         return self.internalPop
 
@@ -629,7 +629,7 @@ class GSimpleGA(object):
 
             ### Returns
 
-            the statistics instance ({py:class}`Statistics.Statistics`)
+            the statistics instance (`Statistics.Statistics`)
         """
         return self.internalPop.getStatistics()
 
@@ -722,7 +722,7 @@ class GSimpleGA(object):
 
             the printed statistics as string
 
-            :::{versionchanged} 0.6
+            ::: {.callout-note title="Changed in version 0.6"}
             The return of *printStats* method.
             :::
         """
@@ -771,7 +771,7 @@ class GSimpleGA(object):
 
             returns the best individual of the evolution
 
-            :::{versionadded} 0.6
+            ::: {.callout-note title="Added in version 0.6"}
             the return of the best individual
             :::
         """

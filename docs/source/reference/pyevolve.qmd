@@ -1,0 +1,11 @@
+# `pyevolve` package
+
+The top-level `pyevolve` namespace contains the framework's main package API.
+It exposes common modules and the `logEnable` helper.
+
+The API reference pages document the package's modules, classes, and functions:
+
+- [Browse all modules](index.qmd)
+- [Core genetic algorithm engine](GSimpleGA.qmd)
+- [Population management](GPopulation.qmd)
+- [Genome representations](representations.GTree.qmd)

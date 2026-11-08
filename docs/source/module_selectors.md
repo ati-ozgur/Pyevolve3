@@ -1,3 +1,3 @@
 # Selectors
 
-See the {doc}`pyevolve.selections.Selectors API reference <apidocs/pyevolve.selections.Selectors/pyevolve.selections.Selectors>`.
+See the [pyevolve.selections.Selectors API reference](reference/selections.Selectors.qmd).

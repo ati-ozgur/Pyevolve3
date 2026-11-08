@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`GenomeBase` -- the genomes base module
+    ## `GenomeBase` -- the genomes base module
 
     This module have the class which every representation extends,
     if you are planning to create a new representation, you must
@@ -71,7 +71,7 @@ class GenomeBase(object):
             >>> genome.setParams(rangemin=0, rangemax=100, gauss_mu=0, gauss_sigma=1)
             ```
 
-            :::{note}
+            ::: {.callout-note}
             All the individuals of the population shares this parameters and uses
             the same instance of this dict.
             :::
@@ -92,7 +92,7 @@ class GenomeBase(object):
             100
             ```
 
-            :::{note}
+            ::: {.callout-note}
             All the individuals of the population shares this parameters and uses
             the same instance of this dict.
             :::
@@ -159,7 +159,7 @@ class GenomeBase(object):
 
             - `g`: the destination genome
 
-            :::{note}
+            ::: {.callout-note}
             If you are planning to create a new chromosome representation, you
             **must** implement this method on your class.
             :::
@@ -180,7 +180,7 @@ class GenomeBase(object):
 
             the clone genome
 
-            :::{note}
+            ::: {.callout-note}
             If you are planning to create a new chromosome representation, you
             **must** implement this method on your class.
             :::

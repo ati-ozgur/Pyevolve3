@@ -1,3 +1,3 @@
 # Statistics
 
-See the {doc}`pyevolve.Statistics API reference <apidocs/pyevolve/pyevolve.Statistics>`.
+See the [pyevolve.Statistics API reference](reference/Statistics.qmd).

@@ -22,7 +22,7 @@ def GTreeInitializatorInteger(genome, **args):
         *method*
            The method, accepts "grow", "full" or "ramped".
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *GTreeInitializatorInteger* function.
         :::
     """
@@ -63,11 +63,11 @@ def GTreeInitializatorAllele(genome, **args):
 
         - `class`: `GAllele.GAlleles` instance.
 
-        :::{warning}
-        the {py:class}`GAllele.GAlleles` instance **must** have the homogeneous flag enabled
+        ::: {.callout-warning}
+        the `GAllele.GAlleles` instance **must** have the homogeneous flag enabled
         :::
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *GTreeInitializatorAllele* function.
         :::
     """
@@ -111,7 +111,7 @@ def GTreeGPInitializator(genome, **args):
         *method*
            The method, accepts "grow", "full" or "ramped"
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *GTreeGPInitializator* function.
         :::
     """

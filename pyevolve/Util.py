@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`Util` -- utility module
+    ## `Util` -- utility module
 
     This is the utility module, with some utility functions of general
     use, like list item swap, random utilities and etc.
@@ -135,7 +135,7 @@ def cmp_individual_raw(a, b):
                 -1 if the B individual raw score is greater than A and
                 1 if the A individual raw score is greater than B.
 
-        :::{note}
+        ::: {.callout-note}
         this function is used to sorte the population individuals
         :::
     """
@@ -166,7 +166,7 @@ def cmp_individual_scaled(a, b):
                 -1 if the B individual fitness score is greater than A and
                 1 if the A individual fitness score is greater than B.
 
-        :::{note}
+        ::: {.callout-note}
         this function is used to sorte the population individuals
         :::
     """
@@ -190,7 +190,7 @@ def importSpecial(name):
 
         the module object
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *import_special* function
         :::
     """
@@ -302,7 +302,7 @@ class Graph(object):
         c
         ```
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *Graph* class.
         :::
     """

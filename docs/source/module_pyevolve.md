@@ -1,51 +1,13 @@
-See the {doc}`pyevolve API reference <apidocs/pyevolve/pyevolve>`.
+# Pyevolve package
 
-# General Modules
+The top-level `pyevolve` package contains the core genetic algorithm engine and
+common utilities. The API reference is organized by module:
 
-Contents:
+- [Core modules](reference/index.qmd#core)
+- [Initializers](reference/index.qmd#initializations)
+- [Genetic operators](reference/index.qmd#genetic-operators)
+- [Representations](reference/index.qmd#representations)
+- [Selection](reference/index.qmd#selection)
 
-```{toctree}
-:maxdepth: 3
-
-module_const
-module_util
-module_interaction
-module_dbadapters
-module_functionslot
-module_statistics
-```
-
-# Genetic Algorithm Core Modules
-
-```{toctree}
-:maxdepth: 3
-
-module_gsimplega
-module_gpopulation
-```
-
-# Genetic Operators Modules
-
-```{toctree}
-:maxdepth: 3
-
-module_mutators
-module_crossovers
-module_initializators
-module_selectors
-module_scaling
-```
-
-# Chromosomes/Representation Modules
-
-```{toctree}
-:maxdepth: 3
-
-module_genomebase
-module_allele
-module_g1dbinarystring
-module_g2dbinarystring
-module_g1dlist
-module_g2dlist
-module_gtree
-```
+See the [package overview](reference/pyevolve.qmd) and the
+[complete API reference](reference/index.qmd).

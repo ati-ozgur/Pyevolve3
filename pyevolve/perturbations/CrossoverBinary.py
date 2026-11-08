@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`Crossovers` -- crossover methods module
+    ## `Crossovers` -- crossover methods module
 
     In this module we have the genetic operators of crossover (or recombination) for each chromosome representation.
 """
@@ -16,7 +16,7 @@ def G1DBinaryStringXSinglePoint(genome, **args):
     """
         The crossover of 1D Binary String, Single Point
 
-        :::{warning}
+        ::: {.callout-warning}
         You can't use this crossover method for binary strings with length of 1.
         :::
     """
@@ -48,7 +48,7 @@ def G1DBinaryStringXTwoPoint(genome, **args):
     """
         The 1D Binary String crossover, Two Point
 
-        :::{warning}
+        ::: {.callout-warning}
         You can't use this crossover method for binary strings with length of 1.
         :::
     """
@@ -108,7 +108,7 @@ def G2DBinaryStringXUniform(genome, **args):
     """
         The G2DBinaryString Uniform Crossover
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *G2DBinaryStringXUniform* function
         :::
     """
@@ -139,7 +139,7 @@ def G2DBinaryStringXSingleVPoint(genome, **args):
     """
         The crossover of G2DBinaryString, Single Vertical Point
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *G2DBinaryStringXSingleVPoint* function
         :::
     """
@@ -169,7 +169,7 @@ def G2DBinaryStringXSingleHPoint(genome, **args):
     """
         The crossover of G2DBinaryString, Single Horizontal Point
 
-        :::{versionadded} 0.6
+        ::: {.callout-note title="Added in version 0.6"}
         The *G2DBinaryStringXSingleHPoint* function
         :::
     """

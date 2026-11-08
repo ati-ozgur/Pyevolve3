@@ -1,7 +1,7 @@
 """
-    ## {py:mod}`Interaction` -- interaction module
+    ## `Interaction` -- interaction module
 
-    In this module, you will find the funcionality for the {term}`Interactive mode`.
+    In this module, you will find the funcionality for the `Interactive mode`.
     When you enter in the Interactive Mode, Pyevolve will automatic import this module
     and exposes to you in the name space called "it".
 
@@ -11,7 +11,7 @@
     - `class`: `GSimpleGA.GSimpleGA`.
 
     You can use the manual method to enter in the Interactive Mode at specific
-    generation using the {py:meth}`GSimpleGA.GSimpleGA.setInteractiveGeneration` method.
+    generation using the `GSimpleGA.GSimpleGA.setInteractiveGeneration` method.
 """
 
 import logging
@@ -42,7 +42,7 @@ def getPopScores(population, fitness=False):
 
         ### Parameters
 
-        - `population`: population object ({py:class}`GPopulation.GPopulation`)
+        - `population`: population object (`GPopulation.GPopulation`)
         - `fitness`: if True, the fitness score will be used, otherwise, the raw.
 
         ### Returns
@@ -66,7 +66,7 @@ def plotPopScore(population, fitness=False):
 
         ### Parameters
 
-        - `population`: population object ({py:class}`GPopulation.GPopulation`)
+        - `population`: population object (`GPopulation.GPopulation`)
         - `fitness`: if True, the fitness score will be used, otherwise, the raw.
 
         ### Returns
@@ -93,7 +93,7 @@ def plotHistPopScore(population, fitness=False):
 
         ### Parameters
 
-        - `population`: population object ({py:class}`GPopulation.GPopulation`)
+        - `population`: population object (`GPopulation.GPopulation`)
         - `fitness`: if True, the fitness score will be used, otherwise, the raw.
 
         ### Returns

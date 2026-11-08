@@ -1,3 +1,3 @@
 # GPopulation
 
-See the {doc}`pyevolve.GPopulation API reference <apidocs/pyevolve/pyevolve.GPopulation>`.
+See the [pyevolve.GPopulation API reference](reference/GPopulation.qmd).

@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`G1DList` -- the 1D list chromosome
+    ## `G1DList` -- the 1D list chromosome
 
     This is the 1D List representation, this list can carry real
     numbers or integers or any kind of object, by default, we have
@@ -10,19 +10,19 @@
 
     *Initializator*
 
-       {py:func}`Initializators.G1DListInitializatorInteger`
+       `Initializators.G1DListInitializatorInteger`
 
        The Integer Initializator for G1DList
 
     *Mutator*
 
-       {py:func}`Mutators.G1DListMutatorSwap`
+       `Mutators.G1DListMutatorSwap`
 
        The Swap Mutator for G1DList
 
     *Crossover*
 
-       {py:func}`Crossovers.G1DListCrossoverSinglePoint`
+       `Crossovers.G1DListCrossoverSinglePoint`
 
        The Single Point Crossover for G1DList
 
@@ -38,12 +38,10 @@ class G1DList(G1DBase):
     """
         G1DList Class - The 1D List chromosome representation
 
-        Inheritance diagram for {py:class}`G1DList.G1DList`:
+        Inheritance diagram: ``G1DList.G1DList``
 
-        :::{inheritance-diagram} pyevolve.representations.G1DList.G1DList
-        :::
 
-        This chromosome class extends the {py:class}`GenomeBase.GenomeBase` class.
+        This chromosome class extends the `GenomeBase.GenomeBase` class.
 
         **Examples**
 

@@ -1,3 +1,3 @@
 # GSimpleGA
 
-See the {doc}`pyevolve.GSimpleGA API reference <apidocs/pyevolve/pyevolve.GSimpleGA>`.
+See the [pyevolve.GSimpleGA API reference](reference/GSimpleGA.qmd).

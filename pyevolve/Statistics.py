@@ -1,5 +1,5 @@
 """
-    ## {py:mod}`Statistics` -- statistical structure module
+    ## `Statistics` -- statistical structure module
 
     This module have the class which is reponsible to keep statistics of each
     generation. This class is used by the adapters and other statistics dump objects.
