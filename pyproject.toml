@@ -56,7 +56,7 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ati-ozgur/Pyevolve3"
+Homepage = "https://ati-ozgur.github.io/Pyevolve3"
 Source = "https://github.com/ati-ozgur/Pyevolve3"
 
 [project.scripts]
