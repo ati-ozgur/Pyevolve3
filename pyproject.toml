@@ -1,3 +1,73 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Pyevolve3"
+dynamic = ["version"]
+description = "A complete, free and open-source genetic algorithms framework written in Python 3. Traveling salesperson problem related optimizations."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["pyevolve/LICENSE.TXT"]
+authors = [
+    { name = "Atilla Özgür" },
+    { name = "Burak Dalkılıç" },
+    { name = "Christian S. Perone" },
+    { name = "Gürkan Er" },
+]
+keywords = [
+    "genetic algorithms",
+    "travelling salesperson problem",
+    "evolutionary",
+    "framework",
+    "ai",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=2.0",
+]
+
+[project.optional-dependencies]
+# Plotting: pyevolve_graph tool and Interaction module
+graph = [
+    "matplotlib>=3.7",
+]
+# Dependencies of the scripts in examples/ (TSP/CVRP experiments)
+examples = [
+    "Pyevolve3[graph]",
+    "tsplib95>=0.7.1",
+    "Pillow>=8.0",
+    "scikit-fuzzy==0.5.0",
+    "scipy==1.13.1; python_version < '3.10'",
+    "scipy==1.15.0; python_version >= '3.10'",
+    "packaging==26.3",
+]
+test = [
+    "pytest",
+    "coverage",
+    "ruff",
+    "flake8",
+]
+
+[project.urls]
+Homepage = "https://github.com/ati-ozgur/Pyevolve3"
+Source = "https://github.com/ati-ozgur/Pyevolve3"
+
+[project.scripts]
+pyevolve_graph = "pyevolve.graph:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "pyevolve.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["pyevolve", "pyevolve.*"]
+
 [tool.ruff]
 line-length = 120
 

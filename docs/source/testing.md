@@ -1,15 +1,15 @@
 # Running Pyevolve tests
 
-1. Install appropriate packages with:
+1. Install the package with its test dependencies (from the repository root):
 
    ```
-   pip install -r requirements_test.txt
+   pip install -e ".[test]"
    ```
 
 2. Run tests with coverage:
 
    ```
-   coverage run runtests.py
+   coverage run -m pytest
    ```
 
 3. Create coverage report and it's html presentation:

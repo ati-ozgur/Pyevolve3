@@ -4,9 +4,34 @@ This project started as Python 3 version of pyevolve.
 But right now, more focus is given to more genetic algorithm operators, especially those special operators which works for TSP (Traveling Salesperson Problem).
 
 
-## Installation 
+## Installation
 
 	python -m pip install git+https://github.com/ati-ozgur/Pyevolve3.git
+
+Optional extras:
+
+- `graph`: matplotlib, for the `pyevolve_graph` plotting tool and interactive plots
+- `examples`: everything the scripts in `examples/` need (tsplib95, Pillow, scipy, scikit-fuzzy, matplotlib)
+- `test`: pytest, coverage, ruff, flake8
+
+Extras are given in brackets before the git URL (keep the quotes, shells like zsh treat `[...]` as a glob):
+
+	# one extra, e.g. to run the examples
+	python -m pip install "Pyevolve3[examples] @ git+https://github.com/ati-ozgur/Pyevolve3.git"
+
+	# several extras
+	python -m pip install "Pyevolve3[graph,test] @ git+https://github.com/ati-ozgur/Pyevolve3.git"
+
+	# a specific branch, tag or commit
+	python -m pip install "Pyevolve3[examples] @ git+https://github.com/ati-ozgur/Pyevolve3.git@master"
+
+In a `requirements.txt` file the same form is used without quotes:
+
+	Pyevolve3[examples] @ git+https://github.com/ati-ozgur/Pyevolve3.git
+
+For development, from a clone of the repository:
+
+	python -m pip install -e ".[test,examples]"
 
 ## Python support
 

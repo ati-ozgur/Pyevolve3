@@ -7,12 +7,13 @@ python plotting library called Matplotlib.
 [requirements](intro.md#requirements) section.
 :::
 
-You can find the Pyevolve plotting tool in your python Scripts directory, the
-tool is named **pyevolve_graph.py**.
+The plotting tool is installed as the **pyevolve_graph** command. It needs
+Matplotlib, which you can install with `pip install "Pyevolve3[graph]"`.
+You can also run it as `python -m pyevolve.graph`.
 
 ## Graphical Plotting Tool Options
 
-**pyevolve_graph.py**, installed in `\\Python2{x}\\Scripts\\pyevolve_graph.py`.
+**pyevolve_graph**
 
 This is the documentation you get by calling the *--help* option:
 

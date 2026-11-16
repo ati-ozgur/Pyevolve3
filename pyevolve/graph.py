@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # This code is part of Pyevolve.
 # It requires matplotlib
 from __future__ import print_function
@@ -362,7 +360,8 @@ def graph_compare_fitness(pop, minimize, id_list, filesave=None):
         pylab.show()
 
 
-if __name__ == "__main__":
+def main():
+    global options
     from pyevolve import __version__ as pyevolve_version
     from pyevolve import __author__ as pyevolve_author
 
@@ -645,3 +644,7 @@ if __name__ == "__main__":
                                       options.outfile + "." + options.extension)
         else:
             graph_pop_heatmap_fitness(pop, options.minimize, options.colormap)
+
+
+if __name__ == "__main__":
+    main()
