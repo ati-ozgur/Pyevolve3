@@ -7,41 +7,55 @@ from optparse import OptionParser
 from optparse import OptionGroup
 import os
 import os.path
-from sys import exit
 import matplotlib
-import matplotlib.cm
 import pylab
 import sqlite3
 
 
+# Backends that cannot open a window (e.g. Google Colab / Jupyter when the tool
+# is run as a shell command with "!pyevolve_graph", or any server without a display).
+_NON_INTERACTIVE_BACKENDS = {"agg", "cairo", "pdf", "pgf", "ps", "svg", "template"}
+
+
+def _show_or_save(filesave, default_name):
+    """Save the current figure to *filesave*, or show it.
+
+    When no file name is given but matplotlib has no way to display a window
+    (headless backend), the figure is saved to ``pyevolve_<default_name>.png``
+    instead of being silently discarded.
+    """
+    if not filesave and matplotlib.get_backend().lower() in _NON_INTERACTIVE_BACKENDS:
+        filesave = "pyevolve_%s.png" % (default_name,)
+        print("No display available, saving the graph instead (use -o to choose the file name).")
+
+    if filesave:
+        pylab.savefig(filesave)
+        print("Graph saved to %s file !" % (filesave,))
+    else:
+        pylab.show()
+    pylab.close()
+
+
 def graph_pop_heatmap_raw(pop, minimize, colormap="jet", filesave=None):
-    pylab.imshow(pop, aspect="auto", interpolation="gaussian", cmap=matplotlib.cm.get_cmap(colormap))
+    pylab.imshow(pop, aspect="auto", interpolation="gaussian", cmap=matplotlib.colormaps[colormap])
     pylab.title("Plot of pop. raw scores along the generations")
     pylab.xlabel('Population')
     pylab.ylabel('Generations')
     pylab.grid(True)
     pylab.colorbar()
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "pop_heatmap_raw")
 
 
 def graph_pop_heatmap_fitness(pop, minimize, colormap="jet", filesave=None):
-    pylab.imshow(pop, aspect="equal", interpolation="gaussian", cmap=matplotlib.cm.get_cmap(colormap))
+    pylab.imshow(pop, aspect="equal", interpolation="gaussian", cmap=matplotlib.colormaps[colormap])
     pylab.title("Plot of pop. fitness scores along the generations")
     pylab.xlabel('Population')
     pylab.ylabel('Generations')
     pylab.grid(True)
     pylab.colorbar()
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "pop_heatmap_fitness")
 
 
 def graph_diff_raw(pop, minimize, filesave=None):
@@ -93,11 +107,7 @@ def graph_diff_raw(pop, minimize, filesave=None):
     pylab.grid(True)
     pylab.legend(prop=FontProperties(size="smaller"))
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "diff_raw")
 
 
 def graph_maxmin_raw(pop, minimize, filesave=None):
@@ -163,11 +173,7 @@ def graph_maxmin_raw(pop, minimize, filesave=None):
     pylab.grid(True)
     pylab.legend(prop=FontProperties(size="smaller"))
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "maxmin_raw")
 
 
 def graph_maxmin_fitness(pop, minimize, filesave=None):
@@ -214,11 +220,7 @@ def graph_maxmin_fitness(pop, minimize, filesave=None):
     pylab.grid(True)
     pylab.legend(prop=FontProperties(size="smaller"))
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "maxmin_fitness")
 
 
 def graph_errorbars_raw(pop, minimize, filesave=None):
@@ -243,11 +245,7 @@ def graph_errorbars_raw(pop, minimize, filesave=None):
     pylab.title("Plot of evolution identified by '%s' (raw scores)" % (options.identify))
     pylab.grid(True)
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "errorbars_raw")
 
 
 def graph_errorbars_fitness(pop, minimize, filesave=None):
@@ -273,11 +271,7 @@ def graph_errorbars_fitness(pop, minimize, filesave=None):
 
     pylab.grid(True)
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "errorbars_fitness")
 
 
 def graph_compare_raw(pop, minimize, id_list, filesave=None):
@@ -313,11 +307,7 @@ def graph_compare_raw(pop, minimize, id_list, filesave=None):
     pylab.grid(True)
     pylab.legend(prop=FontProperties(size="smaller"))
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "compare_raw")
 
 
 def graph_compare_fitness(pop, minimize, id_list, filesave=None):
@@ -353,14 +343,16 @@ def graph_compare_fitness(pop, minimize, id_list, filesave=None):
     pylab.grid(True)
     pylab.legend(prop=FontProperties(size="smaller"))
 
-    if filesave:
-        pylab.savefig(filesave)
-        print("Graph saved to %s file !" % (filesave,))
-    else:
-        pylab.show()
+    _show_or_save(filesave, "compare_fitness")
 
 
-def main():
+def main(argv=None):
+    """Command line entry point.
+
+    ``argv`` is a list of arguments (without the program name); when ``None``
+    the arguments are read from ``sys.argv``. This allows calling the tool from
+    Python or a notebook, e.g. ``main(["-i", "ex1", "-1"])``.
+    """
     global options
     from pyevolve import __version__ as pyevolve_version
     from pyevolve import __author__ as pyevolve_author
@@ -369,7 +361,7 @@ def main():
 
     print("Pyevolve %s - Graph Plot Tool" % (pyevolve_version,))
     print("By %s\n" % (pyevolve_author,))
-    parser = OptionParser()
+    parser = OptionParser(prog="pyevolve_graph")
 
     parser.add_option("-f", "--file", dest="dbfile",
                       help="Database file to read (default is 'pyevolve.db').",
@@ -437,7 +429,7 @@ def main():
 
     parser.add_option_group(group)
 
-    (options, args) = parser.parse_args()
+    (options, args) = parser.parse_args(argv)
 
     if options.identify and (not options.errorbars_raw and not options.errorbars_fitness and not
                              options.maxmin_raw and not options.maxmin_fitness and not options.diff_raw and not
@@ -447,13 +439,13 @@ def main():
 
     if (not options.identify) or (not options.dbfile):
         parser.print_help()
-        exit()
+        return
 
     print("Loading modules....")
 
     if not os.path.exists(options.dbfile):
         print("Database file '%s' not found !" % (options.dbfile, ))
-        exit()
+        return
 
     print("Loading database and creating graph...")
 
@@ -478,7 +470,7 @@ def main():
         generations = ret.fetchall()
         if len(generations) <= 0:
             print("No generation data found for the identify '%s' !" % (options.identify,))
-            exit()
+            return
 
         pop = []
         for gen in generations:
@@ -512,7 +504,7 @@ def main():
 
         if len(pop) <= 0:
             print("No statistic data found for the identify '%s' !" % (options.identify,))
-            exit()
+            return
 
         print("%d generations found !" % (len(pop),))
 
@@ -540,7 +532,7 @@ def main():
 
         if len(pop) <= 0:
             print("No statistic data found for the identify '%s' !" % (options.identify,))
-            exit()
+            return
 
         print("%d generations found !" % (len(pop),))
 
@@ -568,7 +560,7 @@ def main():
 
         if len(pop) <= 0:
             print("No statistic data found for the identify list '%s' !" % (options.identify,))
-            exit()
+            return
 
         print("%d identify found !" % (len(pop),))
 

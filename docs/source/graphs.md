@@ -11,6 +11,21 @@ The plotting tool is installed as the **pyevolve_graph** command. It needs
 Matplotlib, which you can install with `pip install "Pyevolve3[graph]"`.
 You can also run it as `python -m pyevolve.graph`.
 
+### Google Colab / Jupyter
+
+In a notebook you can call the tool from Python, so the graph shows inline
+below the cell:
+
+```python
+from pyevolve.graph import main as pyevolve_graph
+pyevolve_graph(["-i", "ex1", "-1"])
+```
+
+If you run it as a shell command (`!pyevolve_graph -i ex1 -1`), it runs without
+a display. In that case the graph is saved to a file (`pyevolve_<graph>.png`, or
+the name given with `-o`) instead of shown. You can view the file with
+`from IPython.display import Image; Image("pyevolve_errorbars_raw.png")`.
+
 ## Graphical Plotting Tool Options
 
 **pyevolve_graph**
