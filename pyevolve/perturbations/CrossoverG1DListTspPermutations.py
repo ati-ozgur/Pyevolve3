@@ -206,6 +206,28 @@ def G1DListCrossoverPMX(genome, **args):
     return (sister, brother)
 
 
+def _cycle_child(p1, p2):
+    """Build one CX child: copy whole cycles alternately from ``p1`` and ``p2``, starting with ``p1``.
+
+    The parents' lists are only read; the alternation swaps local references.
+    """
+    child = _empty_child(p1)
+    source, other = p1.genomeList, p2.genomeList
+    while None in child.genomeList:
+        ind = child.genomeList.index(None)
+        indices = []
+        values = []
+        while ind not in indices:
+            val = source[ind]
+            indices.append(ind)
+            values.append(val)
+            ind = source.index(other[ind])
+        for ind, val in zip(indices, values):
+            child.genomeList[ind] = val
+        source, other = other, source
+    return child
+
+
 def G1DListCrossoverCycle(genome, **args):
     """
         The Cycle Crossover CX for G1DList  (Cycle Crossover CX)
@@ -219,38 +241,10 @@ def G1DListCrossoverCycle(genome, **args):
     gDad = args["dad"]
 
     if args["count"] >= 1:
-        sister = gMom.clone()
-        sister.resetStats()
-        sister.genomeList = [None] * len(gMom.genomeList)
-        while None in sister.genomeList:
-            ind = sister.genomeList.index(None)
-            indices = []
-            values = []
-            while ind not in indices:
-                val = gMom.genomeList[ind]
-                indices.append(ind)
-                values.append(val)
-                ind = gMom.genomeList.index(gDad.genomeList[ind])
-            for ind, val in zip(indices, values):
-                sister.genomeList[ind] = val
-            gMom.genomeList, gDad.genomeList = gDad.genomeList, gMom.genomeList
+        sister = _cycle_child(gMom, gDad)
 
     if args["count"] == 2:
-        brother = gDad.clone()
-        brother.resetStats()
-        brother.genomeList = [None] * len(gDad.genomeList)
-        while None in brother.genomeList:
-            ind = brother.genomeList.index(None)
-            indices = []
-            values = []
-            while ind not in indices:
-                val = gDad.genomeList[ind]
-                indices.append(ind)
-                values.append(val)
-                ind = gDad.genomeList.index(gMom.genomeList[ind])
-            for ind, val in zip(indices, values):
-                brother.genomeList[ind] = val
-            gDad.genomeList, gMom.genomeList = gMom.genomeList, gDad.genomeList
+        brother = _cycle_child(gDad, gMom)
 
     checkTspListIntegrity(gMom, gDad, sister, brother)
 
@@ -554,7 +548,7 @@ def G1DListCrossoverGreedy(genome, **args):  # noqa: C901
 
             mom_edge = distance_matrix_list[gMom.genomeList[c1 % listSize]][gMom.genomeList[(c1 + 1) % listSize]]
             dad_edge = distance_matrix_list[gDad.genomeList[c2 % listSize]][gDad.genomeList[(c2 + 1) % listSize]]
-            if mom_edge > dad_edge:
+            if mom_edge < dad_edge:
 
                 bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize])
@@ -594,52 +588,53 @@ def G1DListCrossoverGreedy(genome, **args):  # noqa: C901
         brother = gDad.clone()
         brother.resetStats()
         brother.genomeList = [None] * len(gMom.genomeList)
-        gMom.genomeList.reverse()
-        gDad.genomeList.reverse()
+        # Walk both tours backwards; reversed copies keep the parents untouched
+        mom_list = gMom.genomeList[::-1]
+        dad_list = gDad.genomeList[::-1]
         c1 = c1Inital
-        c2 = findIndex(gDad.genomeList, gMom.genomeList[c1])
-        brother.genomeList[0] = gMom.genomeList[c1]
+        c2 = findIndex(dad_list, mom_list[c1])
+        brother.genomeList[0] = mom_list[c1]
         k = 1
 
         while None in brother.genomeList:
 
-            mom_edge = distance_matrix_list[gMom.genomeList[c1 % listSize]][gMom.genomeList[(c1 + 1) % listSize]]
-            dad_edge = distance_matrix_list[gDad.genomeList[c2 % listSize]][gDad.genomeList[(c2 + 1) % listSize]]
+            mom_edge = distance_matrix_list[mom_list[c1 % listSize]][mom_list[(c1 + 1) % listSize]]
+            dad_edge = distance_matrix_list[dad_list[c2 % listSize]][dad_list[(c2 + 1) % listSize]]
             if mom_edge < dad_edge:
 
-                bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize])
-                bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize])
+                bool1 = findIndex(brother.genomeList, mom_list[(c1 + 1) % listSize])
+                bool2 = findIndex(brother.genomeList, dad_list[(c2 + 1) % listSize])
 
                 if bool1 is None:
-                    brother.genomeList[k] = gMom[(c1 + 1) % listSize]
-                    c1 = findIndex(gMom.genomeList, brother.genomeList[k])
-                    c2 = findIndex(gDad.genomeList, brother.genomeList[k])
+                    brother.genomeList[k] = mom_list[(c1 + 1) % listSize]
+                    c1 = findIndex(mom_list, brother.genomeList[k])
+                    c2 = findIndex(dad_list, brother.genomeList[k])
                     k = k + 1
                 elif bool2 is None:
-                    brother.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize]
-                    c1 = findIndex(gMom.genomeList, brother.genomeList[k])
-                    c2 = findIndex(gDad.genomeList, brother.genomeList[k])
+                    brother.genomeList[k] = dad_list[(c2 + 1) % listSize]
+                    c1 = findIndex(mom_list, brother.genomeList[k])
+                    c2 = findIndex(dad_list, brother.genomeList[k])
                     k = k + 1
                 else:
                     c1 = c1 + 1
-                    c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize])
+                    c2 = findIndex(dad_list, mom_list[c1 % listSize])
             else:
-                bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize])
-                bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize])
+                bool1 = findIndex(brother.genomeList, mom_list[(c1 + 1) % listSize])
+                bool2 = findIndex(brother.genomeList, dad_list[(c2 + 1) % listSize])
 
                 if bool2 is None:
-                    brother.genomeList[k] = gDad.genomeList[(c2 + 1) % listSize]
-                    c1 = findIndex(gMom.genomeList, brother.genomeList[k])
-                    c2 = findIndex(gDad.genomeList, brother.genomeList[k])
+                    brother.genomeList[k] = dad_list[(c2 + 1) % listSize]
+                    c1 = findIndex(mom_list, brother.genomeList[k])
+                    c2 = findIndex(dad_list, brother.genomeList[k])
                     k = k + 1
                 elif bool1 is None:
-                    brother.genomeList[k] = gMom.genomeList[(c1 + 1) % listSize]
-                    c1 = findIndex(gMom.genomeList, brother.genomeList[k])
-                    c2 = findIndex(gDad.genomeList, brother.genomeList[k])
+                    brother.genomeList[k] = mom_list[(c1 + 1) % listSize]
+                    c1 = findIndex(mom_list, brother.genomeList[k])
+                    c2 = findIndex(dad_list, brother.genomeList[k])
                     k = k + 1
                 else:
                     c1 = c1 + 1
-                    c2 = findIndex(gDad.genomeList, gMom.genomeList[c1 % listSize])
+                    c2 = findIndex(dad_list, mom_list[c1 % listSize])
 
     checkTspListIntegrity(gMom, gDad, sister, brother)
 
@@ -764,7 +759,7 @@ def G1DListCrossoverIGX(genome, **args):  # noqa: C901
                         mindistance = val
                         vertice = candidateslist[i]
                     else:
-                        if val > mindistance:
+                        if val < mindistance:
                             mindistance = val
                             vertice = candidateslist[i]
 
