@@ -197,7 +197,7 @@ def GTreeMutatorRealGaussian(genome, **args):
 
 # Tree GP
 
-def GTreeGPMutatorOperation(genome, **args):
+def GTreeGPMutatorOperation(genome, **args):  # noqa: C901
     """
         The mutator of GTreeGP, Operation Mutator
 

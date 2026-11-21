@@ -71,7 +71,7 @@ def GTreeCrossoverSinglePoint(genome, **args):
     return (sister, brother)
 
 
-def GTreeCrossoverSinglePointStrict(genome, **args):
+def GTreeCrossoverSinglePointStrict(genome, **args):  # noqa: C901
     """ The crossover of Tree, Strict Single Point
 
     ..note:: This crossover method creates offspring with restriction of the
@@ -173,7 +173,7 @@ def GTreeCrossoverSinglePointStrict(genome, **args):
 
 # GTreeGP Crossovers
 
-def GTreeGPCrossoverSinglePoint(genome, **args):
+def GTreeGPCrossoverSinglePoint(genome, **args):  # noqa: C901
     """ The crossover of the GTreeGP, Single Point for Genetic Programming
 
     ..note:: This crossover method creates offspring with restriction of the

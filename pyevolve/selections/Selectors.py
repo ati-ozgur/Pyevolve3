@@ -136,7 +136,7 @@ GRouletteWheel.cachePopID = None
 GRouletteWheel.cacheWheel = None
 
 
-def GRouletteWheel_PrepareWheel(population):
+def GRouletteWheel_PrepareWheel(population):  # noqa: C901
     """
         A preparation for Roulette Wheel selection
     """

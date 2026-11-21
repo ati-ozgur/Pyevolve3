@@ -3,8 +3,6 @@ from random import randint as rand_randint
 from ..representations.G1DList import G1DList
 import numpy as np
 
-from .MutatorG1DList import G1DListMutatorSwap
-
 
 # TODO why two functions with the same name in two files
 def G1DListMutatorSwap(genome: G1DList, **args):

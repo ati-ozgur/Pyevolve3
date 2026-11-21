@@ -258,7 +258,8 @@ def evolve_callback_xy(ga_engine):
             image_filename_digit_count = (
                 int(math.floor(math.log10(max_generation_count))) + 1
             )
-            image_filename = f"{image_directory}/tsp_result_{experiment_name}_{current_generation:0{image_filename_digit_count}}.png"
+            generation_str = f"{current_generation:0{image_filename_digit_count}}"
+            image_filename = f"{image_directory}/tsp_result_{experiment_name}_{generation_str}.png"
             write_tour_to_img(coordinates, best, image_filename, max_generation_count)
             last_score = best.getRawScore()
             ga_engine.setParam("last_score", last_score)
@@ -302,7 +303,7 @@ def get_coordinates_for_random_cities(
     return coordinates
 
 
-def run_tsp(
+def run_tsp(  # noqa: C901
     problem_name: str,
     random_cities_info: Optional[dict] = None,
     max_generation_count=100,
@@ -435,7 +436,9 @@ def run_tsp(
     duration = end - start
     print("duration:", duration)
 
-    log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, duration, best)
+    log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method,
+                   initialization_method, results_directory, log_experiments, experiment_name, genome, ga,
+                   duration, best)
     could_save_tsp_image = coordinates is not None and PIL_SUPPORT
     if could_save_tsp_image:
         image_directory.mkdir(parents=True, exist_ok=True)
@@ -448,7 +451,9 @@ def run_tsp(
         print("No coordinates or No PIL detected, cannot plot the graph !")
 
 
-def log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method, initialization_method, results_directory, log_experiments, experiment_name, genome, ga, duration, best):
+def log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method,
+                   initialization_method, results_directory, log_experiments, experiment_name, genome, ga,
+                   duration, best):
     if log_experiments:
         results_directory.mkdir(parents=True, exist_ok=True)
         experiment_name_bytes = experiment_name.encode("utf-8")

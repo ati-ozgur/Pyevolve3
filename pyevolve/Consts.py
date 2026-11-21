@@ -3,7 +3,8 @@
 
     Pyevolve have defaults in all genetic operators, settings and etc, this is an issue to helps the user in the API use
     and minimize the source code needed to make simple things. In the module `Consts`, you will find those defaults
-    settings. You are encouraged to see the constants, but not to change directly on the module, there are methods for this.
+    settings. You are encouraged to see the constants, but not to change directly on the module,
+    there are methods for this.
 
     ### General constants
 

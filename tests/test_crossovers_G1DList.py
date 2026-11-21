@@ -2,7 +2,12 @@ from unittest.mock import patch
 
 from pyevolve.representations.G1DList import G1DList
 
-from pyevolve.perturbations.CrossoverG1DList import G1DListCrossoverRealSBX, G1DListCrossoverSinglePoint, G1DListCrossoverTwoPoint, G1DListCrossoverUniform
+from pyevolve.perturbations.CrossoverG1DList import (
+    G1DListCrossoverRealSBX,
+    G1DListCrossoverSinglePoint,
+    G1DListCrossoverTwoPoint,
+    G1DListCrossoverUniform,
+)
 
 from .test_crossovers import CrossoverTestCase
 

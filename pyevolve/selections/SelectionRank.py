@@ -72,7 +72,8 @@ def SelectorLinearRanking(population: GPopulation, **args):
 
         prob_weights = []
         for i in prob_counts:
-            prob_weights.append((2 - selection_pressure) / popSize + (2 * i * (selection_pressure - 1) / (popSize * (popSize - 1))))
+            prob_weights.append((2 - selection_pressure) / popSize
+                                + (2 * i * (selection_pressure - 1) / (popSize * (popSize - 1))))
         SelectorLinearRanking.cachePopID = args["popID"]
         SelectorLinearRanking.probabilityWeights = prob_weights
 

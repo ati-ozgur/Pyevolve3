@@ -2,7 +2,11 @@ from unittest.mock import patch
 
 from itertools import cycle
 
-from pyevolve.perturbations.CrossoverG2DList import G2DListCrossoverSingleHPoint, G2DListCrossoverSingleVPoint, G2DListCrossoverUniform
+from pyevolve.perturbations.CrossoverG2DList import (
+    G2DListCrossoverSingleHPoint,
+    G2DListCrossoverSingleVPoint,
+    G2DListCrossoverUniform,
+)
 from pyevolve.representations.G2DList import G2DList
 
 

@@ -146,7 +146,7 @@ def G1DListCrossoverCutCrossfill(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverPMX(genome, **args):
+def G1DListCrossoverPMX(genome, **args):  # noqa: C901
     """ The PMX Crossover for G1DList  (Partially Mapped Crossover)
     proposed by Goldberg, David E. and Lingle, Robert in
     Alleles Loci and the Traveling Salesman Problem in 1985
@@ -260,7 +260,7 @@ def G1DListCrossoverCycle(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverOX2(genome, **args):
+def G1DListCrossoverOX2(genome, **args):  # noqa: C901
     """
         Order-based (OX2) Crossover for G1DList  (Order-based (OX2) Crossover)
 
@@ -327,7 +327,7 @@ def G1DListCrossoverOX2(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverPOS(genome, **args):
+def G1DListCrossoverPOS(genome, **args):  # noqa: C901
     """
         Position-Based crossover (POS) Crossover for G1DList  (Position-Based (POS) Crossover)
 
@@ -418,7 +418,7 @@ def G1DListCrossoverPOS(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverMPX(genome, **args):
+def G1DListCrossoverMPX(genome, **args):  # noqa: C901
     """
         Maximal Preservative Crossover (MPX) for G1DList  (Maximal Preservative (MPX) Crossover)
 
@@ -519,7 +519,7 @@ def G1DListCrossoverMPX(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverEPMX(genome, **args):
+def G1DListCrossoverEPMX(genome, **args):  # noqa: C901
     """
         The Extended PMX Crossover for G1DList  (Extended Partially Mapped Crossover)
 
@@ -587,7 +587,7 @@ def G1DListCrossoverEPMX(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverGreedy(genome, **args):
+def G1DListCrossoverGreedy(genome, **args):  # noqa: C901
     """
         The Greedy Crossover(GX) for G1DList  (Greedy Crossover)
 
@@ -618,7 +618,9 @@ def G1DListCrossoverGreedy(genome, **args):
 
         while None in sister.genomeList:
 
-            if distance_matrix_list[gMom.genomeList[c1 % listSize]][gMom.genomeList[(c1 + 1) % listSize]] > distance_matrix_list[gDad.genomeList[c2 % listSize]][gDad.genomeList[(c2 + 1) % listSize]]:
+            mom_edge = distance_matrix_list[gMom.genomeList[c1 % listSize]][gMom.genomeList[(c1 + 1) % listSize]]
+            dad_edge = distance_matrix_list[gDad.genomeList[c2 % listSize]][gDad.genomeList[(c2 + 1) % listSize]]
+            if mom_edge > dad_edge:
 
                 bool1 = findIndex(sister.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(sister.genomeList, gDad.genomeList[(c2 + 1) % listSize])
@@ -667,7 +669,9 @@ def G1DListCrossoverGreedy(genome, **args):
 
         while None in brother.genomeList:
 
-            if distance_matrix_list[gMom.genomeList[c1 % listSize]][gMom.genomeList[(c1 + 1) % listSize]] < distance_matrix_list[gDad.genomeList[c2 % listSize]][gDad.genomeList[(c2 + 1) % listSize]]:
+            mom_edge = distance_matrix_list[gMom.genomeList[c1 % listSize]][gMom.genomeList[(c1 + 1) % listSize]]
+            dad_edge = distance_matrix_list[gDad.genomeList[c2 % listSize]][gDad.genomeList[(c2 + 1) % listSize]]
+            if mom_edge < dad_edge:
 
                 bool1 = findIndex(brother.genomeList, gMom.genomeList[(c1 + 1) % listSize])
                 bool2 = findIndex(brother.genomeList, gDad.genomeList[(c2 + 1) % listSize])
@@ -708,7 +712,7 @@ def G1DListCrossoverGreedy(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverIGX(genome, **args):
+def G1DListCrossoverIGX(genome, **args):  # noqa: C901
     """
         The Improved Greedy Crossover(IGX) for G1DList  (Improved Greedy Crossover)
 
@@ -892,7 +896,8 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
         childChromosome = [gMom.genomeList[0]]
         sister.genomeList[0] = gMom.genomeList[0]
         while None in sister.genomeList:
-            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(childChromosome, gMom.genomeList, p, distance_matrix_list), getNextLegitimateNode(childChromosome, gDad.genomeList, p, distance_matrix_list))
+            nodeAlfa = getNextLegitimateNode(childChromosome, gMom.genomeList, p, distance_matrix_list)
+            nodeBeta = getNextLegitimateNode(childChromosome, gDad.genomeList, p, distance_matrix_list)
             p = (nodeBeta, nodeAlfa)[distance_matrix_list[p][nodeAlfa] < distance_matrix_list[p][nodeBeta]]
             childChromosome.append(p)
             sister.genomeList[count] = childChromosome[count]
@@ -910,7 +915,8 @@ def G1DListCrossoverSequentialConstructive(genome, **args):
         brother.genomeList[0] = gDad.genomeList[0]
         count = 1
         while None in brother.genomeList:
-            (nodeAlfa, nodeBeta) = (getNextLegitimateNode(childChromosome, gMom.genomeList, p, distance_matrix_list), getNextLegitimateNode(childChromosome, gDad.genomeList, p, distance_matrix_list))
+            nodeAlfa = getNextLegitimateNode(childChromosome, gMom.genomeList, p, distance_matrix_list)
+            nodeBeta = getNextLegitimateNode(childChromosome, gDad.genomeList, p, distance_matrix_list)
             p = (nodeBeta, nodeAlfa)[distance_matrix_list[p][nodeAlfa] < distance_matrix_list[p][nodeBeta]]
             childChromosome.append(p)
             brother.genomeList[count] = childChromosome[count]

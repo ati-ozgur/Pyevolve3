@@ -100,7 +100,7 @@ def G1DListCrossoverUniform(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverRealSBX(genome, **args):
+def G1DListCrossoverRealSBX(genome, **args):  # noqa: C901
     """
         Experimental SBX Implementation - Follows the implementation in NSGA-II (Deb, et.al)
 

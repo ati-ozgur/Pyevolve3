@@ -3,7 +3,11 @@ from itertools import cycle
 from unittest.mock import patch
 
 
-from pyevolve.perturbations.CrossoverBinary import G2DBinaryStringXSingleHPoint, G2DBinaryStringXSingleVPoint, G2DBinaryStringXUniform
+from pyevolve.perturbations.CrossoverBinary import (
+    G2DBinaryStringXSingleHPoint,
+    G2DBinaryStringXSingleVPoint,
+    G2DBinaryStringXUniform,
+)
 from pyevolve.representations.G2DBinaryString import G2DBinaryString
 
 from .test_crossovers import CrossoverTestCase

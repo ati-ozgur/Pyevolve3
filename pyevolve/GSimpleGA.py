@@ -1,4 +1,3 @@
-from __future__ import print_function
 """
 
 :mod:`GSimpleGA` -- the genetic algorithm by itself
@@ -633,7 +632,7 @@ class GSimpleGA(object):
         """
         return self.internalPop.getStatistics()
 
-    def step(self):
+    def step(self):  # noqa: C901
         """
             Just do one step in evolution, one generation
         """
@@ -751,7 +750,7 @@ class GSimpleGA(object):
         self.internalPop.statistics()
         self.dbAdapter.insert(self)
 
-    def evolve(self, freq_stats=0):
+    def evolve(self, freq_stats=0):  # noqa: C901
         """
             Do all the generations until the termination criteria, accepts
             the freq_stats (default is 0) to dump statistics at n-generation
