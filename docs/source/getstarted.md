@@ -148,7 +148,6 @@ print ga.bestIndividual()
 
 ## Next steps
 
-- [The Interactive Mode](interactive_mode.md)
 - [Extending Pyevolve](extending.md)
 - [Genetic Programming Tutorial](gp_tutorial.md)
 - [Snippets](snippets.md)
