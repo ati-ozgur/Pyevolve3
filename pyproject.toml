@@ -38,18 +38,22 @@ dependencies = [
 graph = [
     "matplotlib>=3.7",
 ]
-# Dependencies of the scripts in examples/ (TSP/CVRP experiments)
-examples = [
-    "Pyevolve3[graph]",
+# pyevolve.planning: TSP/CVRP datasets and experiment harnesses
+planning = [
     "tsplib95>=0.7.1",
     "Pillow>=8.0",
     "scikit-fuzzy==0.5.0",
     "scipy==1.13.1; python_version < '3.10'",
     "scipy==1.15.0; python_version >= '3.10'",
-    "packaging==26.3",
+    "packaging==26.3",  # scikit-fuzzy imports it without declaring it
+]
+# Dependencies of the scripts in examples/ (TSP/CVRP experiments)
+examples = [
+    "Pyevolve3[graph,planning]",
 ]
 test = [
     "pytest",
+    "tsplib95>=0.7.1",
     "coverage",
     "ruff",
     "flake8",
@@ -67,6 +71,10 @@ version = { attr = "pyevolve.__version__" }
 
 [tool.setuptools.packages.find]
 include = ["pyevolve", "pyevolve.*"]
+
+# Bundled TSPLIB and CVRP instances (loaded via importlib.resources)
+[tool.setuptools.package-data]
+"pyevolve.planning" = ["data/tsp/*.tsp", "data/tsp/*.tour", "data/vrp/*/*.vrp"]
 
 [tool.ruff]
 line-length = 120

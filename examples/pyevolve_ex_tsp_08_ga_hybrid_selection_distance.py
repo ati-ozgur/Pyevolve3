@@ -1,6 +1,6 @@
-from helper_tsp import crossover_methods, dict_crossoever_operators
-from helper_tsp import get_distance_matrixes_from_tsp_problem
-from helper_tsp_selector import run_experiment_series, run_selector_ga
+from pyevolve.planning import crossover_methods, dict_crossoever_operators
+from pyevolve.planning import get_distance_matrixes_from_tsp_problem
+from pyevolve.planning.selector_helper import run_experiment_series, run_selector_ga
 
 
 GENERATION_COUNT = 3

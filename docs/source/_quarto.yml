@@ -125,3 +125,9 @@ quartodoc:
       contents:
         - selections.SelectionRank
         - selections.Selectors
+    - title: Planning (TSP / CVRP)
+      contents:
+        - planning.datasets
+        - planning.tsp_helper
+        - planning.selector_helper
+        - planning.cvrp

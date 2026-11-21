@@ -1,9 +1,10 @@
-import os
-
-import tsplib95
-
-from helper_tsp import crossover_methods, dict_crossoever_operators, get_distance_matrixes_from_coordinates
-from helper_tsp_selector import run_experiment_series, run_selector_ga
+from pyevolve.planning import (
+    crossover_methods,
+    dict_crossoever_operators,
+    get_distance_matrixes_from_coordinates,
+    load_tsp_problem,
+)
+from pyevolve.planning.selector_helper import run_experiment_series, run_selector_ga
 
 
 GENERATION_COUNT = 3
@@ -11,8 +12,7 @@ STRATEGY = "deterministic"
 
 
 def main_run(crossover_operator_func, problemname, log_file):
-    path = os.path.join(os.path.dirname(__file__), "tsp_datasets", problemname + ".tsp")
-    problem = tsplib95.load(path)
+    problem = load_tsp_problem(problemname)
     coordinates = [tuple(problem.node_coords[index]) for index in problem.get_nodes()]
     distance_matrix, distance_matrix_list = get_distance_matrixes_from_coordinates(
         coordinates

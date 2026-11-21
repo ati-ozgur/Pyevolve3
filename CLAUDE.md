@@ -30,7 +30,7 @@ python docs/source/generate_examples.py        # regenerates docs/source/example
 docs/build_docs.sh                             # quartodoc build && quarto render
 ```
 
-Dependencies: the core library only requires numpy. Extras in `pyproject.toml`: `graph` (matplotlib), `examples` (tsplib95, Pillow, scipy, scikit-fuzzy — everything `examples/` needs), `test`. The package version comes from `pyevolve.__version__`.
+Dependencies: the core library only requires numpy. Extras in `pyproject.toml`: `graph` (matplotlib), `planning` (tsplib95, Pillow, scipy, scikit-fuzzy — needed by `pyevolve.planning`), `examples` (`graph` + `planning`), `test`. The package version comes from `pyevolve.__version__`.
 
 ## Architecture
 
@@ -59,10 +59,17 @@ Operators receive data through parameter dicts, not globals:
 - `genome.setParams(...)` → read in operators via `genome.getParam(key, default)` or `genome.internalParams`. Distance-aware TSP crossovers (e.g. Greedy, IGX, SCX) require `distance_matrix_list` / `distance_matrix_dict` set on the genome and raise `ValueError` otherwise. Params are copied on `clone()`, so every individual sees them.
 - `ga.setParams(...)` → read from `ga_engine.getParam(...)` in callbacks/termination criteria.
 
-### Examples and TSP harness
+### Planning package (TSP/CVRP harness and datasets)
 
-- `examples/pyevolve_ex*.py` are the classic Pyevolve demos; their module docstrings are rendered into the docs by `docs/source/generate_examples.py`.
-- `examples/helper_tsp.py` → `run_tsp(problem_name, crossover_method, mutation_method, selection_method, ...)` is the shared driver for all `pyevolve_ex_tsp_*` experiments: it loads TSPLIB instances from `examples/tsp_datasets/` via `tsplib95` (or generates random cities when `problem_name` contains "random"), sets distance matrices on the genome, minimizes tour length, logs results to `examples/experiments/`, and (with Pillow) writes per-generation tour images. `crossover_method` may be a string key into `dict_crossoever_operators` or a function. `helper_tsp_selector.py` is the analogous harness for selector experiments. CVRP instances are in `examples/vrp_datasets/`.
+- `pyevolve/planning/` holds the TSP/CVRP experiment code and data that ships with the package (extra `planning`: tsplib95, Pillow, scikit-fuzzy, scipy; all imported lazily so core `pyevolve` stays numpy-only).
+- `planning/datasets.py` loads the bundled instances via `importlib.resources`: `data/tsp/*.tsp` (`load_tsp_problem`), `data/vrp/{small,big}/*.vrp` (`load_vrp_problem`). The Golden_* and Li_* CVRP files do not parse with tsplib95 0.7.1.
+- `planning/tsp_helper.py` → `run_tsp(problem_name, crossover_method, mutation_method, selection_method, ...)` is the shared driver for the `pyevolve_ex_tsp_*` experiments: it loads a bundled TSPLIB instance (or generates random cities when `problem_name` contains "random"), sets distance matrices on the genome, minimizes tour length, logs results to `./experiments` and (with Pillow) writes tour images to `./tsp_img` — both relative to the current working directory. `crossover_method` may be a string key into `dict_crossoever_operators` or a function.
+- `planning/selector_helper.py` is the analogous harness for adaptive-selector experiments (`run_selector_ga`, `run_experiment_series`); `planning/cvrp.py` has `load_cvrp_instance` / `make_cvrp_fitness`.
+- Public names are re-exported from `pyevolve.planning` (e.g. `from pyevolve.planning import run_tsp`).
+
+### Examples
+
+- `examples/pyevolve_ex*.py` are the demos; their module docstrings are rendered into the docs by `docs/source/generate_examples.py`. TSP/CVRP examples import from `pyevolve.planning`.
 
 ### Other
 

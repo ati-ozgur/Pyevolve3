@@ -1,4 +1,4 @@
-from helper_tsp import run_tsp
+from pyevolve.planning import run_tsp
 from pyevolve.selections import SelectionRank
 
 

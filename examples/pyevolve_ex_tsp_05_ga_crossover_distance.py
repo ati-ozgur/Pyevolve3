@@ -1,4 +1,4 @@
-from helper_tsp import run_tsp, crossover_methods
+from pyevolve.planning import run_tsp, crossover_methods
 
 
 if __name__ == "__main__":

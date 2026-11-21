@@ -1,4 +1,8 @@
-# todo: add log_file argument for logging info DONE
+"""TSP experiment harness: ``run_tsp`` and helpers for distance matrices, tour length and tour images.
+
+TSPLIB instances are loaded from the data bundled with :mod:`pyevolve.planning.datasets`.
+Tour images need the optional Pillow dependency.
+"""
 # todo: carry distance_matrix_dict-list parameters from genome to ga
 # todo: add G1DListTSP inheriting from G1DList. add above parameters as getters to this one
 # todo: add time, and other metrics to logging
@@ -12,8 +16,6 @@ import hashlib
 from typing import Optional
 
 
-import tsplib95
-
 from pyevolve.representations import G1DList
 from pyevolve import GSimpleGA
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorSwap
@@ -21,6 +23,7 @@ from pyevolve import Consts
 from pyevolve.initializations.InitializationPermutations import (
     G1DListTSPInitializatorRandom,
 )
+from pyevolve.planning.datasets import load_tsp_problem
 
 
 from pyevolve.perturbations.CrossoverG1DListTspPermutations import (
@@ -120,24 +123,17 @@ except ImportError:
     PIL_SUPPORT = False
 
 
-def get_examples_directory():
-    """Return the directory containing this module."""
-    return Path(__file__).resolve().parent
-
-
 def get_relative_directory(relative):
-    """Return the directory for storing results."""
-    if relative is None:
-        result = get_examples_directory() / "experiments"
-    elif isinstance(relative, str):
-        result = get_examples_directory() / Path(relative)
-    elif isinstance(relative, Path):
-        result = get_examples_directory() / relative
-    else:
-        raise ValueError("relative must be a string or Path object.")
+    """Return the directory for storing results.
 
-    # result.mkdir(parents=True, exist_ok=True)
-    return result
+    Relative paths are resolved against the current working directory, absolute paths are kept as they are.
+    ``None`` means ``./experiments``.
+    """
+    if relative is None:
+        relative = "experiments"
+    if not isinstance(relative, (str, Path)):
+        raise ValueError("relative must be a string or Path object.")
+    return Path.cwd() / relative
 
 
 def get_distance_matrixes_from_coordinates(coords):
@@ -264,9 +260,8 @@ def evolve_callback_xy(ga_engine):
 
 
 def get_tsp_problem(problem_name):
-    filename = get_examples_directory() / Path(f"tsp_datasets/{problem_name}.tsp")
-    problem = tsplib95.load(filename)
-    return problem
+    """Load a bundled TSPLIB instance by name (e.g. ``"att48"``)."""
+    return load_tsp_problem(problem_name)
 
 
 def get_coordinates_for_tsp_problem(problem_name):

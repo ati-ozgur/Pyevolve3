@@ -1,14 +1,9 @@
-import os
-
-import tsplib95
-
-from helper_tsp import dict_crossoever_operators
-from helper_tsp_selector import run_experiment_series, run_selector_ga
+from pyevolve.planning import dict_crossoever_operators, load_cvrp_instance, make_cvrp_fitness
+from pyevolve.planning.selector_helper import run_experiment_series, run_selector_ga
 
 
 GENERATION_COUNT = 3
 STRATEGY = "deterministic"
-PROBLEM_DIRECTORY = os.path.join(os.path.dirname(__file__), "vrp_datasets", "small")
 CVRP_CROSSOVER_METHODS = (
     "PMX",
     "CX",
@@ -25,57 +20,18 @@ CVRP_CROSSOVER_METHODS = (
 
 
 def main_run(crossover_func, problemname, log_file):
-    problem_path = os.path.join(PROBLEM_DIRECTORY, problemname + ".vrp")
-    problem = tsplib95.load(problem_path)
-    original_nodes = list(problem.get_nodes())
-    node_count = len(original_nodes)
-    node_indexes = {node: index for index, node in enumerate(original_nodes)}
-    depot_index = 0
-    capacity = problem.capacity
-
-    distance_matrix_dict = {
-        (row, column): float(problem.get_weight(original_nodes[row], original_nodes[column]))
-        for row in range(node_count)
-        for column in range(node_count)
-    }
-    distance_matrix_list = [
-        [distance_matrix_dict[row, column] for column in range(node_count)]
-        for row in range(node_count)
-    ]
-    demands = {
-        node_indexes[node]: problem.demands.get(node, 0)
-        for node in original_nodes
-    }
-    customers = [node for node in range(node_count) if node != depot_index]
-
-    def cvrp_fitness(chromosome):
-        total_distance = 0.0
-        current_load = 0
-        last_node = depot_index
-
-        for node in chromosome.getInternalList():
-            demand = demands.get(node, 0)
-            if current_load + demand > capacity:
-                total_distance += distance_matrix_dict[last_node, depot_index]
-                total_distance += distance_matrix_dict[depot_index, node]
-                current_load = demand
-            else:
-                total_distance += distance_matrix_dict[last_node, node]
-                current_load += demand
-            last_node = node
-
-        return total_distance + distance_matrix_dict[last_node, depot_index]
+    instance = load_cvrp_instance(problemname, size="small")
 
     run_selector_ga(
         crossover_func,
-        distance_matrix_dict,
-        node_count,
+        instance.distance_matrix_dict,
+        instance.node_count,
         log_file,
         STRATEGY,
         generation_count=GENERATION_COUNT,
-        evaluator=cvrp_fitness,
-        genome_values=customers,
-        distance_matrix_list=distance_matrix_list,
+        evaluator=make_cvrp_fitness(instance),
+        genome_values=instance.customers,
+        distance_matrix_list=instance.distance_matrix_list,
     )
 
 

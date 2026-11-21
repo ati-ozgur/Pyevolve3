@@ -1,3 +1,8 @@
+"""Adaptive selector experiment harness (``run_selector_ga``, ``run_experiment_series``) for TSP/CVRP.
+
+The ``fuzzy`` strategy needs scikit-fuzzy and the ``entropy`` strategy needs scipy.
+Both are optional and only imported when used.
+"""
 import argparse
 import math
 import os
@@ -6,9 +11,6 @@ import time
 from itertools import combinations
 
 import numpy as np
-import skfuzzy as fuzz
-from scipy.stats import entropy
-from skfuzzy import control as ctrl
 
 from pyevolve import Consts
 from pyevolve import GSimpleGA
@@ -36,14 +38,13 @@ dict_selector_operators = {
     "TS": GTournamentSelector,
 }
 
-try:
-    from helper_tsp import PIL_SUPPORT, write_tour_to_img
-except ImportError:
-    PIL_SUPPORT = False
-    write_tour_to_img = None
+from pyevolve.planning.tsp_helper import PIL_SUPPORT, write_tour_to_img
 
 
 def _build_control_system():
+    import skfuzzy as fuzz
+    from skfuzzy import control as ctrl
+
     diversity = ctrl.Antecedent(np.linspace(0, 1, 101), "diversity")
     iteration = ctrl.Antecedent(np.linspace(0, 1, 101), "iteration")
     alpha = ctrl.Consequent(np.linspace(0, 1, 101), "alpha")
@@ -85,7 +86,7 @@ class SelectorController:
     def __init__(self, strategy="deterministic", max_iterations=1001):
         self.strategy = strategy
         self.max_iterations = max_iterations
-        self.selection_sim = _build_control_system()
+        self.selection_sim = _build_control_system() if strategy == "fuzzy" else None
         self.q_table = np.zeros((5, 5, 5))
         self.prev_state = (0, 0)
         self.prev_action = 2
@@ -123,6 +124,8 @@ class SelectorController:
             return self.selection_sim.output["alpha"]
 
         if self.strategy == "entropy":
+            from scipy.stats import entropy
+
             matrix = np.array([individual.genomeList for individual in population])
             entropies = [
                 entropy(np.unique(matrix[:, index], return_counts=True)[1], base=2)
@@ -283,7 +286,7 @@ def tour_length(matrix, tour, city_count):
 
 def run_experiment_series(main_run, crossover_methods, crossover_operators, default_problem, strategy,
                           include_strategy_in_filename=True):
-    results_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "experiments")
+    results_directory = os.path.join(os.getcwd(), "experiments")
     os.makedirs(results_directory, exist_ok=True)
 
     for crossover_operator_name in crossover_methods:
