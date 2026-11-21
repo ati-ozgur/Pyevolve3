@@ -47,14 +47,14 @@ def G1DListCrossoverOX6(genome, **kwargs):
         p1 = [c for c in g_dad if c not in g_mom[c1:c2]]
         sister.genomeList = p1[:c1] + g_mom[c1:c2] + p1[c1:]
 
+        assert list_size == len(sister)
+
     if kwargs["count"] == 2:
         brother = g_dad.clone()
-        sister.resetStats()
-        p1 = [c for c in g_mom if c not in g_dad[c1:c2]]
-        brother.gnomeList = p1[:c1] + g_mom[c1:c2] + p1[c1:]
-
-    assert list_size == len(sister)
-    assert list_size == len(brother)
+        brother.resetStats()
+        p2 = [c for c in g_mom if c not in g_dad[c1:c2]]
+        brother.genomeList = p2[:c1] + g_dad[c1:c2] + p2[c1:]
+        assert list_size == len(brother)
 
     return sister, brother
 
