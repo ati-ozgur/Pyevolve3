@@ -24,6 +24,14 @@ def checkTspListIntegrity(gMom, gDad, sister, brother):
         assert set(offspring.getInternalList()) == mom_set, "Offspring has different cities than its parents"
 
 
+def _empty_child(parent):
+    """Clone ``parent`` with reset stats and an all-``None`` genome list, ready to be filled in."""
+    child = parent.clone()
+    child.resetStats()
+    child.genomeList = [None] * len(parent.genomeList)
+    return child
+
+
 def G1DListCrossoverOX(genome, **args):
     """
         The OX Crossover for G1DList  (order crossover)
@@ -146,7 +154,26 @@ def G1DListCrossoverCutCrossfill(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverPMX(genome, **args):  # noqa: C901
+def _pmx_child(p1, p2, c1, c2):
+    """Build one PMX child: keep ``p1[c1:c2]``, map ``p2``'s slice into place, fill the rest from ``p2``."""
+    child = _empty_child(p1)
+    # Copy a slice from first parent:
+    child.genomeList[c1:c2] = p1.genomeList[c1:c2]
+    #    Map the same slice in parent b to child using indices from parent a:
+    for ind, x in enumerate(p2.genomeList[c1:c2]):
+        ind += c1
+        if x not in child.genomeList:
+            while child.genomeList[ind] is not None:
+                ind = p2.genomeList.index(p1.genomeList[ind])
+            child.genomeList[ind] = x
+    # Copy over the rest from parent b
+    for ind, x in enumerate(child.genomeList):
+        if x is None:
+            child.genomeList[ind] = p2.genomeList[ind]
+    return child
+
+
+def G1DListCrossoverPMX(genome, **args):
     """ The PMX Crossover for G1DList  (Partially Mapped Crossover)
     proposed by Goldberg, David E. and Lingle, Robert in
     Alleles Loci and the Traveling Salesman Problem in 1985
@@ -169,40 +196,10 @@ def G1DListCrossoverPMX(genome, **args):  # noqa: C901
         c2 = h
 
     if args["count"] >= 1:
-        sister = gMom.clone()
-        sister.resetStats()
-        sister.genomeList = [None] * len(gMom.genomeList)
-        # Copy a slice from first parent:
-        sister.genomeList[c1:c2] = gMom.genomeList[c1:c2]
-        #    Map the same slice in parent b to child using indices from parent a:
-        for ind, x in enumerate(gDad.genomeList[c1:c2]):
-            ind += c1
-            if x not in sister.genomeList:
-                while sister.genomeList[ind] is not None:
-                    ind = gDad.genomeList.index(gMom.genomeList[ind])
-                sister.genomeList[ind] = x
-        # Copy over the rest from parent b
-        for ind, x in enumerate(sister.genomeList):
-            if x is None:
-                sister.genomeList[ind] = gDad.genomeList[ind]
+        sister = _pmx_child(gMom, gDad, c1, c2)
 
     if args["count"] == 2:
-        brother = gDad.clone()
-        brother.resetStats()
-        brother.genomeList = [None] * len(gDad.genomeList)
-        # Copy a slice from first parent:
-        brother.genomeList[c1:c2] = gDad.genomeList[c1:c2]
-        #    Map the same slice in parent b to child using indices from parent a:
-        for ind, x in enumerate(gMom.genomeList[c1:c2]):
-            ind += c1
-            if x not in brother.genomeList:
-                while brother.genomeList[ind] is not None:
-                    ind = gMom.genomeList.index(gDad.genomeList[ind])
-                brother.genomeList[ind] = x
-        # Copy over the rest from parent b
-        for ind, x in enumerate(brother.genomeList):
-            if x is None:
-                brother.genomeList[ind] = gMom.genomeList[ind]
+        brother = _pmx_child(gDad, gMom, c1, c2)
 
     checkTspListIntegrity(gMom, gDad, sister, brother)
 
@@ -260,7 +257,26 @@ def G1DListCrossoverCycle(genome, **args):
     return (sister, brother)
 
 
-def G1DListCrossoverOX2(genome, **args):  # noqa: C901
+def _ox2_child(p1, p2, indexs):
+    """Build one OX2 child: start from ``p2`` and reorder the cities ``p1`` has at ``indexs`` into ``p1``'s order."""
+    child = _empty_child(p1)
+    index = [None] * len(indexs)
+
+    for i in range(0, len(p2.genomeList)):
+        child.genomeList[i] = p2.genomeList[i]
+
+    for i in range(0, len(indexs)):
+        for j in range(0, len(p1.genomeList)):
+            k = indexs[i]
+            if p1.genomeList[k] == p2.genomeList[j]:
+                index[i] = j
+    index.sort()
+    for j in range(0, len(index)):
+        child.genomeList[index[j]] = p1.genomeList[indexs[j]]
+    return child
+
+
+def G1DListCrossoverOX2(genome, **args):
     """
         Order-based (OX2) Crossover for G1DList  (Order-based (OX2) Crossover)
 
@@ -285,49 +301,48 @@ def G1DListCrossoverOX2(genome, **args):  # noqa: C901
     indexs.sort()
 
     if args["count"] >= 1:
-
-        sister = gMom.clone()
-        sister.resetStats()
-        sister.genomeList = [None] * len(gMom.genomeList)
-        index = [None] * len(indexs)
-
-        for i in range(0, len(gDad.genomeList)):
-            sister.genomeList[i] = gDad.genomeList[i]
-
-        for i in range(0, len(indexs)):
-            for j in range(0, len(gMom.genomeList)):
-                k = indexs[i]
-                if gMom.genomeList[k] == gDad.genomeList[j]:
-                    index[i] = j
-        index.sort()
-        for j in range(0, len(index)):
-            sister.genomeList[index[j]] = gMom.genomeList[indexs[j]]
+        sister = _ox2_child(gMom, gDad, indexs)
 
     if args["count"] == 2:
-
-        brother = gDad.clone()
-        brother.resetStats()
-        brother.genomeList = [None] * len(gDad.genomeList)
-        index = [None] * len(indexs)
-
-        for i in range(0, len(gMom.genomeList)):
-            brother.genomeList[i] = gMom.genomeList[i]
-
-        for i in range(0, len(indexs)):
-            for j in range(0, len(gDad.genomeList)):
-                k = indexs[i]
-                if gDad.genomeList[k] == gMom.genomeList[j]:
-                    index[i] = j
-        index.sort()
-        for j in range(0, len(index)):
-            brother.genomeList[index[j]] = gDad.genomeList[indexs[j]]
+        brother = _ox2_child(gDad, gMom, indexs)
 
     checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
 
 
-def G1DListCrossoverPOS(genome, **args):  # noqa: C901
+def _pos_child(p1, p2, indexs):  # noqa: C901
+    """Build one POS child: take ``p2``'s cities at ``indexs``, fill the other positions in ``p1``'s order."""
+    child = _empty_child(p1)
+    temp = [None] * (len(indexs))
+    temp2 = [None] * (len(p1.genomeList) - len(indexs))
+
+    for i in range(0, len(indexs)):
+        child.genomeList[indexs[i]] = p2.genomeList[indexs[i]]
+
+    h = 0
+    for i in range(0, len(p1.genomeList)):
+        for j in range(0, len(indexs)):
+            if p1.genomeList[i] == p2.genomeList[indexs[j]]:
+                temp[h] = p2.genomeList[indexs[j]]
+                h = h + 1
+    h = 0
+    for i in range(len(p1.genomeList)):
+        for j in range(len(temp)):
+            if p1.genomeList[i] == temp[j]:
+                break
+            if j == len(temp) - 1:
+                temp2[h] = p1.genomeList[i]
+                h = h + 1
+    k = 0
+    for i in range(0, len(p1.genomeList)):
+        if child.genomeList[i] is None:
+            child.genomeList[i] = temp2[k]
+            k = k + 1
+    return child
+
+
+def G1DListCrossoverPOS(genome, **args):
     """
         Position-Based crossover (POS) Crossover for G1DList  (Position-Based (POS) Crossover)
 
@@ -352,73 +367,48 @@ def G1DListCrossoverPOS(genome, **args):  # noqa: C901
     indexs.sort()
 
     if args["count"] >= 1:
-
-        sister = gMom.clone()
-        sister.resetStats()
-        sister.genomeList = [None] * len(gMom.genomeList)
-        temp = [None] * (len(indexs))
-        temp2 = [None] * (len(gMom.genomeList) - len(indexs))
-
-        for i in range(0, len(indexs)):
-            sister.genomeList[indexs[i]] = gDad.genomeList[indexs[i]]
-
-        h = 0
-        for i in range(0, len(gMom.genomeList)):
-            for j in range(0, len(indexs)):
-                if gMom.genomeList[i] == gDad.genomeList[indexs[j]]:
-                    temp[h] = gDad.genomeList[indexs[j]]
-                    h = h + 1
-        h = 0
-        for i in range(len(gMom.genomeList)):
-            for j in range(len(temp)):
-                if gMom.genomeList[i] == temp[j]:
-                    break
-                if j == len(temp) - 1:
-                    temp2[h] = gMom.genomeList[i]
-                    h = h + 1
-        k = 0
-        for i in range(0, len(gMom.genomeList)):
-            if sister.genomeList[i] is None:
-                sister.genomeList[i] = temp2[k]
-                k = k + 1
+        sister = _pos_child(gMom, gDad, indexs)
 
     if args["count"] == 2:
-
-        brother = gDad.clone()
-        brother.resetStats()
-        brother.genomeList = [None] * len(gDad.genomeList)
-        temp = [None] * (len(indexs))
-        temp2 = [None] * (len(gDad.genomeList) - len(indexs))
-
-        for i in range(0, len(indexs)):
-            brother.genomeList[indexs[i]] = gMom.genomeList[indexs[i]]
-
-        h = 0
-        for i in range(0, len(gDad.genomeList)):
-            for j in range(0, len(indexs)):
-                if gDad.genomeList[i] == gMom.genomeList[indexs[j]]:
-                    temp[h] = gMom.genomeList[indexs[j]]
-                    h = h + 1
-        h = 0
-        for i in range(len(gDad.genomeList)):
-            for j in range(len(temp)):
-                if gDad.genomeList[i] == temp[j]:
-                    break
-                if j == len(temp) - 1:
-                    temp2[h] = gDad.genomeList[i]
-                    h = h + 1
-        k = 0
-        for i in range(0, len(gDad.genomeList)):
-            if brother.genomeList[i] is None:
-                brother.genomeList[i] = temp2[k]
-                k = k + 1
+        brother = _pos_child(gDad, gMom, indexs)
 
     checkTspListIntegrity(gMom, gDad, sister, brother)
 
     return (sister, brother)
 
 
-def G1DListCrossoverMPX(genome, **args):  # noqa: C901
+def _mpx_child(p1, p2, indexs):  # noqa: C901
+    """Build one MPX child: put ``p1``'s cities at ``indexs`` first, then the rest in ``p2``'s order."""
+    child = _empty_child(p1)
+    temp = [None] * (len(indexs))
+    temp2 = [None] * (len(p1.genomeList) - len(indexs))
+    # Copy a slice from first parent:
+    for i in range(0, len(indexs)):
+        child.genomeList[i] = p1.genomeList[indexs[i]]
+
+    h = 0
+    for i in range(0, len(p1.genomeList)):
+        for j in range(0, len(indexs)):
+            if p2.genomeList[i] == p1.genomeList[indexs[j]]:
+                temp[h] = i
+                h = h + 1
+    h = 0
+    for i in range(len(p1.genomeList)):
+        for j in range(len(temp)):
+            if i == temp[j]:
+                break
+            if j == len(temp) - 1:
+                temp2[h] = p2.genomeList[i]
+                h = h + 1
+    k = 0
+    for i in range(0, len(p1.genomeList)):
+        if child.genomeList[i] is None:
+            child.genomeList[i] = temp2[k]
+            k = k + 1
+    return child
+
+
+def G1DListCrossoverMPX(genome, **args):
     """
         Maximal Preservative Crossover (MPX) for G1DList  (Maximal Preservative (MPX) Crossover)
 
@@ -453,66 +443,10 @@ def G1DListCrossoverMPX(genome, **args):  # noqa: C901
         indexs.append(i)
 
     if args["count"] >= 1:
-
-        sister = gMom.clone()
-        sister.resetStats()
-        sister.genomeList = [None] * len(gMom.genomeList)
-        temp = [None] * (len(indexs))
-        temp2 = [None] * (len(gMom.genomeList) - len(indexs))
-        # Copy a slice from first parent:
-        for i in range(0, len(indexs)):
-            sister.genomeList[i] = gMom.genomeList[indexs[i]]
-
-        h = 0
-        for i in range(0, len(gMom.genomeList)):
-            for j in range(0, len(indexs)):
-                if gDad.genomeList[i] == gMom.genomeList[indexs[j]]:
-                    temp[h] = i
-                    h = h + 1
-        h = 0
-        for i in range(len(gMom.genomeList)):
-            for j in range(len(temp)):
-                if i == temp[j]:
-                    break
-                if j == len(temp) - 1:
-                    temp2[h] = gDad.genomeList[i]
-                    h = h + 1
-        k = 0
-        for i in range(0, len(gMom.genomeList)):
-            if sister.genomeList[i] is None:
-                sister.genomeList[i] = temp2[k]
-                k = k + 1
+        sister = _mpx_child(gMom, gDad, indexs)
 
     if args["count"] == 2:
-
-        brother = gDad.clone()
-        brother.resetStats()
-        brother.genomeList = [None] * len(gMom.genomeList)
-        temp = [None] * (len(indexs))
-        temp2 = [None] * (len(gMom.genomeList) - len(indexs))
-        # Copy a slice from first parent:
-        for i in range(0, len(indexs)):
-            brother.genomeList[i] = gDad.genomeList[indexs[i]]
-
-        h = 0
-        for i in range(0, len(gDad.genomeList)):
-            for j in range(0, len(indexs)):
-                if gMom.genomeList[i] == gDad.genomeList[indexs[j]]:
-                    temp[h] = i
-                    h = h + 1
-        h = 0
-        for i in range(len(gDad.genomeList)):
-            for j in range(len(temp)):
-                if i == temp[j]:
-                    break
-                if j == len(temp) - 1:
-                    temp2[h] = gMom.genomeList[i]
-                    h = h + 1
-        k = 0
-        for i in range(0, len(gDad.genomeList)):
-            if brother.genomeList[i] is None:
-                brother.genomeList[i] = temp2[k]
-                k = k + 1
+        brother = _mpx_child(gDad, gMom, indexs)
 
     checkTspListIntegrity(gMom, gDad, sister, brother)
 

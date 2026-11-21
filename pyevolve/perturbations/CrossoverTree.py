@@ -71,6 +71,19 @@ def GTreeCrossoverSinglePoint(genome, **args):
     return (sister, brother)
 
 
+def _graft_subtree(tree, old_node, new_node, parent, max_depth):
+    """Put ``new_node`` where ``old_node`` was in ``tree`` (under ``parent``, or as root) and return ``tree``."""
+    new_node.setParent(parent)
+
+    if parent is None:
+        tree.setRoot(new_node)
+    else:
+        parent.replaceChild(old_node, new_node)
+    tree.processNodes()
+    assert tree.getHeight() <= max_depth
+    return tree
+
+
 def GTreeCrossoverSinglePointStrict(genome, **args):  # noqa: C901
     """ The crossover of Tree, Strict Single Point
 
@@ -146,27 +159,11 @@ def GTreeCrossoverSinglePointStrict(genome, **args):  # noqa: C901
 
     # Sister
     if args["count"] >= 1:
-        sister = gMom
-        nodeDad.setParent(nodeMom_parent)
-
-        if nodeMom_parent is None:
-            sister.setRoot(nodeDad)
-        else:
-            nodeMom_parent.replaceChild(nodeMom, nodeDad)
-        sister.processNodes()
-        assert sister.getHeight() <= max_depth
+        sister = _graft_subtree(gMom, nodeMom, nodeDad, nodeMom_parent, max_depth)
 
     # Brother
     if args["count"] == 2:
-        brother = gDad
-        nodeMom.setParent(nodeDad_parent)
-
-        if nodeDad_parent is None:
-            brother.setRoot(nodeMom)
-        else:
-            nodeDad_parent.replaceChild(nodeDad, nodeMom)
-        brother.processNodes()
-        assert brother.getHeight() <= max_depth
+        brother = _graft_subtree(gDad, nodeDad, nodeMom, nodeDad_parent, max_depth)
 
     return (sister, brother)
 
@@ -242,26 +239,10 @@ def GTreeGPCrossoverSinglePoint(genome, **args):  # noqa: C901
 
     # Sister
     if args["count"] >= 1:
-        sister = gMom
-        nodeDad.setParent(nodeMom_parent)
-
-        if nodeMom_parent is None:
-            sister.setRoot(nodeDad)
-        else:
-            nodeMom_parent.replaceChild(nodeMom, nodeDad)
-        sister.processNodes()
-        assert sister.getHeight() <= max_depth
+        sister = _graft_subtree(gMom, nodeMom, nodeDad, nodeMom_parent, max_depth)
 
     # Brother
     if args["count"] == 2:
-        brother = gDad
-        nodeMom.setParent(nodeDad_parent)
-
-        if nodeDad_parent is None:
-            brother.setRoot(nodeMom)
-        else:
-            nodeDad_parent.replaceChild(nodeDad, nodeMom)
-        brother.processNodes()
-        assert brother.getHeight() <= max_depth
+        brother = _graft_subtree(gDad, nodeDad, nodeMom, nodeDad_parent, max_depth)
 
     return (sister, brother)
