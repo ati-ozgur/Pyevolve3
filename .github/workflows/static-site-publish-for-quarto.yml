@@ -31,6 +31,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install package and quartodoc
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install -r docs/requirements.txt
+      # The API pages in docs/source/reference/ are generated (git-ignored),
+      # so they must be built before rendering or links to them stay as *.qmd.
+      - name: Build API reference with quartodoc
+        working-directory: docs/source
+        run: quartodoc build
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Render Quarto Project
