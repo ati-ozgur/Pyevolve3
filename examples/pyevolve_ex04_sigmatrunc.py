@@ -1,5 +1,5 @@
 """
-This example shows the use of the sigma truncation scale method. 
+This example shows the use of the sigma truncation scale method.
 It tries to minimize a function with negative results:
 """
 

@@ -346,7 +346,7 @@ def graph_compare_fitness(pop, minimize, id_list, filesave=None):
     _show_or_save(filesave, "compare_fitness")
 
 
-def main(argv=None):
+def main(argv=None):  # noqa: C901
     """Command line entry point.
 
     ``argv`` is a list of arguments (without the program name); when ``None``

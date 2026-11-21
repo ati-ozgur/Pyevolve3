@@ -22,7 +22,11 @@ def main() -> None:
 
     for example_file in example_files:
         title = example_file.stem.removeprefix("pyevolve_").replace("_", " ")
-        title = title.replace("ex", "Example").replace("ga", "Genetic Algorithm").replace("tsp", "Traveling Sales Person")
+        title = (
+            title.replace("ex", "Example")
+            .replace("ga", "Genetic Algorithm")
+            .replace("tsp", "Traveling Sales Person")
+        )
         title = title.title()
         relative_path = example_file.relative_to(SOURCE_DIR.parents[1]).as_posix()
         include_path = f"../../{relative_path}"
