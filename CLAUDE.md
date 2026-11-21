@@ -15,11 +15,10 @@ python -m build                                # sdist + wheel (needs `pip insta
 pytest                                         # full test suite (what CI runs)
 pytest tests/test_crossovers_G1DListTsp.py     # single file
 pytest tests/test_mutators.py::G1DBinaryStringMutatorsTestCase::test_swap_mutator_small_pmut  # single test (Class::method)
-tox                                            # py39..py313
 
 # Lint: CI fails only on syntax errors / undefined names, the rest is report-only
-flake8 --config=tox.ini . --count --select=E9,F63,F7,F82 --show-source --statistics
-ruff check .                                   # ruff config in pyproject.toml (line-length 120, mccabe 10)
+ruff check . --select E9,F63,F7,F82            # the CI gate
+ruff check .                                   # full report; config in pyproject.toml (line-length 120, mccabe 10)
 
 # Examples (CI runs these via manual workflow_dispatch only)
 python examples/pyevolve_ex_tsp_01.py

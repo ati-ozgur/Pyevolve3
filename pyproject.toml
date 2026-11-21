@@ -56,7 +56,6 @@ test = [
     "tsplib95>=0.7.1",
     "coverage",
     "ruff",
-    "flake8",
 ]
 
 [project.urls]

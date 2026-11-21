@@ -12,7 +12,7 @@ Optional extras:
 
 - `graph`: matplotlib, for the `pyevolve_graph` plotting tool and interactive plots
 - `examples`: everything the scripts in `examples/` need (tsplib95, Pillow, scipy, scikit-fuzzy, matplotlib)
-- `test`: pytest, coverage, ruff, flake8
+- `test`: pytest, coverage, ruff
 
 Extras are given in brackets before the git URL (keep the quotes, shells like zsh treat `[...]` as a glob):
 
