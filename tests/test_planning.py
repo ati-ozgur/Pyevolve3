@@ -1,3 +1,4 @@
+import ast
 import math
 import os
 import tempfile
@@ -15,6 +16,7 @@ from pyevolve.planning import (
     tsp_file_list_all,
 )
 from pyevolve.representations import G1DList
+from pyevolve.selections.Selectors import GTournamentSelector
 
 
 class PlanningDatasetsTestCase(TestCase):
@@ -100,3 +102,44 @@ class PlanningRunTspTestCase(TestCase):
                         os.chdir(old_cwd)
                 self.assertEqual(len(logs), 1)
                 self.assertTrue(logs[0].endswith(".txt"))
+
+    def _run_in_tmp(self, **kwargs):
+        """Run ``run_tsp("br17", ...)`` in a temporary cwd; return ``{log file name: parsed entries}``."""
+        old_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmp:
+            os.chdir(tmp)
+            try:
+                run_tsp("br17", max_generation_count=2, population_size=10, freq_stats=0, **kwargs)
+                log_dir = os.path.join(tmp, "experiments")
+                logs = {}
+                for name in os.listdir(log_dir) if os.path.isdir(log_dir) else []:
+                    with open(os.path.join(log_dir, name)) as file:
+                        logs[name] = dict(line.rstrip("\n").split(": ", 1) for line in file)
+                return logs
+            finally:
+                os.chdir(old_cwd)
+
+    def test_run_tsp_log_content(self):
+        logs = self._run_in_tmp(mutation_rate=0.05, selection_method=GTournamentSelector)
+        self.assertEqual(len(logs), 1)
+        entries = next(iter(logs.values()))
+
+        self.assertEqual(list(entries), [
+            "experiment_name", "experiment_duration", "max_generation_count", "population_size",
+            "crossover_method", "crossover_rate", "mutation_method", "mutation_rate",
+            "selection_method", "initialization_method", "raw_score", "fitness", "tour",
+        ])
+        self.assertEqual(entries["max_generation_count"], "2")
+        self.assertEqual(entries["population_size"], "10")
+        self.assertEqual(entries["crossover_rate"], "1.0")
+        self.assertEqual(entries["mutation_rate"], "0.05")
+        # Operators are logged by name, defaults included (no slot dumps or memory addresses)
+        self.assertEqual(entries["crossover_method"], "G1DListCrossoverEdge")
+        self.assertEqual(entries["mutation_method"], "G1DListMutatorSwap")
+        self.assertEqual(entries["selection_method"], "GTournamentSelector")
+        self.assertEqual(entries["initialization_method"], "G1DListTSPInitializatorRandom")
+        self.assertGreater(float(entries["raw_score"]), 0)
+        self.assertEqual(sorted(ast.literal_eval(entries["tour"])), list(range(17)))
+
+    def test_run_tsp_log_experiments_false_writes_no_log(self):
+        self.assertEqual(self._run_in_tmp(log_experiments=False), {})

@@ -436,9 +436,8 @@ def run_tsp(  # noqa: C901
     duration = end - start
     print("duration:", duration)
 
-    log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method,
-                   initialization_method, results_directory, log_experiments, experiment_name, genome, ga,
-                   duration, best)
+    if log_experiments:
+        log_experiment(ga, current_locals, experiment_name, duration)
     could_save_tsp_image = coordinates is not None and PIL_SUPPORT
     if could_save_tsp_image:
         image_directory.mkdir(parents=True, exist_ok=True)
@@ -451,30 +450,48 @@ def run_tsp(  # noqa: C901
         print("No coordinates or No PIL detected, cannot plot the graph !")
 
 
-def log_experiment(max_generation_count, crossover_rate, population_size, mutation_method, selection_method,
-                   initialization_method, results_directory, log_experiments, experiment_name, genome, ga,
-                   duration, best):
-    if log_experiments:
-        results_directory.mkdir(parents=True, exist_ok=True)
-        experiment_name_bytes = experiment_name.encode("utf-8")
-        experiment_name_hash = hashlib.sha256(experiment_name_bytes).hexdigest()[:12]
-        max_name_length = 100
-        safe_experiment_name = experiment_name[:max_name_length]
-        full_log_file = results_directory / f"{safe_experiment_name}-{experiment_name_hash}.txt"
-        with open(full_log_file, "w") as file:
-            file.write("experiment_name:" + experiment_name + "\n")
-            file.write("experiment_duration:" + str(duration) + "\n")
-            file.write(f"max_generation_count:{max_generation_count}\n")
-            file.write(f"crossover_rate:{crossover_rate}\n")
-            file.write(f"crossover_method:{best.crossover}\n")
-            file.write(f"mutation_method:{mutation_method}\n")
-            file.write(f"mutation_rate:{best.mutator}\n")
-            file.write(f"population_size:{population_size}\n")
-            file.write(f"selection_method:{selection_method}\n")
-            file.write(f"selection_method:{ga.selector}\n")
-            file.write(f"initialization_method:{initialization_method}\n")
-            file.write(f"initialization_method:{genome.initializator}\n")
-            file.write(f"RawScore: {str(best.getRawScore())} \n")
-            file.write(f"Fitness: {str(best.getFitnessScore())} \n")
-            file.write(f"Tour: {str(best.getInternalList())} \n")
-            print("log saved to", full_log_file)
+def _slot_function_names(slot):
+    """Names of the functions in a ``FunctionSlot``, e.g. ``"G1DListCrossoverEdge"``."""
+    return ", ".join(func.__name__ for func in slot)
+
+
+def log_experiment(ga, run_args, experiment_name, duration):
+    """Write the settings and best result of a finished ``run_tsp`` run to a text file.
+
+    The file is ``<results_directory>/<experiment_name[:100]>-<hash>.txt``.
+
+    ### Parameters
+
+    - `ga`: the evolved engine; the best individual, the operator slots and the
+      ``results_directory`` param are read from it
+    - `run_args`: the ``run_tsp`` arguments as passed; the numeric settings are read from it
+    - `experiment_name`: the name built by ``run_tsp``
+    - `duration`: evolve time in seconds
+    """
+    best = ga.bestIndividual()
+    results_directory = ga.getParam("results_directory")
+    results_directory.mkdir(parents=True, exist_ok=True)
+    experiment_name_bytes = experiment_name.encode("utf-8")
+    experiment_name_hash = hashlib.sha256(experiment_name_bytes).hexdigest()[:12]
+    max_name_length = 100
+    safe_experiment_name = experiment_name[:max_name_length]
+    full_log_file = results_directory / f"{safe_experiment_name}-{experiment_name_hash}.txt"
+    entries = {
+        "experiment_name": experiment_name,
+        "experiment_duration": duration,
+        "max_generation_count": run_args["max_generation_count"],
+        "population_size": run_args["population_size"],
+        "crossover_method": _slot_function_names(best.crossover),
+        "crossover_rate": run_args["crossover_rate"],
+        "mutation_method": _slot_function_names(best.mutator),
+        "mutation_rate": run_args["mutation_rate"],
+        "selection_method": _slot_function_names(ga.selector),
+        "initialization_method": _slot_function_names(best.initializator),
+        "raw_score": best.getRawScore(),
+        "fitness": best.getFitnessScore(),
+        "tour": best.getInternalList(),
+    }
+    with open(full_log_file, "w") as file:
+        for key, value in entries.items():
+            file.write(f"{key}: {value}\n")
+        print("log saved to", full_log_file)
