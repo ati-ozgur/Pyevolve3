@@ -403,7 +403,7 @@ To install Pyevolve in PyS60 you simple need to copy the "pyevolve" package (you
 or even the "pyevolve" of your Python installation to the smartphone in a place that PyS60 can find it, usually
 in `c:\\resource\\Python25`, for more information read the PyS60 documentation. The Genetic Algorithms and the
 Genetic Programming cores of Pyevolve was tested with PyS60 2.0, but to use Genetic Programming, you must
-explicitly define the funtions of the GP, like in [snippet gp explicit](getstarted.md#snippet_gp_explicit).
+explicitly define the funtions of the GP, like in [snippet gp explicit](snippets.md#snippet_gp_explicit).
 
 Of course not all features of Pyevolve are supported in PyS60, for example some DBAdapters and the graphical
 plotting tool, since no matplotlib port is available to PyS60 at the moment. Pyevolve was tested with PyS60 2.0

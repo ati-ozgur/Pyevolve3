@@ -27,6 +27,10 @@ website:
           - whatsnew.md
           - intro.md
           - getstarted.md
+          - interactive_mode.md
+          - extending.md
+          - gp_tutorial.md
+          - snippets.md
       - section: Reference
         contents:
           - modules.md
