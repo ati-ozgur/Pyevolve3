@@ -9,10 +9,16 @@ Loading requires the optional ``tsplib95`` dependency
 (``pip install "Pyevolve3[planning]"``).
 """
 
+import re
 from importlib.resources import files
 
 
 DATA_ROOT = files("pyevolve.planning") / "data"
+
+_FUNCTION_WEIGHT_RE = re.compile(r"^EDGE_WEIGHT_TYPE\s*:\s*FUNCTION\s*$", re.MULTILINE)
+_EDGE_WEIGHT_FORMAT_RE = re.compile(r"^EDGE_WEIGHT_FORMAT\s*:.*\n", re.MULTILINE)
+_DEPOT_COORDS_RE = re.compile(r"(DEPOT_SECTION[ \t]*\n)\s*(-?[\d.]+)\s+(-?[\d.]+)\s*\n")
+_SECTION_START_RE = r"(^{}[ \t]*\n)"
 
 
 def _import_tsplib95():
@@ -58,8 +64,57 @@ def load_tsp_problem(problem_name):
     return tsplib95.parse(text)
 
 
+def _exact_euclidean(start, end):
+    """Unrounded 2D Euclidean distance (TSPLIB ``EUC_2D`` rounds to the nearest integer)."""
+    from tsplib95 import distances
+
+    return distances.euclidean(start, end, round=lambda value: value)
+
+
+def _normalize_vrp_text(text):
+    """Rewrite non-standard CVRP files (Golden_*, Li_*) into a form tsplib95 can parse.
+
+    These files use ``EDGE_WEIGHT_TYPE: FUNCTION`` / ``EDGE_WEIGHT_FORMAT: EUC_2D`` for unrounded Euclidean
+    distances, and give the depot as coordinates in ``DEPOT_SECTION`` instead of a node id.
+    The depot becomes node ``0`` with demand ``0``, and the distances become ``SPECIAL`` (exact Euclidean).
+
+    Returns ``(text, special)`` where ``special`` is the distance function to pass to ``tsplib95.parse``.
+    """
+    if not _FUNCTION_WEIGHT_RE.search(text):
+        return text, None
+
+    text = _FUNCTION_WEIGHT_RE.sub("EDGE_WEIGHT_TYPE: SPECIAL", text)
+    text = _EDGE_WEIGHT_FORMAT_RE.sub("", text)
+
+    depot = _DEPOT_COORDS_RE.search(text)
+    if depot is not None:
+        x, y = depot.group(2), depot.group(3)
+        text = _DEPOT_COORDS_RE.sub(r"\g<1>0\n", text, count=1)
+        text = re.sub(_SECTION_START_RE.format("NODE_COORD_SECTION"), rf"\g<1>0 {x} {y}\n", text,
+                      count=1, flags=re.MULTILINE)
+        text = re.sub(_SECTION_START_RE.format("DEMAND_SECTION"), r"\g<1>0 0\n", text,
+                      count=1, flags=re.MULTILINE)
+    return text, _exact_euclidean
+
+
+def _cvrp_problem_class():
+    from tsplib95 import fields, models
+
+    class CVRPProblem(models.StandardProblem):
+        """StandardProblem plus the ``VEHICLES`` and ``DISTANCE`` (max route length) fields of CVRPLIB files."""
+
+        vehicles = fields.IntegerField("VEHICLES")
+        distance = fields.NumberField("DISTANCE")
+
+    return CVRPProblem
+
+
 def load_vrp_problem(problem_name, size="small"):
-    """Load a bundled CVRP instance as a ``tsplib95`` problem."""
+    """Load a bundled CVRP instance as a ``tsplib95`` problem.
+
+    The problem also has ``vehicles`` and ``distance`` (max route length) when the file defines them.
+    """
     tsplib95 = _import_tsplib95()
     text = _resource("vrp", size, f"{problem_name}.vrp").read_text()
-    return tsplib95.parse(text)
+    text, special = _normalize_vrp_text(text)
+    return tsplib95.parse(text, problem_class=_cvrp_problem_class(), special=special)

@@ -22,6 +22,10 @@ def load_cvrp_instance(problem_name, size="small"):
     """Load a bundled CVRP instance (e.g. ``"A-n33-k5"``) and build its distance matrices and demands."""
     problem = load_vrp_problem(problem_name, size)
     original_nodes = list(problem.get_nodes())
+    # Put the depot first so it becomes index 0
+    depot_node = problem.depots[0] if problem.depots else original_nodes[0]
+    original_nodes.remove(depot_node)
+    original_nodes.insert(0, depot_node)
     node_count = len(original_nodes)
     node_indexes = {node: index for index, node in enumerate(original_nodes)}
     depot_index = 0

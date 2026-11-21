@@ -15,6 +15,7 @@ import numpy as np
 from pyevolve import Consts
 from pyevolve import GSimpleGA
 from pyevolve.initializations.InitializationPermutations import G1DListTSPInitializatorRandom
+from pyevolve.planning.tsp_helper import PIL_SUPPORT, write_tour_to_img
 from pyevolve.perturbations.MutatorG1DListPermutations import G1DListMutatorDisplacement
 from pyevolve.representations import G1DList
 from pyevolve.selections.SelectionRank import (
@@ -37,8 +38,6 @@ dict_selector_operators = {
     "NTS": SelectorNewTournament,
     "TS": GTournamentSelector,
 }
-
-from pyevolve.planning.tsp_helper import PIL_SUPPORT, write_tour_to_img
 
 
 def _build_control_system():

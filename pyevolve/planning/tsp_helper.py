@@ -151,18 +151,24 @@ def get_distance_matrixes_from_coordinates(coords):
 
 
 def get_distance_matrixes_from_tsp_problem(problem_name):
-    """returns distance matrix as both dict and list"""
+    """returns distance matrix as both dict and list
+
+    TSPLIB nodes may be numbered from 0 or from 1 depending on the instance;
+    the matrices are always indexed by position ``0..n-1`` to match the tour genome.
+    """
     matrix_dict = {}
     matrix_list = []
 
     problem = get_tsp_problem(problem_name)
+    nodes = list(problem.get_nodes())
 
-    for i in problem.get_nodes():
-        matrix_list.append([])
-        for j in problem.get_nodes():
-            distance_value = problem.get_weight(i, j)
+    for i, node_i in enumerate(nodes):
+        row = []
+        for j, node_j in enumerate(nodes):
+            distance_value = problem.get_weight(node_i, node_j)
             matrix_dict[i, j] = distance_value
-            matrix_list[i].insert(j, distance_value)
+            row.append(distance_value)
+        matrix_list.append(row)
     return matrix_dict, matrix_list
 
 
