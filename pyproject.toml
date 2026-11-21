@@ -84,7 +84,19 @@ select = [
     "F",  # pyflakes
     "W",  # pycodestyle warnings
     "C90",  # mccabe complexity
+    "PLR0911",  # too-many-return-statements
+    "PLR0912",  # too-many-branches
+    "PLR0913",  # too-many-arguments
+    "PLR0915",  # too-many-statements
 ]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
+
+# Design limits carried over from the old pylintrc.conf
+[tool.ruff.lint.pylint]
+max-args = 5
+max-returns = 6
+max-branches = 12
+max-statements = 50
+max-locals = 15  # used by PLR0914, which is preview-only (needs --preview)
